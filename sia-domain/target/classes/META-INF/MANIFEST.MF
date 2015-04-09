@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Originally-Created-By: 1.8.0_31 (Oracle Corporation)
+Export-Package: com.sia.main.domain;uses:="javax.persistence";version=
+ "0.0.1.SNAPSHOT"
+Bundle-SymbolicName: com.sia.main.sia-domain
+Bundle-Name: sia-domain
+Bundle-Version: 0.0.1.SNAPSHOT
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1428587135932
+Import-Package: com.sia.main.domain;version="0.0",javax.persistence
+Created-By: 1.8.0_31 (Oracle Corporation)
+Tool: Bnd-0.0.357
+

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.sia.main.sia-data
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1428587139275
+Import-Package: com.sia.main.data.repositories;version="0.0",com.sia.m
+ ain.domain;version="0.0",com.sia.main.plugin.persistence;version="0.0
+ ",javax.naming,org.hibernate;version="4.2",org.hibernate.cfg;version=
+ "4.2",org.hibernate.service;version="4.2",org.osgi.framework;version=
+ "1.5",org.osgi.util.tracker;version="1.4",org.springframework.stereot
+ ype;version="3.1",org.springframework.transaction.annotation;version=
+ "3.1"
+Tool: Bnd-0.0.357
+Originally-Created-By: 1.8.0_31 (Oracle Corporation)
+Export-Package: com.sia.main.data.repositories;uses:="com.sia.main.dom
+ ain";version="0.0.1.SNAPSHOT"
+Bundle-Name: sia-data
+Bundle-Version: 0.0.1.SNAPSHOT
+Bundle-Activator: com.sia.main.data.DataBundleActivator
+Created-By: 1.8.0_31 (Oracle Corporation)
+

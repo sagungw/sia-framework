@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Built-By: sagungw
+Build-Jdk: 1.8.0_31
+Bundle-ClassPath: WEB-INF/classes/
+Created-By: 1.8.0_31 (Oracle Corporation)
+Export-Package: com.sia.main.web.controllers;uses:="org.springframewor
+ k.web.servlet,javax.servlet.http,org.springframework.stereotype,org.s
+ pringframework.web.bind.annotation";version="0.0.1.SNAPSHOT"
+Bundle-SymbolicName: com.sia.main.sia-web
+Bundle-Name: sia-web
+Bundle-Version: 0.0.1.SNAPSHOT
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1428587103297
+Import-Package: com.sia.main.web.controllers;version="0.0",javax.servl
+ et.http;version="2.6",org.springframework.stereotype;version="3.1",or
+ g.springframework.web.bind.annotation;version="3.1",org.springframewo
+ rk.web.servlet;version="3.1"
+Tool: Bnd-0.0.357
+

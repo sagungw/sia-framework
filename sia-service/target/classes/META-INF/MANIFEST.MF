@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.sia.main.sia-service
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1428587142090
+Import-Package: com.sia.main.domain;version="0.0",com.sia.main.service
+ .services;version="0.0",org.osgi.framework;version="1.5"
+Tool: Bnd-0.0.357
+Originally-Created-By: 1.8.0_31 (Oracle Corporation)
+Export-Package: com.sia.main.service.services;uses:="com.sia.main.doma
+ in";version="0.0.1.SNAPSHOT"
+Bundle-Name: sia-service
+Bundle-Version: 0.0.1.SNAPSHOT
+Bundle-Activator: com.sia.main.service.ServiceBundleActivator
+Created-By: 1.8.0_31 (Oracle Corporation)
+
