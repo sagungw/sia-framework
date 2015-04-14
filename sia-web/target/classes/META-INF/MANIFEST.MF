@@ -1,16 +1,22 @@
 Manifest-Version: 1.0
-Export-Package: com.sia.main.web.controllers;uses:="org.springframewor
- k.web.servlet,javax.servlet.http,org.springframework.stereotype,org.s
- pringframework.web.bind.annotation";version="0.0.1.SNAPSHOT"
+Export-Package: com.sia.main.web;uses:="org.osgi.framework,com.sia.mai
+ n.dummy.services,javax.naming,org.osgi.util.tracker";version="0.0.1.S
+ NAPSHOT",com.sia.main.web.controllers;uses:="com.sia.main.web,org.slf
+ 4j,org.springframework.web.servlet,javax.servlet.http,org.springframe
+ work.stereotype,org.springframework.web.bind.annotation,com.sia.main.
+ dummy.services";version="0.0.1.SNAPSHOT"
 Bundle-SymbolicName: com.sia.main.sia-web
 Bundle-Name: sia-web
 Bundle-Version: 0.0.1.SNAPSHOT
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1428587103297
-Import-Package: com.sia.main.web.controllers;version="0.0",javax.servl
- et.http;version="2.6",org.springframework.stereotype;version="3.1",or
- g.springframework.web.bind.annotation;version="3.1",org.springframewo
- rk.web.servlet;version="3.1"
+Bnd-LastModified: 1428805548430
+Bundle-Activator: com.sia.main.web.WebBundleActivator
+Import-Package: com.sia.main.dummy.services;version="0.0",com.sia.main
+ .web;version="0.0",com.sia.main.web.controllers;version="0.0",javax.n
+ aming,javax.servlet.http;version="2.6",org.osgi.framework;version="1.
+ 5",org.osgi.util.tracker;version="1.4",org.slf4j;version="1.6",org.sp
+ ringframework.stereotype;version="3.1",org.springframework.web.bind.a
+ nnotation;version="3.1",org.springframework.web.servlet;version="3.1"
 Created-By: 1.8.0_31 (Oracle Corporation)
 Tool: Bnd-0.0.357
 

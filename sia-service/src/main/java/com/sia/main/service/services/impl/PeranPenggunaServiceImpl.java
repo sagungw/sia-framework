@@ -2,34 +2,40 @@ package com.sia.main.service.services.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.sia.main.data.repositories.PeranPenggunaRepository;
 import com.sia.main.domain.PeranPengguna;
 import com.sia.main.service.services.PeranPenggunaService;
 
+@Service
 public class PeranPenggunaServiceImpl implements PeranPenggunaService{
 
+	private PeranPenggunaRepository peranPenggunaRepository;
+	
+	@Override
 	public void insertInto(PeranPengguna peranPengguna) {
-		// TODO Auto-generated method stub
-		
+		this.peranPenggunaRepository.insertInto(peranPengguna);
 	}
 
+	@Override
 	public void update(PeranPengguna peranPengguna) {
-		// TODO Auto-generated method stub
-		
+		this.peranPenggunaRepository.update(peranPengguna);
 	}
 
+	@Override
 	public void delete(PeranPengguna peranPengguna) {
-		// TODO Auto-generated method stub
-		
+		this.peranPenggunaRepository.delete(peranPengguna);
 	}
 
+	@Override
 	public List<PeranPengguna> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.peranPenggunaRepository.getAll();
 	}
 
+	@Override
 	public PeranPengguna getById(String idPeranPengguna) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.peranPenggunaRepository.getById(idPeranPengguna);
 	}
 
 }

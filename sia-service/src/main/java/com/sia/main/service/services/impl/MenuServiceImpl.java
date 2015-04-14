@@ -2,34 +2,40 @@ package com.sia.main.service.services.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.sia.main.data.repositories.MenuRepository;
 import com.sia.main.domain.Menu;
 import com.sia.main.service.services.MenuService;
 
+@Service
 public class MenuServiceImpl implements MenuService  {
 
+	private MenuRepository menuRepository;
+	
+	@Override
 	public void insertInto(Menu menu) {
-		// TODO Auto-generated method stub
-		
+		this.menuRepository.insertInto(menu);
 	}
 
+	@Override
 	public void update(Menu menu) {
-		// TODO Auto-generated method stub
-		
+		this.menuRepository.update(menu);
 	}
 
+	@Override
 	public void delete(Menu menu) {
-		// TODO Auto-generated method stub
-		
+		this.menuRepository.delete(menu);
 	}
 
+	@Override
 	public List<Menu> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.menuRepository.getAll();
 	}
 
+	@Override
 	public Menu getById(String idMenu) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.menuRepository.getById(idMenu);
 	}
 
 }

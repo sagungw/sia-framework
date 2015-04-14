@@ -19,6 +19,13 @@ public class DataBundleActivator implements BundleActivator {
 		context.registerService(ModulRepository.class.getName(), new ModulRepositoryImpl(), null);
 		context.registerService(MenuRepository.class.getName(), new MenuRepositoryImpl(), null);
 		context.registerService(MenuPeranRepository.class.getName(), new MenuPeranRepositoryImpl(), null);
+		SecuritySessionFactoryManager.addAnnotatedClass(Menu.class);
+		SecuritySessionFactoryManager.addAnnotatedClass(MenuPeran.class);
+		SecuritySessionFactoryManager.addAnnotatedClass(Modul.class);
+		SecuritySessionFactoryManager.addAnnotatedClass(Pengguna.class);
+		SecuritySessionFactoryManager.addAnnotatedClass(Peran.class);
+		SecuritySessionFactoryManager.addAnnotatedClass(PeranPengguna.class);
+		SecuritySessionFactoryManager.addAnnotatedClass(SatuanManajemen.class);
 		new Thread() {
 			
 			@Override
@@ -26,14 +33,6 @@ public class DataBundleActivator implements BundleActivator {
 				DBAccessServiceLocator dbaServiceLocator = new DBAccessServiceLocator(context);
 				try {
 					SecuritySessionFactoryManager.setSessionFactoryConfiguration(dbaServiceLocator.getDBAccessService(0));
-					SecuritySessionFactoryManager.addAnnotatedClass(Menu.class);
-					SecuritySessionFactoryManager.addAnnotatedClass(MenuPeran.class);
-					SecuritySessionFactoryManager.addAnnotatedClass(Modul.class);
-					SecuritySessionFactoryManager.addAnnotatedClass(Pengguna.class);
-					SecuritySessionFactoryManager.addAnnotatedClass(Peran.class);
-					SecuritySessionFactoryManager.addAnnotatedClass(PeranPengguna.class);
-					SecuritySessionFactoryManager.addAnnotatedClass(SatuanManajemen.class);
-					
 				} catch(Exception e) {
 					e.printStackTrace();
 				}

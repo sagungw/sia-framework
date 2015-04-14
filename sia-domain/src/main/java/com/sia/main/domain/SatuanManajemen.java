@@ -13,14 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "satuan_manajemen")
+@Table(name = "sat_man")
 public class SatuanManajemen {
 	
 	@Id
 	@Column(name = "id_sat_man")
 	private String idSatuanManajemen;
 	
-	@Column(name = "nama_sat_man")
+	@Column(name = "nm_sat_man")
 	private String namaSatuanManajemen;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

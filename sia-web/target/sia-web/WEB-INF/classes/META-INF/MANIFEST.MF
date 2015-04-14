@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Export-Package: com.sia.main.web.controllers;uses:="com.sia.main.web,o
+ rg.springframework.web.servlet,org.springframework.web.bind.annotatio
+ n,com.sia.main.dummy.services,org.springframework.stereotype,org.slf4
+ j,javax.servlet.http";version="0.0.1.SNAPSHOT",com.sia.main.web;uses:
+ ="javax.naming,org.osgi.util.tracker,org.osgi.framework,com.sia.main.
+ dummy.services";version="0.0.1.SNAPSHOT"
+Bundle-Version: 0.0.1.SNAPSHOT
+Tool: Bnd-0.0.357
+Bundle-Name: sia-web
+Bnd-LastModified: 1428750134666
+Bundle-Activator: com.sia.main.web.WebBundleActivator
+Created-By: 1.7.0_51 (Oracle Corporation)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.sia.main.sia-web
+Import-Package: com.sia.main.dummy.services;version="0.0",com.sia.main
+ .web;version="0.0",com.sia.main.web.controllers;version="0.0",javax.n
+ aming,javax.servlet.http;version="2.6",org.osgi.framework;version="1.
+ 5",org.osgi.util.tracker;version="1.4",org.slf4j;version="1.6",org.sp
+ ringframework.stereotype;version="3.1",org.springframework.web.bind.a
+ nnotation;version="3.1",org.springframework.web.servlet;version="3.1"
+
