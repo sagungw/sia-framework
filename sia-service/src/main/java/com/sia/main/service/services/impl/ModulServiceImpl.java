@@ -1,6 +1,7 @@
 package com.sia.main.service.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class ModulServiceImpl implements ModulService {
 	}
 
 	@Override
-	public Modul getById(String idModul) {
+	public Modul getById(UUID idModul) {
 		return this.modulRepository.getById(idModul);
 	}
 

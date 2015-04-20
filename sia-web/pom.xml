@@ -131,10 +131,10 @@
 			<artifactId>org.osgi.compendium</artifactId>
 		</dependency>
 		<dependency>
-  <groupId>com.sia.main</groupId>
-  <artifactId>sia-dummy</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-</dependency>
+  			<groupId>com.sia.main</groupId>
+  			<artifactId>sia-service</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
   	
   	<build>
@@ -162,6 +162,10 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
+			<plugin>
+  				<groupId>org.apache.felix</groupId>
+             	<artifactId>maven-ipojo-plugin</artifactId>
+  			</plugin>
 		</plugins>
   	</build>
 </project>

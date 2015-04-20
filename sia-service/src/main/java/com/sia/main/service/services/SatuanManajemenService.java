@@ -1,6 +1,7 @@
 package com.sia.main.service.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.SatuanManajemen;
 
@@ -14,6 +15,6 @@ public interface SatuanManajemenService {
 
 	public List<SatuanManajemen> getAll();
 
-	public SatuanManajemen getById(String idSatuanManajemen);
+	public SatuanManajemen getById(UUID idSatuanManajemen);
 
 }

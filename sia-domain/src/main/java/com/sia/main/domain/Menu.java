@@ -2,15 +2,19 @@ package com.sia.main.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -18,8 +22,10 @@ import javax.persistence.Table;
 public class Menu {
 
 	@Id
+	@GeneratedValue(generator = "uuid-generator")
+	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
 	@Column(name = "id_menu")
-	private String idMenu;
+	private UUID idMenu;
 	
 	@Column(name = "nama_menu")
 	private String namaMenu;
@@ -31,7 +37,7 @@ public class Menu {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
 	private List<MenuPeran> menuPerans = new ArrayList<MenuPeran>();
 
-	protected Menu(String idMenu, String namaMenu, Modul modul,
+	protected Menu(UUID idMenu, String namaMenu, Modul modul,
 			List<MenuPeran> menuPerans) {
 		this.idMenu = idMenu;
 		this.namaMenu = namaMenu;
@@ -39,11 +45,11 @@ public class Menu {
 		this.menuPerans = menuPerans;
 	}
 
-	public String getIdMenu() {
+	public UUID getIdMenu() {
 		return idMenu;
 	}
 
-	public void setIdMenu(String idMenu) {
+	public void setIdMenu(UUID idMenu) {
 		this.idMenu = idMenu;
 	}
 

@@ -6,7 +6,7 @@
     </decorator>
     
     <excludes>
-    	<pattern>/login/*</pattern>
+    	<pattern>/account/*</pattern>
     </excludes>
     
 </decorators>

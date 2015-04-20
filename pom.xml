@@ -103,6 +103,21 @@
 						<target>1.7</target>
 					</configuration>
   				</plugin>
+  				<plugin>
+            		<groupId>org.apache.felix</groupId>
+             		<artifactId>maven-ipojo-plugin</artifactId>
+             		<version>1.12.1</version>
+             		<configuration>
+             			<metadata>src/main/ipojo/meta.xml</metadata>
+             		</configuration>
+             		<executions>
+               			<execution>
+               				<goals>
+                     			<goal>ipojo-bundle</goal>
+              				</goals>
+            			</execution>
+       				</executions>
+     			</plugin>
   			</plugins>
   		</pluginManagement>
   		<plugins>
@@ -139,6 +154,11 @@
 				<artifactId>hibernate-core</artifactId>
 				<version>4.2.18.Final</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.ipojo</artifactId>
+				<version>1.12.1</version>
+			</dependency>
 		</dependencies>
   	</dependencyManagement>
 
@@ -148,7 +168,6 @@
 		<module>sia-data</module>
 		<module>sia-domain</module>
 		<module>sia-web</module>
-		<module>sia-dummy</module>
 	</modules>
 	
 </project>

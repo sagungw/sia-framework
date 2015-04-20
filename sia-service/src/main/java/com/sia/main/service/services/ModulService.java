@@ -1,6 +1,7 @@
 package com.sia.main.service.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.Modul;
 
@@ -14,6 +15,6 @@ public interface ModulService {
 
 	public List<Modul> getAll();
 
-	public Modul getById(String idModul);
+	public Modul getById(UUID idModul);
 	
 }

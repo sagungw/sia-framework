@@ -2,21 +2,27 @@ package com.sia.main.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "peran")
 public class Peran {
 	
 	@Id
+	@GeneratedValue(generator = "uuid-generator")
+	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
 	@Column(name = "id_peran")
-	private String idPeran;
+	private UUID idPeran;
 	
 	@Column(name = "nama_peran")
 	private String namaPeran;
@@ -27,7 +33,7 @@ public class Peran {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "peran")
 	private List<MenuPeran> menuPerans = new ArrayList<MenuPeran>();
 
-	protected Peran(String idPeran, String namaPeran,
+	protected Peran(UUID idPeran, String namaPeran,
 			List<PeranPengguna> peranPenggunas, List<MenuPeran> menuPerans) {
 		this.idPeran = idPeran;
 		this.namaPeran = namaPeran;
@@ -35,11 +41,11 @@ public class Peran {
 		this.menuPerans = menuPerans;
 	}
 
-	public String getIdPeran() {
+	public UUID getIdPeran() {
 		return idPeran;
 	}
 
-	public void setIdPeran(String idPeran) {
+	public void setIdPeran(UUID idPeran) {
 		this.idPeran = idPeran;
 	}
 

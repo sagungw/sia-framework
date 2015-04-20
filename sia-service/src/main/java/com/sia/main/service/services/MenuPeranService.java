@@ -1,6 +1,7 @@
 package com.sia.main.service.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.MenuPeran;
 
@@ -14,6 +15,6 @@ public interface MenuPeranService {
 
 	public List<MenuPeran> getAll();
 
-	public MenuPeran getById(String idMenuPeran);
+	public MenuPeran getById(UUID idMenuPeran);
 	
 }

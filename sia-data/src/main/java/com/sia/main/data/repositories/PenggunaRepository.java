@@ -1,6 +1,7 @@
 package com.sia.main.data.repositories;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.Pengguna;
 
@@ -14,6 +15,6 @@ public interface PenggunaRepository {
 
 	public List<Pengguna> getAll();
 
-	public Pengguna getById(String idPengguna);
+	public Pengguna getById(UUID idPengguna);
 
 }

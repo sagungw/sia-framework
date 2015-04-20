@@ -30,7 +30,7 @@
                         <img src="<c:url value="/resources/landingpage/images/s03.png"/>">
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="authentication" method="post">
+                        <form role="form" action="authenticate" method="post">
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Username" name="usernameLogin" type="text" autofocus>

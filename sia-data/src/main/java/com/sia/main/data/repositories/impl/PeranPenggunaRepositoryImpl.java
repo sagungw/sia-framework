@@ -1,6 +1,7 @@
 package com.sia.main.data.repositories.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -51,7 +52,7 @@ public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 
 	@Transactional
 	@Override
-	public PeranPengguna getById(String idPeranPengguna) {
+	public PeranPengguna getById(UUID idPeranPengguna) {
 		session = SecuritySessionFactoryManager.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return (PeranPengguna) session.get(PeranPengguna.class, idPeranPengguna);

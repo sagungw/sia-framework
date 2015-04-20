@@ -1,6 +1,7 @@
 package com.sia.main.data.repositories;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.Menu;
 
@@ -14,6 +15,6 @@ public interface MenuRepository {
 
 	public List<Menu> getAll();
 
-	public Menu getById(String idMenu);
+	public Menu getById(UUID idMenu);
 	
 }

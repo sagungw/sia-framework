@@ -1,6 +1,7 @@
 package com.sia.main.data.repositories.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,7 +56,7 @@ public class PeranRepositoryImpl implements PeranRepository {
 
 	@Transactional
 	@Override
-	public Peran getById(String idPeran) {
+	public Peran getById(UUID idPeran) {
 		session = SecuritySessionFactoryManager.getSessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();

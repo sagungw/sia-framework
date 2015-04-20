@@ -1,6 +1,7 @@
 package com.sia.main.data.repositories.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,7 +56,7 @@ public class SatuanManajemenRepositoryImpl implements SatuanManajemenRepository{
 
 	@Transactional
 	@Override
-	public SatuanManajemen getById(String idSatuanManajemen) {
+	public SatuanManajemen getById(UUID idSatuanManajemen) {
 		session = SecuritySessionFactoryManager.getSessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();

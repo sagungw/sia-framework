@@ -13,6 +13,8 @@ public class SecuritySessionFactoryManager {
 
 	private static SessionFactory securitySessionFactory;
 	
+	private HibernateConfiguration sessionFactoryDummy; 
+	
 	private static HibernateConfiguration sessionFactoryConfiguration;
 	
 	private static List<Class> annotatedClasses;

@@ -1,6 +1,7 @@
 package com.sia.main.data.repositories;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.Modul;
 
@@ -14,5 +15,5 @@ public interface ModulRepository {
 
 	public List<Modul> getAll();
 
-	public Modul getById(String idModul);
+	public Modul getById(UUID idModul);
 }

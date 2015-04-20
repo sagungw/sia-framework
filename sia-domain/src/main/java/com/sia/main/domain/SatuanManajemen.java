@@ -2,23 +2,29 @@ package com.sia.main.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "sat_man")
 public class SatuanManajemen {
 	
 	@Id
+	@GeneratedValue(generator = "uuid-generator")
+	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
 	@Column(name = "id_sat_man")
-	private String idSatuanManajemen;
+	private UUID idSatuanManajemen;
 	
 	@Column(name = "nm_sat_man")
 	private String namaSatuanManajemen;
@@ -36,7 +42,7 @@ public class SatuanManajemen {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "satuanManajemen")
 	private List<Pengguna> pengguna = new ArrayList<Pengguna>();
 
-	protected SatuanManajemen(String idSatuanManajemen,
+	protected SatuanManajemen(UUID idSatuanManajemen,
 			String namaSatuanManajemen, SatuanManajemen satuanManajemen,
 			String statusKeaktifan, List<SatuanManajemen> satuanManajemens,
 			List<Pengguna> pengguna) {
@@ -48,11 +54,11 @@ public class SatuanManajemen {
 		this.pengguna = pengguna;
 	}
 
-	public String getIdSatuanManajemen() {
+	public UUID getIdSatuanManajemen() {
 		return idSatuanManajemen;
 	}
 
-	public void setIdSatuanManajemen(String idSatuanManajemen) {
+	public void setIdSatuanManajemen(UUID idSatuanManajemen) {
 		this.idSatuanManajemen = idSatuanManajemen;
 	}
 

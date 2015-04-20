@@ -1,6 +1,7 @@
 package com.sia.main.service.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -34,8 +35,18 @@ public class PenggunaServiceImpl implements PenggunaService {
 	}
 
 	@Override
-	public Pengguna getById(String idPengguna) {
+	public Pengguna getById(UUID idPengguna) {
 		return this.penggunaRepository.getById(idPengguna);
+	}
+
+	@Override
+	public Pengguna getPenggunaByUsername(String username) {
+		Pengguna pengguna = null;
+		for(Pengguna p : this.getAll()) {
+			if(p.getUsername().equals(username))
+				pengguna = p;
+		}
+		return pengguna;
 	}
 
 }

@@ -2,21 +2,27 @@ package com.sia.main.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "modul")
 public class Modul {
 	
 	@Id
+	@GeneratedValue(generator = "uuid-generator")
+	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
 	@Column(name = "id_modul")
-	private String idModul;
+	private UUID idModul;
 	
 	@Column(name = "nama_modul")
 	private String namaModul;
@@ -27,7 +33,7 @@ public class Modul {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
 
-	protected Modul(String idModul, String namaModul, boolean isActive,
+	protected Modul(UUID idModul, String namaModul, boolean isActive,
 			List<Menu> menus) {
 		super();
 		this.idModul = idModul;
@@ -36,11 +42,11 @@ public class Modul {
 		this.menus = menus;
 	}
 
-	public String getIdModul() {
+	public UUID getIdModul() {
 		return idModul;
 	}
 
-	public void setIdModul(String idModul) {
+	public void setIdModul(UUID idModul) {
 		this.idModul = idModul;
 	}
 

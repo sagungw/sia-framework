@@ -1,6 +1,7 @@
 package com.sia.main.service.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sia.main.domain.Peran;
 
@@ -14,6 +15,6 @@ public interface PeranService {
 
 	public List<Peran> getAll();
 
-	public Peran getById(String idPeran);
+	public Peran getById(UUID idPeran);
 	
 }

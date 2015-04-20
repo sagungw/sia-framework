@@ -1,6 +1,7 @@
 package com.sia.main.service.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class PeranServiceImpl implements PeranService {
 	}
 
 	@Override
-	public Peran getById(String idPeran) {
+	public Peran getById(UUID idPeran) {
 		return this.peranRepository.getById(idPeran);
 	}
 

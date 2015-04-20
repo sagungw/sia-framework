@@ -1,6 +1,7 @@
 package com.sia.main.service.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class SatuanManajemenServiceImpl implements SatuanManajemenService {
 	}
 
 	@Override
-	public SatuanManajemen getById(String idSatuanManajemen) {
+	public SatuanManajemen getById(UUID idSatuanManajemen) {
 		return this.satuanManajemenRepository.getById(idSatuanManajemen);
 	}
 

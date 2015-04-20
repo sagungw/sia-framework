@@ -1,6 +1,7 @@
 package com.sia.main.service.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class MenuServiceImpl implements MenuService  {
 	}
 
 	@Override
-	public Menu getById(String idMenu) {
+	public Menu getById(UUID idMenu) {
 		return this.menuRepository.getById(idMenu);
 	}
 

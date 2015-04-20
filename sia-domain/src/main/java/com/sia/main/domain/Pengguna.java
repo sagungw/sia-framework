@@ -2,23 +2,30 @@ package com.sia.main.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "pengguna")
 public class Pengguna {
 
 	@Id
+	@GeneratedValue(generator = "uuid-generator")
+	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
 	@Column(name = "id_pengguna")
-	private String idPengguna;
+	private UUID idPengguna;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sat_man", nullable = false)
@@ -39,7 +46,7 @@ public class Pengguna {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pengguna")
 	private List<PeranPengguna> peranPenggunas = new ArrayList<PeranPengguna>();
 
-	protected Pengguna(String idPengguna, SatuanManajemen satuanManajemen,
+	protected Pengguna(UUID idPengguna, SatuanManajemen satuanManajemen,
 			String username, String password, boolean statusKeaktifan,
 			String kodeResetPassword, List<PeranPengguna> peranPenggunas) {
 		super();
@@ -52,11 +59,11 @@ public class Pengguna {
 		this.peranPenggunas = peranPenggunas;
 	}
 
-	public String getIdPengguna() {
+	public UUID getIdPengguna() {
 		return idPengguna;
 	}
 
-	public void setIdPengguna(String idPengguna) {
+	public void setIdPengguna(UUID idPengguna) {
 		this.idPengguna = idPengguna;
 	}
 

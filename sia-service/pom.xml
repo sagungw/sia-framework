@@ -9,6 +9,15 @@
   	<groupId>com.sia.main</groupId>
   	<version>0.0.1-SNAPSHOT</version>
   	
+  	<build>
+	  	<plugins>
+	  		<plugin>
+	  			<groupId>org.apache.felix</groupId>
+	             <artifactId>maven-ipojo-plugin</artifactId>
+	  		</plugin>
+	  	</plugins>
+  	</build>
+  	
   	<dependencies>
   		<dependency>
 			<groupId>com.sia.main</groupId>
