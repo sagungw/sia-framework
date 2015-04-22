@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd" 
+    xmlns="org.apache.felix.ipojo">
+
+	<!-- providing services -->
+	
+	<component name="menuPeranRepo" classname="com.sia.main.data.repositories.impl.MenuPeranRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.MenuPeranRepository"/>
+  	</component>
+
+	<component name="menuRepo" classname="com.sia.main.data.repositories.impl.MenuRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.MenuRepository"/>
+  	</component>
+  	
+  	<component name="modulRepo" classname="com.sia.main.data.repositories.impl.ModulRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.ModulRepository"/>
+  	</component>
+
+  	<component name="penggunaRepo" classname="com.sia.main.data.repositories.impl.PenggunaRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.PenggunaRepository"/>
+  	</component>
+  
+	<component name="peranPenggunaRepo" classname="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.PeranPenggunaRepository"/>
+  	</component>
+  	
+	<component name="peranRepo" classname="com.sia.main.data.repositories.impl.PeranRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.PeranRepository"/>
+  	</component>
+
+	<component name="satuanManajemenRepo" classname="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl">
+    	<provides specifications="com.sia.main.data.repositories.SatuanManajemenRepository"/>
+  	</component>
+
+  	<instance component="menuPeranRepo"/>
+  	
+  	<instance component="menuRepo"/>
+  	
+  	<instance component="modulRepo"/>
+  	
+  	<instance component="penggunaRepo"/>
+  	
+  	<instance component="peranPenggunaRepo"/>
+  	
+  	<instance component="peranRepo"/>
+  	
+  	<instance component="satuanManajemenRepo"/>
+  	
+</ipojo>

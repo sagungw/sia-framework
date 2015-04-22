@@ -4,15 +4,10 @@
     xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd" 
     xmlns="org.apache.felix.ipojo">
 
-	<component classname="com.sia.main.web.controllers.HomeController" name="HomeController">
-    	<requires field="dummyService" />
-    	<callback transition="validate" method="starting" />
-    	<callback transition="invalidate" method="stopping" />
-    	<properties>
-      
-    	</properties>
+	<component name="loginController" classname="com.sia.main.web.controllers.LoginController">
+    	<requires field="dummyService"></requires>
   	</component>
 
-  <instance component="HomeController">
-  </instance>
+  	<instance component="loginController"/>
+  	
 </ipojo>

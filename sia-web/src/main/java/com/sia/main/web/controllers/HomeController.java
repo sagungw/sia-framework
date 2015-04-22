@@ -14,11 +14,12 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.getAttribute("userSession") == null) {
-			modelAndView.setViewName("redirect:/login/");
-		} else {
-			modelAndView.setViewName("home");
-		}
+		modelAndView.setViewName("home");
+//		if(session.getAttribute("userSession") == null) {
+//			modelAndView.setViewName("redirect:/login/");
+//		} else {
+//			modelAndView.setViewName("home");
+//		}
 		return modelAndView;
 	}
 	
