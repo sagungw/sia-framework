@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Originally-Created-By: 1.8.0_31 (Oracle Corporation)
 Export-Package: com.sia.main.plugin.persistence;uses:="org.hibernate.c
  fg,com.sia.main.plugin.modul";version="0.0.1.SNAPSHOT",com.sia.main.p
  lugin.modul;version="0.0.1.SNAPSHOT"
@@ -6,7 +7,7 @@ Bundle-SymbolicName: com.sia.main.sia-plugin
 Bundle-Name: sia-plugin
 Bundle-Version: 0.0.1.SNAPSHOT
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1429625227414
+Bnd-LastModified: 1429933504068
 Import-Package: com.sia.main.plugin.modul;version="0.0",com.sia.main.p
  lugin.persistence;version="0.0",org.hibernate.cfg;version="4.2"
 Created-By: 1.8.0_31 (Oracle Corporation)

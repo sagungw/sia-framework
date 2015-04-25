@@ -3,6 +3,8 @@ package com.sia.main.service.services.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.sia.main.data.repositories.PenggunaRepository;
@@ -42,6 +44,7 @@ public class PenggunaServiceImpl implements PenggunaService {
 	@Override
 	public Pengguna getPenggunaByUsername(String username) {
 		Pengguna pengguna = null;
+		if(penggunaRepository == null) System.out.println("NULL DETECTED");
 		for(Pengguna p : this.getAll()) {
 			if(p.getUsername().equals(username))
 				pengguna = p;

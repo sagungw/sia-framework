@@ -3,15 +3,19 @@ Built-By: sagungw
 Build-Jdk: 1.8.0_31
 Bundle-ClassPath: WEB-INF/classes
 Created-By: 1.8.0_31 (Oracle Corporation)
-Originally-Created-By: 1.7.0_51 (Oracle Corporation)
 Bundle-SymbolicName: com.sia.main.sia-web
-Bundle-Name: sia-web
-Bundle-Version: 0.0.1.SNAPSHOT
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1429687025996
+Bnd-LastModified: 1429933419450
 Import-Package: com.sia.main.service.services;version="0.0",javax.serv
  let.http;version="2.6",org.springframework.stereotype;version="3.1",o
  rg.springframework.web.bind.annotation;version="3.1",org.springframew
  ork.web.servlet;version="3.1"
 Tool: Bnd-0.0.357
+Spring-Context: WEB-INF/spring/appServlet/servlet-context.xml, WEB-INF
+ /spring/root-context.xml
+Originally-Created-By: 1.8.0_31 (Oracle Corporation)
+Module-Type: Web
+Bundle-Name: sia-web
+Bundle-Version: 0.0.1.SNAPSHOT
+Web-ContextPath: sia-web
 

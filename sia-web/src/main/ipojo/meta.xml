@@ -5,6 +5,7 @@
     xmlns="org.apache.felix.ipojo">
 
 	<component name="loginController" classname="com.sia.main.web.controllers.LoginController">
+    	<requires field="penggunaService"></requires>
     	<requires field="dummyService"></requires>
   	</component>
 
