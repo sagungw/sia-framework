@@ -1,6 +1,10 @@
 package com.sia.main.plugin.modul;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+
 public interface IModule {
+	
 	public void setModuleName(String moduleName);
 
 	public String getModuleName();
@@ -12,9 +16,9 @@ public interface IModule {
 	public void setUrlMapping(String urlMapping);
 
 	public String getUrlMapping();
-
-	public void setServletContextConfiguration(Class servletContextConfiguration);
-
-	public Class getServletContextConfiguration();
+	
+	public DispatcherServlet buildServlet();
+	
+	public DispatcherServlet buildServlet(WebApplicationContext webApplicationContext);
 
 }

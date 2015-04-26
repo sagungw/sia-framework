@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-SymbolicName: com.sia.main.sia-data
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1429933415337
+Bnd-LastModified: 1430051569685
 Import-Package: com.sia.main.data.repositories;version="0.0",com.sia.m
  ain.domain;version="0.0",com.sia.main.plugin.persistence;version="0.0
  ",org.hibernate;version="4.2",org.hibernate.cfg;version="4.2",org.hib

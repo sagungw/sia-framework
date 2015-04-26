@@ -7,7 +7,9 @@
     	<artifactId>sia-dependency</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
   	</parent>
+  	<groupId>com.sia.main</groupId>
   	<artifactId>sia-domain</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
   	<packaging>jar</packaging>
   	
   	<dependencies>

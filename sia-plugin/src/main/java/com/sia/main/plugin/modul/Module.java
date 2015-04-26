@@ -1,11 +1,14 @@
 package com.sia.main.plugin.modul;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+
 public abstract class Module extends Plugin implements IModule {
 
 	protected String moduleName;
 	protected String servletName;
 	protected String urlMapping;
-	protected Class servletContextConfiguration;
+	protected DispatcherServlet servlet;
 
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
@@ -31,12 +34,8 @@ public abstract class Module extends Plugin implements IModule {
 		return this.urlMapping;
 	}
 
-	public void setServletContextConfiguration(Class servletContextConfiguration) {
-		this.servletContextConfiguration = servletContextConfiguration;
-	}
+	public abstract DispatcherServlet buildServlet();
 
-	public Class getServletContextConfiguration() {
-		return this.servletContextConfiguration;
-	}
-
+	public abstract DispatcherServlet buildServlet(WebApplicationContext webApplicationContext);
+	
 }

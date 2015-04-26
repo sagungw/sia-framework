@@ -2,6 +2,8 @@ package com.sia.main.plugin.modul;
 
 public interface Accessable {
 
-	public String getInitialUrl();
+	public void setUrl(String url);
+	
+	public String getUrl();
 
 }
