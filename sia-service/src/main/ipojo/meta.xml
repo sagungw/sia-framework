@@ -53,10 +53,4 @@
   	
   	<instance component="satuanManajemenService"/>
 
-	<component name="dummyService" classname="com.sia.main.service.services.impl.DummyServiceImpl">
-    	<provides specifications="com.sia.main.service.services.DummyService"/>
-  	</component>
-  	
-  	<instance component="dummyService"/>
-
 </ipojo>

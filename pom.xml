@@ -83,6 +83,11 @@
 								${project.build.outputDirectory}/META-INF/MANIFEST.MF
 							</manifestFile>
 						</archive>
+						<resources>
+							<resource>
+								<directory>services</directory>
+							</resource>
+						</resources>
 					</configuration>
   				</plugin>
   				<plugin>

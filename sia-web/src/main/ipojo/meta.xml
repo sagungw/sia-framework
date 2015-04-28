@@ -6,9 +6,8 @@
 
 	<component name="loginController" classname="com.sia.main.web.controllers.LoginController">
     	<requires field="penggunaService"></requires>
-    	<requires field="dummyService"></requires>
   	</component>
 
-  	<instance component="loginController"/>
+<!--   	<instance component="loginController"/> -->
   	
 </ipojo>

@@ -13,7 +13,6 @@
   	
   	<properties>
 		<java-version>1.7</java-version>
-<!-- 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version> -->
 <!-- 		<org.aspectj-version>1.6.10</org.aspectj-version> -->
 <!-- 		<org.slf4j-version>1.6.6</org.slf4j-version> -->
 	</properties>
@@ -47,48 +46,6 @@
 			<artifactId>spring-tx</artifactId>
 		</dependency>
 		
-		<!-- Logging -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.slf4j</groupId> -->
-<!-- 			<artifactId>slf4j-api</artifactId> -->
-<!-- 			<version>${org.slf4j-version}</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.slf4j</groupId> -->
-<!-- 			<artifactId>jcl-over-slf4j</artifactId> -->
-<!-- 			<version>${org.slf4j-version}</version> -->
-<!-- 			<scope>runtime</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.slf4j</groupId> -->
-<!-- 			<artifactId>slf4j-log4j12</artifactId> -->
-<!-- 			<version>${org.slf4j-version}</version> -->
-<!-- 			<scope>runtime</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>log4j</groupId> -->
-<!-- 			<artifactId>log4j</artifactId> -->
-<!-- 			<version>1.2.15</version> -->
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>javax.mail</groupId> -->
-<!-- 					<artifactId>mail</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>javax.jms</groupId> -->
-<!-- 					<artifactId>jms</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>com.sun.jdmk</groupId> -->
-<!-- 					<artifactId>jmxtools</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>com.sun.jmx</groupId> -->
-<!-- 					<artifactId>jmxri</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
-<!-- 			<scope>runtime</scope> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -126,18 +83,23 @@
 			<version>3.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-		</dependency>
-		<dependency>
   			<groupId>com.sia.main</groupId>
   			<artifactId>sia-service</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<!-- OSGi -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.osgi</groupId> -->
+<!-- 			<artifactId>spring-osgi-web</artifactId> -->
+<!-- 			<version>1.2.1</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.osgi</groupId> -->
+<!-- 			<artifactId>spring-osgi-web-extender</artifactId> -->
+<!-- 			<version>1.2.1</version> -->
+<!-- 		</dependency> -->
+
 	</dependencies>
   	
 </project>
