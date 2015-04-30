@@ -13,8 +13,6 @@
   	
   	<properties>
 		<java-version>1.7</java-version>
-<!-- 		<org.aspectj-version>1.6.10</org.aspectj-version> -->
-<!-- 		<org.slf4j-version>1.6.6</org.slf4j-version> -->
 	</properties>
 	
 	<build>
@@ -61,6 +59,21 @@
 		
 		<!-- Servlet -->
 		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>com.springsource.javax.servlet.jsp</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.el</groupId>
+		    <artifactId>com.springsource.javax.el</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.jasper</groupId>
+		    <artifactId>com.springsource.org.apache.jasper</artifactId>
+		    <version>6.0.16</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
@@ -89,17 +102,32 @@
 		</dependency>
 		
 		<!-- OSGi -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.osgi</groupId> -->
-<!-- 			<artifactId>spring-osgi-web</artifactId> -->
-<!-- 			<version>1.2.1</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.osgi</groupId> -->
-<!-- 			<artifactId>spring-osgi-web-extender</artifactId> -->
-<!-- 			<version>1.2.1</version> -->
-<!-- 		</dependency> -->
-
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-extender</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.catalina</groupId>
+		    <artifactId>com.springsource.org.apache.catalina</artifactId>
+		    <version>6.0.16</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.osgi</groupId>
+		    <artifactId>catalina.start.osgi</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-web</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-web-extender</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		
 	</dependencies>
   	
 </project>
