@@ -16,6 +16,14 @@ public class LoginController {
 
 	private PenggunaService penggunaService;
 
+	public PenggunaService getPenggunaService() {
+		return penggunaService;
+	}
+
+	public void setPenggunaService(PenggunaService penggunaService) {
+		this.penggunaService = penggunaService;
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();

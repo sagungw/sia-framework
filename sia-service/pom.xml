@@ -11,12 +11,13 @@
   	<packaging>jar</packaging>
   	
   	<build>
+  		<finalName>sia-service</finalName>
 	  	<plugins>
 	  		<plugin>
-	  			<groupId>org.apache.felix</groupId>
-	             <artifactId>maven-ipojo-plugin</artifactId>
+		  		<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-jar-plugin</artifactId>
 	  		</plugin>
-	  	</plugins>
+  		</plugins>
   	</build>
   	
   	<dependencies>

@@ -14,6 +14,14 @@ public class ModulServiceImpl implements ModulService {
 
 	private ModulRepository modulRepository;
 	
+	public ModulRepository getModulRepository() {
+		return modulRepository;
+	}
+
+	public void setModulRepository(ModulRepository modulRepository) {
+		this.modulRepository = modulRepository;
+	}
+
 	@Override
 	public void insertInto(Modul modul) {
 		this.modulRepository.insertInto(modul);

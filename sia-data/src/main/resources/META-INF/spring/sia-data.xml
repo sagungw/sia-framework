@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"                               
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"  
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
+       	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+
+<!--     <bean id="hibernateConfigBean" class="com.sia.main.data.sessionfactory.SecuritySessionFactoryManager"> -->
+<!--     	<property name="sessionFactoryConfiguration" ref="hibernateConfigRef"/> -->
+<!--     </bean> -->
+    
+    <bean id="MenuPeranRepoBean" class="com.sia.main.data.repositories.impl.MenuPeranRepositoryImpl" />
+    
+    <bean id="MenuRepoBean" class="com.sia.main.data.repositories.impl.MenuRepositoryImpl" />
+    
+    <bean id="ModulRepoBean" class="com.sia.main.data.repositories.impl.ModulRepositoryImpl" />
+    
+    <bean id="PenggunaRepoBean" class="com.sia.main.data.repositories.impl.PenggunaRepositoryImpl" />
+    
+    <bean id="PeranPenggunaRepoBean" class="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl" />
+    
+    <bean id="PeranRepoBean" class="com.sia.main.data.repositories.impl.PeranRepositoryImpl" />
+    
+    <bean id="SatuanManajemenRepoBean" class="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl" />
+    
+</beans>

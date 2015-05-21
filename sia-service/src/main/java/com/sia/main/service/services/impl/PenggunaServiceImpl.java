@@ -16,6 +16,14 @@ public class PenggunaServiceImpl implements PenggunaService {
 
 	private PenggunaRepository penggunaRepository;
 	
+	public PenggunaRepository getPenggunaRepository() {
+		return penggunaRepository;
+	}
+
+	public void setPenggunaRepository(PenggunaRepository penggunaRepository) {
+		this.penggunaRepository = penggunaRepository;
+	}
+
 	@Override
 	public void insertInto(Pengguna pengguna) {
 		this.penggunaRepository.insertInto(pengguna);

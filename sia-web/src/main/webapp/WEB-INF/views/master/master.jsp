@@ -4,125 +4,231 @@
 
 <!DOCTYPE html>
 <html>
-	<head lang="en">
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>">
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/app/css/header.css"/>">
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/app/css/template.css"/>">
-		<script type="text/javascript" src="<c:url value="/resources/jquery/jquery-1.11.1.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/bootsnip/side-menu/site-menu.js"/>"></script>
+    
+	<head>
+        
+        <!-- Title -->
+        <title>Modern | Layouts - Horizontal Menu</title>
+        
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta charset="UTF-8">
+        <meta name="description" content="Admin Dashboard Template" />
+        <meta name="keywords" content="admin,dashboard" />
+        <meta name="author" content="Steelcoders" />
+        
+        <!-- Styles -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link href="<c:url value="resources/plugins/pace-master/themes/blue/pace-theme-flash.css"/>" rel="stylesheet"/>
+        <link href="<c:url value="resources/plugins/uniform/css/uniform.default.min.css"/>" rel="stylesheet"/>
+        <link href="<c:url value="resources/plugins/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="resources/plugins/fontawesome/css/font-awesome.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="resources/plugins/line-icons/simple-line-icons.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="resources/plugins/waves/waves.min.css"/>" rel="stylesheet" type="text/css"/>	
+        <link href="<c:url value="resources/plugins/switchery/switchery.min.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="resources/plugins/3d-bold-navigation/css/style.css"/>" rel="stylesheet" type="text/css"/>	
+        
+        <!-- Theme Styles -->
+        <link href="<c:url value="resources/css/modern.min.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="resources/css/themes/white.css"/>" class="theme-color" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="resources/css/custom.css"/>" rel="stylesheet" type="text/css"/>
+        
+        <script src="<c:url value="resources/plugins/3d-bold-navigation/js/modernizr.js"/>"></script>
+        <script src="<c:url value="resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"/>"></script>
+        
+    </head>
+    <body class="page-header-fixed page-horizontal-bar">
+        <form class="search-form" action="#" method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control search-input" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default close-search waves-effect waves-button waves-classic" type="button"><i class="fa fa-times"></i></button>
+                </span>
+            </div><!-- Input Group -->
+        </form><!-- Search Form -->
+        <div class="page-content content-wrap">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="sidebar-pusher">
+                        <a href="javascript:void(0);" class="waves-effect waves-button waves-classic push-sidebar">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                    <div class="logo-box">
+                        <a href="index.html" class="logo-text"><span>Modern</span></a>
+                    </div><!-- Logo Box -->
+                    <div class="search-button">
+                        <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i class="fa fa-search"></i></a>
+                    </div>
+                    <div class="topmenu-outer">
+                        <div class="top-menu">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li>		
+                                    <a href="javascript:void(0);" class="waves-effect waves-button waves-classic sidebar-toggle"><i class="fa fa-bars"></i></a>
+                                </li>
+                                <li>		
+                                    <a href="javascript:void(0);" class="waves-effect waves-button waves-classic toggle-fullscreen"><i class="fa fa-expand"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
+                                        <i class="fa fa-cogs"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-md dropdown-list theme-settings" role="menu">
+                                        <li class="li-group">
+                                            <ul class="list-unstyled">
+                                                <li class="no-link" role="presentation">
+                                                    Fixed Header 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right fixed-header-check" checked>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="li-group">
+                                            <ul class="list-unstyled">
+                                                <li class="no-link" role="presentation">
+                                                    Fixed Sidebar 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right fixed-sidebar-check">
+                                                    </div>
+                                                </li>
+                                                <li class="no-link" role="presentation">
+                                                    Horizontal bar 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right horizontal-bar-check" checked>
+                                                    </div>
+                                                </li>
+                                                <li class="no-link" role="presentation">
+                                                    Toggle Sidebar 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right toggle-sidebar-check">
+                                                    </div>
+                                                </li>
+                                                <li class="no-link" role="presentation">
+                                                    Compact Menu 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right compact-menu-check">
+                                                    </div>
+                                                </li>
+                                                <li class="no-link" role="presentation">
+                                                    Hover Menu 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right hover-menu-check">
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="li-group">
+                                            <ul class="list-unstyled">
+                                                <li class="no-link" role="presentation">
+                                                    Boxed Layout 
+                                                    <div class="ios-switch pull-right switch-md">
+                                                        <input type="checkbox" class="js-switch pull-right boxed-layout-check">
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="no-link"><button class="btn btn-default reset-options">Reset Options</button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>	
+                                    <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i class="fa fa-search"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
+                                        <span class="user-name">David<i class="fa fa-angle-down"></i></span>
+                                        <img class="img-circle avatar" src="assets/images/avatar1.png" width="40" height="40" alt="">
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-list" role="menu">
+                                        <li role="presentation"><a href="profile.html"><i class="fa fa-user"></i>Profile</a></li>
+                                        <li role="presentation"><a href="calendar.html"><i class="fa fa-calendar"></i>Calendar</a></li>
+                                        <li role="presentation"><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox<span class="badge badge-success pull-right">4</span></a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a href="lock-screen.html"><i class="fa fa-lock"></i>Lock screen</a></li>
+                                        <li role="presentation"><a href="login.html"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="login.html" class="log-out waves-effect waves-button waves-classic">
+                                        <span><i class="fa fa-sign-out m-r-xs"></i>Log out</span>
+                                    </a>
+                                </li>
+                            </ul><!-- Nav -->
+                        </div><!-- Top Menu -->
+                    </div>
+                </div>
+            </div><!-- Navbar -->
+            <div class="horizontal-bar sidebar">
+                <div class="page-sidebar-inner slimscroll">
+                    <div class="sidebar-header">
+                        <div class="sidebar-profile">
+                            <a href="javascript:void(0);" id="profile-menu-link">
+                                <div class="sidebar-profile-image">
+                                    <img src="assets/images/avatar1.png" class="img-circle img-responsive" alt="">
+                                </div>
+                                <div class="sidebar-profile-details">
+                                    <span>David Green<br><small>Art Director</small></span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="menu accordion-menu">
+                        
+                        <li><a href="index.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
+                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Profile</p></a></li>
+                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-flash"></span><p>Levels</p><span class="arrow"></span></a>
+                            <ul class="sub-menu">
+                                <li class="droplink"><a href="#"><p>Level 1.1</p><span class="arrow"></span></a>
+                                    <ul class="sub-menu">
+                                        <li class="droplink"><a href="#"><p>Level 2.1</p><span class="arrow"></span></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="#">Level 3.1</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Level 2.2</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Level 1.2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- Page Sidebar Inner -->
+            </div><!-- Page Sidebar -->
+            <div class="page-inner">
+                <div class="page-title">
+                    <h3>Horizontal Menu</h3>
+                    <div class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="#">Layouts</a></li>
+                            <li class="active">Horizontal Menu</li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="main-wrapper">
+                	<decorator:body/>
+                    <div class="row">
+                    </div><!-- Row -->
+                </div><!-- Main Wrapper -->
+                <div class="page-footer">
+                    <p class="no-s">2015 &copy; Modern by Steelcoders.</p>
+                </div>
+            </div><!-- Page Inner -->
+        </div><!-- Page Content -->
 		
-		<script type="text/javascript">
-			
-		</script>
-		
-	</head>
-	
-	<body style="background-color: #E4E4E4;">
-	
-		<nav class="navbar navbar-default navbar-static-top">
-	    	<div class="container-fluid">	    		
-			
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<a class="navbar-brand" href="">
-						SI Akademik
-					</a>
-				</div>
-	
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown ">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							Pengguna
-							<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li class=""><a href="#">Hak Akses</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Keluar</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div><!-- /.navbar-collapse -->
-				
-			</div><!-- /.container-fluid -->
-		</nav>  	
-	
-		<div class="container-fluid main-container">
-  			<div class="col-md-2 sidebar">
-  				<div class="row">
-					<!-- uncomment code for absolute positioning tweek see top comment in css -->
-					<div class="absolute-wrapper"> </div>
-					<!-- Menu -->
-					<div class="side-menu">
-						<nav class="navbar navbar-default" role="navigation">
-							<!-- Main Menu -->
-							<div class="side-menu-container">
-								<ul class="nav navbar-nav" style="width: 100%;">
-									<li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard"></span> Modul1</a></li>
-									<li><a href="#"><span class="glyphicon glyphicon-plane"></span> Modul2</a></li>
-				
-									<!-- Dropdown-->
-									<li class="panel panel-default" id="dropdown">
-										<a data-toggle="collapse" href="#dropdown-lvl1">
-											<span class="glyphicon glyphicon-user"></span> Modul3<span class="caret"></span>
-										</a>
-				
-										<!-- Dropdown level 1 -->
-										<div id="dropdown-lvl1" class="panel-collapse collapse">
-											<div class="panel-body">
-												<ul class="nav navbar-nav">
-													<li><a href="#">Link</a></li>
-													<li><a href="#">Link</a></li>
-													<li><a href="#">Link</a></li>
-				
-													<!-- Dropdown level 2 -->
-													<li class="panel panel-default" id="dropdown">
-														<a data-toggle="collapse" href="#dropdown-lvl2">
-															<span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
-														</a>
-														<div id="dropdown-lvl2" class="panel-collapse collapse">
-															<div class="panel-body">
-																<ul class="nav navbar-nav">
-																	<li><a href="#">Link</a></li>
-																	<li><a href="#">Link</a></li>
-																	<li><a href="#">Link</a></li>
-																</ul>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-				
-								</ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-				
-					</div>
-				</div>  		
-			</div>
-			
-  			<div class="col-md-10 content">
-  			 	<div class="panel panel-default">
-					<div class="panel-heading">
-							
-					</div>
-					<div class="panel-body">
-							<decorator:body/>
-					</div>
-				</div>
-  			</div>
-  			
-  			<footer class="pull-left footer">
-  				<p class="col-md-12">
-  				</p>
-  			</footer>
-  			
-  		</div>
-	
-	</body>
-	
+		<!-- Javascripts -->
+        <script src="<c:url value="resources/plugins/jquery/jquery-2.1.3.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/jquery-ui/jquery-ui.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/jquery-blockui/jquery.blockui.js"/>"></script>
+        <script src="<c:url value="resources/plugins/bootstrap/js/bootstrap.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/jquery-slimscroll/jquery.slimscroll.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/switchery/switchery.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/uniform/jquery.uniform.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/waves/waves.min.js"/>"></script>
+        <script src="<c:url value="resources/plugins/3d-bold-navigation/js/main.js"/>"></script>
+        <script src="<c:url value="resources/js/modern.min.js"/>"></script>
+		        
+    </body>
+
 </html>

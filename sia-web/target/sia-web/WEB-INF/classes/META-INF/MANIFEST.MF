@@ -1,30 +1,25 @@
 Manifest-Version: 1.0
-Bundle-Classpath: .,WEB-INF/classes
+Webapp-Context: sia-web
+Bundle-Classpath: .,WEB-INF/classes,resources
+Import-Template: org.springframework.*;version="[3.0, 3.5)"
 Tool: Bnd-0.0.357
 Bundle-Name: sia-web
+Import-Library: org.springframework.spring;version="[3.0, 3.5)"
 Created-By: 1.7.0_51 (Oracle Corporation)
-Web-ContextPath: sia
-Import-Bundle: com.springsource.org.apache.catalina, org.apache.geroni
- mo.specs.geronimo-servlet_3.0_spec, com.springsource.org.apache.jaspe
- r, com.springsource.javax.servlet.jsp, com.springsource.javax.el, org
- .springframework.osgi.catalina.start.osgi
-Require-Bundle: com.springsource.javax.servlet.jsp.jstl
+Web-ContextPath: sia-web
+Import-Bundle: com.springsource.org.apache.taglibs.standard;version="[
+ 1.1.2,1.3)", com.springsource.com.opensymphony.sitemesh;version="2.4.
+ 1"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1430484587668
+Bnd-LastModified: 1432190957593
 Bundle-ManifestVersion: 2
-Bundle-Activator: com.sia.main.web.controllers.Activator
+Import-Package: com.sia.main.domain;version="0.0",com.sia.main.plugin.
+ modul;version="0.0",com.sia.main.service.services;version="0.0",javax
+ .servlet;version="[3.0.0,3.1.0)",javax.servlet.http;version="3.0",jav
+ ax.servlet.jsp.jstl.core;version="[1.2.0,2.0.0)",org.eclipse.virgo.we
+ b.dm;version="[3.0.0,4.0.0)",org.springframework.stereotype;version="
+ 3.1",org.springframework.web.bind.annotation;version="3.1",org.spring
+ framework.web.context;version="3.1",org.springframework.web.context.s
+ upport;version="3.1",org.springframework.web.servlet;version="3.1"
 Bundle-SymbolicName: com.sia.main.sia-web
-Import-Package: com.sia.main.domain;version="0.0",com.sia.main.service
- .services;version="0.0",javax.servlet.http;version="2.4",org.apache.f
- elix.ipojo;version="[1.12.1,2.0.0)",org.apache.felix.ipojo.architectu
- re;version="[1.12.1,2.0.0)",org.osgi.framework;version="1.5",org.osgi
- .service.cm;version="1.2",org.osgi.service.log;version="1.3",org.spri
- ngframework.osgi.web.context.support;version="1.2",org.springframewor
- k.stereotype;version="2.5",org.springframework.web.bind.annotation;ve
- rsion="3.1",org.springframework.web.context;version="3.1",org.springf
- ramework.web.servlet;version="3.1",org.springframework.web.servlet.ha
- ndler;version="3.1",org.springframework.web.servlet.mvc;version="3.1"
- ,org.springframework.web.servlet.mvc.annotation;version="3.1",org.spr
- ingframework.web.servlet.view;version="3.1"
-Originally-Created-By: 1.8.0_31 (Oracle Corporation)
 

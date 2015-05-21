@@ -32,7 +32,6 @@
   					<extensions>true</extensions>
   					<configuration>
 	  					<supportedProjectTypes>
-	  						<supportedProjectType>ejb</supportedProjectType>
 	  						<supportedProjectType>war</supportedProjectType>
 	  						<supportedProjectType>bundle</supportedProjectType>
 	  						<supportedProjectType>jar</supportedProjectType>
@@ -83,11 +82,6 @@
 								${project.build.outputDirectory}/META-INF/MANIFEST.MF
 							</manifestFile>
 						</archive>
-						<resources>
-							<resource>
-								<directory>services</directory>
-							</resource>
-						</resources>
 					</configuration>
   				</plugin>
   				<plugin>
@@ -113,21 +107,6 @@
 						<target>1.7</target>
 					</configuration>
   				</plugin>
-  				<plugin>
-            		<groupId>org.apache.felix</groupId>
-             		<artifactId>maven-ipojo-plugin</artifactId>
-             		<version>1.12.1</version>
-             		<executions>
-               			<execution>
-               				<goals>
-                     			<goal>ipojo-bundle</goal>
-              				</goals>
-              				<configuration>
-		             			<metadata>src/main/ipojo/meta.xml</metadata>
-		             		</configuration>
-            			</execution>
-       				</executions>
-     			</plugin>
   			</plugins>
   		</pluginManagement>
   		<plugins>
@@ -145,18 +124,20 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
 				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
 			</dependency>
-	  	
 	  	
 			<!-- Test -->
 			<dependency>
@@ -165,28 +146,15 @@
 				<version>4.7</version>
 				<scope>test</scope>
 			</dependency>
-			<!-- OSGi -->
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.core</artifactId>
-				<version>4.2.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.compendium</artifactId>
-				<version>4.2.0</version>
-			</dependency>
+			
 			<!-- DbAccess -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>4.2.18.Final</version>
+				<scope>provided</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>org.apache.felix.ipojo</artifactId>
-				<version>1.12.1</version>
-			</dependency>
+			
 		</dependencies>
   	</dependencyManagement>
 

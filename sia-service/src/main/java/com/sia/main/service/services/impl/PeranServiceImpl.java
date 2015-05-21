@@ -14,6 +14,14 @@ public class PeranServiceImpl implements PeranService {
 
 	private PeranRepository peranRepository;
 	
+	public PeranRepository getPeranRepository() {
+		return peranRepository;
+	}
+
+	public void setPeranRepository(PeranRepository peranRepository) {
+		this.peranRepository = peranRepository;
+	}
+
 	@Override
 	public void insertInto(Peran peran) {
 		this.peranRepository.insertInto(peran);

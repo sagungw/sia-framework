@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"                               
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"                
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
+       	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+
+	<osgi:service id="MenuPeranServiceServ" interface="com.sia.main.service.services.MenuPeranService" ref="MenuPeranServiceBean"/>
+    
+    <osgi:service id="MenuServiceServ" interface="com.sia.main.service.services.MenuService" ref="MenuServiceBean"/>
+    
+    <osgi:service id="ModulServiceServ" interface="com.sia.main.service.services.ModulService" ref="ModulServiceBean"/>
+    
+    <osgi:service id="PenggunaServiceServ" interface="com.sia.main.service.services.PenggunaService" ref="PenggunaServiceBean"/>
+    
+    <osgi:service id="PeranPenggunaServiceServ" interface="com.sia.main.service.services.PeranPenggunaService" ref="PeranPenggunaServiceBean"/>
+    
+    <osgi:service id="PeranServiceServ" interface="com.sia.main.service.services.PeranService" ref="PeranServiceBean"/>
+    
+    <osgi:service id="SatuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="SatuanManajemenServiceBean"/>
+
+
+	<osgi:reference id="MenuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" />
+    
+    <osgi:reference id="MenuRepoRef" interface="com.sia.main.data.repositories.MenuRepository" />
+    
+    <osgi:reference id="ModulRepoRef" interface="com.sia.main.data.repositories.ModulRepository" />
+    
+    <osgi:reference id="PenggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" />
+    
+    <osgi:reference id="PeranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" />
+    
+    <osgi:reference id="PeranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" />
+    
+    <osgi:reference id="SatuanManajemenRepoRef" interface="com.sia.main.data.repositories.SatuanManajemenRepository" />
+
+</beans>

@@ -16,11 +16,8 @@
 	</properties>
 	
 	<build>
+		<finalName>sia-web</finalName>
     	<plugins>
-			<plugin>
-  				<groupId>org.apache.felix</groupId>
-             	<artifactId>maven-ipojo-plugin</artifactId>
-  			</plugin>
   			<plugin>
   				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -34,27 +31,32 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
+			<scope>provided</scope>
 		</dependency>
 	
 		<!-- Template engine -->
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
-			<version>2.4.2</version>
+			<version>2.4.1</version>
+			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Servlet -->
@@ -68,22 +70,25 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-servlet_3.0_spec</artifactId>
 			<scope>provided</scope>
-			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.1</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
-  			<groupId>com.sia.main</groupId>
-  			<artifactId>sia-service</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.sia.main</groupId>
+			<artifactId>sia-plugin</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.sia.main</groupId>
+		    <artifactId>sia-service</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
 	</dependencies>

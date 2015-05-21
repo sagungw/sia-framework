@@ -10,6 +10,16 @@
   	<artifactId>sia-plugin</artifactId>
   	<packaging>jar</packaging>
   	
+  	<build>
+  		<finalName>sia-plugin</finalName>
+  		<plugins>
+	  		<plugin>
+		  		<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-jar-plugin</artifactId>
+	  		</plugin>
+  		</plugins>
+  	</build>
+  	
   	<dependencies>
 	  	<dependency>
 		  	<groupId>org.hibernate</groupId>

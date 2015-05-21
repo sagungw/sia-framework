@@ -14,6 +14,15 @@ public class SatuanManajemenServiceImpl implements SatuanManajemenService {
 
 	private SatuanManajemenRepository satuanManajemenRepository;
 	
+	public SatuanManajemenRepository getSatuanManajemenRepository() {
+		return satuanManajemenRepository;
+	}
+
+	public void setSatuanManajemenRepository(
+			SatuanManajemenRepository satuanManajemenRepository) {
+		this.satuanManajemenRepository = satuanManajemenRepository;
+	}
+
 	@Override
 	public void insertInto(SatuanManajemen satuanManajemen) {
 		this.satuanManajemenRepository.insertInto(satuanManajemen);

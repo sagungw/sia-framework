@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"                               
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"                
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
+       	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+
+<!--     <osgi:reference id="hibernateConfigRef" interface="com.sia.main.plugin.persistence.HibernateConfiguration" /> -->
+    
+    <osgi:service id="MenuPeranRepoServ" interface="com.sia.main.data.repositories.MenuPeranRepository" ref="MenuPeranRepoBean"/>
+    
+    <osgi:service id="MenuRepoServ" interface="com.sia.main.data.repositories.MenuRepository" ref="MenuRepoBean"/>
+    
+    <osgi:service id="ModulRepoServ" interface="com.sia.main.data.repositories.ModulRepository" ref="ModulRepoBean"/>
+    
+    <osgi:service id="PenggunaRepoServ" interface="com.sia.main.data.repositories.PenggunaRepository" ref="PenggunaRepoBean"/>
+    
+    <osgi:service id="PeranPenggunaRepoServ" interface="com.sia.main.data.repositories.PeranPenggunaRepository" ref="PeranPenggunaRepoBean"/>
+    
+    <osgi:service id="PeranRepoServ" interface="com.sia.main.data.repositories.PeranRepository" ref="PeranRepoBean"/>
+    
+    <osgi:service id="SatuanManajemenRepoServ" interface="com.sia.main.data.repositories.SatuanManajemenRepository" ref="SatuanManajemenRepoBean"/>
+    
+</beans>

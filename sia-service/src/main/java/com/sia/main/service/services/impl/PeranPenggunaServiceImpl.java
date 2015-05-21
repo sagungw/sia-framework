@@ -14,6 +14,15 @@ public class PeranPenggunaServiceImpl implements PeranPenggunaService{
 
 	private PeranPenggunaRepository peranPenggunaRepository;
 	
+	public PeranPenggunaRepository getPeranPenggunaRepository() {
+		return peranPenggunaRepository;
+	}
+
+	public void setPeranPenggunaRepository(
+			PeranPenggunaRepository peranPenggunaRepository) {
+		this.peranPenggunaRepository = peranPenggunaRepository;
+	}
+
 	@Override
 	public void insertInto(PeranPengguna peranPengguna) {
 		this.peranPenggunaRepository.insertInto(peranPengguna);

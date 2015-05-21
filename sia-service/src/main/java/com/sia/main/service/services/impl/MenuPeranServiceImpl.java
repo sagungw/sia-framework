@@ -14,6 +14,14 @@ public class MenuPeranServiceImpl implements MenuPeranService {
 	
 	private MenuPeranRepository menuPeranRepository;
 	
+	public void setMenuPeranRepository(MenuPeranRepository menuPeranRepository) {
+		this.menuPeranRepository = menuPeranRepository;
+	}
+	
+	public MenuPeranRepository getMenuPeranRepository() {
+		return this.menuPeranRepository;
+	}
+	
 	@Override
 	public void insertInto(MenuPeran menuPeran) {
 		this.menuPeranRepository.insertInto(menuPeran);

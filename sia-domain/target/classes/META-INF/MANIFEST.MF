@@ -6,7 +6,7 @@ Bundle-SymbolicName: com.sia.main.sia-domain
 Bundle-Name: sia-domain
 Bundle-Version: 0.0.1.SNAPSHOT
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1430581002322
+Bnd-LastModified: 1432179244695
 Import-Package: com.sia.main.domain;version="0.0",javax.persistence;ve
  rsion="1.0",org.hibernate.annotations;version="4.2"
 Created-By: 1.8.0_31 (Oracle Corporation)
