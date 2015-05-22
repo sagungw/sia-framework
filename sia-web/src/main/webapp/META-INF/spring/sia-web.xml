@@ -9,4 +9,13 @@
     	<property name="penggunaService" ref="PenggunaServiceRef"></property>
     </bean>
     
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="com.sia.main.web.ModuleManager.setModules"/>
+		<property name="arguments">
+			<list>
+	            <ref bean="modules"/>
+	        </list>
+	   	</property>
+	</bean>
+    
 </beans>

@@ -18,22 +18,22 @@
         
         <!-- Styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-        <link href="<c:url value="resources/plugins/pace-master/themes/blue/pace-theme-flash.css"/>" rel="stylesheet"/>
-        <link href="<c:url value="resources/plugins/uniform/css/uniform.default.min.css"/>" rel="stylesheet"/>
-        <link href="<c:url value="resources/plugins/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="resources/plugins/fontawesome/css/font-awesome.css"/>" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="resources/plugins/line-icons/simple-line-icons.css"/>" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="resources/plugins/waves/waves.min.css"/>" rel="stylesheet" type="text/css"/>	
-        <link href="<c:url value="resources/plugins/switchery/switchery.min.css"/>" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="resources/plugins/3d-bold-navigation/css/style.css"/>" rel="stylesheet" type="text/css"/>	
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/uniform/css/uniform.default.min.css" rel="stylesheet"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/line-icons/simple-line-icons.css" rel="stylesheet" type="text/css"/>	
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.css" rel="stylesheet" type="text/css"/>	
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css"/>	
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css"/>
         
         <!-- Theme Styles -->
-        <link href="<c:url value="resources/css/modern.min.css"/>" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="resources/css/themes/white.css"/>" class="theme-color" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="resources/css/custom.css"/>" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/css/modern.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/css/themes/white.css" class="theme-color" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
         
-        <script src="<c:url value="resources/plugins/3d-bold-navigation/js/modernizr.js"/>"></script>
-        <script src="<c:url value="resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"/>"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
         
     </head>
     <body class="page-header-fixed page-horizontal-bar">
@@ -62,7 +62,6 @@
                     <div class="topmenu-outer">
                         <div class="top-menu">
                             <ul class="nav navbar-nav navbar-left">
-                                <li>		
                                     <a href="javascript:void(0);" class="waves-effect waves-button waves-classic sidebar-toggle"><i class="fa fa-bars"></i></a>
                                 </li>
                                 <li>		
@@ -138,7 +137,7 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
                                         <span class="user-name">David<i class="fa fa-angle-down"></i></span>
-                                        <img class="img-circle avatar" src="assets/images/avatar1.png" width="40" height="40" alt="">
+                                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/avatar1.png" width="40" height="40" alt="">
                                     </a>
                                     <ul class="dropdown-menu dropdown-list" role="menu">
                                         <li role="presentation"><a href="profile.html"><i class="fa fa-user"></i>Profile</a></li>
@@ -165,7 +164,7 @@
                         <div class="sidebar-profile">
                             <a href="javascript:void(0);" id="profile-menu-link">
                                 <div class="sidebar-profile-image">
-                                    <img src="assets/images/avatar1.png" class="img-circle img-responsive" alt="">
+                                    <img src="${pageContext.servletContext.contextPath}/resources/images/avatar1.png" class="img-circle img-responsive" alt="">
                                 </div>
                                 <div class="sidebar-profile-details">
                                     <span>David Green<br><small>Art Director</small></span>
@@ -218,16 +217,16 @@
         </div><!-- Page Content -->
 		
 		<!-- Javascripts -->
-        <script src="<c:url value="resources/plugins/jquery/jquery-2.1.3.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/jquery-ui/jquery-ui.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/jquery-blockui/jquery.blockui.js"/>"></script>
-        <script src="<c:url value="resources/plugins/bootstrap/js/bootstrap.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/jquery-slimscroll/jquery.slimscroll.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/switchery/switchery.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/uniform/jquery.uniform.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/waves/waves.min.js"/>"></script>
-        <script src="<c:url value="resources/plugins/3d-bold-navigation/js/main.js"/>"></script>
-        <script src="<c:url value="resources/js/modern.min.js"/>"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/main.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/js/modern.js"></script>
 		        
     </body>
 

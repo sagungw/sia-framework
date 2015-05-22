@@ -13,8 +13,6 @@ public class SecuritySessionFactoryManager {
 
 	private static SessionFactory securitySessionFactory;
 	
-	private HibernateConfiguration sessionFactoryDummy; 
-	
 	private static HibernateConfiguration sessionFactoryConfiguration;
 	
 	private static List<Class> annotatedClasses;
@@ -38,6 +36,10 @@ public class SecuritySessionFactoryManager {
 
 	public static void setSessionFactoryConfiguration(HibernateConfiguration sessionFactoryConfiguration) {
 		SecuritySessionFactoryManager.sessionFactoryConfiguration = sessionFactoryConfiguration;
+	}
+	
+	public static HibernateConfiguration getSessionFactoryConfiguration() {
+		return SecuritySessionFactoryManager.sessionFactoryConfiguration;
 	}
 	
 	public static void setAnnotatedClasses(List<Class> classes) {

@@ -5,18 +5,24 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-	<osgi:reference id="MenuPeranServiceRef" interface="com.sia.main.service.services.MenuPeranService" />
+	<osgi:reference id="MenuPeranServiceRef" interface="com.sia.main.service.services.MenuPeranService" availability="mandatory"/>
     
-    <osgi:reference id="MenuServiceRef" interface="com.sia.main.service.services.MenuService" />
+    <osgi:reference id="MenuServiceRef" interface="com.sia.main.service.services.MenuService" availability="mandatory"/>
     
-    <osgi:reference id="ModulServiceRef" interface="com.sia.main.service.services.ModulService" />
+    <osgi:reference id="ModulServiceRef" interface="com.sia.main.service.services.ModulService" availability="mandatory"/>
     
-    <osgi:reference id="PenggunaServiceRef" interface="com.sia.main.service.services.PenggunaService" />
+    <osgi:reference id="PenggunaServiceRef" interface="com.sia.main.service.services.PenggunaService" availability="mandatory"/>
     
-    <osgi:reference id="PeranPenggunaServiceRef" interface="com.sia.main.service.services.PeranPenggunaService" />
+    <osgi:reference id="PeranPenggunaServiceRef" interface="com.sia.main.service.services.PeranPenggunaService" availability="mandatory"/>
     
-    <osgi:reference id="PeranServiceRef" interface="com.sia.main.service.services.PeranService" />
+    <osgi:reference id="PeranServiceRef" interface="com.sia.main.service.services.PeranService" availability="mandatory"/>
     
-    <osgi:reference id="SatuanManajemenServiceRef" interface="com.sia.main.service.services.SatuanManajemenService" />
+    <osgi:reference id="SatuanManajemenServiceRef" interface="com.sia.main.service.services.SatuanManajemenService" availability="mandatory"/>
+	
+	<osgi:list id="modules" interface="com.sia.main.plugin.modul.Module" availability="optional">
+		<osgi:comparator>
+			<osgi:natural basis="service"></osgi:natural>
+		</osgi:comparator>
+	</osgi:list>
 
 </beans>

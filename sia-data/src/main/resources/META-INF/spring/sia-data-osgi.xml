@@ -5,7 +5,7 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-<!--     <osgi:reference id="hibernateConfigRef" interface="com.sia.main.plugin.persistence.HibernateConfiguration" /> -->
+    <osgi:reference id="sessionFactoryConfiguration" interface="com.sia.main.plugin.persistence.HibernateConfiguration" availability="mandatory"/>
     
     <osgi:service id="MenuPeranRepoServ" interface="com.sia.main.data.repositories.MenuPeranRepository" ref="MenuPeranRepoBean"/>
     

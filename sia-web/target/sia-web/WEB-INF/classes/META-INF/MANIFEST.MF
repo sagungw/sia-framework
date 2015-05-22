@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Webapp-Context: sia-web
-Bundle-Classpath: .,WEB-INF/classes,resources
+Bundle-Classpath: .,WEB-INF/classes
 Import-Template: org.springframework.*;version="[3.0, 3.5)"
 Tool: Bnd-0.0.357
 Bundle-Name: sia-web
@@ -11,7 +11,7 @@ Import-Bundle: com.springsource.org.apache.taglibs.standard;version="[
  1.1.2,1.3)", com.springsource.com.opensymphony.sitemesh;version="2.4.
  1"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1432190957593
+Bnd-LastModified: 1432218829502
 Bundle-ManifestVersion: 2
 Import-Package: com.sia.main.domain;version="0.0",com.sia.main.plugin.
  modul;version="0.0",com.sia.main.service.services;version="0.0",javax

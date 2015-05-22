@@ -20,18 +20,18 @@
     <osgi:service id="SatuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="SatuanManajemenServiceBean"/>
 
 
-	<osgi:reference id="MenuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" />
+	<osgi:reference id="MenuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" availability="mandatory"/>
     
-    <osgi:reference id="MenuRepoRef" interface="com.sia.main.data.repositories.MenuRepository" />
+    <osgi:reference id="MenuRepoRef" interface="com.sia.main.data.repositories.MenuRepository" availability="mandatory"/>
     
-    <osgi:reference id="ModulRepoRef" interface="com.sia.main.data.repositories.ModulRepository" />
+    <osgi:reference id="ModulRepoRef" interface="com.sia.main.data.repositories.ModulRepository" availability="mandatory"/>
     
-    <osgi:reference id="PenggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" />
+    <osgi:reference id="PenggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" availability="mandatory"/>
     
-    <osgi:reference id="PeranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" />
+    <osgi:reference id="PeranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" availability="mandatory"/>
     
-    <osgi:reference id="PeranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" />
+    <osgi:reference id="PeranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" availability="mandatory"/>
     
-    <osgi:reference id="SatuanManajemenRepoRef" interface="com.sia.main.data.repositories.SatuanManajemenRepository" />
+    <osgi:reference id="SatuanManajemenRepoRef" interface="com.sia.main.data.repositories.SatuanManajemenRepository" availability="mandatory"/>
 
 </beans>
