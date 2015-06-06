@@ -5,63 +5,67 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.PenggunaRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Pengguna;
 
 @Repository
 public class PenggunaRepositoryImpl implements PenggunaRepository {
 
-	private Session session;
+	private SessionFactoryManager sessionFactoryManager;
 
-	@Transactional
+	public SessionFactoryManager getSessionFactoryManager() {
+		return sessionFactoryManager;
+	}
+
+	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
+		this.sessionFactoryManager = sessionFactoryManager;
+	}
+
 	@Override
 	public void insertInto(Pengguna pengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(pengguna);
 		transaction.commit();
 	}
 
-	@Transactional
 	@Override
 	public void update(Pengguna pengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(pengguna);
 		transaction.commit();
 	}
 
-	@Transactional
 	@Override
 	public void delete(Pengguna pengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(pengguna);
 		transaction.commit();
 	}
 
-	@Transactional
 	@Override
 	public List<Pengguna> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+		session.beginTransaction();
 		return session.createQuery("from Pengguna").list();
 	}
 
-	@Transactional
 	@Override
 	public Pengguna getById(UUID idPengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+		session.beginTransaction();
 		return (Pengguna) session.get(Pengguna.class, idPengguna);
 	}
 

@@ -80,11 +80,19 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.gemini</groupId>
+			<artifactId>org.eclipse.gemini.blueprint.core</artifactId>
+		</dependency>
+		
+		<dependency>
 			<groupId>com.sia.main</groupId>
 			<artifactId>sia-plugin</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
 		<dependency>
 		    <groupId>com.sia.main</groupId>
 		    <artifactId>sia-service</artifactId>

@@ -5,20 +5,22 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.SatuanManajemenRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
-import com.sia.main.domain.SatuanManajemen;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
+import com.sia.main.domain.SatMan;
 
 public class SatuanManajemenRepositoryImpl implements SatuanManajemenRepository{
 	
-	private Session session;
+	@Autowired
+	private SessionFactoryManager sessionFactoryManager;
 	
 	@Transactional
 	@Override
-	public void insertInto(SatuanManajemen satuanManajemen) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+	public void insertInto(SatMan satuanManajemen) {
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(satuanManajemen);
@@ -27,8 +29,8 @@ public class SatuanManajemenRepositoryImpl implements SatuanManajemenRepository{
 
 	@Transactional
 	@Override
-	public void update(SatuanManajemen satuanManajemen) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+	public void update(SatMan satuanManajemen) {
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(satuanManajemen);
@@ -37,8 +39,8 @@ public class SatuanManajemenRepositoryImpl implements SatuanManajemenRepository{
 
 	@Transactional
 	@Override
-	public void delete(SatuanManajemen satuanManajemen) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+	public void delete(SatMan satuanManajemen) {
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(satuanManajemen);
@@ -47,8 +49,8 @@ public class SatuanManajemenRepositoryImpl implements SatuanManajemenRepository{
 
 	@Transactional
 	@Override
-	public List<SatuanManajemen> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+	public List<SatMan> getAll() {
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return session.createQuery("from SatuanManajemen").list();
@@ -56,11 +58,11 @@ public class SatuanManajemenRepositoryImpl implements SatuanManajemenRepository{
 
 	@Transactional
 	@Override
-	public SatuanManajemen getById(UUID idSatuanManajemen) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+	public SatMan getById(UUID idSatuanManajemen) {
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		return (SatuanManajemen) session.get(SatuanManajemen.class, idSatuanManajemen);
+		return (SatMan) session.get(SatMan.class, idSatuanManajemen);
 	}
 
 }

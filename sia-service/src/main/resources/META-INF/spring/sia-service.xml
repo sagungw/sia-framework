@@ -5,32 +5,32 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-    <bean id="MenuPeranServiceBean" class="com.sia.main.service.services.impl.MenuPeranServiceImpl" >
-    	<property name="menuPeranRepository" ref="MenuPeranRepoRef"></property>
+    <bean id="menuPeranServiceBean" class="com.sia.main.service.services.impl.MenuPeranServiceImpl" >
+    	<property name="menuPeranRepository" ref="menuPeranRepoRef"></property>
     </bean>
     
-    <bean id="MenuServiceBean" class="com.sia.main.service.services.impl.MenuServiceImpl" >
-    	<property name="menuRepository" ref="MenuRepoRef"></property>
+    <bean id="menuServiceBean" class="com.sia.main.service.services.impl.MenuServiceImpl" >
+    	<property name="menuRepository" ref="menuRepoRef"></property>
     </bean>
     
-    <bean id="ModulServiceBean" class="com.sia.main.service.services.impl.ModulServiceImpl" >
-    	<property name="modulRepository" ref="ModulRepoRef"></property>
+    <bean id="modulServiceBean" class="com.sia.main.service.services.impl.ModulServiceImpl" >
+    	<property name="modulRepository" ref="modulRepoRef"></property>
     </bean>
     
-    <bean id="PenggunaServiceBean" class="com.sia.main.service.services.impl.PenggunaServiceImpl" >
-    	<property name="penggunaRepository" ref="PenggunaRepoRef"></property>
+    <bean id="penggunaServiceBean" class="com.sia.main.service.services.impl.PenggunaServiceImpl" >
+    	<property name="penggunaRepository" ref="penggunaRepoRef"></property>
     </bean>
     
-    <bean id="PeranPenggunaServiceBean" class="com.sia.main.service.services.impl.PeranPenggunaServiceImpl" >
-    	<property name="peranPenggunaRepository" ref="PeranPenggunaRepoRef"></property>
+    <bean id="peranPenggunaServiceBean" class="com.sia.main.service.services.impl.PeranPenggunaServiceImpl" >
+    	<property name="peranPenggunaRepository" ref="peranPenggunaRepoRef"></property>
     </bean>
     
-    <bean id="PeranServiceBean" class="com.sia.main.service.services.impl.PeranServiceImpl" >
-    	<property name="peranRepository" ref="PeranRepoRef"></property>
+    <bean id="peranServiceBean" class="com.sia.main.service.services.impl.PeranServiceImpl" >
+    	<property name="peranRepository" ref="peranRepoRef"></property>
     </bean>
     
-    <bean id="SatuanManajemenServiceBean" class="com.sia.main.service.services.impl.SatuanManajemenServiceImpl" >
-    	<property name="satuanManajemenRepository" ref="SatuanManajemenRepoRef"></property>
+    <bean id="satuanManajemenServiceBean" class="com.sia.main.service.services.impl.SatuanManajemenServiceImpl" >
+    	<property name="satuanManajemenRepository" ref="satuanManajemenRepoRef"></property>
     </bean>
     
 </beans>

@@ -5,20 +5,23 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.PeranPenggunaRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.PeranPengguna;
 
 public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 	
-	private Session session;
+	@Autowired
+	private SessionFactoryManager sessionFactoryManager;
 	
 	@Transactional
 	@Override
 	public void insertInto(PeranPengguna peranPengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
+				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(peranPengguna);
 		transaction.commit();
@@ -27,7 +30,8 @@ public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 	@Transactional
 	@Override
 	public void update(PeranPengguna peranPengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
+				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(peranPengguna);
 		transaction.commit();
@@ -36,7 +40,8 @@ public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 	@Transactional
 	@Override
 	public void delete(PeranPengguna peranPengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
+				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(peranPengguna);
 		transaction.commit();
@@ -45,7 +50,8 @@ public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 	@Transactional
 	@Override
 	public List<PeranPengguna> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
+				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return session.createQuery("from PeranPengguna").list();
 	}
@@ -53,7 +59,8 @@ public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 	@Transactional
 	@Override
 	public PeranPengguna getById(UUID idPeranPengguna) {
-		session = SecuritySessionFactoryManager.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
+				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return (PeranPengguna) session.get(PeranPengguna.class, idPeranPengguna);
 	}

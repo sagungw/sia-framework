@@ -5,20 +5,24 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-    <osgi:reference id="sessionFactoryConfiguration" interface="com.sia.main.plugin.persistence.HibernateConfiguration" availability="mandatory"/>
+    <osgi:reference id="hibernateConfigurationRef" interface="com.sia.main.plugin.persistence.HibernateConfiguration" availability="mandatory" >
+    	<osgi:reference-listener>
+    		<bean class="com.sia.main.data.sessionfactory.HibernateConfigReferenceListener"></bean>
+    	</osgi:reference-listener>
+    </osgi:reference>
     
-    <osgi:service id="MenuPeranRepoServ" interface="com.sia.main.data.repositories.MenuPeranRepository" ref="MenuPeranRepoBean"/>
+    <osgi:service id="menuPeranRepoServ" interface="com.sia.main.data.repositories.MenuPeranRepository" ref="menuPeranRepoBean"/>
     
-    <osgi:service id="MenuRepoServ" interface="com.sia.main.data.repositories.MenuRepository" ref="MenuRepoBean"/>
+    <osgi:service id="menuRepoServ" interface="com.sia.main.data.repositories.MenuRepository" ref="menuRepoBean"/>
     
-    <osgi:service id="ModulRepoServ" interface="com.sia.main.data.repositories.ModulRepository" ref="ModulRepoBean"/>
+    <osgi:service id="modulRepoServ" interface="com.sia.main.data.repositories.ModulRepository" ref="modulRepoBean"/>
     
-    <osgi:service id="PenggunaRepoServ" interface="com.sia.main.data.repositories.PenggunaRepository" ref="PenggunaRepoBean"/>
+    <osgi:service id="penggunaRepoServ" interface="com.sia.main.data.repositories.PenggunaRepository" ref="penggunaRepoBean"/>
     
-    <osgi:service id="PeranPenggunaRepoServ" interface="com.sia.main.data.repositories.PeranPenggunaRepository" ref="PeranPenggunaRepoBean"/>
+    <osgi:service id="peranPenggunaRepoServ" interface="com.sia.main.data.repositories.PeranPenggunaRepository" ref="peranPenggunaRepoBean"/>
     
-    <osgi:service id="PeranRepoServ" interface="com.sia.main.data.repositories.PeranRepository" ref="PeranRepoBean"/>
+    <osgi:service id="peranRepoServ" interface="com.sia.main.data.repositories.PeranRepository" ref="peranRepoBean"/>
     
-    <osgi:service id="SatuanManajemenRepoServ" interface="com.sia.main.data.repositories.SatuanManajemenRepository" ref="SatuanManajemenRepoBean"/>
+    <osgi:service id="satuanManajemenRepoServ" interface="com.sia.main.data.repositories.SatuanManajemenRepository" ref="satuanManajemenRepoBean"/>
     
 </beans>

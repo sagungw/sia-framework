@@ -5,33 +5,33 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-	<osgi:service id="MenuPeranServiceServ" interface="com.sia.main.service.services.MenuPeranService" ref="MenuPeranServiceBean"/>
+	<osgi:service id="menuPeranServiceServ" interface="com.sia.main.service.services.MenuPeranService" ref="menuPeranServiceBean"/>
     
-    <osgi:service id="MenuServiceServ" interface="com.sia.main.service.services.MenuService" ref="MenuServiceBean"/>
+    <osgi:service id="menuServiceServ" interface="com.sia.main.service.services.MenuService" ref="menuServiceBean"/>
     
-    <osgi:service id="ModulServiceServ" interface="com.sia.main.service.services.ModulService" ref="ModulServiceBean"/>
+    <osgi:service id="modulServiceServ" interface="com.sia.main.service.services.ModulService" ref="modulServiceBean"/>
     
-    <osgi:service id="PenggunaServiceServ" interface="com.sia.main.service.services.PenggunaService" ref="PenggunaServiceBean"/>
+    <osgi:service id="penggunaServiceServ" interface="com.sia.main.service.services.PenggunaService" ref="penggunaServiceBean"/>
     
-    <osgi:service id="PeranPenggunaServiceServ" interface="com.sia.main.service.services.PeranPenggunaService" ref="PeranPenggunaServiceBean"/>
+    <osgi:service id="peranPenggunaServiceServ" interface="com.sia.main.service.services.PeranPenggunaService" ref="peranPenggunaServiceBean"/>
     
-    <osgi:service id="PeranServiceServ" interface="com.sia.main.service.services.PeranService" ref="PeranServiceBean"/>
+    <osgi:service id="peranServiceServ" interface="com.sia.main.service.services.PeranService" ref="peranServiceBean"/>
     
-    <osgi:service id="SatuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="SatuanManajemenServiceBean"/>
+    <osgi:service id="satuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="satuanManajemenServiceBean"/>
 
 
-	<osgi:reference id="MenuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" availability="mandatory"/>
+	<osgi:reference id="menuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" availability="mandatory"/>
     
-    <osgi:reference id="MenuRepoRef" interface="com.sia.main.data.repositories.MenuRepository" availability="mandatory"/>
+    <osgi:reference id="menuRepoRef" interface="com.sia.main.data.repositories.MenuRepository" availability="mandatory"/>
     
-    <osgi:reference id="ModulRepoRef" interface="com.sia.main.data.repositories.ModulRepository" availability="mandatory"/>
+    <osgi:reference id="modulRepoRef" interface="com.sia.main.data.repositories.ModulRepository" availability="mandatory"/>
     
-    <osgi:reference id="PenggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" availability="mandatory"/>
+    <osgi:reference id="penggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" availability="mandatory"/>
     
-    <osgi:reference id="PeranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" availability="mandatory"/>
+    <osgi:reference id="peranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" availability="mandatory"/>
     
-    <osgi:reference id="PeranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" availability="mandatory"/>
+    <osgi:reference id="peranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" availability="mandatory"/>
     
-    <osgi:reference id="SatuanManajemenRepoRef" interface="com.sia.main.data.repositories.SatuanManajemenRepository" availability="mandatory"/>
+    <osgi:reference id="satuanManajemenRepoRef" interface="com.sia.main.data.repositories.SatuanManajemenRepository" availability="mandatory"/>
 
 </beans>

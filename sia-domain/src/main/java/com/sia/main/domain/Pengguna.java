@@ -29,7 +29,7 @@ public class Pengguna {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sat_man", nullable = false)
-	private SatuanManajemen satuanManajemen;
+	private SatMan satMan;
 	
 	@Column(name = "username", unique = true)
 	private String username;
@@ -46,12 +46,16 @@ public class Pengguna {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pengguna")
 	private List<PeranPengguna> peranPenggunas = new ArrayList<PeranPengguna>();
 
-	protected Pengguna(UUID idPengguna, SatuanManajemen satuanManajemen,
+	public Pengguna() {
+		
+	}
+	
+	protected Pengguna(UUID idPengguna, SatMan satMan,
 			String username, String password, boolean statusKeaktifan,
 			String kodeResetPassword, List<PeranPengguna> peranPenggunas) {
 		super();
 		this.idPengguna = idPengguna;
-		this.satuanManajemen = satuanManajemen;
+		this.satMan = satMan;
 		this.username = username;
 		this.password = password;
 		this.statusKeaktifan = statusKeaktifan;
@@ -67,12 +71,12 @@ public class Pengguna {
 		this.idPengguna = idPengguna;
 	}
 
-	public SatuanManajemen getSatuanManajemen() {
-		return satuanManajemen;
+	public SatMan getSatuanManajemen() {
+		return satMan;
 	}
 
-	public void setSatuanManajemen(SatuanManajemen satuanManajemen) {
-		this.satuanManajemen = satuanManajemen;
+	public void setSatMan(SatMan satMan) {
+		this.satMan = satMan;
 	}
 
 	public String getUsername() {

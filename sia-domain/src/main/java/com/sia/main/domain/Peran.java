@@ -41,6 +41,10 @@ public class Peran {
 		this.menuPerans = menuPerans;
 	}
 
+	public Peran() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public UUID getIdPeran() {
 		return idPeran;
 	}

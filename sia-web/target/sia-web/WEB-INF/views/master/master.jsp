@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="function" uri="http://taglibs/custom" %>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -8,7 +10,9 @@
 	<head>
         
         <!-- Title -->
-        <title>Modern | Layouts - Horizontal Menu</title>
+        <title>
+        	<decorator:title default="Sistem Informasi Akademik"/>
+        </title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -16,24 +20,34 @@
         <meta name="keywords" content="admin,dashboard" />
         <meta name="author" content="Steelcoders" />
         
-        <!-- Styles -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/uniform/css/uniform.default.min.css" rel="stylesheet"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/line-icons/simple-line-icons.css" rel="stylesheet" type="text/css"/>	
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.css" rel="stylesheet" type="text/css"/>	
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css"/>	
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css"/>
-        
-        <!-- Theme Styles -->
-        <link href="${pageContext.servletContext.contextPath}/resources/css/modern.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/css/themes/white.css" class="theme-color" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
-        
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
+       <!-- Styles -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/pace-master/themes/blue/pace-theme-flash.css" rel="stylesheet">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/uniform/css/uniform.default.min.css" rel="stylesheet">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/line-icons/simple-line-icons.css" rel="stylesheet" type="text/css">	
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/css/menu_cornerbox.css" rel="stylesheet" type="text/css">	
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.css" rel="stylesheet" type="text/css">	
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css">	
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/datatables/css/jquery.datatables.min.css" rel="stylesheet" type="text/css">	
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/datatables/css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css">	
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/x-editable/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css">
+		
+		<!-- Theme Styles -->
+		<link href="${pageContext.servletContext.contextPath}/resources/css/modern.min.css" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/css/themes/white.css" class="theme-color" rel="stylesheet" type="text/css">
+		<link href="${pageContext.servletContext.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css">
+		<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+		<script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
+		<script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
+		
+		<link href="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
         
     </head>
     <body class="page-header-fixed page-horizontal-bar">
@@ -62,6 +76,7 @@
                     <div class="topmenu-outer">
                         <div class="top-menu">
                             <ul class="nav navbar-nav navbar-left">
+                            	<li>
                                     <a href="javascript:void(0);" class="waves-effect waves-button waves-classic sidebar-toggle"><i class="fa fa-bars"></i></a>
                                 </li>
                                 <li>		
@@ -173,27 +188,32 @@
                         </div>
                     </div>
                     <ul class="menu accordion-menu">
-                        
-                        <li><a href="index.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Profile</p></a></li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-flash"></span><p>Levels</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li class="droplink"><a href="#"><p>Level 1.1</p><span class="arrow"></span></a>
-                                    <ul class="sub-menu">
-                                        <li class="droplink"><a href="#"><p>Level 2.1</p><span class="arrow"></span></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="#">Level 3.1</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Level 2.2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Level 1.2</a></li>
-                            </ul>
-                        </li>
+                    	<h1>${lalala}</h1>
+<%--                         <c:if test="${sessionScope.modules != null}"> --%>
+                        	<c:forEach items="${sessionScope.modules}" var="module">
+                        	<h5>Modules</h5>
+	                        	<c:choose>
+	                        		<c:when test="${function:instanceOf(module, 'com.sia.main.plugin.modul.Accessable')}" >
+	                        			<li><a href="${module.getUrl()}" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>$module.getModuleName()</p></a></li>	                        			
+	                        		</c:when>
+	                        		<c:otherwise>
+                        				<c:if test="${function:instanceOf(module, 'com.sia.main.plugin.modul.HasMenu')}">
+                        					<li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>$module.getModuleName()</p><span class="arrow"></span></a>
+                        						<ul class="sub-menu">
+		                        					<c:forEach items="${module.getModuleMenus()}" var="moduleMenu">
+		                        						<li><a href="${moduleMenu.getUrl()}">${moduleMenu.getName()}</a></li>
+		                        					</c:forEach>
+	                        					</ul>
+                        					</li>
+                        				</c:if>
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </c:forEach>
+<%--                         </c:if> --%>
                     </ul>
                 </div><!-- Page Sidebar Inner -->
             </div><!-- Page Sidebar -->
+            
             <div class="page-inner">
                 <div class="page-title">
                     <h3>Horizontal Menu</h3>
@@ -205,29 +225,41 @@
                         </ol>
                     </div>
                 </div>
+                
                 <div id="main-wrapper">
-                	<decorator:body/>
                     <div class="row">
-                    </div><!-- Row -->
-                </div><!-- Main Wrapper -->
+                    	<decorator:body/>
+                    </div>
+                </div>
+                
                 <div class="page-footer">
-                    <p class="no-s">2015 &copy; Modern by Steelcoders.</p>
+                    <p class="no-s">2015 &copy;</p>
                 </div>
             </div><!-- Page Inner -->
+            
         </div><!-- Page Content -->
-		
+
 		<!-- Javascripts -->
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/pace-master/pace.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/classie.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/main.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/main.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/js/modern.js"></script>
-		        
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-mockjax-master/jquery.mockjax.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/moment/moment.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/datatables/js/jquery.datatables.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/x-editable/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/js/modern.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/js/pages/table-data.js"></script>
+
     </body>
 
 </html>

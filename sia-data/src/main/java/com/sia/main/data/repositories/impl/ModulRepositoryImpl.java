@@ -5,22 +5,24 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.ModulRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Modul;
 
 @Repository
 public class ModulRepositoryImpl implements ModulRepository{
 
-	private Session session;
+	@Autowired
+	private SessionFactoryManager sessionFactoryManager;
 	
 	@Transactional
 	@Override
 	public void insertInto(Modul modul) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(modul);
@@ -30,7 +32,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 	@Transactional
 	@Override
 	public void update(Modul modul) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(modul);
@@ -40,7 +42,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 	@Transactional
 	@Override
 	public void delete(Modul modul) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(modul);
@@ -50,7 +52,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 	@Transactional
 	@Override
 	public List<Modul> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return session.createQuery("from Modul").list();
@@ -59,7 +61,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 	@Transactional
 	@Override
 	public Modul getById(UUID idModul) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return (Modul)session.get(Modul.class, idModul);

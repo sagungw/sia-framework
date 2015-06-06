@@ -5,20 +5,22 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.MenuPeranRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.MenuPeran;
 
 public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 
-	private Session session;
+	@Autowired
+	private SessionFactoryManager sessionFactoryManager;
 	
 	@Transactional
 	@Override
 	public void insertInto(MenuPeran menuPeran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(menuPeran);
@@ -28,7 +30,7 @@ public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 	@Transactional
 	@Override
 	public void update(MenuPeran menuPeran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(menuPeran);
@@ -38,7 +40,7 @@ public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 	@Transactional
 	@Override
 	public void delete(MenuPeran menuPeran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(menuPeran);
@@ -48,7 +50,7 @@ public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 	@Transactional
 	@Override
 	public List<MenuPeran> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return session.createQuery("from MenuPeran").list();
@@ -57,7 +59,7 @@ public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 	@Transactional
 	@Override
 	public MenuPeran getById(UUID idMenuPeran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return(MenuPeran)session.get(MenuPeran.class, idMenuPeran);

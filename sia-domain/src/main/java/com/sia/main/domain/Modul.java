@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "modul")
@@ -21,24 +22,41 @@ public class Modul {
 	@Id
 	@GeneratedValue(generator = "uuid-generator")
 	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
+	@Type(type="pg-uuid")
 	@Column(name = "id_modul")
 	private UUID idModul;
 	
-	@Column(name = "nama_modul")
+	@Column(name = "nomor_modul", unique = true, nullable = false)
+	private String nomorModul;
+	
+	@Column(name = "nama_modul", nullable = false)
 	private String namaModul;
 	
-	@Column(name = "a_modul_aktif")
-	private boolean isActive;
+	@Column(name = "url_mapping", unique = true, nullable = false)
+	private String urlMapping;
+	
+	@Column(name = "versi", nullable = false)
+	private String versi;
+	
+	@Column(name = "status", nullable = false)
+	private String status;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
 
-	protected Modul(UUID idModul, String namaModul, boolean isActive,
-			List<Menu> menus) {
+	public Modul(){
+		
+	}
+	
+	public Modul(UUID idModul, String nomorModul, String namaModul,
+			String urlMapping, String versi, String status, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
+		this.nomorModul = nomorModul;
 		this.namaModul = namaModul;
-		this.isActive = isActive;
+		this.urlMapping = urlMapping;
+		this.versi = versi;
+		this.status = status;
 		this.menus = menus;
 	}
 
@@ -50,6 +68,14 @@ public class Modul {
 		this.idModul = idModul;
 	}
 
+	public String getNomorModul() {
+		return nomorModul;
+	}
+
+	public void setNomorModul(String nomorModul) {
+		this.nomorModul = nomorModul;
+	}
+
 	public String getNamaModul() {
 		return namaModul;
 	}
@@ -58,12 +84,28 @@ public class Modul {
 		this.namaModul = namaModul;
 	}
 
-	public boolean isActive() {
-		return isActive;
+	public String getUrlMapping() {
+		return urlMapping;
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setUrlMapping(String urlMapping) {
+		this.urlMapping = urlMapping;
+	}
+
+	public String getVersi() {
+		return versi;
+	}
+
+	public void setVersi(String versi) {
+		this.versi = versi;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public List<Menu> getMenus() {

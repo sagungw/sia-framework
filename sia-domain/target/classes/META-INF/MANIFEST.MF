@@ -1,14 +1,13 @@
 Manifest-Version: 1.0
-Originally-Created-By: 1.8.0_31 (Oracle Corporation)
-Export-Package: com.sia.main.domain;uses:="javax.persistence,org.hiber
- nate.annotations";version="0.0.1.SNAPSHOT"
-Bundle-SymbolicName: com.sia.main.sia-domain
-Bundle-Name: sia-domain
+Export-Package: com.sia.main.domain;uses:="org.hibernate.annotations,j
+ avax.persistence";version="0.0.1.SNAPSHOT"
 Bundle-Version: 0.0.1.SNAPSHOT
+Tool: Bnd-0.0.357
+Bundle-Name: sia-domain
+Bnd-LastModified: 1433492713438
+Created-By: 1.7.0_51 (Oracle Corporation)
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1432179244695
+Bundle-SymbolicName: com.sia.main.sia-domain
 Import-Package: com.sia.main.domain;version="0.0",javax.persistence;ve
  rsion="1.0",org.hibernate.annotations;version="4.2"
-Created-By: 1.8.0_31 (Oracle Corporation)
-Tool: Bnd-0.0.357
 

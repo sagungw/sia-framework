@@ -6,16 +6,14 @@ import org.hibernate.cfg.Configuration;
 
 import com.sia.main.plugin.modul.Plugin;
 
-public abstract class HibernateConfiguration extends Plugin{
-	
-	protected Configuration dbAccessConfiguration;
+public interface HibernateConfiguration extends Plugin{
 
-	public abstract void setConfigurationProperties();
+	public void setConfigurationProperties();
 	
-	public abstract void setConfigurationProperties(Configuration configuration);
+	public void setConfigurationProperties(Configuration configuration);
 	
-	public abstract void setConfigurationProperties(Properties properties);
+	public void setConfigurationProperties(Properties properties);
 	
-	public abstract Configuration getConfiguration();
+	public Configuration getConfiguration();
 	
 }

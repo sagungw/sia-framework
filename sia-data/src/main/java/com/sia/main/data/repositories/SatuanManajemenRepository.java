@@ -3,18 +3,18 @@ package com.sia.main.data.repositories;
 import java.util.List;
 import java.util.UUID;
 
-import com.sia.main.domain.SatuanManajemen;
+import com.sia.main.domain.SatMan;
 
 public interface SatuanManajemenRepository {
 
-	public void insertInto(SatuanManajemen satuanManajemen);
+	public void insertInto(SatMan satuanManajemen);
 
-	public void update(SatuanManajemen satuanManajemen);
+	public void update(SatMan satuanManajemen);
 
-	public void delete(SatuanManajemen satuanManajemen);
+	public void delete(SatMan satuanManajemen);
 
-	public List<SatuanManajemen> getAll();
+	public List<SatMan> getAll();
 
-	public SatuanManajemen getById(UUID idSatuanManajemen);
+	public SatMan getById(UUID idSatuanManajemen);
 	
 }

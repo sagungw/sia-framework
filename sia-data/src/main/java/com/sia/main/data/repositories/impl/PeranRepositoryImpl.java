@@ -3,22 +3,25 @@ package com.sia.main.data.repositories.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.PeranRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Peran;
 
 public class PeranRepositoryImpl implements PeranRepository {
 
-	private Session session;
+	@Autowired
+	private SessionFactoryManager sessionFactoryManager;
 	
 	@Transactional
 	@Override
 	public void insertInto(Peran peran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(peran);
@@ -28,7 +31,7 @@ public class PeranRepositoryImpl implements PeranRepository {
 	@Transactional
 	@Override
 	public void update(Peran peran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(peran);
@@ -38,7 +41,7 @@ public class PeranRepositoryImpl implements PeranRepository {
 	@Transactional
 	@Override
 	public void delete(Peran peran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(peran);
@@ -48,7 +51,7 @@ public class PeranRepositoryImpl implements PeranRepository {
 	@Transactional
 	@Override
 	public List<Peran> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return session.createQuery("from Peran").list();
@@ -57,10 +60,10 @@ public class PeranRepositoryImpl implements PeranRepository {
 	@Transactional
 	@Override
 	public Peran getById(UUID idPeran) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return (Peran) session.get(Peran.class, idPeran);
 	}
-
+	
 }

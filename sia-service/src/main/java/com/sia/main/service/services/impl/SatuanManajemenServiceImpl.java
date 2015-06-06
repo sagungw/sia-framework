@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.sia.main.data.repositories.SatuanManajemenRepository;
-import com.sia.main.domain.SatuanManajemen;
+import com.sia.main.domain.SatMan;
 import com.sia.main.service.services.SatuanManajemenService;
 
 @Service
@@ -24,27 +24,27 @@ public class SatuanManajemenServiceImpl implements SatuanManajemenService {
 	}
 
 	@Override
-	public void insertInto(SatuanManajemen satuanManajemen) {
+	public void insertInto(SatMan satuanManajemen) {
 		this.satuanManajemenRepository.insertInto(satuanManajemen);
 	}
 
 	@Override
-	public void update(SatuanManajemen satuanManajemen) {
+	public void update(SatMan satuanManajemen) {
 		this.satuanManajemenRepository.update(satuanManajemen);
 	}
 
 	@Override
-	public void delete(SatuanManajemen satuanManajemen) {
+	public void delete(SatMan satuanManajemen) {
 		this.satuanManajemenRepository.delete(satuanManajemen);
 	}
 
 	@Override
-	public List<SatuanManajemen> getAll() {
+	public List<SatMan> getAll() {
 		return this.satuanManajemenRepository.getAll();
 	}
 
 	@Override
-	public SatuanManajemen getById(UUID idSatuanManajemen) {
+	public SatMan getById(UUID idSatuanManajemen) {
 		return this.satuanManajemenRepository.getById(idSatuanManajemen);
 	}
 

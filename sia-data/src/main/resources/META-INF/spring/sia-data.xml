@@ -5,27 +5,24 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="staticMethod" value="com.sia.main.data.sessionfactory.SecuritySessionFactoryManager.setSessionFactoryConfiguration"/>
-		<property name="arguments">
-			<list>
-				<ref bean="sessionFactoryConfiguration"/>
-			</list>
-	   	</property>
+	<bean id="sessionFactoryManagerBean" class="com.sia.main.data.sessionfactory.SessionFactoryManager" scope="singleton">
+		<property name="securitySessionFactoryConfiguration" ref="hibernateConfigurationRef"></property>
 	</bean>
     
-    <bean id="MenuPeranRepoBean" class="com.sia.main.data.repositories.impl.MenuPeranRepositoryImpl"/>
+    <bean id="menuPeranRepoBean" class="com.sia.main.data.repositories.impl.MenuPeranRepositoryImpl"/>
     
-    <bean id="MenuRepoBean" class="com.sia.main.data.repositories.impl.MenuRepositoryImpl" />
+    <bean id="menuRepoBean" class="com.sia.main.data.repositories.impl.MenuRepositoryImpl" />
     
-    <bean id="ModulRepoBean" class="com.sia.main.data.repositories.impl.ModulRepositoryImpl" />
+    <bean id="modulRepoBean" class="com.sia.main.data.repositories.impl.ModulRepositoryImpl" />
     
-    <bean id="PenggunaRepoBean" class="com.sia.main.data.repositories.impl.PenggunaRepositoryImpl" />
+    <bean id="penggunaRepoBean" class="com.sia.main.data.repositories.impl.PenggunaRepositoryImpl" >
+    	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
+    </bean>
     
-    <bean id="PeranPenggunaRepoBean" class="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl" />
+    <bean id="peranPenggunaRepoBean" class="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl" />
     
-    <bean id="PeranRepoBean" class="com.sia.main.data.repositories.impl.PeranRepositoryImpl" />
+    <bean id="peranRepoBean" class="com.sia.main.data.repositories.impl.PeranRepositoryImpl" />
     
-    <bean id="SatuanManajemenRepoBean" class="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl" />
+    <bean id="satuanManajemenRepoBean" class="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl" />
     
 </beans>

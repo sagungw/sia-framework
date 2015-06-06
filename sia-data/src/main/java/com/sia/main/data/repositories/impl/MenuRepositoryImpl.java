@@ -5,20 +5,22 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.MenuRepository;
-import com.sia.main.data.sessionfactory.SecuritySessionFactoryManager;
+import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Menu;
 
 public class MenuRepositoryImpl implements MenuRepository {
 
-	private Session session;
-
+	@Autowired
+	private SessionFactoryManager sessionFactoryManager;
+	
 	@Transactional
 	@Override
 	public void insertInto(Menu menu) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(menu);
@@ -28,7 +30,7 @@ public class MenuRepositoryImpl implements MenuRepository {
 	@Transactional
 	@Override
 	public void update(Menu menu) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.update(menu);
@@ -38,7 +40,7 @@ public class MenuRepositoryImpl implements MenuRepository {
 	@Transactional
 	@Override
 	public void delete(Menu menu) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(menu);
@@ -48,7 +50,7 @@ public class MenuRepositoryImpl implements MenuRepository {
 	@Transactional
 	@Override
 	public List<Menu> getAll() {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return session.createQuery("from Menu").list();
@@ -57,7 +59,7 @@ public class MenuRepositoryImpl implements MenuRepository {
 	@Transactional
 	@Override
 	public Menu getById(UUID idMenu) {
-		session = SecuritySessionFactoryManager.getSessionFactory()
+		Session session = sessionFactoryManager.getSecuritySessionFactory()
 				.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		return (Menu)session.get(Menu.class, idMenu);

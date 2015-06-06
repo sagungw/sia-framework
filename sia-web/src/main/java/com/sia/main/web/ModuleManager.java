@@ -7,28 +7,35 @@ import com.sia.main.plugin.modul.Module;
 
 public class ModuleManager {
 	
+	private List<Module> modules;
+	
 	private static ModuleManager instance;
 	
-	private static List<Module> modules;
-	
-	private ModuleManager() {	
+	private ModuleManager(){
 	}
 	
 	public static ModuleManager getInstance() {
-		if(instance == null)
-			instance = new ModuleManager();
+		if(ModuleManager.instance == null) {
+			ModuleManager.instance = new ModuleManager();
+		}
 		return ModuleManager.instance;
 	}
 	
-	public static List<Module> getModules() {
-		if(ModuleManager.modules == null) {
-			ModuleManager.modules = new ArrayList<Module>();
-		}
-		return ModuleManager.modules;
+	public List<Module> getModules() {
+		return this.modules;
 	}
 	
-	public static void setModules(List<Module> modules) {
-		ModuleManager.modules = modules;
-	} 
-
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
+	
+	public void init() {
+		if(modules != null) {
+			for(Module module : modules) {
+				System.out.print("Module Manager: ");
+				System.out.println(module.getModuleName());
+			}
+		}
+	}
+	
 }

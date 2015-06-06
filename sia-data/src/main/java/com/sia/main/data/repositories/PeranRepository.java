@@ -14,7 +14,7 @@ public interface PeranRepository {
 	public void delete(Peran peran);
 
 	public List<Peran> getAll();
-
+	
 	public Peran getById(UUID idPeran);
 	
 }
