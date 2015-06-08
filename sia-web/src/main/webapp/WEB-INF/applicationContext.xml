@@ -19,6 +19,9 @@
 		<property name="modules" ref="modulesRef"></property>
 	</bean>
     
+    <osgi:reference id="modulServiceRef" interface="com.sia.main.service.services.ModulService" availability="mandatory">
+    </osgi:reference>
+    
     <osgi:reference id="penggunaServiceRef" interface="com.sia.main.service.services.PenggunaService" availability="mandatory">
     </osgi:reference>
     

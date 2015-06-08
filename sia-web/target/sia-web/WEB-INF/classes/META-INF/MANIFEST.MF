@@ -12,9 +12,17 @@ Import-Bundle: com.springsource.org.apache.taglibs.standard;version="[
  1", org.eclipse.gemini.blueprint.core;version="[1.0.2.RELEASE,1.0.2.R
  ELEASE]"
 Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0", 
- org.apache.commons.dbcp2;bundle-version="2.1.0"
+ org.apache.commons.dbcp2;bundle-version="2.1.0",org.apache.commons.io
+ ;bundle-version="2.4.0", com.springsource.org.apache.commons.fileuplo
+ ad;bundle-version="1.2.0" ,org.hibernate.core;bundle-version="4.2.18.
+ Final" ,com.fasterxml.jackson.core.jackson-core;bundle-version="2.5.3
+ " ,com.fasterxml.jackson.core.jackson-databind;bundle-version="2.5.3"
+  ,com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.5.
+ 3",com.fasterxml.jackson.module.jackson-module-jaxb-annotations;bundl
+ e-version="2.5.3" ,jackson-core-asl;bundle-version="1.9.10" ,jackson-
+ mapper-asl;bundle-version="1.9.10"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1433489771483
+Bnd-LastModified: 1433802115778
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.sia.main.web.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web
@@ -27,6 +35,6 @@ Import-Package: com.sia.main.domain;version="0.0",com.sia.main.plugin.
  ework;version="1.6",org.postgresql;version="9.4",org.springframework.
  beans.factory.annotation;version="3.1",org.springframework.stereotype
  ;version="3.1",org.springframework.web;version="3.1",org.springframew
- ork.web.bind.annotation;version="3.1",org.springframework.web.servlet
- ;version="3.1"
+ ork.web.bind.annotation;version="3.1",org.springframework.web.multipa
+ rt;version="3.1",org.springframework.web.servlet;version="3.1"
 

@@ -23,8 +23,16 @@ public class ModulServiceImpl implements ModulService {
 	}
 
 	@Override
-	public void insertInto(Modul modul) {
-		this.modulRepository.insertInto(modul);
+	public Modul insertInto(Modul modul) {
+		if(this.getModuleWithParam("where urlMapping like '" + modul.getUrlMapping() + "'").size() > 0) {
+			return null;
+		}
+		if(this.getModuleWithParam("where namaModul like '" + modul.getNamaModul() + "'").size() == 0) {
+			this.modulRepository.insertInto(modul);
+		} else {
+			this.update(modul);
+		}
+		return modul;
 	}
 
 	@Override
@@ -47,4 +55,10 @@ public class ModulServiceImpl implements ModulService {
 		return this.modulRepository.getById(idModul);
 	}
 
+	@Override
+	public List<Modul> getModuleWithParam(String queryParam) {
+		return this.modulRepository.getModuleWithParam(queryParam);
+	}
+
+	
 }

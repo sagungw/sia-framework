@@ -15,56 +15,130 @@ import com.sia.main.domain.Modul;
 
 @Repository
 public class ModulRepositoryImpl implements ModulRepository{
-
-	@Autowired
+	
 	private SessionFactoryManager sessionFactoryManager;
 	
-	@Transactional
+	public SessionFactoryManager getSessionFactoryManager() {
+		return sessionFactoryManager;
+	}
+
+	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
+		this.sessionFactoryManager = sessionFactoryManager;
+	}
+
+	private Session getSession() {
+		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
+		System.out.println("retrieving current hibernate session");
+		if(session == null || !session.isOpen()) {
+			System.out.println("hibernate session is either null or closed. will open a new one instead");
+			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
+		}
+		return session;
+	}
+	
 	@Override
 	public void insertInto(Modul modul) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.save(modul);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.save(modul);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void update(Modul modul) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.update(modul);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.update(modul);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void delete(Modul modul) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.delete(modul);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.delete(modul);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public List<Modul> getAll() {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return session.createQuery("from Modul").list();
+		final Session session = this.getSession();
+		List<Modul> modules = null;
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				modules = session.createQuery("from Modul").list();
+			} catch (Exception e) {
+				transaction.rollback();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return modules;
 	}
 
-	@Transactional
 	@Override
 	public Modul getById(UUID idModul) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return (Modul)session.get(Modul.class, idModul);
+		final Session session = this.getSession();
+		Modul modul = null;
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				modul = (Modul)session.get(Modul.class, idModul);
+			} catch (Exception e) {
+				transaction.rollback();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return modul;
+	}
+
+	@Override
+	public List<Modul> getModuleWithParam(String queryParam) {
+		final Session session = this.getSession();
+		List<Modul> modules = null;
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				modules = session.createQuery("from Modul " + queryParam).list();
+			} catch (Exception e) {
+				transaction.rollback();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return modules;
 	}
 
 }

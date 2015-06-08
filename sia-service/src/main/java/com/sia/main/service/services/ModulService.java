@@ -7,7 +7,7 @@ import com.sia.main.domain.Modul;
 
 public interface ModulService {
 
-	public void insertInto(Modul modul);
+	public Modul insertInto(Modul modul);
 
 	public void update(Modul modul);
 
@@ -16,5 +16,7 @@ public interface ModulService {
 	public List<Modul> getAll();
 
 	public Modul getById(UUID idModul);
+	
+	public List<Modul> getModuleWithParam(String queryParam);
 	
 }

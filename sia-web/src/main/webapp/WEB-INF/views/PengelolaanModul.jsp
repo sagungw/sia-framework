@@ -4,24 +4,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<script src="${pageContext.servletContext.contextPath}/resources/js/app/pengelolaan_peran.js"></script>
-
 <title>Sistem Informasi Akademik - Pengelolaan Modul</title>
 
 <div class="row" id="masterpage">
 	<div class="col-md-12">
 	
-		<div class="panel panel-white">
+		<div class="panel panel-white" style="max-width: 1000px; margin-left: auto; margin-right: auto;">
 		
 		    <div class="panel-heading">
 		        <h3 class="no-m m-b-lg">
 		        	Pengelolaan Modul
 		        </h3>
-		    </div>	
+		    </div>
 		    
 		    <div class="panel-body">
-		    
-		        <button type="button" class="btn btn-success m-b-sm">Tambah</button>
+		    	
+		    	<form enctype="multipart/form-data" id="uploadForm" action="unggahModul" method="post">
+		    		<input id="fileInput" type="file" accept=".jar, .war" name="file"/>
+		    		<br/>
+		        	<button type="submit" class="btn btn-success m-b-sm" id="addModuleBtn">Tambah</button>
+		    	</form>
 		        
 		        <div class="table-responsive">
 		        	
@@ -29,11 +31,11 @@
 		            	<table id="example3" class="display table dataTable" style="width: 100%;" role="grid" aria-describedby="example3_info">
 				            <thead>
 				               	<tr role="row">
-					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 300px;">Nama</th>
-					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 100px;">Mapping URL</th>
-					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 100px;">Versi</th>
-					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 100px;">Status</th>
-					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 100px;">Aksi</th>
+					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 25%;">Nama</th>
+									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 20%;">Mapping URL</th>
+									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 20%;">Versi</th>
+									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 15%;">Status</th>
+									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 20%;">Aksi</th>
 				               	</tr>
 				            </thead>
 				            <tfoot>
@@ -54,7 +56,9 @@
 		                                        <td>${module.getUrlMapping()}</td>
 		                                        <td>${module.getVersi()}</td>
 		                                        <td>${module.getStatus()}</td>
-		                                        <td><button class="btn btn-default">Aksi</button><td>
+		                                        <td>
+		                                        	<button class="btn btn-danger">Hapus</button>
+		                                        <td>
 		                                    </tr>
 		            					</c:forEach>
 		            				</c:when>
@@ -73,3 +77,12 @@
 		</div>
 	</div>
 </div>
+<c:if test="${commandResult != null}">
+	<script>
+		var commandResult = {
+			status : "${commandResult.status}",
+			message : "${commandResult.message}"
+		};
+	</script>
+</c:if>
+<script src="${pageContext.servletContext.contextPath}/resources/js/app/pengelolaan_modul.js"></script>

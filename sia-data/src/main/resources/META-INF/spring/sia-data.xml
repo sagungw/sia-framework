@@ -13,7 +13,9 @@
     
     <bean id="menuRepoBean" class="com.sia.main.data.repositories.impl.MenuRepositoryImpl" />
     
-    <bean id="modulRepoBean" class="com.sia.main.data.repositories.impl.ModulRepositoryImpl" />
+    <bean id="modulRepoBean" class="com.sia.main.data.repositories.impl.ModulRepositoryImpl" >
+    	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
+    </bean>
     
     <bean id="penggunaRepoBean" class="com.sia.main.data.repositories.impl.PenggunaRepositoryImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>

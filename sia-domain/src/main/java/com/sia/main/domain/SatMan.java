@@ -1,10 +1,7 @@
 package com.sia.main.domain;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import java.io.Serializable;
-import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="sat_man")
@@ -29,12 +24,12 @@ public class SatMan{
 	@Column(name="id_sat_man")
 	@GeneratedValue(generator="uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@org.hibernate.annotations.Type(type="pg-uuid")
+	@Type(type="pg-uuid")
 	private UUID idSatMan; 
 	
-	@Column(name="sat_id_sat_man")
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	private UUID idSatManInduk;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sat_id_sat_man", nullable = false)
+	private SatMan satManInduk;
 	
 	@Column(name="nm_sat_man")
 	private String nmSatMan;
@@ -45,6 +40,10 @@ public class SatMan{
 	@Transient
 	private List<SatMan> child;
 	
+	public SatMan() {
+		
+	}
+	
 	public UUID getIdSatMan() {
 		return idSatMan;
 	}
@@ -52,14 +51,14 @@ public class SatMan{
 	public void setIdSatMan(UUID idSatMan) {
 		this.idSatMan = idSatMan;
 	}
-
-	public UUID getIdSatManInduk() {
-		return idSatManInduk;
+	
+	public SatMan getSatManInduk() {
+		return satManInduk;
 	}
 
-	public void setIdSatManInduk(UUID idSatManInduk) {
-		this.idSatManInduk = idSatManInduk;
-	}
+	public void setSatManInduk(SatMan satManInduk) {
+		this.satManInduk = satManInduk;
+	} 
 
 	public String getNmSatMan() {
 		return nmSatMan;

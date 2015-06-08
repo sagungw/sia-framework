@@ -20,26 +20,23 @@ import org.hibernate.annotations.Type;
 public class Modul {
 	
 	@Id
-	@GeneratedValue(generator = "uuid-generator")
-	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
-	@Type(type="pg-uuid")
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type = "pg-uuid")
 	@Column(name = "id_modul")
 	private UUID idModul;
-	
-	@Column(name = "nomor_modul", unique = true, nullable = false)
-	private String nomorModul;
 	
 	@Column(name = "nama_modul", nullable = false)
 	private String namaModul;
 	
-	@Column(name = "url_mapping", unique = true, nullable = false)
+	@Column(name = "url_mapping", nullable = false)
 	private String urlMapping;
 	
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
 	@Column(name = "status", nullable = false)
-	private String status;
+	private int status;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
@@ -48,11 +45,10 @@ public class Modul {
 		
 	}
 	
-	public Modul(UUID idModul, String nomorModul, String namaModul,
-			String urlMapping, String versi, String status, List<Menu> menus) {
+	public Modul(UUID idModul, String namaModul,
+			String urlMapping, String versi, int status, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
-		this.nomorModul = nomorModul;
 		this.namaModul = namaModul;
 		this.urlMapping = urlMapping;
 		this.versi = versi;
@@ -66,14 +62,6 @@ public class Modul {
 
 	public void setIdModul(UUID idModul) {
 		this.idModul = idModul;
-	}
-
-	public String getNomorModul() {
-		return nomorModul;
-	}
-
-	public void setNomorModul(String nomorModul) {
-		this.nomorModul = nomorModul;
 	}
 
 	public String getNamaModul() {
@@ -100,12 +88,12 @@ public class Modul {
 		this.versi = versi;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(int i) {
+		this.status = i;
 	}
 
 	public List<Menu> getMenus() {
