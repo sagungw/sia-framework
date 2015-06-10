@@ -3,67 +3,148 @@ package com.sia.main.data.repositories.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import com.sia.main.data.repositories.PeranRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
+import com.sia.main.domain.Modul;
 import com.sia.main.domain.Peran;
 
+@Repository
 public class PeranRepositoryImpl implements PeranRepository {
-
-	@Autowired
+	
 	private SessionFactoryManager sessionFactoryManager;
 	
-	@Transactional
+	public SessionFactoryManager getSessionFactoryManager() {
+		return sessionFactoryManager;
+	}
+
+	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
+		this.sessionFactoryManager = sessionFactoryManager;
+	}
+
+	private Session getSession() {
+		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
+		System.out.println("retrieving current hibernate session");
+		if(session == null || !session.isOpen()) {
+			System.out.println("hibernate session is either null or closed. will open a new one instead");
+			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
+		}
+		return session;
+	}
+	
 	@Override
 	public void insertInto(Peran peran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.save(peran);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.save(peran);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void update(Peran peran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.update(peran);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.update(peran);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
-
-	@Transactional
+	
 	@Override
 	public void delete(Peran peran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.delete(peran);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.delete(peran);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
-
-	@Transactional
+	
 	@Override
 	public List<Peran> getAll() {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return session.createQuery("from Peran").list();
+		final Session session = this.getSession();
+		List<Peran> daftarPeran = null;
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				daftarPeran = session.createQuery("from Peran").list();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return daftarPeran;
 	}
 
-	@Transactional
+	
 	@Override
 	public Peran getById(UUID idPeran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return (Peran) session.get(Peran.class, idPeran);
+		final Session session = this.getSession();
+		Peran peran = null;
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				peran = (Peran)session.get(Peran.class, idPeran);
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return peran;
+	}
+
+	@Override
+	public List<Peran> getPeranWithParam(String param) {
+		final Session session = this.getSession();
+		List<Peran> daftarPeran = null;
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				daftarPeran = session.createQuery("from Param " + param).list();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return daftarPeran;
 	}
 	
 }

@@ -21,9 +21,11 @@
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="peranPenggunaRepoBean" class="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl" />
+<!--     <bean id="peranPenggunaRepoBean" class="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl" /> -->
     
-    <bean id="peranRepoBean" class="com.sia.main.data.repositories.impl.PeranRepositoryImpl" />
+    <bean id="peranRepoBean" class="com.sia.main.data.repositories.impl.PeranRepositoryImpl" >
+    	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
+    </bean>
     
     <bean id="satuanManajemenRepoBean" class="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl" />
     

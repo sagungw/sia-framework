@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.sia.main.plugin.modul.Module;
+
 @Entity
 @Table(name = "modul")
 public class Modul {
@@ -38,21 +40,26 @@ public class Modul {
 	@Column(name = "status", nullable = false)
 	private int status;
 	
+	@Column(name = "lokasi_modul", nullable = true)
+	private String lokasiModul;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
 
 	public Modul(){
 		
 	}
-	
-	public Modul(UUID idModul, String namaModul,
-			String urlMapping, String versi, int status, List<Menu> menus) {
+
+	public Modul(UUID idModul, String namaModul, String urlMapping,
+			String versi, int status, String lokasiModul,
+			List<Menu> menus) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
 		this.urlMapping = urlMapping;
 		this.versi = versi;
 		this.status = status;
+		this.lokasiModul = lokasiModul;
 		this.menus = menus;
 	}
 
@@ -102,6 +109,14 @@ public class Modul {
 
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
+	}
+
+	public String getLokasiModul() {
+		return lokasiModul;
+	}
+
+	public void setLokasiModul(String lokasiModul) {
+		this.lokasiModul = lokasiModul;
 	}
 	
 }

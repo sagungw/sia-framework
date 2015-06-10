@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sia.main.domain.Modul;
 import com.sia.main.plugin.modul.Module;
 import com.sia.main.service.services.ModulService;
-import com.sia.main.web.AjaxResponse;
+import com.sia.main.web.utils.AjaxResponse;
 
 @Controller
 @RequestMapping(value = "/admin/modul")
@@ -48,6 +48,7 @@ public class ModuleController {
 		modelAndView.addObject("moduleList", modulService.getAll());
 		if(this.response!=null)
 			modelAndView.addObject("commandResult", this.response);
+		this.response = null;
 		return modelAndView;
 	}
 	
@@ -70,20 +71,18 @@ public class ModuleController {
 					outputStream = new BufferedOutputStream(new FileOutputStream(installedFile));
 					outputStream.write(bytes);
 					outputStream.close();
-					System.out.println("ok");
+					modul.setLokasiModul("file:" + installedFile.getAbsolutePath());
+					modulService.update(modul);
 					response = new AjaxResponse("Ok", "Modul berhasil ditambah", null);
 				} else {
-					System.out.println("fail1");
 					response = new AjaxResponse("Fail", "Modul gagal ditambah", null);
 				}
 				Files.deleteIfExists(tempFile.toPath());
 			} catch (Exception e) {
-				System.out.println("fail2");
 				response = new AjaxResponse("Fail", "Modul gagal ditambah", null);
 				e.printStackTrace();
 			}
-		} else {	
-			System.out.println("fail3");
+		} else {
 			response = new AjaxResponse("Fail", "Modul gagal ditambah", null);
 		}
 		
@@ -105,9 +104,8 @@ public class ModuleController {
 		try {
 			Bundle bundle = bundleContext.installBundle(filePath);
 			bundle.start();
-			ServiceReference rf = bundle.getRegisteredServices()[0];
-			Module module = (Module)bundleContext.getService(rf);
-			System.out.println(module.getModuleName());
+			ServiceReference reference = bundle.getRegisteredServices()[0];
+			Module module = (Module)bundleContext.getService(reference);
 			Modul modul = new Modul();
 			modul.setNamaModul(module.getModuleName());
 			modul.setStatus(bundle.getState());
@@ -115,7 +113,7 @@ public class ModuleController {
 			modul.setVersi(bundle.getVersion().toString());
 			res = modulService.insertInto(modul);
 			if(res == null) {
-				bundle.uninstall();
+				bundle.stop();
 			}
 		} catch (BundleException e) {
 			e.printStackTrace();
@@ -124,9 +122,21 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/hapusModul", method = RequestMethod.POST)
-	public ModelAndView deleteModule(@RequestParam("idModul") String idModul) {
+	public ModelAndView deleteModule(@RequestParam("idModul") UUID idModul) {
+		System.out.println(idModul);
 		ModelAndView modelAndView = new ModelAndView();
-		
+		Modul modul = modulService.getById(idModul);
+		System.out.println(modul.getLokasiModul());
+		try {
+			Bundle bundle = bundleContext.getBundle(modul.getLokasiModul());
+			bundle.uninstall();
+			modulService.delete(modul);
+			response = new AjaxResponse("Ok", "Modul berhasil dihapus", null);
+		} catch (BundleException e) {
+			response = new AjaxResponse("Fail", "Modul gagal dihapus", null);
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("redirect:/admin/modul/");
 		return modelAndView;
 	}
 	

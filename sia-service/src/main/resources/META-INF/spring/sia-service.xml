@@ -21,9 +21,9 @@
     	<property name="penggunaRepository" ref="penggunaRepoRef"></property>
     </bean>
     
-    <bean id="peranPenggunaServiceBean" class="com.sia.main.service.services.impl.PeranPenggunaServiceImpl" >
-    	<property name="peranPenggunaRepository" ref="peranPenggunaRepoRef"></property>
-    </bean>
+<!--     <bean id="peranPenggunaServiceBean" class="com.sia.main.service.services.impl.PeranPenggunaServiceImpl" > -->
+<!--     	<property name="peranPenggunaRepository" ref="peranPenggunaRepoRef"></property> -->
+<!--     </bean> -->
     
     <bean id="peranServiceBean" class="com.sia.main.service.services.impl.PeranServiceImpl" >
     	<property name="peranRepository" ref="peranRepoRef"></property>

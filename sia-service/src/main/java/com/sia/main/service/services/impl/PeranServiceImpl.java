@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sia.main.data.repositories.PeranRepository;
@@ -24,42 +25,27 @@ public class PeranServiceImpl implements PeranService {
 	}
 
 	@Override
-	public boolean insertInto(Peran peran) {
-		boolean success = false;
-		for(Peran p : this.getAll()) {
-			if(peran.getNamaPeran().equalsIgnoreCase(p.getNamaPeran())) {
-				success = true;
-				break;
-			}
-		}
-		if(success)
+	public Peran insertInto(Peran peran) {
+		List<Peran> peranList = this.getPeranWithParam(" where namaPeran = '" + peran.getNamaPeran() + "'");
+		Peran result = null;
+		if(peranList == null || peranList.size() == 0) {
 			this.peranRepository.insertInto(peran);
-		return success;
+			result = peran;
+		}
+		return result;
 	}
 
 	@Override
-	public boolean update(Peran peran) {
-		boolean success = true;
-		int found = 0;
-		for(Peran p : this.getAll()) {
-			if(peran.getNamaPeran().equalsIgnoreCase(p.getNamaPeran())) {
-				found++;
-			}
-		}
-		if(found > 1) 
-			success = false;
-		if(success)
+	public Peran update(Peran peran) {
+		List<Peran> peranList = this.getPeranWithParam(" where namaPeran = '" + peran.getNamaPeran() + "' and idPeran != '" + peran.getIdPeran() + "'");
+		Peran result = null;
+		if(peranList == null || peranList.size() == 0) {
 			this.peranRepository.update(peran);
-		return success;
+			result = peran;
+		}
+		return result;
 	}
 	
-	@Override
-	public boolean update(String namaPeranLama, String namaPeranBaru) {
-		
-		return false;
-	}
-
-
 	@Override
 	public void delete(Peran peran) {
 		this.peranRepository.delete(peran);
@@ -73,6 +59,11 @@ public class PeranServiceImpl implements PeranService {
 	@Override
 	public Peran getById(UUID idPeran) {
 		return this.peranRepository.getById(idPeran);
+	}
+
+	@Override
+	public List<Peran> getPeranWithParam(String param) {
+		return this.peranRepository.getPeranWithParam(param);
 	}
 	
 }

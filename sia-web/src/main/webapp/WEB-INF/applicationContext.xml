@@ -25,6 +25,9 @@
     <osgi:reference id="penggunaServiceRef" interface="com.sia.main.service.services.PenggunaService" availability="mandatory">
     </osgi:reference>
     
+    <osgi:reference id="peranServiceRef" interface="com.sia.main.service.services.PeranService" availability="mandatory">
+    </osgi:reference>
+    
     <osgi:list id="modulesRef" interface="com.sia.main.plugin.modul.Module" availability="optional">
 		<osgi:reference-listener>
 			<bean class="com.sia.main.web.ModuleReferenceListener"/>

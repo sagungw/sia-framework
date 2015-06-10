@@ -5,9 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.ModulRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
@@ -46,6 +44,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 				transaction.commit();
 			} catch (Exception e) {
 				transaction.rollback();
+				e.printStackTrace();
 			}
 		} finally {
 			if(session.isOpen())
@@ -63,6 +62,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 				transaction.commit();
 			} catch (Exception e) {
 				transaction.rollback();
+				e.printStackTrace();
 			}
 		} finally {
 			if(session.isOpen())
@@ -80,6 +80,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 				transaction.commit();
 			} catch (Exception e) {
 				transaction.rollback();
+				e.printStackTrace();
 			}
 		} finally {
 			if(session.isOpen())
@@ -97,6 +98,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 				modules = session.createQuery("from Modul").list();
 			} catch (Exception e) {
 				transaction.rollback();
+				e.printStackTrace();
 			}
 		} finally {
 			if(session.isOpen())
@@ -115,6 +117,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 				modul = (Modul)session.get(Modul.class, idModul);
 			} catch (Exception e) {
 				transaction.rollback();
+				e.printStackTrace();
 			}
 		} finally {
 			if(session.isOpen())
@@ -133,6 +136,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 				modules = session.createQuery("from Modul " + queryParam).list();
 			} catch (Exception e) {
 				transaction.rollback();
+				e.printStackTrace();
 			}
 		} finally {
 			if(session.isOpen())

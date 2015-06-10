@@ -7,16 +7,16 @@ import com.sia.main.domain.Peran;
 
 public interface PeranService {
 
-	public boolean insertInto(Peran peran);
+	public Peran insertInto(Peran peran);
 
-	public boolean update(Peran peran);
-	
-	public boolean update(String namaPeranLama, String namaPeranBaru);
+	public Peran update(Peran peran);
 
 	public void delete(Peran peran);
 
 	public List<Peran> getAll();
 
 	public Peran getById(UUID idPeran);
+	
+	public List<Peran> getPeranWithParam(String param);
 	
 }

@@ -16,5 +16,7 @@ public interface PeranRepository {
 	public List<Peran> getAll();
 	
 	public Peran getById(UUID idPeran);
+
+	public List<Peran> getPeranWithParam(String param);
 	
 }

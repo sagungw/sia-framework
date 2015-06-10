@@ -57,7 +57,10 @@
 		                                        <td>${module.getVersi()}</td>
 		                                        <td>${module.getStatus()}</td>
 		                                        <td>
-		                                        	<button class="btn btn-danger">Hapus</button>
+		                                        	<form action="hapusModul" method="post">
+		                                        		<input type="text" name="idModul" hidden="true" value="${module.getIdModul()}">
+		                                        		<button type="submit" class="btn btn-danger">Hapus</button>
+		                                        	</form>
 		                                        <td>
 		                                    </tr>
 		            					</c:forEach>
