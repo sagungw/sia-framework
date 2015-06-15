@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,19 +15,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "pengguna")
 public class Pengguna {
 
 	@Id
-	@GeneratedValue(generator = "uuid-generator")
-	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type = "pg-uuid")
 	@Column(name = "id_pengguna")
 	private UUID idPengguna;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_sat_man", nullable = false)
+	@JoinColumn(name = "id_sat_man", nullable = true)
 	private SatMan satMan;
 	
 	@Column(name = "username", unique = true)
@@ -42,6 +43,9 @@ public class Pengguna {
 	
 	@Column(name = "kode_reset_password", unique = true, nullable = true)
 	private String kodeResetPassword;
+	
+	@Column(name = "nama", nullable = false)
+	private String nama;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pengguna")
 	private List<PeranPengguna> peranPenggunas = new ArrayList<PeranPengguna>();
@@ -71,7 +75,7 @@ public class Pengguna {
 		this.idPengguna = idPengguna;
 	}
 
-	public SatMan getSatuanManajemen() {
+	public SatMan getSatMan() {
 		return satMan;
 	}
 
@@ -118,5 +122,13 @@ public class Pengguna {
 	public void setPeranPenggunas(List<PeranPengguna> peranPenggunas) {
 		this.peranPenggunas = peranPenggunas;
 	}
-	
+
+	public String getNama() {
+		return nama;
+	}
+
+	public void setNama(String nama) {
+		this.nama = nama;
+	}
+
 }

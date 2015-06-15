@@ -14,9 +14,16 @@ import com.sia.main.domain.Menu;
 
 public class MenuRepositoryImpl implements MenuRepository {
 
-	@Autowired
 	private SessionFactoryManager sessionFactoryManager;
 	
+	public SessionFactoryManager getSessionFactoryManager() {
+		return sessionFactoryManager;
+	}
+
+	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
+		this.sessionFactoryManager = sessionFactoryManager;
+	}
+
 	@Transactional
 	@Override
 	public void insertInto(Menu menu) {

@@ -13,7 +13,7 @@
     
     <osgi:service id="penggunaServiceServ" interface="com.sia.main.service.services.PenggunaService" ref="penggunaServiceBean"/>
     
-<!--     <osgi:service id="peranPenggunaServiceServ" interface="com.sia.main.service.services.PeranPenggunaService" ref="peranPenggunaServiceBean"/> -->
+    <osgi:service id="peranPenggunaServiceServ" interface="com.sia.main.service.services.PeranPenggunaService" ref="peranPenggunaServiceBean"/>
     
     <osgi:service id="peranServiceServ" interface="com.sia.main.service.services.PeranService" ref="peranServiceBean"/>
     
@@ -28,7 +28,7 @@
     
     <osgi:reference id="penggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" availability="mandatory"/>
     
-<!--     <osgi:reference id="peranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" availability="mandatory"/> -->
+    <osgi:reference id="peranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" availability="mandatory"/>
     
     <osgi:reference id="peranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" availability="mandatory"/>
     

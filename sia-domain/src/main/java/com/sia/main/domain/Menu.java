@@ -30,7 +30,7 @@ public class Menu {
 	@Column(name = "nama_menu")
 	private String namaMenu;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_modul", nullable = false)
 	private Modul modul;
 

@@ -19,7 +19,7 @@
     
     <osgi:service id="penggunaRepoServ" interface="com.sia.main.data.repositories.PenggunaRepository" ref="penggunaRepoBean"/>
     
-<!--     <osgi:service id="peranPenggunaRepoServ" interface="com.sia.main.data.repositories.PeranPenggunaRepository" ref="peranPenggunaRepoBean"/> -->
+    <osgi:service id="peranPenggunaRepoServ" interface="com.sia.main.data.repositories.PeranPenggunaRepository" ref="peranPenggunaRepoBean"/>
     
     <osgi:service id="peranRepoServ" interface="com.sia.main.data.repositories.PeranRepository" ref="peranRepoBean"/>
     

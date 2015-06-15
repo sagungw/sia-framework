@@ -12,22 +12,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "menu_peran")
 public class MenuPeran {
 	
 	@Id
-	@GeneratedValue(generator = "uuid-generator")
-	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type = "pg-uuid")
 	@Column(name = "id_menu_peran")
 	private UUID idMenuPeran;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_peran", nullable = false)
 	private Peran peran;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_menu", nullable = false)
 	private Menu menu;
 

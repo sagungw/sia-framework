@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "peran_pengguna")
@@ -20,14 +21,15 @@ public class PeranPengguna {
 	@Id
 	@GeneratedValue(generator = "uuid-generator")
 	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
+	@Type(type = "pg-uuid")
 	@Column(name = "id_peran_pengguna")
 	private UUID idPeranPengguna;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_pengguna", nullable = false)
 	private Pengguna pengguna;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_peran", nullable = false)
 	private Peran peran;
 
@@ -36,6 +38,10 @@ public class PeranPengguna {
 		this.idPeranPengguna = idPeranPengguna;
 		this.pengguna = pengguna;
 		this.peran = peran;
+	}
+	
+	public PeranPengguna() {
+		
 	}
 
 	public UUID getIdPeranPengguna() {

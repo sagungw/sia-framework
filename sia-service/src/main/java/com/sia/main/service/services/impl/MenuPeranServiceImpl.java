@@ -23,13 +23,23 @@ public class MenuPeranServiceImpl implements MenuPeranService {
 	}
 	
 	@Override
-	public void insertInto(MenuPeran menuPeran) {
+	public MenuPeran insertInto(MenuPeran menuPeran) {
+		List<MenuPeran> daftarMenuPeran = this.getByParam("where peran.idPeran = '" + menuPeran.getPeran().getIdPeran() + "' and menu.idMenu = '" + menuPeran.getMenu().getIdMenu() + "'");
+		if(daftarMenuPeran != null && daftarMenuPeran.size() > 0) {
+			return null;
+		}
 		this.menuPeranRepository.insertInto(menuPeran);
+		return menuPeran;
 	}
 
 	@Override
-	public void update(MenuPeran menuPeran) {
+	public MenuPeran update(MenuPeran menuPeran) {
+		List<MenuPeran> daftarMenuPeran = this.getByParam("where peran.idPeran = '" + menuPeran.getPeran().getIdPeran() + "' and menu.idMenu = '" + menuPeran.getMenu().getIdMenu() + "' and idMenuPeran != '" + menuPeran.getIdMenuPeran() + "'");
+		if(daftarMenuPeran != null && daftarMenuPeran.size() > 0) {
+			return null;
+		}
 		this.menuPeranRepository.update(menuPeran);
+		return menuPeran;
 	}
 
 	@Override
@@ -45,6 +55,11 @@ public class MenuPeranServiceImpl implements MenuPeranService {
 	@Override
 	public MenuPeran getById(UUID idMenuPeran) {
 		return this.menuPeranRepository.getById(idMenuPeran);
+	}
+
+	@Override
+	public List<MenuPeran> getByParam(String queryParam) {
+		return this.menuPeranRepository.getByParam(queryParam);
 	}
 
 }

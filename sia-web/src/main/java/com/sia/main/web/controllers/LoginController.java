@@ -1,9 +1,12 @@
 package com.sia.main.web.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,14 +20,10 @@ public class LoginController {
 	
 	@Autowired
 	private PenggunaService penggunaService;
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		
-//		if(penggunaService != null) modelAndView.setViewName("login");
-//		else modelAndView.setViewName("redirect:/home/");
-		
 		if (session.getAttribute("userSession") == null) {
 			modelAndView.setViewName("Login");
 		} else {
@@ -33,18 +32,29 @@ public class LoginController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ModelAndView authenticate(HttpSession session, String username,
-			String password) {
+	@RequestMapping(value = "/login/{loginStatus:^false?$}", method = RequestMethod.GET)
+	public ModelAndView login(HttpSession session, @PathVariable("loginStatus") String loginStatus) {
 		ModelAndView modelAndView = new ModelAndView();
+		if (session.getAttribute("userSession") == null) {
+			boolean status = false;
+			modelAndView.addObject("status", status);
+			modelAndView.setViewName("Login");
+		} else {
+			modelAndView.setViewName("redirect:/home/");
+		}
+		return modelAndView;
+	}
 
-		Pengguna pengguna = penggunaService.getPenggunaByUsername(username);
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public ModelAndView authenticate(HttpSession session, String username, String password) {
+		ModelAndView modelAndView = new ModelAndView();
+		List<Pengguna> penggunaList = penggunaService.getByParam("where username = '" + username + "' and statusKeaktifan = true"); 
+		Pengguna pengguna = penggunaList.size() > 0 ? penggunaList.get(0) : null;
 		if (pengguna != null && pengguna.getPassword().equals(password)) {
 			session.setAttribute("userSession", pengguna);
-			modelAndView.setViewName("redirect:/home/");
+			modelAndView.setViewName("redirect:/session/pilihPeran");
 		} else {
-			session.setAttribute("loginSuccess", "false");
-			modelAndView.setViewName("redirect:/account/login");
+			modelAndView.setViewName("redirect:/account/login/false");
 		}
 		return modelAndView;
 	}

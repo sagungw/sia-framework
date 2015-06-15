@@ -25,18 +25,29 @@ public class PenggunaServiceImpl implements PenggunaService {
 	}
 
 	@Override
-	public void insertInto(Pengguna pengguna) {
+	public Pengguna insertInto(Pengguna pengguna) {
+		List<Pengguna> penggunaList = this.getByParam("where username = '" + pengguna.getUsername() + "'");
+		if(penggunaList != null && penggunaList.size() > 0) {
+			return null;
+		}
 		this.penggunaRepository.insertInto(pengguna);
+		return pengguna;
 	}
 
 	@Override
-	public void update(Pengguna pengguna) {
+	public Pengguna update(Pengguna pengguna) {
+		List<Pengguna> penggunaList = this.getByParam("where username = '" + pengguna.getUsername() + "' and idPengguna != '" + pengguna.getIdPengguna() + "'");
+		if(penggunaList != null && penggunaList.size() > 0) {
+			return null;
+		}
 		this.penggunaRepository.update(pengguna);
+		return pengguna;
 	}
 
 	@Override
-	public void delete(Pengguna pengguna) {
-		this.penggunaRepository.delete(pengguna);
+	public Pengguna delete(Pengguna pengguna) {
+		pengguna.setStatusKeaktifan(false);
+		return this.update(pengguna);
 	}
 
 	@Override
@@ -50,14 +61,8 @@ public class PenggunaServiceImpl implements PenggunaService {
 	}
 
 	@Override
-	public Pengguna getPenggunaByUsername(String username) {
-		Pengguna pengguna = null;
-		if(penggunaRepository == null) System.out.println("NULL DETECTED");
-		for(Pengguna p : this.getAll()) {
-			if(p.getUsername().equals(username))
-				pengguna = p;
-		}
-		return pengguna;
+	public List<Pengguna> getByParam(String queryParam) {
+		return this.penggunaRepository.getByParam(queryParam);
 	}
 
 }

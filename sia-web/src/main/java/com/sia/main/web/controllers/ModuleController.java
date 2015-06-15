@@ -40,7 +40,7 @@ public class ModuleController {
 	private static String temporaryModuleLocation = "C://SIA-Modul//temp";
 	
 	private AjaxResponse response = null;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView mainPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -71,8 +71,6 @@ public class ModuleController {
 					outputStream = new BufferedOutputStream(new FileOutputStream(installedFile));
 					outputStream.write(bytes);
 					outputStream.close();
-					modul.setLokasiModul("file:" + installedFile.getAbsolutePath());
-					modulService.update(modul);
 					response = new AjaxResponse("Ok", "Modul berhasil ditambah", null);
 				} else {
 					response = new AjaxResponse("Fail", "Modul gagal ditambah", null);
@@ -111,6 +109,9 @@ public class ModuleController {
 			modul.setStatus(bundle.getState());
 			modul.setUrlMapping(module.getUrlMapping());
 			modul.setVersi(bundle.getVersion().toString());
+//			modul.setIdBundle(bundle.getBundleId());
+			modul.setLokasiKonfigurasiServlet(module.getServletConfLocation());
+			modul.setNamaServlet(module.getServletName());
 			res = modulService.insertInto(modul);
 			if(res == null) {
 				bundle.stop();
@@ -125,17 +126,16 @@ public class ModuleController {
 	public ModelAndView deleteModule(@RequestParam("idModul") UUID idModul) {
 		System.out.println(idModul);
 		ModelAndView modelAndView = new ModelAndView();
-		Modul modul = modulService.getById(idModul);
-		System.out.println(modul.getLokasiModul());
-		try {
-			Bundle bundle = bundleContext.getBundle(modul.getLokasiModul());
-			bundle.uninstall();
-			modulService.delete(modul);
-			response = new AjaxResponse("Ok", "Modul berhasil dihapus", null);
-		} catch (BundleException e) {
-			response = new AjaxResponse("Fail", "Modul gagal dihapus", null);
-			e.printStackTrace();
-		}
+//		Modul modul = modulService.getById(idModul);
+//		try {
+//			Bundle bundle = bundleContext.getBundle(modul.getIdBundle());
+//			bundle.uninstall();
+//			modulService.delete(modul);
+//			response = new AjaxResponse("Ok", "Modul berhasil dihapus", null);
+//		} catch (BundleException e) {
+//			response = new AjaxResponse("Fail", "Modul gagal dihapus", null);
+//			e.printStackTrace();
+//		}
 		modelAndView.setViewName("redirect:/admin/modul/");
 		return modelAndView;
 	}

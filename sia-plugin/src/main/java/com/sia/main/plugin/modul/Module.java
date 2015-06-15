@@ -3,7 +3,7 @@ package com.sia.main.plugin.modul;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public interface Module extends Plugin, HasDomainClasses {
+public interface Module extends Plugin {
 	
 	public void setModuleName(String moduleName);
 
@@ -17,8 +17,12 @@ public interface Module extends Plugin, HasDomainClasses {
 
 	public String getUrlMapping();
 	
-	public DispatcherServlet buildServlet();
+	public String getServletConfLocation();
 	
-	public DispatcherServlet buildServlet(WebApplicationContext webApplicationContext);
+	public void buildServlet();
+	
+	public void buildServlet(WebApplicationContext webApplicationContext);
+	
+	public DispatcherServlet getServlet();
 
 }

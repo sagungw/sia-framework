@@ -16,5 +16,7 @@ public interface MenuPeranRepository {
 	public List<MenuPeran> getAll();
 
 	public MenuPeran getById(UUID idMenuPeran);
+
+	public List<MenuPeran> getByParam(String queryParam);
 	
 }

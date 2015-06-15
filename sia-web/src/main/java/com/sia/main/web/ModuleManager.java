@@ -1,5 +1,6 @@
 package com.sia.main.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import com.sia.main.service.services.ModulService;
 public class ModuleManager {
 	
 	private List<Module> modules;
+	
+	private ModulService modulService;
 	
 	private static ModuleManager instance;
 	
@@ -33,11 +36,31 @@ public class ModuleManager {
 		}
 	}
 	
+	public ModulService getModulService() {
+		return modulService;
+	}
+
+	public void setModulService(ModulService modulService) {
+		this.modulService = modulService;
+	}
+
 	public List<Module> getModules() {
 		return this.modules;
 	}
 	
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+	
+	public void addModule(Module module) {
+		if(this.modules == null) {
+			this.modules = new ArrayList<Module>();
+		}
+		System.out.println("adding module: " + module.getModuleName());
+		this.modules.add(module);
+	}
+	
+	public List<Modul> getModulesFromDb() {
+		return this.modulService.getAll();
 	}
 }

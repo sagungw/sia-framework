@@ -16,5 +16,7 @@ public interface PenggunaRepository {
 	public List<Pengguna> getAll();
 
 	public Pengguna getById(UUID idPengguna);
+	
+	public List<Pengguna> getByParam(String queryParam);
 
 }

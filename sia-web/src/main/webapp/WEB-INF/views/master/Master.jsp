@@ -7,6 +7,7 @@
 <html>
 	<head>
 		<!-- Title -->
+		<link rel="shotcut icon" href="${pageContext.servletContext.contextPath}/resources/icon.ico">
         <title>
         	<decorator:title default="Sistem Informasi Akademik"></decorator:title>
         </title>
@@ -187,28 +188,28 @@
 					
 					<!-- Module Bar -->
 					<ul class="menu accordion-menu">
-                    	<h1>${lalala}</h1>
-                        <c:if test="${sessionScope.modules != null}">
-                        	<c:forEach items="${sessionScope.modules}" var="module">
-                        	<h5>Modules</h5>
-	                        	<c:choose>
-	                        		<c:when test="${function:instanceOf(module, 'com.sia.main.plugin.modul.Accessable')}" >
-	                        			<li><a href="${module.getUrl()}" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>$module.getModuleName()</p></a></li>	                        			
-	                        		</c:when>
-	                        		<c:otherwise>
-                        				<c:if test="${function:instanceOf(module, 'com.sia.main.plugin.modul.HasMenu')}">
-                        					<li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>$module.getModuleName()</p><span class="arrow"></span></a>
-                        						<ul class="sub-menu">
-		                        					<c:forEach items="${module.getModuleMenus()}" var="moduleMenu">
-		                        						<li><a href="${moduleMenu.getUrl()}">${moduleMenu.getName()}</a></li>
-		                        					</c:forEach>
-	                        					</ul>
-                        					</li>
-                        				</c:if>
-	                        		</c:otherwise>
-	                        	</c:choose>
-	                        </c:forEach>
-                        </c:if>
+<%--                     	<h1>${lalala}</h1> --%>
+<%--                         <c:if test="${sessionScope.modules != null}"> --%>
+<%--                         	<c:forEach items="${sessionScope.modules}" var="module"> --%>
+<!--                         	<h5>Modules</h5> -->
+<%-- 	                        	<c:choose> --%>
+<%-- 	                        		<c:when test="${function:instanceOf(module, 'com.sia.main.plugin.modul.Accessable')}" > --%>
+<%-- 	                        			<li><a href="${module.getUrl()}" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>$module.getModuleName()</p></a></li>	                        			 --%>
+<%-- 	                        		</c:when> --%>
+<%-- 	                        		<c:otherwise> --%>
+<%--                         				<c:if test="${function:instanceOf(module, 'com.sia.main.plugin.modul.HasMenu')}"> --%>
+<!--                         					<li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>$module.getModuleName()</p><span class="arrow"></span></a> -->
+<!--                         						<ul class="sub-menu"> -->
+<%-- 		                        					<c:forEach items="${module.getModuleMenus()}" var="moduleMenu"> --%>
+<%-- 		                        						<li><a href="${moduleMenu.getUrl()}">${moduleMenu.getName()}</a></li> --%>
+<%-- 		                        					</c:forEach> --%>
+<!-- 	                        					</ul> -->
+<!--                         					</li> -->
+<%--                         				</c:if> --%>
+<%-- 	                        		</c:otherwise> --%>
+<%-- 	                        	</c:choose> --%>
+<%-- 	                        </c:forEach> --%>
+<%--                         </c:if> --%>
                     </ul>
 
                 </div><!-- Page Sidebar Inner -->

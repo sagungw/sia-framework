@@ -7,16 +7,16 @@ import com.sia.main.domain.Pengguna;
 
 public interface PenggunaService {
 
-	public void insertInto(Pengguna pengguna);
+	public Pengguna insertInto(Pengguna pengguna);
 
-	public void update(Pengguna pengguna);
+	public Pengguna update(Pengguna pengguna);
 
-	public void delete(Pengguna pengguna);
+	public Pengguna delete(Pengguna pengguna);
 
 	public List<Pengguna> getAll();
 
 	public Pengguna getById(UUID idPengguna);
 
-	public Pengguna getPenggunaByUsername(String username);
+	public List<Pengguna> getByParam(String queryParam);
 	
 }

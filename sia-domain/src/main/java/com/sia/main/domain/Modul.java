@@ -40,27 +40,17 @@ public class Modul {
 	@Column(name = "status", nullable = false)
 	private int status;
 	
-	@Column(name = "lokasi_modul", nullable = true)
-	private String lokasiModul;
+	@Column(name = "nama_servlet", nullable = true)
+	private String namaServlet;
+	
+	@Column(name = "lokasi_konf_servlet", nullable = true)
+	private String lokasiKonfigurasiServlet;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
 
 	public Modul(){
 		
-	}
-
-	public Modul(UUID idModul, String namaModul, String urlMapping,
-			String versi, int status, String lokasiModul,
-			List<Menu> menus) {
-		super();
-		this.idModul = idModul;
-		this.namaModul = namaModul;
-		this.urlMapping = urlMapping;
-		this.versi = versi;
-		this.status = status;
-		this.lokasiModul = lokasiModul;
-		this.menus = menus;
 	}
 
 	public UUID getIdModul() {
@@ -111,12 +101,20 @@ public class Modul {
 		this.menus = menus;
 	}
 
-	public String getLokasiModul() {
-		return lokasiModul;
+	public String getNamaServlet() {
+		return namaServlet;
 	}
 
-	public void setLokasiModul(String lokasiModul) {
-		this.lokasiModul = lokasiModul;
+	public void setNamaServlet(String namaServlet) {
+		this.namaServlet = namaServlet;
 	}
-	
+
+	public String getLokasiKonfigurasiServlet() {
+		return lokasiKonfigurasiServlet;
+	}
+
+	public void setLokasiKonfigurasiServlet(String lokasiKonfigurasiServlet) {
+		this.lokasiKonfigurasiServlet = lokasiKonfigurasiServlet;
+	}
+
 }

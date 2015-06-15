@@ -11,58 +11,136 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sia.main.data.repositories.MenuPeranRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.MenuPeran;
+import com.sia.main.domain.Pengguna;
 
 public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 
-	@Autowired
 	private SessionFactoryManager sessionFactoryManager;
+
+	public SessionFactoryManager getSessionFactoryManager() {
+		return sessionFactoryManager;
+	}
+
+	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
+		this.sessionFactoryManager = sessionFactoryManager;
+	}
 	
-	@Transactional
+	private Session getSession() {
+		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
+		System.out.println("retrieving current hibernate session");
+		if(session == null || !session.isOpen()) {
+			System.out.println("hibernate session is either null or closed. will open a new one instead");
+			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
+		}
+		return session;
+	}
+	
 	@Override
 	public void insertInto(MenuPeran menuPeran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.save(menuPeran);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.save(menuPeran);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void update(MenuPeran menuPeran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.update(menuPeran);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.update(menuPeran);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void delete(MenuPeran menuPeran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.delete(menuPeran);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.delete(menuPeran);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public List<MenuPeran> getAll() {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return session.createQuery("from MenuPeran").list();
+		final Session session = this.getSession();
+		List<MenuPeran> menuPeranList = null;
+		try{
+			session.beginTransaction();
+			try {
+				menuPeranList = session.createQuery("from MenuPeran").list();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return menuPeranList;
 	}
 
-	@Transactional
 	@Override
 	public MenuPeran getById(UUID idMenuPeran) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return(MenuPeran)session.get(MenuPeran.class, idMenuPeran);
+		final Session session = this.getSession();
+		MenuPeran menuPeran = null;
+		try{
+			session.beginTransaction();
+			try {
+				menuPeran = (MenuPeran)session.get(MenuPeran.class, idMenuPeran);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return menuPeran;
+	}
+
+	@Override
+	public List<MenuPeran> getByParam(String queryParam) {
+		final Session session = this.getSession();
+		List<MenuPeran> menuPeranList = null;
+		try{
+			session.beginTransaction();
+			try {
+				menuPeranList = session.createQuery("from MenuPeran " + queryParam).list();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return menuPeranList;
 	}
 
 }
