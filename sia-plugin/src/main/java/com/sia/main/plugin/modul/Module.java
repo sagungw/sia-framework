@@ -1,19 +1,14 @@
 package com.sia.main.plugin.modul;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public interface Module extends Plugin {
-	
-	public void setModuleName(String moduleName);
+public interface Module {
 
 	public String getModuleName();
 
-	public void setServletName(String servletName);
-
 	public String getServletName();
-
-	public void setUrlMapping(String urlMapping);
 
 	public String getUrlMapping();
 	
@@ -24,5 +19,11 @@ public interface Module extends Plugin {
 	public void buildServlet(WebApplicationContext webApplicationContext);
 	
 	public DispatcherServlet getServlet();
-
+	
+	public WebApplicationContext getWebApplicationContext();
+	
+	public void initViewResources();
+	
+	public Resource[] getViewResources();
+	
 }

@@ -13,8 +13,6 @@ public class ModuleManager {
 	
 	private List<Module> modules;
 	
-	private ModulService modulService;
-	
 	private static ModuleManager instance;
 	
 	private ModuleManager(){
@@ -28,20 +26,8 @@ public class ModuleManager {
 	}
 
 	public void init() {
-		if(modules != null) {
-			for(Module module : modules) {
-				System.out.print("Module Manager: ");
-				System.out.println(module.getModuleName());
-			}
-		}
-	}
-	
-	public ModulService getModulService() {
-		return modulService;
-	}
-
-	public void setModulService(ModulService modulService) {
-		this.modulService = modulService;
+		if(modules != null) 
+			System.out.println("ModuleManager bean instantiated");
 	}
 
 	public List<Module> getModules() {
@@ -56,11 +42,7 @@ public class ModuleManager {
 		if(this.modules == null) {
 			this.modules = new ArrayList<Module>();
 		}
-		System.out.println("adding module: " + module.getModuleName());
 		this.modules.add(module);
 	}
-	
-	public List<Modul> getModulesFromDb() {
-		return this.modulService.getAll();
-	}
+
 }

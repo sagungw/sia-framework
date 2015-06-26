@@ -24,8 +24,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.2.18.Final</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- joda time -->
 		<dependency>
@@ -64,15 +62,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>3.1.1.RELEASE</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.sia.main</groupId>
 			<artifactId>sia-plugin</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
   	</dependencies>
 </project>

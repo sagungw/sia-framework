@@ -22,14 +22,20 @@
   	
   	<dependencies>
   		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+  		<dependency>
 			<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-domain</artifactId>
-		  	<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-data</artifactId>
-		  	<version>0.0.1-SNAPSHOT</version>
 		</dependency>
   	</dependencies>
   	

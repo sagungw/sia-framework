@@ -10,10 +10,6 @@
   	<artifactId>sia-data</artifactId>
   	<packaging>jar</packaging>
   
-  	<properties>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
-	</properties>
-  
   	<build>
   		<finalName>sia-data</finalName>
   		<plugins>
@@ -33,7 +29,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -41,18 +36,12 @@
 			<version>2.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.gemini</groupId>
-			<artifactId>org.eclipse.gemini.blueprint.core</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-domain</artifactId>
-		  	<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 		  	<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-plugin</artifactId>
-		  	<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
 	</dependencies>

@@ -108,17 +108,35 @@
   	
   	<dependencyManagement>
 	  	<dependencies>
-	  		<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.core</artifactId>
-				<version>4.3.0</version>
-				<scope>provided</scope>
-			</dependency>
 	  	
 	  		<!-- spring framework -->
 	  		<dependency>
 				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
 				<version>${org.springframework-version}</version>
 				<scope>provided</scope>
 			</dependency>
@@ -130,7 +148,31 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-asm</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
+				<version>${org.springframework-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
 				<version>${org.springframework-version}</version>
 				<scope>provided</scope>
 			</dependency>
@@ -143,6 +185,20 @@
 				<scope>test</scope>
 			</dependency>
 			
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.2</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.2</version>
+				<scope>provided</scope>
+			</dependency>
+			
 			<!-- DbAccess -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -151,6 +207,13 @@
 				<scope>provided</scope>
 			</dependency>
 			
+			<!--  OSGi -->
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>4.3.0</version>
+				<scope>provided</scope>
+			</dependency>
 			<dependency>
 			    <groupId>org.eclipse.gemini</groupId>
 			    <artifactId>org.eclipse.gemini.blueprint.core</artifactId>
@@ -196,8 +259,52 @@
 			    </exclusions>
 			</dependency>
 			
+			<dependency>
+				<groupId>com.sia.main</groupId>
+			  	<artifactId>sia-domain</artifactId>
+			  	<version>0.0.1-SNAPSHOT</version>
+			  	<scope>provided</scope>
+		  	</dependency>
+		  	<dependency>
+				<groupId>com.sia.main</groupId>
+			  	<artifactId>sia-plugin</artifactId>
+			  	<version>0.0.1-SNAPSHOT</version>
+			  	<scope>provided</scope>
+		  	</dependency>
+		  	<dependency>
+				<groupId>com.sia.main</groupId>
+			  	<artifactId>sia-data</artifactId>
+			  	<version>0.0.1-SNAPSHOT</version>
+			  	<scope>provided</scope>
+		  	</dependency>
+		  	<dependency>
+				<groupId>com.sia.main</groupId>
+			  	<artifactId>sia-service</artifactId>
+			  	<version>0.0.1-SNAPSHOT</version>
+			  	<scope>provided</scope>
+		  	</dependency>
+			
 		</dependencies>
   	</dependencyManagement>
+  	
+  	<dependencies>
+  		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+  		<dependency>
+		    <groupId>org.eclipse.gemini</groupId>
+		    <artifactId>org.eclipse.gemini.blueprint.core</artifactId>
+	  	</dependency>
+	  	<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+  	</dependencies>
 
 	<modules>
 		<module>sia-plugin</module>

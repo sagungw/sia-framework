@@ -38,7 +38,6 @@
 	
 	<bean id="moduleManagerBean" class="com.sia.main.web.ModuleManager" scope="singleton" init-method="init" >
 		<property name="modules" ref="modulesRef"></property>
-		<property name="modulService" ref="modulServiceRef"></property>
 	</bean>
     	
 </beans>
