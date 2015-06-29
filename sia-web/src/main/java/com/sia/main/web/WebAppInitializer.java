@@ -29,6 +29,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 					dispatcher.setLoadOnStartup(1);
 					dispatcher.addMapping(m.getUrlMapping());
 					Resource[] resources = m.getViewResources();
+					System.out.println("web app: resource found: " + resources.length);
 					for(int i = 0; i < resources.length; i++) {
 						System.out.println("resources found");
 						System.out.println("view resource found: " + resources[i].getFilename());

@@ -1,7 +1,5 @@
 Manifest-Version: 1.0
 Webapp-Context: sia-web
-Export-Package: com.sia.main.web.servlet;uses:="com.sia.main.plugin.mo
- dul,org.springframework.web.servlet.view";version="0.0.0"
 Bundle-Classpath: .,WEB-INF/classes
 Import-Template: org.springframework.*;version="[3.0, 3.5)"
 Tool: Bnd-0.0.357
@@ -25,23 +23,23 @@ Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0",
  mapper-asl;bundle-version="1.9.10" ,com.springsource.net.sf.cglib;bun
  dle-version="2.2.0"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1435296848722
-Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
+Bnd-LastModified: 1435468329227
 Bundle-ManifestVersion: 2
+Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web
 Import-Package: com.sia.main.domain;version="0.0",com.sia.main.plugin.
- modul;version="0.0",com.sia.main.service.services;version="0.0",com.s
- ia.main.web.servlet;version="0.0",javassist.util.proxy;version="3.18"
- ,javax.servlet;version="[3.0.0,3.1.0)",javax.servlet.http;version="3.
- 0",javax.servlet.jsp.jstl.core;version="[1.2.0,2.0.0)",org.eclipse.ge
- mini.blueprint.service.importer;version="1.0",org.eclipse.virgo.web.d
- m;version="[3.0.0,4.0.0)",org.hibernate.dialect;version="4.2",org.hib
- ernate.proxy;version="4.2",org.osgi.framework;version="1.6",org.osgi.
- util.tracker;version="1.5",org.postgresql;version="9.4",org.slf4j;ver
- sion="1.7",org.springframework.beans.factory.annotation;version="3.1"
- ,org.springframework.core.io;version="3.1",org.springframework.stereo
- type;version="3.1",org.springframework.web;version="3.1",org.springfr
- amework.web.bind.annotation;version="3.1",org.springframework.web.mul
- tipart;version="3.1",org.springframework.web.servlet;version="3.1",or
- g.springframework.web.servlet.view;version="3.1"
+ modul;version="0.0",com.sia.main.service.services;version="0.0",javas
+ sist.util.proxy;version="3.18",javax.servlet;version="[3.0.0,3.1.0)",
+ javax.servlet.http;version="3.0",javax.servlet.jsp.jstl.core;version=
+ "[1.2.0,2.0.0)",org.eclipse.gemini.blueprint.service.importer;version
+ ="1.0",org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.hibernate
+ .dialect;version="4.2",org.hibernate.proxy;version="4.2",org.osgi.fra
+ mework;version="1.6",org.osgi.util.tracker;version="1.5",org.postgres
+ ql;version="9.4",org.slf4j;version="1.7",org.springframework.beans.fa
+ ctory.annotation;version="3.1",org.springframework.core.io;version="3
+ .1",org.springframework.stereotype;version="3.1",org.springframework.
+ web;version="3.1",org.springframework.web.bind.annotation;version="3.
+ 1",org.springframework.web.multipart;version="3.1",org.springframewor
+ k.web.servlet;version="3.1",org.springframework.web.servlet.view;vers
+ ion="3.1"
 

@@ -19,6 +19,7 @@ public class WebBundleActivator implements BundleActivator {
 				Module module = serviceLocator.getModuleService(0);
 				System.out.println(module.getModuleName());
 				moduleManager.addModule(module);
+				System.out.println("sia web bundle: module resources found: " + module.getViewResources().length);
 			}
 		}.start();
 	}
