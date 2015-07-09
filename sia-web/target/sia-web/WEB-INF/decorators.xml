@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/views/master">
 
-    <decorator name="master-page" page="Master.jsp">
+<!--     <decorator name="admin-master-page" page="AdminMaster.jsp"> -->
+<!--         <pattern>/*</pattern> -->
+<!--     </decorator> -->
+    
+    <decorator name="module-master-page" page="ModuleMaster.jsp">
         <pattern>/*</pattern>
     </decorator>
     

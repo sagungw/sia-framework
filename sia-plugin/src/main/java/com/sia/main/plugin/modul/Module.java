@@ -1,6 +1,8 @@
 package com.sia.main.plugin.modul;
 
-import org.springframework.core.io.Resource;
+import java.io.File;
+import java.util.List;
+
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -20,10 +22,8 @@ public interface Module {
 	
 	public DispatcherServlet getServlet();
 	
-	public WebApplicationContext getWebApplicationContext();
+	public File[] getViewResources();
 	
-	public void initViewResources();
-	
-	public Resource[] getViewResources();
+	public List<byte[]> getViewResourcesInBytes();
 	
 }

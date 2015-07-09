@@ -3,11 +3,7 @@ package com.sia.main.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.sia.main.domain.Modul;
 import com.sia.main.plugin.modul.Module;
-import com.sia.main.service.services.ModulService;
 
 public class ModuleManager {
 	
@@ -23,11 +19,6 @@ public class ModuleManager {
 			ModuleManager.instance = new ModuleManager();
 		}
 		return ModuleManager.instance;
-	}
-
-	public void init() {
-		if(modules != null) 
-			System.out.println("ModuleManager bean instantiated");
 	}
 
 	public List<Module> getModules() {

@@ -32,11 +32,11 @@
     
     <osgi:list id="modulesRef" interface="com.sia.main.plugin.modul.Module" availability="optional">
 		<osgi:reference-listener>
-			<bean class="com.sia.main.web.ModuleReferenceListener"/>
+			<bean class="com.sia.main.web.osgi.ModuleReferenceListener"/>
 		</osgi:reference-listener>
 	</osgi:list>
 	
-	<bean id="moduleManagerBean" class="com.sia.main.web.ModuleManager" scope="singleton" init-method="init" >
+	<bean id="moduleManagerBean" class="com.sia.main.web.ModuleManager" scope="singleton">
 		<property name="modules" ref="modulesRef"></property>
 	</bean>
     	

@@ -1,75 +1,51 @@
 package com.sia.main.plugin.modul.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.sia.main.plugin.ModuleServiceManager;
 import com.sia.main.plugin.modul.Module;
 
-public class ModuleViewResolver extends InternalResourceViewResolver {
+public class ModuleViewResolver implements ViewResolver {
 	
-	private String moduleName;
+	private Module module;
 	
-	private Map<String, String> viewMap;
+	public ModuleViewResolver(){
+		super();
+	}
 	
-	private String viewType;
+	public void init() {
+		
+	}
 	
-	public String getModuleName() {
-		return moduleName;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
-	}
-
-	public String getViewType() {
-		return viewType;
-	}
-
-	public void setViewType(String viewType) {
-		this.viewType = viewType;
-	}
-	
-	public void buildViewMap() {
-		System.out.println("building view map . . .");
-		ModuleServiceManager moduleManager = ModuleServiceManager.getInstance();
-		System.out.println("finding corresponding module . . .");
-		boolean found = false;
-		for(Module m : moduleManager.getModules()) {
-			if(m.getModuleName().equals(this.moduleName)) {
-				found = true;
-				System.out.println("corresponding module found");
-				System.out.println("module name: " + m.getModuleName());
-				System.out.println("module servlet name: " + m.getServletName());
-				System.out.println("view resources found: " + m.getViewResources().length);
-				System.out.println("retrieving resources from module. . .");
-				for(Resource resource : m.getViewResources()) {
-					try {
-						this.viewMap.put(resource.getURL().toString(), resource.getURL().toString());
-						System.out.println("resource added to view map: " + resource.getURL().toString());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				System.out.println("view map is succesfully built");
-				break;
-			}
-		}
-		if(!found) {
-			System.out.println("corresponding module not found");
-		}
+	public void setModule(Module module) {
+		this.module = module;
 	}
 	
 	@Override
-	protected AbstractUrlBasedView buildView(String viewName) throws Exception {
-		InternalResourceView view = (InternalResourceView) super.buildView(viewName);
-		this.buildViewMap();
+	public View resolveViewName(String viewName, Locale locale) throws Exception {
+		InternalResourceView view = new InternalResourceView();
+		File[] files = this.module.getViewResources();
+		for(File file: files) {
+			String completeFileName = file.getName();
+			String fileName = completeFileName.split("\\.")[0];
+			if(viewName.equals(fileName)) {
+				view.setUrl(file.getCanonicalPath());
+				break;
+			} 
+		}
 		return view;
 	}
 

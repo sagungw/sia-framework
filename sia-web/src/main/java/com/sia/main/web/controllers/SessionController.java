@@ -37,12 +37,16 @@ public class SessionController {
 			Pengguna pengguna = (Pengguna)session.getAttribute("userSession");
 			String queryParam = "where pengguna.idPengguna = '" +  pengguna.getIdPengguna() + "'";
 			List<PeranPengguna> peranPenggunaList = this.peranPenggunaService.getByParam(queryParam);
-			if(peranPenggunaList.size() > 1) {
-				modelAndView.setViewName("PilihPeran");
-				modelAndView.addObject("peranList", peranPenggunaList);	
+			if(peranPenggunaList .size() > 0) {
+				if(peranPenggunaList.size() > 1) {
+					modelAndView.setViewName("PilihPeran");
+					modelAndView.addObject("peranList", peranPenggunaList);	
+				} else {
+					session.setAttribute("roleSession", peranPenggunaList.get(0).getPeran());
+					modelAndView.setViewName("redirect:/pilihModul");												//----->>>>>> PERLU GANTI
+				}
 			} else {
-				session.setAttribute("roleSession", peranPenggunaList.get(0).getPeran());
-				modelAndView.setViewName("redirect:/pilihModul");												//----->>>>>> PERLU GANTI
+				modelAndView = null;
 			}
 		}
 		return modelAndView;
