@@ -44,7 +44,6 @@ public class Peran {
 	}
 
 	public Peran() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public UUID getIdPeran() {

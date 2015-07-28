@@ -15,21 +15,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "menu")
 public class Menu {
 
 	@Id
-	@GeneratedValue(generator = "uuid-generator")
-	@GenericGenerator(name = "uuid-generator", strategy = "uuid2")
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type = "pg-uuid")
 	@Column(name = "id_menu")
 	private UUID idMenu;
-	
-	@Column(name = "nama_menu")
+
+	@Column(name = "nama_menu", nullable = false)
 	private String namaMenu;
-	
+
+	@Column(name = "url_pattern", nullable = false)
+	private String urlPattern;
+
+	@Column(name = "home_url", nullable = false)
+	private String homeUrl;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_modul", nullable = false)
 	private Modul modul;
@@ -37,10 +44,16 @@ public class Menu {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
 	private List<MenuPeran> menuPerans = new ArrayList<MenuPeran>();
 
-	protected Menu(UUID idMenu, String namaMenu, Modul modul,
-			List<MenuPeran> menuPerans) {
+	public Menu() {
+		
+	}
+	
+	protected Menu(UUID idMenu, String namaMenu, String urlPattern,
+			String homeUrl, Modul modul, List<MenuPeran> menuPerans) {
 		this.idMenu = idMenu;
 		this.namaMenu = namaMenu;
+		this.urlPattern = urlPattern;
+		this.homeUrl = homeUrl;
 		this.modul = modul;
 		this.menuPerans = menuPerans;
 	}
@@ -61,6 +74,22 @@ public class Menu {
 		this.namaMenu = namaMenu;
 	}
 
+	public String getUrlPattern() {
+		return urlPattern;
+	}
+
+	public void setUrlPattern(String urlPattern) {
+		this.urlPattern = urlPattern;
+	}
+
+	public String getHomeUrl() {
+		return homeUrl;
+	}
+
+	public void setHomeUrl(String homeUrl) {
+		this.homeUrl = homeUrl;
+	}
+
 	public Modul getModul() {
 		return modul;
 	}
@@ -76,5 +105,5 @@ public class Menu {
 	public void setMenuPerans(List<MenuPeran> menuPerans) {
 		this.menuPerans = menuPerans;
 	}
-	
+
 }

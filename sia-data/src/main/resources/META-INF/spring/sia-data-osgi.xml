@@ -4,7 +4,7 @@
    xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"                
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
-
+    
     <osgi:reference id="hibernateConfigurationRef" interface="com.sia.main.plugin.persistence.HibernateConfiguration" availability="optional" timeout="5000" >
     	<osgi:reference-listener>
     		<bean class="com.sia.main.data.sessionfactory.HibernateConfigReferenceListener"></bean>
@@ -24,5 +24,7 @@
     <osgi:service id="peranRepoServ" interface="com.sia.main.data.repositories.PeranRepository" ref="peranRepoBean"/>
     
     <osgi:service id="satuanManajemenRepoServ" interface="com.sia.main.data.repositories.SatuanManajemenRepository" ref="satuanManajemenRepoBean"/>
+    
+    <osgi:service id="statusPluginRepoServ" interface="com.sia.main.data.repositories.StatusPluginRepository" ref="statusPluginRepoBean"/>
     
 </beans>

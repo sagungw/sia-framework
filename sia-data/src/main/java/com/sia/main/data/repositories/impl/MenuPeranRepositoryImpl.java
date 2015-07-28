@@ -5,14 +5,13 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import com.sia.main.data.repositories.MenuPeranRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.MenuPeran;
-import com.sia.main.domain.Pengguna;
 
+@Repository
 public class MenuPeranRepositoryImpl implements MenuPeranRepository {
 
 	private SessionFactoryManager sessionFactoryManager;

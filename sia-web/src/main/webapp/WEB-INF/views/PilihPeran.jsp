@@ -45,7 +45,7 @@
                             <div class="login-box">
                                 <a href="index.html" class="logo-name text-lg text-center">Sistem Informasi Akademik</a>
                                 <p class="text-center m-t-md">Pilih Hak Akses</p>
-                                <form class="m-t-md" method="post" action="${pageContext.servletContext.contextPath}/session/pilihPeran/">
+                                <form id="formPeran" class="m-t-md" method="post" action="${pageContext.servletContext.contextPath}/session/pilihPeran/">
                                     <div class="form-group">
                                     	<select name="idPeran" class="form-control">
                                     		<c:forEach items="${peranList}" var="peran">
@@ -63,7 +63,6 @@
             </div><!-- Page Inner -->
         </div><!-- Page Content -->
 	
-
         <!-- Javascripts -->
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -78,7 +77,7 @@
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/main.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/js/modern.min.js"></script>
-        
+
     </body>
     
 </html>

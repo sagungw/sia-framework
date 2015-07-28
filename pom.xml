@@ -176,7 +176,15 @@
 				<version>${org.springframework-version}</version>
 				<scope>provided</scope>
 			</dependency>
-	  	
+			
+			<!-- Servlet -->
+		  	<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+		
 			<!-- Test -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -204,6 +212,12 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>4.2.18.Final</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-dbcp2</artifactId>
+				<version>2.1</version>
 				<scope>provided</scope>
 			</dependency>
 			
@@ -259,6 +273,7 @@
 			    </exclusions>
 			</dependency>
 			
+			<!-- SIA -->
 			<dependency>
 				<groupId>com.sia.main</groupId>
 			  	<artifactId>sia-domain</artifactId>

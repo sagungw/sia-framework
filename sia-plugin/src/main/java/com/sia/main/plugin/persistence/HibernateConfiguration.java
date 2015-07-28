@@ -4,9 +4,7 @@ import java.util.Properties;
 
 import org.hibernate.cfg.Configuration;
 
-import com.sia.main.plugin.modul.Plugin;
-
-public interface HibernateConfiguration extends Plugin{
+public interface HibernateConfiguration {
 
 	public void setConfigurationProperties();
 	

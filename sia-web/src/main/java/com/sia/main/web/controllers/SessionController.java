@@ -28,7 +28,7 @@ public class SessionController {
 	@Autowired
 	private PeranService peranService;
 	
-	@RequestMapping(value = "/pilihPeran", method = RequestMethod.GET)
+	@RequestMapping(value = "/chooseUserRole", method = RequestMethod.GET)
 	public ModelAndView showAvailableRole(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (session.getAttribute("userSession") == null) {
@@ -40,10 +40,10 @@ public class SessionController {
 			if(peranPenggunaList .size() > 0) {
 				if(peranPenggunaList.size() > 1) {
 					modelAndView.setViewName("PilihPeran");
-					modelAndView.addObject("peranList", peranPenggunaList);	
+					modelAndView.addObject("peranList", peranPenggunaList);
 				} else {
 					session.setAttribute("roleSession", peranPenggunaList.get(0).getPeran());
-					modelAndView.setViewName("redirect:/pilihModul");												//----->>>>>> PERLU GANTI
+					modelAndView.setViewName("redirect:/chooseModule");												
 				}
 			} else {
 				modelAndView = null;
@@ -52,12 +52,12 @@ public class SessionController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/pilihPeran/", method = RequestMethod.POST)
+	@RequestMapping(value = "/chooseUserRole/", method = RequestMethod.POST)
 	public ModelAndView submitRole(HttpSession session, @RequestParam("idPeran") UUID idPeran) {
 		ModelAndView modelAndView = new ModelAndView();
 		Peran peran = peranService.getById(idPeran);
 		session.setAttribute("roleSession", peran);
-		modelAndView.setViewName("redirect:/pilihModul");												//----->>>>>> PERLU GANTI
+		modelAndView.setViewName("redirect:/chooseModule");												
 		return modelAndView;
 	}
 	

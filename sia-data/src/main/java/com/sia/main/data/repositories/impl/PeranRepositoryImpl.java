@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.sia.main.data.repositories.PeranRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
-import com.sia.main.domain.Modul;
 import com.sia.main.domain.Peran;
 
 @Repository

@@ -9,14 +9,14 @@ public interface ModulService {
 
 	public Modul insertInto(Modul modul);
 
-	public void update(Modul modul);
+	public Modul update(Modul modul);
 
-	public void delete(Modul modul);
+	public Modul delete(Modul modul);
 
 	public List<Modul> getAll();
 
 	public Modul getById(UUID idModul);
 	
-	public List<Modul> getModuleWithParam(String queryParam);
+	public List<Modul> getByParam(String queryParam);
 	
 }

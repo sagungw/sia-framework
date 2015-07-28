@@ -175,43 +175,9 @@
                     <ul class="menu accordion-menu">
                         <li><a href="index.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
                         <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Profile</p></a></li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-envelope"></span><p>Mailbox</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="inbox.html">Inbox</a></li>
-                                <li><a href="message-view.html">View Message</a></li>
-                                <li><a href="compose.html">Compose</a></li>
-                            </ul>
-                        </li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-briefcase"></span><p>UI Kits</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="ui-alerts.html">Alerts</a></li>
-                                <li><a href="ui-buttons.html">Buttons</a></li>
-                                <li><a href="ui-icons.html">Icons</a></li>
-                                <li><a href="ui-typography.html">Typography</a></li>
-                                <li><a href="ui-notifications.html">Notifications</a></li>
-                                <li><a href="ui-grid.html">Grid</a></li>
-                                <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                                <li><a href="ui-modals.html">Modals</a></li>
-                                <li><a href="ui-panels.html">Panels</a></li>
-                                <li><a href="ui-progress.html">Progress Bars</a></li>
-                                <li><a href="ui-nestable.html">Nestable</a></li>
-                                <li><a href="ui-tree-view.html">Tree View</a></li>
-                            </ul>
-                        </li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-th"></span><p>Layouts</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="layout-blank.html">Blank Page</a></li>
-                                <li><a href="layout-boxed.html">Boxed Page</a></li>
-                                <li><a href="layout-horizontal-menu.html">Horizontal Menu</a></li>
-                                <li><a href="layout-horizontal-menu-boxed.html">Boxed &amp; Horizontal Menu</a></li>
-                                <li><a href="layout-horizontal-menu-minimal.html">Horizontal Menu Minimal</a></li>
-                                <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
-                                <li><a href="layout-static-header.html">Static Header</a></li>
-                                <li><a href="layout-collapsed-sidebar.html">Collapsed Sidebar</a></li>
-                                <li class="active"><a href="layout-compact-menu.html">Compact Menu</a></li>
-                                <li><a href="layout-hover-menu.html">Hover Menu</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon glyphicon-th"></span><p>Modul</p></a></li>
+                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Pengguna</p></a></li>
+                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon glyphicon-eye-open"></span><p>Hak Akses</p></a></li>
                     </ul>
                 </div><!-- Page Sidebar Inner -->
             </div><!-- Page Sidebar -->

@@ -30,6 +30,12 @@
     <osgi:reference id="menuPeranServiceRef" interface="com.sia.main.service.services.MenuPeranService" availability="mandatory">
     </osgi:reference>
     
+    <osgi:reference id="statusPluginServiceRef" interface="com.sia.main.service.services.StatusPluginService" availability="mandatory">
+    </osgi:reference>
+    
+    <osgi:reference id="menuServiceRef" interface="com.sia.main.service.services.MenuService" availability="mandatory">
+    </osgi:reference>
+    
     <osgi:list id="modulesRef" interface="com.sia.main.plugin.modul.Module" availability="optional">
 		<osgi:reference-listener>
 			<bean class="com.sia.main.web.osgi.ModuleReferenceListener"/>

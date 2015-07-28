@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.sia.main.data.repositories.ModulRepository;
@@ -13,6 +15,8 @@ import com.sia.main.domain.Modul;
 
 @Repository
 public class ModulRepositoryImpl implements ModulRepository{
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private SessionFactoryManager sessionFactoryManager;
 	
@@ -26,9 +30,10 @@ public class ModulRepositoryImpl implements ModulRepository{
 
 	private Session getSession() {
 		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
-		System.out.println("retrieving current hibernate session");
 		if(session == null || !session.isOpen()) {
-			System.out.println("hibernate session is either null or closed. will open a new one instead");
+			if(this.logger.isInfoEnabled()) {
+				this.logger.info("hibernate session is either null or closed. will open a new one instead");
+			}
 			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
 		}
 		return session;
@@ -127,7 +132,7 @@ public class ModulRepositoryImpl implements ModulRepository{
 	}
 
 	@Override
-	public List<Modul> getModuleWithParam(String queryParam) {
+	public List<Modul> getByParam(String queryParam) {
 		final Session session = this.getSession();
 		List<Modul> modules = null;
 		try{

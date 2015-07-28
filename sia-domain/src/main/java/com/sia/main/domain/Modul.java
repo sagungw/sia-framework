@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
-import com.sia.main.plugin.modul.Module;
 
 @Entity
 @Table(name = "modul")
@@ -37,20 +37,30 @@ public class Modul {
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
-	@Column(name = "status", nullable = false)
-	private int status;
-	
-	@Column(name = "nama_servlet", nullable = true)
-	private String namaServlet;
-	
 	@Column(name = "lokasi_konf_servlet", nullable = true)
 	private String lokasiKonfigurasiServlet;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "status_modul", nullable = false)
+	private StatusPlugin status;
+	
 	public Modul(){
-		
+	}
+
+	public Modul(UUID idModul, String namaModul, String urlMapping,
+			String versi, String lokasiKonfigurasiServlet, List<Menu> menus,
+			StatusPlugin status) {
+		super();
+		this.idModul = idModul;
+		this.namaModul = namaModul;
+		this.urlMapping = urlMapping;
+		this.versi = versi;
+		this.lokasiKonfigurasiServlet = lokasiKonfigurasiServlet;
+		this.menus = menus;
+		this.status = status;
 	}
 
 	public UUID getIdModul() {
@@ -85,12 +95,12 @@ public class Modul {
 		this.versi = versi;
 	}
 
-	public int getStatus() {
+	public StatusPlugin getStatus() {
 		return status;
 	}
 
-	public void setStatus(int i) {
-		this.status = i;
+	public void setStatus(StatusPlugin statusPlugin) {
+		this.status = statusPlugin;
 	}
 
 	public List<Menu> getMenus() {
@@ -99,14 +109,6 @@ public class Modul {
 
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
-	}
-
-	public String getNamaServlet() {
-		return namaServlet;
-	}
-
-	public void setNamaServlet(String namaServlet) {
-		this.namaServlet = namaServlet;
 	}
 
 	public String getLokasiKonfigurasiServlet() {

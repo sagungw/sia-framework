@@ -4,10 +4,6 @@
    xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"  
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
-
-	<bean id="sessionFactoryManagerBean" class="com.sia.main.data.sessionfactory.SessionFactoryManager" scope="singleton">
-		<property name="securitySessionFactoryConfiguration" ref="hibernateConfigurationRef"></property>
-	</bean>
     
     <bean id="menuPeranRepoBean" class="com.sia.main.data.repositories.impl.MenuPeranRepositoryImpl">
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
@@ -36,5 +32,9 @@
     <bean id="satuanManajemenRepoBean" class="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
 	</bean>
-    
+	
+	<bean id="statusPluginRepoBean" class="com.sia.main.data.repositories.impl.StatusPluginRepositoryImpl" >
+		<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
+	</bean>
+	
 </beans>

@@ -1,28 +1,20 @@
 package com.sia.main.data.sessionfactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import com.sia.main.domain.MenuPeran;
-import com.sia.main.domain.Menu;
-import com.sia.main.domain.Modul;
-import com.sia.main.domain.Pengguna;
-import com.sia.main.domain.Peran;
-import com.sia.main.domain.PeranPengguna;
-import com.sia.main.domain.SatMan;
 import com.sia.main.plugin.persistence.HibernateConfiguration;
 
 public class SessionFactoryManager {
 
 	private static SessionFactoryManager instance;
+
+	private HibernateConfiguration securitySessionFactoryConfiguration;
 	
 	private SessionFactory securitySessionFactory;
 	
-	private HibernateConfiguration securitySessionFactoryConfiguration;
+	private Class[] annotatedDomainClasses;
 	
 	private SessionFactoryManager() {
 	}
@@ -34,29 +26,6 @@ public class SessionFactoryManager {
 		return SessionFactoryManager.instance;
 	}
 	
-	private void buildSecuritySessionFactory(HibernateConfiguration hibernateConfiguration, List<Class> domainClasses) {
-		for(Class clazz : domainClasses) {
-			this.securitySessionFactoryConfiguration.getConfiguration().addAnnotatedClass(clazz);
-		}
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(this.securitySessionFactoryConfiguration.getConfiguration().getProperties()).buildServiceRegistry();
-		this.securitySessionFactory = this.securitySessionFactoryConfiguration.getConfiguration().buildSessionFactory(serviceRegistry);
-	}
-	
-	public SessionFactory getSecuritySessionFactory() {
-		if(this.securitySessionFactory == null) {
-			List<Class> domainClasses = new ArrayList<Class>();
-			domainClasses.add(MenuPeran.class);
-			domainClasses.add(Menu.class);
-			domainClasses.add(Modul.class);
-			domainClasses.add(Pengguna.class);
-			domainClasses.add(Peran.class);
-			domainClasses.add(PeranPengguna.class);
-			domainClasses.add(SatMan.class);
-			this.buildSecuritySessionFactory(this.securitySessionFactoryConfiguration, domainClasses);
-		}
-		return this.securitySessionFactory;		
-	}
-
 	public HibernateConfiguration getSecuritySessionFactoryConfiguration() {
 		return securitySessionFactoryConfiguration;
 	}
@@ -66,6 +35,31 @@ public class SessionFactoryManager {
 		this.securitySessionFactoryConfiguration = securitySessionFactoryConfiguration;
 	}
 	
+	public void setSecuritySessionFactory(SessionFactory securitySessionFactory) {
+		this.securitySessionFactory = securitySessionFactory;
+	}
 	
+	public SessionFactory getSecuritySessionFactory() {
+		if(this.securitySessionFactory == null) {
+			this.buildSecuritySessionFactory(this.securitySessionFactoryConfiguration, this.annotatedDomainClasses);
+		}
+		return this.securitySessionFactory;		
+	}
+	
+	public Class[] getAnnotatedDomainClasses() {
+		return annotatedDomainClasses;
+	}
+
+	public void setAnnotatedDomainClasses(Class[] annotatedDomainClasses) {
+		this.annotatedDomainClasses = annotatedDomainClasses;
+	}
+	
+	private void buildSecuritySessionFactory(HibernateConfiguration hibernateConfiguration, Class[] domainClasses) {
+		for(Class clazz : domainClasses) {
+			this.securitySessionFactoryConfiguration.getConfiguration().addAnnotatedClass(clazz);
+		}
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(this.securitySessionFactoryConfiguration.getConfiguration().getProperties()).buildServiceRegistry();
+		this.securitySessionFactory = this.securitySessionFactoryConfiguration.getConfiguration().buildSessionFactory(serviceRegistry);
+	}
 	
 }

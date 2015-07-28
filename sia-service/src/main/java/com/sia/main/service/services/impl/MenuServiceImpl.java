@@ -23,18 +23,21 @@ public class MenuServiceImpl implements MenuService  {
 	}
 
 	@Override
-	public void insertInto(Menu menu) {
+	public Menu insertInto(Menu menu) {
 		this.menuRepository.insertInto(menu);
+		return menu;
 	}
 
 	@Override
-	public void update(Menu menu) {
+	public Menu update(Menu menu) {
 		this.menuRepository.update(menu);
+		return menu;
 	}
 
 	@Override
-	public void delete(Menu menu) {
+	public Menu delete(Menu menu) {
 		this.menuRepository.delete(menu);
+		return menu;
 	}
 
 	@Override
@@ -45,6 +48,12 @@ public class MenuServiceImpl implements MenuService  {
 	@Override
 	public Menu getById(UUID idMenu) {
 		return this.menuRepository.getById(idMenu);
+	}
+
+	@Override
+	public List<Menu> getByParam(String queryParam) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

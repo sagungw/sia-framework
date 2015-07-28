@@ -17,5 +17,5 @@ public interface ModulRepository {
 
 	public Modul getById(UUID idModul);
 	
-	public List<Modul> getModuleWithParam(String queryParam);
+	public List<Modul> getByParam(String queryParam);
 }

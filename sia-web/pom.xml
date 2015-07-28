@@ -34,6 +34,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
@@ -122,7 +127,7 @@
 		<dependency>
 		    <groupId>com.sia.main</groupId>
 		    <artifactId>sia-service</artifactId>
-		</dependency>
+		</dependency>		
 		
 	</dependencies>
   	

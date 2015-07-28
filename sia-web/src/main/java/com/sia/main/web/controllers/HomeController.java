@@ -22,7 +22,7 @@ import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.ModulService;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/home")
 public class HomeController {
 
 	@Autowired
@@ -31,38 +31,38 @@ public class HomeController {
 	@Autowired
 	private ModulService modulService;
 	
-	@RequestMapping(value = "pilihModul", method = RequestMethod.GET)
+	@RequestMapping(value = "/chooseModule", method = RequestMethod.GET)
 	public ModelAndView showModule(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.getAttribute("userSession") == null) {
-			modelAndView.setViewName("redirect:/account/login");
-		}
-		Peran peran = (Peran) session.getAttribute("roleSession");
-		List<MenuPeran> roleMenus = this.menuPeranService.getByParam("where peran.idPeran = '" + peran.getIdPeran() + "'");
-		List<Modul> moduleList = new ArrayList<Modul>();
-		Map<Modul, Integer> map = new HashMap<>();
-		
-		for(MenuPeran menuPeran : roleMenus) {
-			map.put(menuPeran.getMenu().getModul(), 0);
-		}
-		
-		for (Map.Entry<Modul, Integer> entry : map.entrySet()) {
-			moduleList.add(entry.getKey());
-		}
-		
-		session.setAttribute("menuListSession", roleMenus);
-		session.setAttribute("moduleListSession", moduleList);
-		if(moduleList.size() > 1) {
-			modelAndView.addObject("moduleList", moduleList);
-			modelAndView.setViewName("PilihModul");
-		} else {
-			session.setAttribute("moduleSession", moduleList.get(0));
-			modelAndView.setViewName("redirect:/account/login");                 //-----------> PERLU GANTI
-		}
+//		if(session.getAttribute("userSession") == null) {
+//			modelAndView.setViewName("redirect:/account/login");
+//		}
+//		Peran peran = (Peran) session.getAttribute("roleSession");
+//		List<MenuPeran> roleMenus = this.menuPeranService.getByParam("where peran.idPeran = '" + peran.getIdPeran() + "'");
+//		List<Modul> moduleList = new ArrayList<Modul>();
+//		Map<Modul, Integer> map = new HashMap<>();
+//		
+//		for(MenuPeran menuPeran : roleMenus) {
+//			map.put(menuPeran.getMenu().getModul(), 0);
+//		}
+//		
+//		for (Map.Entry<Modul, Integer> entry : map.entrySet()) {
+//			moduleList.add(entry.getKey());
+//		}
+//		
+//		session.setAttribute("menuListSession", roleMenus);
+//		session.setAttribute("moduleListSession", moduleList);
+//		if(moduleList.size() > 1) {
+//			modelAndView.addObject("moduleList", moduleList);
+//			modelAndView.setViewName("PilihModul");
+//		} else {
+//			session.setAttribute("moduleSession", moduleList.get(0));
+//			modelAndView.setViewName("redirect:/account/login");                 //-----------> PERLU GANTI
+//		}
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "pilihModul/", method = RequestMethod.POST)
+	@RequestMapping(value = "/chooseModule/", method = RequestMethod.POST)
 	public ModelAndView chooseModule(HttpSession session, @RequestParam("idModul") UUID idModul) {
 		ModelAndView modelAndView = new ModelAndView();
 		Modul modul = this.modulService.getById(idModul);

@@ -26,15 +26,25 @@
 			<artifactId>hibernate-core</artifactId>
 	  	</dependency>
 	  	<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+		</dependency>
+	  	<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-web</artifactId>
+			<version>1.2.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		
   	</dependencies>
 	
 </project>

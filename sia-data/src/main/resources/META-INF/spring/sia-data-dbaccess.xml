@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"                               
+   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   	xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"  
+   	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+   		http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+   		
+   	<bean id="sessionFactoryManagerBean" class="com.sia.main.data.sessionfactory.SessionFactoryManager" scope="singleton">
+		<property name="securitySessionFactoryConfiguration" ref="hibernateConfigurationRef"></property>
+		<property name="annotatedDomainClasses">
+			<array>
+				<value>com.sia.main.domain.Menu</value>
+				<value>com.sia.main.domain.MenuPeran</value>
+				<value>com.sia.main.domain.Modul</value>
+				<value>com.sia.main.domain.Pengguna</value>
+				<value>com.sia.main.domain.Peran</value>
+				<value>com.sia.main.domain.PeranPengguna</value>
+				<value>com.sia.main.domain.Plugin</value>
+				<value>com.sia.main.domain.SatMan</value>
+				<value>com.sia.main.domain.StatusPlugin</value>
+			</array>
+		</property>
+	</bean>
+
+</beans>

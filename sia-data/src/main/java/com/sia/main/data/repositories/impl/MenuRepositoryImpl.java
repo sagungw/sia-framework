@@ -5,13 +5,13 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import com.sia.main.data.repositories.MenuRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Menu;
 
+@Repository
 public class MenuRepositoryImpl implements MenuRepository {
 
 	private SessionFactoryManager sessionFactoryManager;
@@ -23,52 +23,104 @@ public class MenuRepositoryImpl implements MenuRepository {
 	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
 		this.sessionFactoryManager = sessionFactoryManager;
 	}
+	
+	private Session getSession() {
+		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
+		System.out.println("retrieving current hibernate session");
+		if(session == null || !session.isOpen()) {
+			System.out.println("hibernate session is either null or closed. will open a new one instead");
+			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
+		}
+		return session;
+	}
 
-	@Transactional
 	@Override
 	public void insertInto(Menu menu) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.save(menu);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.save(menu);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void update(Menu menu) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.update(menu);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.update(menu);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public void delete(Menu menu) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		session.delete(menu);
-		transaction.commit();
+		final Session session = this.getSession();
+		try{
+			final Transaction transaction = session.beginTransaction();
+			try {
+				session.delete(menu);
+				transaction.commit();
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
 	}
 
-	@Transactional
 	@Override
 	public List<Menu> getAll() {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return session.createQuery("from Menu").list();
+		final Session session = this.getSession();
+		List<Menu> menuList = null;
+		try{
+			session.beginTransaction();
+			try {
+				menuList = session.createQuery("from Menu").list();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return menuList;
 	}
 
-	@Transactional
 	@Override
 	public Menu getById(UUID idMenu) {
-		Session session = sessionFactoryManager.getSecuritySessionFactory()
-				.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		return (Menu)session.get(Menu.class, idMenu);
+		final Session session = this.getSession();
+		Menu menu = null;
+		try{
+			session.beginTransaction();
+			try {
+				menu = (Menu)session.get(Menu.class, idMenu);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return menu;
 	}
 }

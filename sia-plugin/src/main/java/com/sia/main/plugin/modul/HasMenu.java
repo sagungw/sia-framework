@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface HasMenu {
 
-	public List<ModuleMenu> getModuleMenus();
+	public List<Menu> getMenus();
 
 }

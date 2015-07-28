@@ -5,7 +5,7 @@ Import-Template: org.springframework.*;version="[3.0, 3.5)"
 Tool: Bnd-0.0.357
 Import-Library: org.springframework.spring;version="[3.0, 3.5)"
 Bundle-Name: sia-web
-Created-By: 1.7.0_51 (Oracle Corporation)
+Created-By: 1.7.0_80 (Oracle Corporation)
 Web-ContextPath: sia-web
 Import-Bundle: com.springsource.org.apache.taglibs.standard;version="[
  1.1.2,1.3)", com.springsource.com.opensymphony.sitemesh;version="2.4.
@@ -23,7 +23,7 @@ Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0",
  mapper-asl;bundle-version="1.9.10" ,com.springsource.net.sf.cglib;bun
  dle-version="2.2.0"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1436453596429
+Bnd-LastModified: 1438066234639
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web
@@ -38,7 +38,7 @@ Import-Package: com.sia.main.domain;version="0.0",com.sia.main.plugin.
  ql;version="9.4",org.springframework.beans.factory.annotation;version
  ="3.1",org.springframework.stereotype;version="3.1",org.springframewo
  rk.web;version="3.1",org.springframework.web.bind.annotation;version=
- "3.1",org.springframework.web.multipart;version="3.1",org.springframe
- work.web.servlet;version="3.1",org.springframework.web.servlet.view;v
- ersion="3.1"
+ "3.1",org.springframework.web.filter;version="3.1",org.springframewor
+ k.web.multipart;version="3.1",org.springframework.web.servlet;version
+ ="3.1",org.springframework.web.servlet.view;version="3.1"
 

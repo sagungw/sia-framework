@@ -7,14 +7,16 @@ import com.sia.main.domain.Menu;
 
 public interface MenuService {
 
-	public void insertInto(Menu menu);
+	public Menu insertInto(Menu menu);
 
-	public void update(Menu menu);
+	public Menu update(Menu menu);
 
-	public void delete(Menu menu);
+	public Menu delete(Menu menu);
 
 	public List<Menu> getAll();
 
 	public Menu getById(UUID idMenu);
+	
+	public List<Menu> getByParam(String queryParam);
 	
 }

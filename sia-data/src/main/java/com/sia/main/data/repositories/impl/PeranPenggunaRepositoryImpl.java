@@ -5,16 +5,17 @@ import java.util.UUID;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.repositories.PeranPenggunaRepository;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
-import com.sia.main.domain.Peran;
 import com.sia.main.domain.PeranPengguna;
 
+@Repository
 public class PeranPenggunaRepositoryImpl implements PeranPenggunaRepository {
 
-private SessionFactoryManager sessionFactoryManager;
+	private SessionFactoryManager sessionFactoryManager;
 	
 	public SessionFactoryManager getSessionFactoryManager() {
 		return sessionFactoryManager;
