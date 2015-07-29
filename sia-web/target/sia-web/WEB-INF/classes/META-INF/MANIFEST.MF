@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
-Webapp-Context: sia-web
 Bundle-Classpath: .,WEB-INF/classes
 Import-Template: org.springframework.*;version="[3.0, 3.5)"
 Tool: Bnd-0.0.357
@@ -23,7 +22,7 @@ Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0",
  mapper-asl;bundle-version="1.9.10" ,com.springsource.net.sf.cglib;bun
  dle-version="2.2.0"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1438066234639
+Bnd-LastModified: 1438150546020
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web

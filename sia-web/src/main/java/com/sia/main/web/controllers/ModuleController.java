@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.osgi.framework.Bundle;
@@ -13,16 +15,21 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.plugin.modul.Module;
+import com.sia.main.plugin.modul.StandardMenu;
+import com.sia.main.plugin.modul.StandardModule;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.StatusPluginService;
@@ -55,8 +62,6 @@ public class ModuleController {
 	
 	private boolean isInUploadWizard = false;
 	
-	private AjaxResponse response = null;
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView mainPage() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -66,43 +71,75 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/1", method = RequestMethod.GET)
-	public ModelAndView uploadWizard1() {
+	public ModelAndView uploadWizard1(@ModelAttribute("response") AjaxResponse response) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("TambahModul1");
+		
 		this.isInUploadWizard = true;
-		if(response != null) {
-			modelAndView.addObject("response", response);
-			if(response.getData() != null) {
-				modelAndView.addObject("modul", (Modul)response.getData());
-			}
-		}
+//		if(response != null) {
+//			System.out.println("module uploaded");
+//			modelAndView.addObject("response", response);
+//			if(response.getData() != null) {
+//				modelAndView.addObject("modul", (Modul)response.getData());
+//				modelAndView.setViewName("TambahModul1");
+//			}
+//		}
+		modelAndView.setViewName("TambahModul1");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/uploadWizard/2",  method = RequestMethod.GET)
+	public ModelAndView uploadWizard2(@ModelAttribute("response") String response) {
+		ModelAndView modelAndView = new ModelAndView();
+		System.out.println("response : " + response);
+		modelAndView.addObject("response", response);
+		modelAndView.setViewName("TambahModul2");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/uploadWizard/1/upload", method = RequestMethod.POST)
 	public ModelAndView uploadModule(@RequestParam("file") Object file) {
 		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("redirect:/uploadWizard/1");
 		MultipartFile multipartFile = (MultipartFile) file;
+		AjaxResponse response = null;
 		try {
-			File tempFile = this.getFile(temporaryModuleLocation, multipartFile.getOriginalFilename());
-			byte[] bytes = multipartFile.getBytes();
-			BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(tempFile));
-			outputStream.write(bytes);
-			outputStream.close();
-			
-			Modul modul = this.installModule(tempFile.getAbsolutePath());
-			if(modul != null) { 
-				File installedFile = this.getFile(installedModuleLocation, multipartFile.getOriginalFilename());
-				outputStream = new BufferedOutputStream(new FileOutputStream(installedFile));
-				outputStream.write(bytes);
-				outputStream.close();
-				response = success;
-				response.setData(modul);
-			} else {
-				response = existed;
+//			File tempFile = this.getFile(temporaryModuleLocation, multipartFile.getOriginalFilename());
+//			byte[] bytes = multipartFile.getBytes();
+//			BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(tempFile));
+//			outputStream.write(bytes);
+//			outputStream.close();
+//			
+//			Modul modul = this.installModule(tempFile.getAbsolutePath());
+//			if(modul != null) { 
+//				File installedFile = this.getFile(installedModuleLocation, multipartFile.getOriginalFilename());
+//				outputStream = new BufferedOutputStream(new FileOutputStream(installedFile));
+//				outputStream.write(bytes);
+//				outputStream.close();
+//				response = success;
+//				response.setData(modul);
+//			} else {
+//				response = existed;
+//			}
+//			Files.deleteIfExists(tempFile.toPath());
+			List<com.sia.main.plugin.modul.Menu> menus = new ArrayList<com.sia.main.plugin.modul.Menu>();
+			menus.add(new StandardMenu("test1", "/test1/", "/test1/*"));
+			menus.add(new StandardMenu("test2", "/test2/", "/test2/*"));
+			menus.add(new StandardMenu("test3", "/test3/", "/test3/*"));
+			Module module = new StandardModule("", "", menus, "test", "/test/", "/META-INF/spring/module-test-servlet.xml", "WEB-INF/views/");
+			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
+			Modul modul = new Modul();
+			modul.setNamaModul(module.getModuleName());
+			modul.setUrlMapping(module.getUrlMapping());
+			modul.setVersi(module.getPluginVersion());
+			modul.setLokasiKonfigurasiServlet(module.getServletConfigurationPath());
+			modul.setStatus(statusPlugin);
+			for(com.sia.main.plugin.modul.Menu i : module.getMenus()) {
+				Menu menu = new Menu();
+				menu.setNamaMenu(i.getMenuName());
+				menu.setHomeUrl(i.getUrl());
+				menu.setUrlPattern(i.getUrlPattern());
+				menu.setModul(modul);
 			}
-			Files.deleteIfExists(tempFile.toPath());
+			response = exception;
 		} catch (NullPointerException e) {
 			response = exception;
 			e.printStackTrace();
@@ -110,6 +147,8 @@ public class ModuleController {
 			response = exception;
 			e.printStackTrace();
 		}
+		modelAndView.setViewName("TambahModul1");
+		modelAndView.addObject("response", response);
 		return modelAndView;
 	}
 	

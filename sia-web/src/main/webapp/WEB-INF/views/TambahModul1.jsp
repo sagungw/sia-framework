@@ -5,32 +5,6 @@
 
 <title>Tambah Modul</title>
 
-<c:if test="${response.getStatus() == 'exception' || response.getStatus() == 'existed'}" >
-	<script>
-		toastr.options = {
-			  "closeButton": true,
-			  "debug": false,
-			  "newestOnTop": false,
-			  "progressBar": false,
-			  "positionClass": "toast-top-right",
-			  "preventDuplicates": false,
-			  "onclick": null,
-			  "showDuration": "300",
-			  "hideDuration": "1000",
-			  "timeOut": "5000",
-			  "extendedTimeOut": "1000",
-			  "showEasing": "swing",
-			  "hideEasing": "linear",
-			  "showMethod": "fadeIn",
-			  "hideMethod": "fadeOut"
-			}
-		$(document).ready(function () {
-			var msg = ${response.getMessage()};
-			toastr["error"](msg);
-		});
-	</script>
-</c:if>
-
 <div class="row" id="masterpage">
 	<div class="col-md-12">
 		<div id="panel-unggah" class="panel panel-white">
@@ -51,6 +25,8 @@
 				    	</form>
 			    	</div>
 		    	</div>
+		    	
+		    	<button type="button" class="btn btn-success" id="asdf">asdf</button>
 		    	
 		    	<c:if test="${response.getStatus() == 'success'}">
 			    	<div id="upload-ket" class="row">
@@ -94,3 +70,76 @@
 		
 	</div>
 </div>
+
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/pace-master/pace.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/classie.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/main.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/main.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/modern.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
+
+<script>
+		$(document).ready(function () {
+			
+			toastr.options = {
+					  "closeButton": true,
+					  "debug": false,
+					  "newestOnTop": false,
+					  "progressBar": false,
+					  "positionClass": "toast-top-right",
+					  "preventDuplicates": false,
+					  "onclick": null,
+					  "showDuration": "300",
+					  "hideDuration": "1000",
+					  "timeOut": "5000",
+					  "extendedTimeOut": "1000",
+					  "showEasing": "swing",
+					  "hideEasing": "linear",
+					  "showMethod": "fadeIn",
+					  "hideMethod": "fadeOut"
+					}
+			
+			$("#asdf").click(function () {
+				toastr["error"]("asdfasdfasdfasdfasdf");
+			});
+		});
+	</script>
+
+<c:if test="${response.getStatus() == 'exception' || response.getStatus() == 'existed'}" >
+	<script>
+		$(document).ready(function () {
+			alert("asdasdasd");
+			toastr.options = {
+					  "closeButton": true,
+					  "debug": false,
+					  "newestOnTop": false,
+					  "progressBar": false,
+					  "positionClass": "toast-top-right",
+					  "preventDuplicates": false,
+					  "onclick": null,
+					  "showDuration": "300",
+					  "hideDuration": "1000",
+					  "timeOut": "5000",
+					  "extendedTimeOut": "1000",
+					  "showEasing": "swing",
+					  "hideEasing": "linear",
+					  "showMethod": "fadeIn",
+					  "hideMethod": "fadeOut"
+					}
+			var msg = "${response.getMessage()}";
+			toastr["error"](msg);
+			$('#asdf').click(function () {
+				toastr["error"]("asdfasdfasdfasdfasdf");
+			});
+		});
+	</script>
+</c:if>

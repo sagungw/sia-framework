@@ -4,7 +4,7 @@ Export-Package: com.sia.main.domain;uses:="org.hibernate.annotations,j
 Bundle-Version: 0.0.1.SNAPSHOT
 Tool: Bnd-0.0.357
 Bundle-Name: sia-domain
-Bnd-LastModified: 1438066230909
+Bnd-LastModified: 1438130545660
 Created-By: 1.7.0_80 (Oracle Corporation)
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.sia.main.sia-domain
