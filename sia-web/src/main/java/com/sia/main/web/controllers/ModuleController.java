@@ -16,9 +16,11 @@ import org.osgi.framework.ServiceReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,13 +28,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
+import com.sia.main.domain.Peran;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.plugin.modul.Module;
 import com.sia.main.plugin.modul.StandardMenu;
 import com.sia.main.plugin.modul.StandardModule;
+import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
+import com.sia.main.service.services.PeranService;
 import com.sia.main.service.services.StatusPluginService;
+import com.sia.main.web.jsonmodel.RoleMenus;
 import com.sia.main.web.utils.AjaxResponse;
 
 @Controller
@@ -40,10 +46,16 @@ import com.sia.main.web.utils.AjaxResponse;
 public class ModuleController {
 	
 	@Autowired
+	private PeranService peranService;
+	
+	@Autowired
 	private ModulService modulService;
 	
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private MenuPeranService menuPeranService;
 	
 	@Autowired
 	private StatusPluginService statusPluginService;
@@ -87,15 +99,6 @@ public class ModuleController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/uploadWizard/2",  method = RequestMethod.GET)
-	public ModelAndView uploadWizard2(@ModelAttribute("response") String response) {
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("response : " + response);
-		modelAndView.addObject("response", response);
-		modelAndView.setViewName("TambahModul2");
-		return modelAndView;
-	}
-	
 	@RequestMapping(value = "/uploadWizard/1/upload", method = RequestMethod.POST)
 	public ModelAndView uploadModule(@RequestParam("file") Object file) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -124,22 +127,27 @@ public class ModuleController {
 			menus.add(new StandardMenu("test1", "/test1/", "/test1/*"));
 			menus.add(new StandardMenu("test2", "/test2/", "/test2/*"));
 			menus.add(new StandardMenu("test3", "/test3/", "/test3/*"));
-			Module module = new StandardModule("", "", menus, "test", "/test/", "/META-INF/spring/module-test-servlet.xml", "WEB-INF/views/");
+			Module module = new StandardModule("", "1.0", menus, "test", "/test/", "/META-INF/spring/module-test-servlet.xml", "WEB-INF/views/");
 			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
 			Modul modul = new Modul();
+			modul.setIdModul(UUID.randomUUID());
 			modul.setNamaModul(module.getModuleName());
 			modul.setUrlMapping(module.getUrlMapping());
 			modul.setVersi(module.getPluginVersion());
 			modul.setLokasiKonfigurasiServlet(module.getServletConfigurationPath());
 			modul.setStatus(statusPlugin);
+			List<Menu> menuList = new ArrayList<Menu>();
 			for(com.sia.main.plugin.modul.Menu i : module.getMenus()) {
 				Menu menu = new Menu();
 				menu.setNamaMenu(i.getMenuName());
 				menu.setHomeUrl(i.getUrl());
 				menu.setUrlPattern(i.getUrlPattern());
 				menu.setModul(modul);
+				menuList.add(menu);
 			}
-			response = exception;
+			modul.setMenus(menuList);
+			response = success;
+			response.setData(modul);
 		} catch (NullPointerException e) {
 			response = exception;
 			e.printStackTrace();
@@ -149,7 +157,26 @@ public class ModuleController {
 		}
 		modelAndView.setViewName("TambahModul1");
 		modelAndView.addObject("response", response);
+		modelAndView.addObject("modul", (Modul)response.getData());
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/uploadWizard/2",  method = RequestMethod.POST)
+	public ModelAndView uploadWizard2(@RequestParam("modul") String idModul) {
+		ModelAndView modelAndView = new ModelAndView();
+		List<Menu> menus = menuService.getByParam("where modul.idModul = '" + idModul + "'");
+		List<Peran> perans = peranService.getAll();
+		modelAndView.addObject("roles", perans);
+		modelAndView.addObject("menus", menus);
+		modelAndView.setViewName("TambahModul2");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/uploadWizard/2/submit",  method = RequestMethod.POST)
+	public @ResponseBody String saveMenus(@RequestBody RoleMenus roleMenus) {
+		System.out.println("role id: " + roleMenus.getRoleId());
+		System.out.println("role menus: " + roleMenus.getRoleMenus());
+		return "success";
 	}
 	
 	private File getFile(String path, String fileName) {

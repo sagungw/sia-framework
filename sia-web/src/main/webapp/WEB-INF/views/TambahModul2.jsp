@@ -3,13 +3,126 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	<p>${response}</p>
-</body>
-</html>
+<title>Tambah Modul</title>
+
+<div class="row" id="masterpage">
+	<div class="col-md-12">
+		<div id="panel-unggah" class="panel panel-white">
+			<div class="panel-heading clearfix">
+				<h4 class="panel-title">Unggah Modul</h4>
+			</div>
+			<div class="panel-body">
+				<div class="progress progress-sm m-t-sm">
+					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;"></div>
+				</div>
+				<div class="row">
+				
+					<div id="role-list" class="col-md-6">
+		                <div class="dd" id="nestable">
+		                    <ol class="dd-list">
+		                        <li class="dd-item" data-id="1">
+		                            <div id="r1" class="dd-handle role-item" style="cursor: pointer;">Pendidik</div>
+		                        </li>
+		                        <li class="dd-item" data-id="2">
+		                            <div id="r2" class="dd-handle role-item" style="cursor: pointer;">Peserta Didik</div>
+		                        </li>
+		                        <li class="dd-item" data-id="3">
+		                            <div id="r3" class="dd-handle role-item" style="cursor: pointer;">Tenaga Kependidikan</div>
+		                        </li>
+		                    </ol>
+		                </div>
+		            </div>
+		            
+		            <div id="menu-list" class="col-md-6" style="display: none;">
+		                <div class="dd" id="nestable">
+		                    <ol class="dd-list">
+		                        <li class="dd-item" data-id="1">
+		                            <div id="m1" class="dd-handle role-menu" style="cursor: pointer;">Menu 1</div>
+		                        </li>
+		                        <li class="dd-item" data-id="2">
+		                            <div id="m2" class="dd-handle role-menu" style="cursor: pointer;">Menu 2</div>
+		                        </li>
+		                        <li class="dd-item" data-id="3">
+		                            <div id="m3" class="dd-handle role-menu" style="cursor: pointer;">Menu 3</div>
+		                        </li>
+		                        <li class="dd-item" data-id="4">
+		                            <div id="m4" class="dd-handle role-menu" style="cursor: pointer;">Menu 4</div>
+		                        </li>
+		                        <li class="dd-item" data-id="5">
+		                            <div id="m5" class="dd-handle role-menu" style="cursor: pointer;">Menu 5</div>
+		                        </li>
+		                        <li class="dd-item" data-id="6">
+		                            <div id="m6" class="dd-handle role-menu" style="cursor: pointer;">Menu 6</div>
+		                        </li>
+		                    </ol>
+		                </div>
+		            </div>
+		            
+		            <div class="col-md-12">
+		            	<button id="btn-submit" type="button" class="btn btn-info">Simpan</button>
+		            </div>
+		            
+	            </div>
+			</div>		
+		</div>
+	</div>
+</div>
+
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+
+<script>
+    var selectedRole = null;
+    var roles = [];
+
+    $(".role-item").click(function() {
+        $(".dd-handle").css({"background-color": "#fafafa", "color": "#333"});
+        $("#menu-list").css("display", "");
+        var idRole = $(this).attr("id");
+        if(! roles[idRole]) {
+            roles[idRole] = [];
+        } 
+        selectedRole = idRole;
+        $(this).css({"background-color": "#12AFCB", "color": "white"});
+        for(var index = 0; index < roles[idRole].length; index++) {
+            var idMenu = roles[idRole][index];
+            $("#" + idMenu + "").css({"background-color": "#12AFCB", "color": "white"});
+        }
+    });
+
+    $(".role-menu").click(function() {
+        if(selectedRole != null) {
+            var idMenu = $(this).attr("id");
+            if($.inArray(idMenu, roles[selectedRole]) == -1) {
+                roles[selectedRole].push(idMenu);   
+                $(this).css({"background-color": "#12AFCB", "color": "white"});
+            } else {
+                var index = $.inArray(idMenu, roles[selectedRole]);
+                roles[selectedRole].splice(index, 1);
+                $(this).css({"background-color": "#fafafa", "color": "#333"});
+            }
+        }
+    });
+    
+    $("#btn-submit").click(function() {
+    	if(selectedRole != null) {
+    		var contextPath = "${pageContext.servletContext.contextPath}";
+    		$(".role-item").each(function() {
+    			var id = $(this).attr("id");
+    			var json = {roleId: id, roleMenus: roles[id]};
+    			$.ajax({
+    				url: contextPath + "/admin/module/uploadWizard/2/submit",
+    				type: 'POST',
+    				contentType: 'application/json',
+    				data: JSON.stringify(json),
+    				success: function() {
+       					console.log("menu saved");
+       			 	}
+       			});
+    		});
+    	}
+    });
+</script>
