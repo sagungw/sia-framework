@@ -12,6 +12,7 @@
     <excludes>
     	<pattern>/account/*</pattern>
     	<pattern>/session/pilihPeran</pattern>
+    	<pattern>/example/*</pattern>
     </excludes>
     
 </decorators>

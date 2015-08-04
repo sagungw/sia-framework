@@ -9,13 +9,20 @@
 	<div class="col-md-12">
 		<div id="panel-unggah" class="panel panel-white">
 			<div class="panel-heading clearfix">
-				<h4 class="panel-title">Unggah Modul</h4>
+				<h4 class="panel-title">Tambah Modul</h4>
 			</div>
 			<div class="panel-body">
 				<div class="progress progress-sm m-t-sm">
-					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;"></div>
+					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
 				</div>
-				<div class="row">
+				
+				<div id="assignment-row" class="row">
+				
+					<div class="col-md-12">
+			    		<p>
+                           	<strong>Tambah Hak Akses</strong>
+                        </p>
+			    	</div>
 				
 					<div id="role-list" class="col-md-6">
 		                <div class="dd" id="nestable">
@@ -63,6 +70,56 @@
 		            </div>
 		            
 	            </div>
+	            
+	            <div id="detail-row" class="row">
+	            	<div class="col-md-12">
+			    		<p>
+                           	<strong>Keterangan Modul</strong>
+                        </p>
+			    	</div>
+			    	
+			    	<div class="col-md-6">
+			    		<p>
+			    			Nama Modul: ${modul.getNamaModul()}<br>
+			    			Url Modul: ${modul.getUrlMapping()}<br>
+			    			Versi: ${modul.getVersi()}<br>
+						</p>
+					</div>
+					
+	                <div class="col-md-6">
+	                	<table class="table table-striped">
+	                		<thead>
+	                			<tr>
+	                				<th>Menu</th>
+	                				<th>Peran</th>
+	                           	</tr>
+	                       	</thead>
+	                       	<tbody>
+	                       		<c:forEach items="${modul.getMenus()}" var="menu">
+	                            	<tr>
+	                                	<td>${menu.getNamaMenu()}</td>
+	                            	</tr>
+	                            	<tr>
+	                                	<td>
+	                                		<ul>
+		                                		<c:forEach items="${menu.getMenuPerans()}" var="menuPeran">
+		                                			<li>${menuPeran.getPeran().getNamaPeran()}</li>
+		                                		</c:forEach>
+	                                		</ul>
+	                                	</td>
+	                            	</tr>
+	                           	</c:forEach>
+	                       	</tbody>
+	                  	</table>
+	            	</div>
+	            	
+	            	<div class="col-md-12">
+		            	<button id="btn-done" type="button" class="btn btn-success">Selesai</button>
+		            	<button id="btn-back" type="button" class="btn btn-success">Kembali</button>
+		            </div>
+	            	
+	            </div>
+	            
 			</div>		
 		</div>
 	</div>
@@ -123,6 +180,14 @@
        			 	}
        			});
     		});
+    		$("#detail-row").css("display", "");
+    		$("#assignment-row").css("display", "none");
     	}
     });
+    
+    $("#btn-back").click(function() {
+    	$("#detail-row").css("display", "none");
+		$("#assignment-row").css("display", "");
+    });
+    
 </script>

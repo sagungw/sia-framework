@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sia.main.domain.Menu;
+import com.sia.main.domain.MenuPeran;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.Peran;
 import com.sia.main.domain.StatusPlugin;
@@ -38,7 +41,7 @@ import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PeranService;
 import com.sia.main.service.services.StatusPluginService;
-import com.sia.main.web.jsonmodel.RoleMenus;
+import com.sia.main.web.jsonmodel.RoleMenu;
 import com.sia.main.web.utils.AjaxResponse;
 
 @Controller
@@ -60,19 +63,15 @@ public class ModuleController {
 	@Autowired
 	private StatusPluginService statusPluginService;
 	
-	private static BundleContext bundleContext;
-	
 	private static String installedModuleLocation = "D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules//installed";
 	
 	private static String temporaryModuleLocation = "D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules//temp";
 	
-	private static AjaxResponse exception = new AjaxResponse("exception", "Java Exception caught upon uploading", null);
+	private static String success = "success";
 	
-	private static AjaxResponse existed = new AjaxResponse("existed", "url mapping sudah digunakan modul lain", null);
+	private static String existed = "existed";
 	
-	private static AjaxResponse success = new AjaxResponse("success", "modul berhasil ditambah", null);
-	
-	private boolean isInUploadWizard = false;
+	private static String exception = "exception";
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView mainPage() {
@@ -83,18 +82,8 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/1", method = RequestMethod.GET)
-	public ModelAndView uploadWizard1(@ModelAttribute("response") AjaxResponse response) {
+	public ModelAndView uploadWizard1() {
 		ModelAndView modelAndView = new ModelAndView();
-		
-		this.isInUploadWizard = true;
-//		if(response != null) {
-//			System.out.println("module uploaded");
-//			modelAndView.addObject("response", response);
-//			if(response.getData() != null) {
-//				modelAndView.addObject("modul", (Modul)response.getData());
-//				modelAndView.setViewName("TambahModul1");
-//			}
-//		}
 		modelAndView.setViewName("TambahModul1");
 		return modelAndView;
 	}
@@ -146,13 +135,13 @@ public class ModuleController {
 				menuList.add(menu);
 			}
 			modul.setMenus(menuList);
-			response = success;
+			response = new AjaxResponse(success, "modul berhasil ditambah", null);
 			response.setData(modul);
 		} catch (NullPointerException e) {
-			response = exception;
+			response = new AjaxResponse(exception, "modul gagal ditambah", null);
 			e.printStackTrace();
 		} catch (Exception e) {
-			response = exception;
+			response = new AjaxResponse(exception, "modul gagal ditambah", null);
 			e.printStackTrace();
 		}
 		modelAndView.setViewName("TambahModul1");
@@ -173,10 +162,22 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/2/submit",  method = RequestMethod.POST)
-	public @ResponseBody String saveMenus(@RequestBody RoleMenus roleMenus) {
-		System.out.println("role id: " + roleMenus.getRoleId());
-		System.out.println("role menus: " + roleMenus.getRoleMenus());
-		return "success";
+	public @ResponseBody AjaxResponse saveMenus(@RequestBody RoleMenu roleMenu) {
+		MenuPeran result = null;
+		for (String menuId : roleMenu.getRoleMenus()) {
+			Menu menu = menuService.getById(UUID.fromString(menuId));
+			Peran peran = peranService.getById(UUID.fromString(roleMenu.getRoleId()));
+			MenuPeran menuPeran = new MenuPeran(null, peran, menu);
+			result = menuPeranService.insertInto(menuPeran);
+			if(result == null) {
+				break;
+			}
+		}
+		if(result != null) {
+			return new AjaxResponse(success, "hak akses menu berhasil ditambah", result); 
+		} else {
+			return new AjaxResponse(existed, "hak akses menu gagal ditambah", result);
+		}
 	}
 	
 	private File getFile(String path, String fileName) {
@@ -189,7 +190,7 @@ public class ModuleController {
 	
 	private Modul installModule(String filePath) {
 		Modul res = null;
-		bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+		BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
 		filePath = "file:" + filePath;
 		try {
 			Bundle bundle = bundleContext.installBundle(filePath);

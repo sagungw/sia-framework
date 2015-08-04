@@ -33,10 +33,13 @@ public class MenuPeran {
 	@JoinColumn(name = "id_menu", nullable = false)
 	private Menu menu;
 
-	protected MenuPeran(UUID idMenuPeran, Peran peran, Menu menu) {
+	public MenuPeran(UUID idMenuPeran, Peran peran, Menu menu) {
 		this.peran = peran;
 		this.menu = menu;
 		this.idMenuPeran = idMenuPeran;
+	}
+
+	public MenuPeran() {
 	}
 
 	public UUID getIdMenuPeran() {
