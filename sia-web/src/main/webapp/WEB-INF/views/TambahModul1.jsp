@@ -35,13 +35,13 @@
 		    	
 		    	<c:if test="${response.getStatus() == 'success'}">
 			    	<div id="upload-ket" class="row">
-			    		<div class="col-md-12">
-				    		<p>Modul dengan nama yang sama akan diperbarui</p>
-				    	</div>
 				    	<div class="col-md-12">
 				    		<p>
                             	<strong>Keterangan Modul</strong>
                             </p>
+				    	</div>
+				    	<div class="col-md-12">
+				    		<p>Modul dengan nama yang sama akan diperbarui</p>
 				    	</div>
 						<div class="col-md-6">
                             <p>

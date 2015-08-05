@@ -154,8 +154,8 @@ public class ModuleController {
 	public ModelAndView uploadWizard2(@RequestParam("modul") String idModul) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Menu> menus = menuService.getByParam("where modul.idModul = '" + idModul + "'");
-		List<Peran> perans = peranService.getAll();
-		modelAndView.addObject("roles", perans);
+		List<Peran> roles = peranService.getAll();
+		modelAndView.addObject("roles", roles);
 		modelAndView.addObject("menus", menus);
 		modelAndView.setViewName("TambahModul2");
 		return modelAndView;
