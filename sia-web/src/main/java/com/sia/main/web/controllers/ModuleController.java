@@ -41,6 +41,7 @@ import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PeranService;
 import com.sia.main.service.services.StatusPluginService;
+import com.sia.main.web.ModuleManager;
 import com.sia.main.web.jsonmodel.RoleMenu;
 import com.sia.main.web.utils.AjaxResponse;
 
@@ -243,22 +244,25 @@ public class ModuleController {
 		return res;
 	}
 	
-	@RequestMapping(value = "/hapusModul", method = RequestMethod.POST)
-	public ModelAndView deleteModule(@RequestParam("idModul") UUID idModul) {
-		System.out.println(idModul);
-		ModelAndView modelAndView = new ModelAndView();
-//		Modul modul = modulService.getById(idModul);
-//		try {
-//			Bundle bundle = bundleContext.getBundle(modul.getIdBundle());
-//			bundle.uninstall();
-//			modulService.delete(modul);
-//			response = new AjaxResponse("Ok", "Modul berhasil dihapus", null);
-//		} catch (BundleException e) {
-//			response = new AjaxResponse("Fail", "Modul gagal dihapus", null);
-//			e.printStackTrace();
-//		}
-		modelAndView.setViewName("redirect:/admin/modul/");
-		return modelAndView;
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody AjaxResponse deleteModule(@RequestParam("idModul") String idModul) {
+		Modul modul = modulService.getById(UUID.fromString(idModul));
+		AjaxResponse response = null;
+		try {
+			BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+			Bundle bundle = bundleContext.getBundle(modul.getOsgiBundleId());
+			ServiceReference reference =  bundle.getRegisteredServices()[0];
+			Module module = (Module)bundleContext.getService(reference);
+			bundle.uninstall();
+			ModuleManager moduleManager = ModuleManager.getInstance();
+			moduleManager.removeModule(module.getModuleName());
+			modulService.delete(modul);
+			response = new AjaxResponse("Ok", "Modul berhasil dihapus", null);
+		} catch (BundleException e) {
+			response = new AjaxResponse("Fail", "Modul gagal dihapus", null);
+			e.printStackTrace();
+		}
+		return response;
 	}
 	
 }

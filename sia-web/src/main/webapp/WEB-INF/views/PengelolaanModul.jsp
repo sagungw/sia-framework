@@ -18,12 +18,6 @@
 		    </div>
 		    
 		    <div class="panel-body">
-		    	
-		    	<form enctype="multipart/form-data" id="uploadForm" action="unggahModul" method="post">
-		    		<input id="fileInput" type="file" accept=".jar, .war" name="file"/>
-		    		<br/>
-		        	<button type="submit" class="btn btn-success m-b-sm" id="addModuleBtn">Tambah</button>
-		    	</form>
 		        
 		        <div class="table-responsive">
 		        	
@@ -58,9 +52,10 @@
 		                                        <td>${module.getStatus()}</td>
 		                                        <td>
 		                                        	<form action="hapusModul" method="post">
-		                                        		<input type="text" name="idModul" hidden="true" value="${module.getIdModul()}">
-		                                        		<button type="submit" class="btn btn-danger">Hapus</button>
+		                                        		<input type="text" id="txt-delete" name="idModul" hidden="true" value="${module.getIdModul()}">
+		                                        		<button type="submit" id="btn-delete" class="btn btn-danger">Hapus</button>
 		                                        	</form>
+
 		                                        <td>
 		                                    </tr>
 		            					</c:forEach>
@@ -80,12 +75,19 @@
 		</div>
 	</div>
 </div>
-<c:if test="${commandResult != null}">
-	<script>
-		var commandResult = {
-			status : "${commandResult.status}",
-			message : "${commandResult.message}"
-		};
-	</script>
-</c:if>
-<script src="${pageContext.servletContext.contextPath}/resources/js/app/pengelolaan_modul.js"></script>
+<script>
+	$("#btn-delete").click(function(event) {
+		event.preventDefault();
+		var idModul = $("#txt-delete").val();
+		var data = {"idModul": idModul};
+		$.ajax({
+			url: contextPath + "/admin/module/delete",
+			type: 'POST',
+			data: data,
+			success: function(result) {
+			 	}
+			});
+	});
+
+</script>
+

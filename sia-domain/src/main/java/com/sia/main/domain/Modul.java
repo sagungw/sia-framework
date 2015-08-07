@@ -47,12 +47,15 @@ public class Modul {
 	@JoinColumn(name = "status_modul", nullable = false)
 	private StatusPlugin status;
 	
+	@Column(name = "ogi_bundle_id", nullable = false)
+	private String osgiBundleId; 
+	
 	public Modul(){
 	}
 
 	public Modul(UUID idModul, String namaModul, String urlMapping,
 			String versi, String lokasiKonfigurasiServlet, List<Menu> menus,
-			StatusPlugin status) {
+			StatusPlugin status, String osgiBundleId) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
@@ -61,6 +64,7 @@ public class Modul {
 		this.lokasiKonfigurasiServlet = lokasiKonfigurasiServlet;
 		this.menus = menus;
 		this.status = status;
+		this.osgiBundleId = osgiBundleId;
 	}
 
 	public UUID getIdModul() {
@@ -117,6 +121,14 @@ public class Modul {
 
 	public void setLokasiKonfigurasiServlet(String lokasiKonfigurasiServlet) {
 		this.lokasiKonfigurasiServlet = lokasiKonfigurasiServlet;
+	}
+
+	public String getOsgiBundleId() {
+		return osgiBundleId;
+	}
+
+	public void setOsgiBundleId(String osgiBundleId) {
+		this.osgiBundleId = osgiBundleId;
 	}
 
 }

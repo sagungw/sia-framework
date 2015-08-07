@@ -35,5 +35,21 @@ public class ModuleManager {
 		}
 		this.modules.add(module);
 	}
+	
+	public void removeModule(String moduleName) {
+		int index = 0;
+		boolean found = false;
+		for(Module module: this.modules) {
+			if(module.getModuleName().equals(moduleName)) {
+				found = true;
+				break;
+			} else {
+				index++;
+			}
+		}
+		if(found) {
+			this.modules.remove(index);
+		}		
+	}
 
 }
