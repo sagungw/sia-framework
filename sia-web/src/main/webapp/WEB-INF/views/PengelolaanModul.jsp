@@ -9,7 +9,7 @@
 <div class="row" id="masterpage">
 	<div class="col-md-12">
 	
-		<div class="panel panel-white" style="max-width: 1000px; margin-left: auto; margin-right: auto;">
+		<div class="panel panel-white" >
 		
 		    <div class="panel-heading">
 		        <h3 class="no-m m-b-lg">
@@ -75,6 +75,15 @@
 		</div>
 	</div>
 </div>
+
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
+
 <script>
 	$("#btn-delete").click(function(event) {
 		event.preventDefault();

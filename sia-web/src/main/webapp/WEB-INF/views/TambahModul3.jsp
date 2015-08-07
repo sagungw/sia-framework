@@ -16,7 +16,7 @@
 					<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
 				</div>	
 				
-				<div id="detail-row" class="row" style="display: none;">
+				<div id="detail-row" class="row" >
 	            	<div class="col-md-12">
 			    		<p>
                            	<strong>Keterangan Akhir Modul</strong>
@@ -58,9 +58,7 @@
 	            	
 	            	<div class="col-md-12">
 		            	<button id="btn-done" type="button" class="btn btn-info">
-			            	<a href="${pageContext.servletContext.contextPath}/admin/module/">
 			            		Selesai
-			            	</a>
 		            	</button>
 		            </div>
 	            	
@@ -71,3 +69,17 @@
 		
 	</div>
 </div>
+
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
+
+<script>
+	$("#btn-done").click(function() {
+		window.location.href = contextPath + "/admin/module/";
+	});
+</script>

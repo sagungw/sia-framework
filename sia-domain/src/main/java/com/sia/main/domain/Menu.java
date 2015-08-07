@@ -42,20 +42,20 @@ public class Menu {
 	private Modul modul;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
-	private List<MenuPeran> menuPerans = new ArrayList<MenuPeran>();
+	private List<MenuPeran> daftarMenuPeran = new ArrayList<MenuPeran>();
 
 	public Menu() {
 		
 	}
 	
 	protected Menu(UUID idMenu, String namaMenu, String urlPattern,
-			String homeUrl, Modul modul, List<MenuPeran> menuPerans) {
+			String homeUrl, Modul modul, List<MenuPeran> daftarMenuPeran) {
 		this.idMenu = idMenu;
 		this.namaMenu = namaMenu;
 		this.urlPattern = urlPattern;
 		this.homeUrl = homeUrl;
 		this.modul = modul;
-		this.menuPerans = menuPerans;
+		this.daftarMenuPeran = daftarMenuPeran;
 	}
 
 	public UUID getIdMenu() {
@@ -98,12 +98,12 @@ public class Menu {
 		this.modul = modul;
 	}
 
-	public List<MenuPeran> getMenuPerans() {
-		return menuPerans;
+	public List<MenuPeran> getDaftarMenuPeran() {
+		return daftarMenuPeran;
 	}
 
-	public void setMenuPerans(List<MenuPeran> menuPerans) {
-		this.menuPerans = menuPerans;
+	public void setDaftarMenuPeran(List<MenuPeran> daftarMenuPeran) {
+		this.daftarMenuPeran = daftarMenuPeran;
 	}
-
+	
 }

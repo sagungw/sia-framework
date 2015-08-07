@@ -77,8 +77,13 @@ public class ModuleController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView mainPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
+		System.out.println("1");
 		session.removeAttribute("moduleOnWizard");
+		System.out.println("2");
 		modelAndView.setViewName("PengelolaanModul");
+		System.out.println("3");
+		List<Modul> modules = modulService.getAll();
+		System.out.println("total module: " + modules.size());
 		modelAndView.addObject("moduleList", modulService.getAll());
 		return modelAndView;
 	}

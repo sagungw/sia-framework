@@ -121,6 +121,7 @@
     
     $("#btn-submit").click(function() {
     	if(selectedRole != null) {
+    		var success = true;
     		$(".role-item").each(function() {
     			var id = $(this).attr("id");
     			var json = {roleId: id, roleMenus: roles[id]};

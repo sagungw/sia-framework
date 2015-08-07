@@ -47,7 +47,7 @@ public class Modul {
 	@JoinColumn(name = "status_modul", nullable = false)
 	private StatusPlugin status;
 	
-	@Column(name = "ogi_bundle_id", nullable = false)
+	@Column(name = "osgi_bundle_id", nullable = false)
 	private String osgiBundleId; 
 	
 	public Modul(){
