@@ -74,8 +74,9 @@ public class ModuleController {
 	private static String exception = "exception";
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView mainPage() {
+	public ModelAndView mainPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
+		session.removeAttribute("moduleOnWizard");
 		modelAndView.setViewName("PengelolaanModul");
 		modelAndView.addObject("moduleList", modulService.getAll());
 		return modelAndView;
@@ -89,7 +90,7 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/1/upload", method = RequestMethod.POST)
-	public ModelAndView uploadModule(@RequestParam("file") Object file) {
+	public ModelAndView uploadModule(@RequestParam("file") Object file, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		MultipartFile multipartFile = (MultipartFile) file;
 		AjaxResponse response = null;
@@ -128,6 +129,7 @@ public class ModuleController {
 			List<Menu> menuList = new ArrayList<Menu>();
 			for(com.sia.main.plugin.modul.Menu i : module.getMenus()) {
 				Menu menu = new Menu();
+				menu.setIdMenu(UUID.randomUUID());
 				menu.setNamaMenu(i.getMenuName());
 				menu.setHomeUrl(i.getUrl());
 				menu.setUrlPattern(i.getUrlPattern());
@@ -135,6 +137,7 @@ public class ModuleController {
 				menuList.add(menu);
 			}
 			modul.setMenus(menuList);
+			session.setAttribute("moduleOnWizard", modul);
 			response = new AjaxResponse(success, "modul berhasil ditambah", null);
 			response.setData(modul);
 		} catch (NullPointerException e) {
@@ -144,20 +147,23 @@ public class ModuleController {
 			response = new AjaxResponse(exception, "modul gagal ditambah", null);
 			e.printStackTrace();
 		}
-		modelAndView.setViewName("TambahModul1");
-		modelAndView.addObject("response", response);
-		modelAndView.addObject("modul", (Modul)response.getData());
+		modelAndView.setViewName("redirect:/admin/module/uploadWizard/2");
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/uploadWizard/2",  method = RequestMethod.POST)
-	public ModelAndView uploadWizard2(@RequestParam("modul") String idModul) {
+	@RequestMapping(value = "/uploadWizard/2",  method = RequestMethod.GET)
+	public ModelAndView uploadWizard2(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Menu> menus = menuService.getByParam("where modul.idModul = '" + idModul + "'");
-		List<Peran> roles = peranService.getAll();
-		modelAndView.addObject("roles", roles);
-		modelAndView.addObject("menus", menus);
-		modelAndView.setViewName("TambahModul2");
+		Modul modul = (Modul)session.getAttribute("moduleOnWizard");
+		if(modul != null) {
+			List<Peran> roles = peranService.getAll();
+			modelAndView.addObject("roles", roles);
+			modelAndView.addObject("menus", modul.getMenus());
+			modelAndView.setViewName("TambahModul2");
+		} else {
+			System.out.println("modul null");
+			modelAndView.setViewName("redirect:/admin/module/uploadWizard/1");
+		}
 		return modelAndView;
 	}
 	
@@ -178,6 +184,20 @@ public class ModuleController {
 		} else {
 			return new AjaxResponse(existed, "hak akses menu gagal ditambah", result);
 		}
+	}
+	
+	@RequestMapping(value = "/uploadWizard/3", method = RequestMethod.GET)
+	public ModelAndView uploadWizard3(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Modul modul = (Modul) session.getAttribute("moduleOnWizard");
+		if(modul != null) {
+			modelAndView.addObject("modul", modul);
+			modelAndView.setViewName("TambahModul3");
+		} else {
+			modelAndView.setViewName("redirect:/admin/module/uploadWizard/1");
+		}
+		
+		return modelAndView;
 	}
 	
 	private File getFile(String path, String fileName) {

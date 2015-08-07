@@ -12,8 +12,8 @@
 				<h4 class="panel-title">Tambah Modul</h4>
 			</div>
 			<div class="panel-body">
-				<div class="progress progress-sm m-t-sm">
-					<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;"></div>
 				</div>
 				
 				<div id="assignment-row" class="row" >
@@ -24,7 +24,7 @@
                         </p>
 			    	</div>
 				
-					<div id="role-list" class="col-md-6">
+					<div id="role-list" class="col-md-6" style="min-height: 300px">
 		                <div class="dd" id="nestable">
 		                    <ol class="dd-list">
 		                    	<c:forEach items="${roles}" var="role">
@@ -54,57 +54,6 @@
 		            
 	            </div>
 	            
-	            <div id="detail-row" class="row" style="display: none;">
-	            	<div class="col-md-12">
-			    		<p>
-                           	<strong>Keterangan Modul</strong>
-                        </p>
-			    	</div>
-			    	
-			    	<div class="col-md-6">
-			    		<p>
-			    			Nama Modul: ${modul.getNamaModul()}<br>
-			    			Url Modul: ${modul.getUrlMapping()}<br>
-			    			Versi: ${modul.getVersi()}<br>
-						</p>
-					</div>
-					
-	                <div class="col-md-6">
-	                	<table class="table table-striped">
-	                		<thead>
-	                			<tr>
-	                				<th>Menu</th>
-	                				<th>Peran</th>
-	                           	</tr>
-	                       	</thead>
-	                       	<tbody>
-	                       		<c:forEach items="${modul.getMenus()}" var="menu">
-		                       		<tr>
-		                       			<td>${menu.getNamaMenu()}</td>
-		                       			<td>
-		                       				<ul>
-		                       					<c:forEach items="${menu.getMenuPerans()}" var="menuPeran">
-		                       						<li>${menuPeran.getPeran().getNamaPeran()}</li>
-		                       					</c:forEach>
-		                       				</ul>
-		                       			</td>
-	                       			</tr>
-	                       		</c:forEach>
-	                       	</tbody>
-	                  	</table>
-	            	</div>
-	            	
-	            	<div class="col-md-12">
-		            	<button id="btn-back" type="button" class="btn btn-info">Kembali</button>
-		            	<button id="btn-done" type="button" class="btn btn-info">
-			            	<a href="${pageContext.servletContext.contextPath}/admin/module">
-			            		Selesai
-			            	</a>
-		            	</button>
-		            </div>
-	            	
-	            </div>
-	            
 			</div>		
 		</div>
 	</div>
@@ -115,6 +64,8 @@
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
 
 <script>
 
@@ -170,8 +121,6 @@
     
     $("#btn-submit").click(function() {
     	if(selectedRole != null) {
-    		var contextPath = "${pageContext.servletContext.contextPath}";
-    		var success = true;
     		$(".role-item").each(function() {
     			var id = $(this).attr("id");
     			var json = {roleId: id, roleMenus: roles[id]};
@@ -188,21 +137,14 @@
        			});
     		});
     		if(success == true) {
-    			$("#detail-row").css("display", "");
-        		$("#assignment-row").css("display", "none");
         		toastr["success"]("penambahan hak akses untuk menu berhasil");
+        		window.location.href = contextPath + "/admin/module/uploadWizard/3";
     		} else {
     			toastr["error"]("penambahan hak akses untuk menu gagal");
     		}
-    		
     	} else {
     		toastr["error"]("mohon untuk mengisi hak akses sebelum melanjutkan");
     	}
-    });
-    
-    $("#btn-back").click(function() {
-    	$("#detail-row").css("display", "none");
-		$("#assignment-row").css("display", "");
     });
     
 </script>

@@ -7,8 +7,6 @@
 <html>
     
 	<head>
-        
-        <!-- Title -->
         <title><decorator:title default="Sistem Informasi Akademik"></decorator:title></title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -17,7 +15,6 @@
         <meta name="keywords" content="admin,dashboard" />
         <meta name="author" content="Steelcoders" />
         
-        <!-- Styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/pace-master/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/uniform/css/uniform.default.min.css" rel="stylesheet"/>
@@ -29,16 +26,19 @@
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/nestable/nestable.css" rel="stylesheet" type="text/css">
         
-        <!-- Theme Styles -->
         <link href="${pageContext.servletContext.contextPath}/resources/css/modern.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/css/themes/white.css" class="theme-color" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
         
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
+    
+    	<script>
+    		var contextPath = "${pageContext.servletContext.contextPath}";
+    	</script>
     
     </head>
     <body class="page-header-fixed compact-menu">

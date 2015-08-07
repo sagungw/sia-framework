@@ -4,7 +4,7 @@ Import-Template: org.springframework.*;version="[3.0, 3.5)"
 Tool: Bnd-0.0.357
 Import-Library: org.springframework.spring;version="[3.0, 3.5)"
 Bundle-Name: sia-web
-Created-By: 1.7.0_51 (Oracle Corporation)
+Created-By: 1.7.0_80 (Oracle Corporation)
 Web-ContextPath: sia-web
 Import-Bundle: com.springsource.org.apache.taglibs.standard;version="[
  1.1.2,1.3)", com.springsource.com.opensymphony.sitemesh;version="2.4.
@@ -17,7 +17,7 @@ Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0",
  Final" ,jackson-mapper-asl;bundle-version="1.9.10" ,com.springsource.
  net.sf.cglib;bundle-version="2.2.0"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1438757376328
+Bnd-LastModified: 1438835087599
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web
