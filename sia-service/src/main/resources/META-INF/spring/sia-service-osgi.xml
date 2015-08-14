@@ -20,6 +20,8 @@
     <osgi:service id="satuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="satuanManajemenServiceBean"/>
     
     <osgi:service id="statusPluginServiceServ" interface="com.sia.main.service.services.StatusPluginService" ref="statusPluginServiceBean"/>
+    
+    <osgi:service id="testServiceServ" interface="com.sia.main.service.services.GenericService" ref="testServiceBean"/>
 
 
 	<osgi:reference id="menuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" availability="mandatory"/>

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sia.main.domain.Pengguna;
+import com.sia.main.service.services.GenericService;
 import com.sia.main.service.services.ModulService;
 
 @Controller
@@ -20,6 +22,9 @@ public class AdminController {
 	
 	@Autowired
 	private ModulService modulService;
+	
+	@Autowired
+	private GenericService<Pengguna> penggunaService;
 	
 	public String getHomePage() {
 		return this.homePage != null ? this.homePage : AdminController.defaultHomePage;
@@ -42,6 +47,16 @@ public class AdminController {
 		modelAndView.addObject("installedModules", this.modulService.getAll());
 		modelAndView.setViewName("Dashboard");
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void test() {
+		penggunaService.insert(null);
+		penggunaService.update(null);
+		penggunaService.delete(null);
+		penggunaService.getById(null);
+		penggunaService.getAll();
+		penggunaService.getByParam("");
 	}
 	
 }

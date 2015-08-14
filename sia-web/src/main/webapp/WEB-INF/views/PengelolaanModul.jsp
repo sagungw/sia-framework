@@ -7,69 +7,74 @@
 <title>Sistem Informasi Akademik - Pengelolaan Modul</title>
 
 <div class="row" id="masterpage">
+
 	<div class="col-md-12">
 	
 		<div class="panel panel-white" >
 		
 		    <div class="panel-heading">
-		        <h3 class="no-m m-b-lg">
-		        	Pengelolaan Modul
-		        </h3>
+		        <h4 class="no-m m-b-lg">Pengelolaan Modul</h4>
 		    </div>
 		    
 		    <div class="panel-body">
 		        
-		        <div class="table-responsive">
-		        	
-		            <div id="example3_wrapper" class="dataTables_wrapper">
-		            	<table id="example3" class="display table dataTable" style="width: 100%;" role="grid" aria-describedby="example3_info">
-				            <thead>
-				               	<tr role="row">
-					               	<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 25%;">Nama</th>
-									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 20%;">Mapping URL</th>
-									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 20%;">Versi</th>
-									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 15%;">Status</th>
-									<th class="" tabindex="0" aria-controls="example3" rowspan="1" colspan="1"  style="width: 20%;">Aksi</th>
-				               	</tr>
-				            </thead>
-				            <tfoot>
-				                <tr>
-				                	<th rowspan="1" colspan="1">Nama</th>
-				                	<th rowspan="1" colspan="1">Mapping URL</th>
-				                	<th rowspan="1" colspan="1">Versi</th>
-				                	<th rowspan="1" colspan="1">Status</th>
-				                	<th rowspan="1" colspan="1">Aksi</th>
-				                </tr>
-				            </tfoot>
-		            		<tbody>
-		            			<c:choose>
-		            				<c:when test="${fn:length(moduleList) > 0}">
-		            					<c:forEach items="${moduleList}" var="module">
-		            						<tr id="${module.getIdModul()}" role="row" class="odd">
-		                                        <td>${module.getNamaModul()}</td>
-		                                        <td>${module.getUrlMapping()}</td>
-		                                        <td>${module.getVersi()}</td>
-		                                        <td>${module.getStatus()}</td>
-		                                        <td>
-		                                        	<form action="hapusModul" method="post">
-		                                        		<input type="text" id="txt-delete" name="idModul" hidden="true" value="${module.getIdModul()}">
-		                                        		<button type="submit" id="btn-delete" class="btn btn-danger">Hapus</button>
-		                                        	</form>
-
-		                                        <td>
-		                                    </tr>
-		            					</c:forEach>
-		            				</c:when>
-		            				<c:otherwise>
-		            					<tr class="odd">
-		            						<td valign="top" colspan="5" class="dataTables_empty">Tidak ada data</td>
-		            					</tr>
-		            				</c:otherwise>
-		            			</c:choose>
-		            		</tbody>
-		            	</table>
-		            </div>
+		        <br/>
+		        
+		        <div class="row">
+		        	<div class="col-md-12">
+		        		<button id="btn-add" type="button" class="btn btn-info">Tambah Modul</button>
+		        	</div>
 		        </div>
+		        
+		        <br/>
+		        
+		        <div class="col-md-1"></div>
+		        
+		        <div class="table-responsive col-md-10">
+	            	<table class="table table-striped">
+			            <thead>
+			               	<tr>
+			               		<th>#</th>
+				               	<th>Nama</th>
+								<th>Mapping URL</th>
+								<th>Versi</th>
+								<th>Status</th>
+								<th>Aksi</th>
+			               	</tr>
+			            </thead> 
+	            		<tbody>
+	            			<c:choose>
+	            				<c:when test="${fn:length(moduleList) > 0}">
+	            					<c:set var="i" value="${0}" />
+	            					<c:forEach items="${moduleList}" var="module">
+	            						<tr id="${module.getIdModul()}">
+	            							<c:set var="i" value="${i+1}"/>
+	            							<td><c:out value="${i}"/></td>
+	                                        <td>${module.getNamaModul()}</td>
+	                                        <td>${module.getUrlMapping()}</td>
+	                                        <td>${module.getVersi()}</td>
+	                                        <td>${module.getStatus().getNamaStatus()}</td>
+	                                        <td>
+	                                        	<form action="hapusModul" method="post">
+	                                        		<input type="text" id="txt-delete" name="idModul" hidden="true" value="${module.getIdModul()}">
+	                                        		<button type="submit" id="btn-delete" class="btn btn-danger">Hapus</button>
+	                                        	</form>
+	                                        <td>
+	                                    </tr>
+	            					</c:forEach>
+	            				</c:when>
+	            				<c:otherwise>
+	            					<tr class="odd">
+	            						<td valign="top" colspan="5" class="dataTables_empty">Tidak ada data</td>
+	            					</tr>
+	            				</c:otherwise>
+	            			</c:choose>
+	            		</tbody>
+	            	</table>
+		        </div>
+		        
+		        <div class="col-md-1"></div>
+		        
 		    </div>
 		   
 		</div>
@@ -96,6 +101,10 @@
 			success: function(result) {
 			 	}
 			});
+	});
+	
+	$("#btn-add").click(function() {
+		window.location.href = contextPath + "/admin/module/uploadWizard/1";
 	});
 
 </script>

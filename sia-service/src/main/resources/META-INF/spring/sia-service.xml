@@ -37,4 +37,7 @@
     	<property name="statusPluginRepository" ref="statusPluginRepoRef"></property>
     </bean>
     
+    <bean id="testServiceBean" class="com.sia.main.service.services.impl.TestService">
+    </bean>
+    
 </beans>

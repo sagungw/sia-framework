@@ -11,7 +11,7 @@ public interface PeranService {
 
 	public Peran update(Peran peran);
 
-	public void delete(Peran peran);
+	public Peran delete(Peran peran);
 
 	public List<Peran> getAll();
 

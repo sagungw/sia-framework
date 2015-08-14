@@ -47,8 +47,13 @@ public class PeranServiceImpl implements PeranService {
 	}
 	
 	@Override
-	public void delete(Peran peran) {
-		this.peranRepository.delete(peran);
+	public Peran delete(Peran peran) {
+		try {
+			this.peranRepository.delete(peran);
+			return peran;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override

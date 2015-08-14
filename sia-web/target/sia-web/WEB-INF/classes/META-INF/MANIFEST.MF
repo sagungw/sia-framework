@@ -17,7 +17,7 @@ Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0",
  Final" ,jackson-mapper-asl;bundle-version="1.9.10" ,com.springsource.
  net.sf.cglib;bundle-version="2.2.0"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1438953753688
+Bnd-LastModified: 1439435968738
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web

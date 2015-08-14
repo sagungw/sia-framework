@@ -17,16 +17,13 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sia.main.domain.Menu;
 import com.sia.main.domain.MenuPeran;
@@ -42,8 +39,8 @@ import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PeranService;
 import com.sia.main.service.services.StatusPluginService;
 import com.sia.main.web.ModuleManager;
-import com.sia.main.web.jsonmodel.RoleMenu;
-import com.sia.main.web.utils.AjaxResponse;
+import com.sia.main.web.model.RoleMenu;
+import com.sia.main.web.model.Response;
 
 @Controller
 @RequestMapping(value = "/admin/module")
@@ -77,13 +74,9 @@ public class ModuleController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView mainPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("1");
 		session.removeAttribute("moduleOnWizard");
-		System.out.println("2");
 		modelAndView.setViewName("PengelolaanModul");
-		System.out.println("3");
 		List<Modul> modules = modulService.getAll();
-		System.out.println("total module: " + modules.size());
 		modelAndView.addObject("moduleList", modulService.getAll());
 		return modelAndView;
 	}
@@ -99,7 +92,7 @@ public class ModuleController {
 	public ModelAndView uploadModule(@RequestParam("file") Object file, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		MultipartFile multipartFile = (MultipartFile) file;
-		AjaxResponse response = null;
+		Response response = null;
 		try {
 //			File tempFile = this.getFile(temporaryModuleLocation, multipartFile.getOriginalFilename());
 //			byte[] bytes = multipartFile.getBytes();
@@ -144,13 +137,13 @@ public class ModuleController {
 			}
 			modul.setMenus(menuList);
 			session.setAttribute("moduleOnWizard", modul);
-			response = new AjaxResponse(success, "modul berhasil ditambah", null);
+			response = new Response(success, "modul berhasil ditambah", null);
 			response.setData(modul);
 		} catch (NullPointerException e) {
-			response = new AjaxResponse(exception, "modul gagal ditambah", null);
+			response = new Response(exception, "modul gagal ditambah", null);
 			e.printStackTrace();
 		} catch (Exception e) {
-			response = new AjaxResponse(exception, "modul gagal ditambah", null);
+			response = new Response(exception, "modul gagal ditambah", null);
 			e.printStackTrace();
 		}
 		modelAndView.setViewName("redirect:/admin/module/uploadWizard/2");
@@ -174,7 +167,7 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/2/submit",  method = RequestMethod.POST)
-	public @ResponseBody AjaxResponse saveMenus(@RequestBody RoleMenu roleMenu) {
+	public @ResponseBody Response saveMenus(@RequestBody RoleMenu roleMenu) {
 		MenuPeran result = null;
 		for (String menuId : roleMenu.getRoleMenus()) {
 			Menu menu = menuService.getById(UUID.fromString(menuId));
@@ -186,9 +179,9 @@ public class ModuleController {
 			}
 		}
 		if(result != null) {
-			return new AjaxResponse(success, "hak akses menu berhasil ditambah", result); 
+			return new Response(success, "hak akses menu berhasil ditambah", result); 
 		} else {
-			return new AjaxResponse(existed, "hak akses menu gagal ditambah", result);
+			return new Response(existed, "hak akses menu gagal ditambah", result);
 		}
 	}
 	
@@ -250,9 +243,9 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody AjaxResponse deleteModule(@RequestParam("idModul") String idModul) {
+	public @ResponseBody Response deleteModule(@RequestParam("idModul") String idModul) {
 		Modul modul = modulService.getById(UUID.fromString(idModul));
-		AjaxResponse response = null;
+		Response response = null;
 		try {
 			BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
 			Bundle bundle = bundleContext.getBundle(modul.getOsgiBundleId());
@@ -262,9 +255,9 @@ public class ModuleController {
 			ModuleManager moduleManager = ModuleManager.getInstance();
 			moduleManager.removeModule(module.getModuleName());
 			modulService.delete(modul);
-			response = new AjaxResponse("Ok", "Modul berhasil dihapus", null);
+			response = new Response("Ok", "Modul berhasil dihapus", null);
 		} catch (BundleException e) {
-			response = new AjaxResponse("Fail", "Modul gagal dihapus", null);
+			response = new Response("Fail", "Modul gagal dihapus", null);
 			e.printStackTrace();
 		}
 		return response;

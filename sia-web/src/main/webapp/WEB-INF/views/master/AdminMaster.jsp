@@ -34,7 +34,7 @@
         <link href="${pageContext.servletContext.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
         
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>    
     
     	<script>
     		var contextPath = "${pageContext.servletContext.contextPath}";
@@ -53,7 +53,7 @@
                         </a>
                     </div>
                     <div class="logo-box">
-                        <a href="index.html" class="logo-text"><span>Modern</span></a>
+                        <a href="index.html" class="logo-text"><span>SIA</span></a>
                     </div><!-- Logo Box -->
                     <div class="topmenu-outer">
                         <div class="top-menu">
@@ -175,11 +175,22 @@
                         </div>
                     </div>
                     <ul class="menu accordion-menu">
-                        <li><a href="index.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Profile</p></a></li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon glyphicon-th"></span><p>Modul</p></a></li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Pengguna</p></a></li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon glyphicon-eye-open"></span><p>Hak Akses</p></a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/admin/dashboard" class="waves-effect waves-button"><span class="menu-icon fa fa-dashboard"></span><p>Dasbor</p></a></li>
+                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-puzzle-piece"></span><p>Modul</p><span class="arrow"></span></a>
+                            <ul class="sub-menu" style="display: none;">
+                                <li><a href="${pageContext.servletContext.contextPath}/admin/module/">Kelola Modul</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/admin/module/uploadWizard/1">Unggah Modul</a></li>
+                            </ul>
+                        </li>          
+                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-key"></span><p>Hak Akses</p><span class="arrow"></span></a>
+                            <ul class="sub-menu" style="display: none;">
+                                <li><a href="${pageContext.servletContext.contextPath}/admin/role/">Kelola Peran</a></li>
+                                <li><a href="ui-alerts.html">Kelola Pengguna</a></li>
+                                <li><a href="ui-alerts.html">Kelola Hak Akses Pengguna</a></li>
+                                <li><a href="ui-alerts.html">Kelola Hak Akses Menu</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon fa fa-plug"></span><p>Plugin</p></a></li>
                     </ul>
                 </div><!-- Page Sidebar Inner -->
             </div><!-- Page Sidebar -->
