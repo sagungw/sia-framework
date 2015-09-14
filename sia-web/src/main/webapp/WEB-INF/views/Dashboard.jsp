@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="col-lg-4 col-md-4">
-		<div class="panel panel-white stats-info">
+		<div class="panel panel-white">
 			<div class="panel-heading clearfix">
 	            <h4 class="panel-title">Modul Terpasang</h4>
 	        </div>

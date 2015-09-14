@@ -40,7 +40,7 @@ public class Modul {
 	@Column(name = "lokasi_konf_servlet", nullable = true)
 	private String lokasiKonfigurasiServlet;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "modul")
 	private List<Menu> menus = new ArrayList<Menu>();
 
 	@ManyToOne(fetch = FetchType.EAGER)

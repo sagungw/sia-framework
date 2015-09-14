@@ -5,61 +5,72 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.sia.main.data.repositories.MenuPeranRepository;
+import com.sia.main.data.dao.MenuPeranDAO;
 import com.sia.main.domain.MenuPeran;
 import com.sia.main.service.services.MenuPeranService;
 
 @Service
 public class MenuPeranServiceImpl implements MenuPeranService {
-	
-	private MenuPeranRepository menuPeranRepository;
-	
-	public void setMenuPeranRepository(MenuPeranRepository menuPeranRepository) {
-		this.menuPeranRepository = menuPeranRepository;
+
+	private MenuPeranDAO menuPeranDAO;
+
+	public void setMenuPeranDAO(MenuPeranDAO menuPeranDAO) {
+		this.menuPeranDAO = menuPeranDAO;
 	}
-	
-	public MenuPeranRepository getMenuPeranRepository() {
-		return this.menuPeranRepository;
+
+	public MenuPeranDAO getMenuPeranDAO() {
+		return this.menuPeranDAO;
 	}
-	
+
 	@Override
 	public MenuPeran insertInto(MenuPeran menuPeran) {
-		List<MenuPeran> daftarMenuPeran = this.getByParam("where peran.idPeran = '" + menuPeran.getPeran().getIdPeran() + "' and menu.idMenu = '" + menuPeran.getMenu().getIdMenu() + "'");
-		if(daftarMenuPeran != null && daftarMenuPeran.size() > 0) {
+		List<MenuPeran> daftarMenuPeran = this
+				.getByParam("where peran.idPeran = '"
+						+ menuPeran.getPeran().getIdPeran()
+						+ "' and menu.idMenu = '"
+						+ menuPeran.getMenu().getIdMenu() + "'");
+		if (daftarMenuPeran != null && daftarMenuPeran.size() > 0) {
 			return null;
 		}
-		this.menuPeranRepository.insertInto(menuPeran);
+		this.menuPeranDAO.insert(menuPeran);
 		return menuPeran;
 	}
 
 	@Override
 	public MenuPeran update(MenuPeran menuPeran) {
-		List<MenuPeran> daftarMenuPeran = this.getByParam("where peran.idPeran = '" + menuPeran.getPeran().getIdPeran() + "' and menu.idMenu = '" + menuPeran.getMenu().getIdMenu() + "' and idMenuPeran != '" + menuPeran.getIdMenuPeran() + "'");
-		if(daftarMenuPeran != null && daftarMenuPeran.size() > 0) {
+		List<MenuPeran> daftarMenuPeran = this
+				.getByParam("where peran.idPeran = '"
+						+ menuPeran.getPeran().getIdPeran()
+						+ "' and menu.idMenu = '"
+						+ menuPeran.getMenu().getIdMenu()
+						+ "' and idMenuPeran != '" + menuPeran.getIdMenuPeran()
+						+ "'");
+		if (daftarMenuPeran != null && daftarMenuPeran.size() > 0) {
 			return null;
 		}
-		this.menuPeranRepository.update(menuPeran);
+		this.menuPeranDAO.update(menuPeran);
 		return menuPeran;
 	}
 
 	@Override
-	public void delete(MenuPeran menuPeran) {
-		this.menuPeranRepository.delete(menuPeran);
+	public MenuPeran delete(MenuPeran menuPeran) {
+		this.menuPeranDAO.delete(menuPeran);
+		return menuPeran;
 	}
 
 	@Override
 	public List<MenuPeran> getAll() {
-		return this.menuPeranRepository.getAll();
+		return this.menuPeranDAO.getAll();
 	}
 
 	@Override
 	public MenuPeran getById(UUID idMenuPeran) {
-		return this.menuPeranRepository.getById(idMenuPeran);
+		return this.menuPeranDAO.getById(idMenuPeran);
 	}
 
 	@Override
 	public List<MenuPeran> getByParam(String queryParam) {
-		return this.menuPeranRepository.getByParam(queryParam);
+		return this.menuPeranDAO.getByParam(queryParam);
 	}
 
 }

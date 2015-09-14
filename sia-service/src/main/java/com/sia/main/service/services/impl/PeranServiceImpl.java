@@ -1,27 +1,25 @@
 package com.sia.main.service.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sia.main.data.repositories.PeranRepository;
+import com.sia.main.data.dao.PeranDAO;
 import com.sia.main.domain.Peran;
 import com.sia.main.service.services.PeranService;
 
 @Service
 public class PeranServiceImpl implements PeranService {
 	
-	private PeranRepository peranRepository;
+	private PeranDAO peranDAO;
 	
-	public PeranRepository getPeranRepository() {
-		return peranRepository;
+	public PeranDAO getPeranDAO() {
+		return peranDAO;
 	}
 
-	public void setPeranRepository(PeranRepository peranRepository) {
-		this.peranRepository = peranRepository;
+	public void setPeranDAO(PeranDAO peranDAO) {
+		this.peranDAO = peranDAO;
 	}
 
 	@Override
@@ -29,7 +27,7 @@ public class PeranServiceImpl implements PeranService {
 		List<Peran> peranList = this.getPeranWithParam(" where namaPeran = '" + peran.getNamaPeran() + "'");
 		Peran result = null;
 		if(peranList == null || peranList.size() == 0) {
-			this.peranRepository.insertInto(peran);
+			this.peranDAO.insert(peran);
 			result = peran;
 		}
 		return result;
@@ -40,7 +38,7 @@ public class PeranServiceImpl implements PeranService {
 		List<Peran> peranList = this.getPeranWithParam(" where namaPeran = '" + peran.getNamaPeran() + "' and idPeran != '" + peran.getIdPeran() + "'");
 		Peran result = null;
 		if(peranList == null || peranList.size() == 0) {
-			this.peranRepository.update(peran);
+			this.peranDAO.update(peran);
 			result = peran;
 		}
 		return result;
@@ -49,7 +47,7 @@ public class PeranServiceImpl implements PeranService {
 	@Override
 	public Peran delete(Peran peran) {
 		try {
-			this.peranRepository.delete(peran);
+			this.peranDAO.delete(peran);
 			return peran;
 		} catch (Exception e) {
 			return null;
@@ -58,17 +56,17 @@ public class PeranServiceImpl implements PeranService {
 
 	@Override
 	public List<Peran> getAll() {
-		return this.peranRepository.getAll();
+		return this.peranDAO.getAll();
 	}
 
 	@Override
 	public Peran getById(UUID idPeran) {
-		return this.peranRepository.getById(idPeran);
+		return this.peranDAO.getById(idPeran);
 	}
 
 	@Override
 	public List<Peran> getPeranWithParam(String param) {
-		return this.peranRepository.getPeranWithParam(param);
+		return this.peranDAO.getByParam(param);
 	}
 	
 }

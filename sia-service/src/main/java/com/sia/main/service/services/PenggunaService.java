@@ -8,15 +8,17 @@ import com.sia.main.domain.Pengguna;
 public interface PenggunaService {
 
 	public Pengguna insertInto(Pengguna pengguna);
-
+	
 	public Pengguna update(Pengguna pengguna);
-
+	
 	public Pengguna delete(Pengguna pengguna);
-
-	public List<Pengguna> getAll();
-
+	
 	public Pengguna getById(UUID idPengguna);
-
+	
+	public List<Pengguna> getAll();
+	
 	public List<Pengguna> getByParam(String queryParam);
+	
+	public Pengguna getByUsername(String username);
 	
 }

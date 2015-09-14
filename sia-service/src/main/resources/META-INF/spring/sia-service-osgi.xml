@@ -20,24 +20,22 @@
     <osgi:service id="satuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="satuanManajemenServiceBean"/>
     
     <osgi:service id="statusPluginServiceServ" interface="com.sia.main.service.services.StatusPluginService" ref="statusPluginServiceBean"/>
-    
-    <osgi:service id="testServiceServ" interface="com.sia.main.service.services.GenericService" ref="testServiceBean"/>
 
 
-	<osgi:reference id="menuPeranRepoRef" interface="com.sia.main.data.repositories.MenuPeranRepository" availability="mandatory"/>
+	<osgi:reference id="menuPeranDAORef" interface="com.sia.main.data.dao.MenuPeranDAO" availability="mandatory"/>
     
-    <osgi:reference id="menuRepoRef" interface="com.sia.main.data.repositories.MenuRepository" availability="mandatory"/>
+    <osgi:reference id="menuDAORef" interface="com.sia.main.data.dao.MenuDAO" availability="mandatory"/>
     
-    <osgi:reference id="modulRepoRef" interface="com.sia.main.data.repositories.ModulRepository" availability="mandatory"/>
+    <osgi:reference id="modulDAORef" interface="com.sia.main.data.dao.ModulDAO" availability="mandatory"/>
     
-    <osgi:reference id="penggunaRepoRef" interface="com.sia.main.data.repositories.PenggunaRepository" availability="mandatory"/>
+    <osgi:reference id="penggunaDAORef" interface="com.sia.main.data.dao.PenggunaDAO" availability="mandatory"/>
     
-    <osgi:reference id="peranPenggunaRepoRef" interface="com.sia.main.data.repositories.PeranPenggunaRepository" availability="mandatory"/>
+    <osgi:reference id="peranPenggunaDAORef" interface="com.sia.main.data.dao.PeranPenggunaDAO" availability="mandatory"/>
     
-    <osgi:reference id="peranRepoRef" interface="com.sia.main.data.repositories.PeranRepository" availability="mandatory"/>
+    <osgi:reference id="peranDAORef" interface="com.sia.main.data.dao.PeranDAO" availability="mandatory"/>
     
-    <osgi:reference id="satuanManajemenRepoRef" interface="com.sia.main.data.repositories.SatuanManajemenRepository" availability="mandatory"/>
+    <osgi:reference id="satuanManajemenDAORef" interface="com.sia.main.data.dao.SatuanManajemenDAO" availability="mandatory"/>
     
-    <osgi:reference id="statusPluginRepoRef" interface="com.sia.main.data.repositories.StatusPluginRepository" availability="mandatory"/>
+    <osgi:reference id="statusPluginDAORef" interface="com.sia.main.data.dao.StatusPluginDAO" availability="mandatory"/>
 	
 </beans>

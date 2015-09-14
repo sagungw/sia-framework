@@ -3,34 +3,32 @@ package com.sia.main.service.services.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-import com.sia.main.data.repositories.PenggunaRepository;
+import com.sia.main.data.dao.PenggunaDAO;
 import com.sia.main.domain.Pengguna;
 import com.sia.main.service.services.PenggunaService;
 
 @Service
 public class PenggunaServiceImpl implements PenggunaService {
 
-	private PenggunaRepository penggunaRepository;
+	private PenggunaDAO penggunaDAO;
 	
-	public PenggunaRepository getPenggunaRepository() {
-		return penggunaRepository;
+	public PenggunaDAO getPenggunaDAO() {
+		return penggunaDAO;
 	}
 
-	public void setPenggunaRepository(PenggunaRepository penggunaRepository) {
-		this.penggunaRepository = penggunaRepository;
+	public void setPenggunaDAO(PenggunaDAO penggunaDAO) {
+		this.penggunaDAO = penggunaDAO;
 	}
 
 	@Override
 	public Pengguna insertInto(Pengguna pengguna) {
-		List<Pengguna> penggunaList = this.getByParam("where username = '" + pengguna.getUsername() + "'");
-		if(penggunaList != null && penggunaList.size() > 0) {
+		Pengguna user = this.getByUsername(pengguna.getUsername());
+		if(user != null) {
 			return null;
 		}
-		this.penggunaRepository.insertInto(pengguna);
+		this.penggunaDAO.insert(pengguna);
 		return pengguna;
 	}
 
@@ -40,7 +38,7 @@ public class PenggunaServiceImpl implements PenggunaService {
 		if(penggunaList != null && penggunaList.size() > 0) {
 			return null;
 		}
-		this.penggunaRepository.update(pengguna);
+		this.penggunaDAO.update(pengguna);
 		return pengguna;
 	}
 
@@ -52,17 +50,27 @@ public class PenggunaServiceImpl implements PenggunaService {
 
 	@Override
 	public List<Pengguna> getAll() {
-		return this.penggunaRepository.getAll();
+		return this.penggunaDAO.getAll();
 	}
 
 	@Override
 	public Pengguna getById(UUID idPengguna) {
-		return this.penggunaRepository.getById(idPengguna);
+		return this.penggunaDAO.getById(idPengguna);
 	}
 
 	@Override
 	public List<Pengguna> getByParam(String queryParam) {
-		return this.penggunaRepository.getByParam(queryParam);
+		return this.penggunaDAO.getByParam(queryParam);
+	}
+	
+	@Override
+	public Pengguna getByUsername(String username) {
+		List<Pengguna> users = this.penggunaDAO.getByParam("where username = '" + username + "'");
+		if(users.size() > 0) {
+			return users.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

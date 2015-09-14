@@ -5,47 +5,50 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.sia.main.data.repositories.SatuanManajemenRepository;
+import com.sia.main.data.dao.SatuanManajemenDAO;
 import com.sia.main.domain.SatMan;
 import com.sia.main.service.services.SatuanManajemenService;
 
 @Service
 public class SatuanManajemenServiceImpl implements SatuanManajemenService {
 
-	private SatuanManajemenRepository satuanManajemenRepository;
+	private SatuanManajemenDAO satuanManajemenDAO;
 	
-	public SatuanManajemenRepository getSatuanManajemenRepository() {
-		return satuanManajemenRepository;
+	public SatuanManajemenDAO getSatuanManajemenDAO() {
+		return satuanManajemenDAO;
 	}
 
-	public void setSatuanManajemenRepository(
-			SatuanManajemenRepository satuanManajemenRepository) {
-		this.satuanManajemenRepository = satuanManajemenRepository;
-	}
-
-	@Override
-	public void insertInto(SatMan satuanManajemen) {
-		this.satuanManajemenRepository.insertInto(satuanManajemen);
+	public void setSatuanManajemenDAO(
+			SatuanManajemenDAO satuanManajemenDAO) {
+		this.satuanManajemenDAO = satuanManajemenDAO;
 	}
 
 	@Override
-	public void update(SatMan satuanManajemen) {
-		this.satuanManajemenRepository.update(satuanManajemen);
+	public SatMan insertInto(SatMan satuanManajemen) {
+		this.satuanManajemenDAO.insert(satuanManajemen);
+		return satuanManajemen;
 	}
 
 	@Override
-	public void delete(SatMan satuanManajemen) {
-		this.satuanManajemenRepository.delete(satuanManajemen);
+	public SatMan update(SatMan satuanManajemen) {
+		this.satuanManajemenDAO.update(satuanManajemen);
+		return satuanManajemen;
+	}
+
+	@Override
+	public SatMan delete(SatMan satuanManajemen) {
+		this.satuanManajemenDAO.delete(satuanManajemen);
+		return satuanManajemen;
 	}
 
 	@Override
 	public List<SatMan> getAll() {
-		return this.satuanManajemenRepository.getAll();
+		return this.satuanManajemenDAO.getAll();
 	}
 
 	@Override
 	public SatMan getById(UUID idSatuanManajemen) {
-		return this.satuanManajemenRepository.getById(idSatuanManajemen);
+		return this.satuanManajemenDAO.getById(idSatuanManajemen);
 	}
 
 }

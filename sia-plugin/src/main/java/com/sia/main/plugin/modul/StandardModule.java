@@ -11,11 +11,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.eclipse.gemini.blueprint.context.support.OsgiBundleXmlApplicationContext;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
-import org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -115,9 +112,21 @@ public class StandardModule implements Module {
 
 	@Override
 	public String getServletName() {
+		//building servlet name based on the given module name;
+		StringBuilder servletName = new StringBuilder();
+		int i = 0;
 		String[] moduleName = this.getModuleName().toLowerCase().split(" ");
-		String servletName = moduleName[0] + "-" +  moduleName[1] + "-servlet";
-		return servletName;
+		for(String string: moduleName) {
+			if(i > 0) servletName.append('-');
+			servletName.append(string);
+			i++;
+		}
+		servletName.append("-servlet");
+		return servletName.toString();
+	}
+	
+	public void setServlet(DispatcherServlet servlet) {
+		this.servlet = servlet;
 	}
 	
 	@Override
@@ -171,9 +180,10 @@ public class StandardModule implements Module {
 		return viewResourcesInBytes;
 	}
 	
-	public void buildServlet() {
-		OsgiBundleXmlWebApplicationContext context = new OsgiBundleXmlWebApplicationContext();
-		this.servlet = new DispatcherServlet(context);
+	public void buildServlet(){
+		XmlWebApplicationContext context = new XmlWebApplicationContext();
+		context.setConfigLocation("classpath*:" + this.servletConfigurationPath);
+		this.setServlet(new DispatcherServlet(context));
 	}
 
 }

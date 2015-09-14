@@ -10,21 +10,21 @@
     		<bean class="com.sia.main.data.sessionfactory.HibernateConfigReferenceListener"></bean>
     	</osgi:reference-listener>
     </osgi:reference>
+        
+    <osgi:service id="menuDAOServ" interface="com.sia.main.data.dao.MenuDAO" ref="menuDAO"/>
     
-    <osgi:service id="menuPeranRepoServ" interface="com.sia.main.data.repositories.MenuPeranRepository" ref="menuPeranRepoBean"/>
+    <osgi:service id="menuPeranDAOServ" interface="com.sia.main.data.dao.MenuPeranDAO" ref="menuPeranDAO"/>
     
-    <osgi:service id="menuRepoServ" interface="com.sia.main.data.repositories.MenuRepository" ref="menuRepoBean"/>
+    <osgi:service id="modulDAOServ" interface="com.sia.main.data.dao.ModulDAO" ref="modulDAO"/>
     
-    <osgi:service id="modulRepoServ" interface="com.sia.main.data.repositories.ModulRepository" ref="modulRepoBean"/>
+    <osgi:service id="penggunaDAOServ" interface="com.sia.main.data.dao.PenggunaDAO" ref="penggunaDAO"/>
     
-    <osgi:service id="penggunaRepoServ" interface="com.sia.main.data.repositories.PenggunaRepository" ref="penggunaRepoBean"/>
+    <osgi:service id="peranPenggunaDAOServ" interface="com.sia.main.data.dao.PeranPenggunaDAO" ref="peranPenggunaDAO"/>
     
-    <osgi:service id="peranPenggunaRepoServ" interface="com.sia.main.data.repositories.PeranPenggunaRepository" ref="peranPenggunaRepoBean"/>
+    <osgi:service id="peranDAOServ" interface="com.sia.main.data.dao.PeranDAO" ref="peranDAO"/>
     
-    <osgi:service id="peranRepoServ" interface="com.sia.main.data.repositories.PeranRepository" ref="peranRepoBean"/>
+    <osgi:service id="satuanManajemenDAOServ" interface="com.sia.main.data.dao.SatuanManajemenDAO" ref="satuanManajemenDAO"/>
     
-    <osgi:service id="satuanManajemenRepoServ" interface="com.sia.main.data.repositories.SatuanManajemenRepository" ref="satuanManajemenRepoBean"/>
-    
-    <osgi:service id="statusPluginRepoServ" interface="com.sia.main.data.repositories.StatusPluginRepository" ref="statusPluginRepoBean"/>
+    <osgi:service id="statusPluginDAOServ" interface="com.sia.main.data.dao.StatusPluginDAO" ref="statusPluginDAO"/>
     
 </beans>

@@ -5,35 +5,35 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
     
-    <bean id="menuPeranRepoBean" class="com.sia.main.data.repositories.impl.MenuPeranRepositoryImpl">
+    <bean id="menuPeranDAO" class="com.sia.main.data.dao.impl.MenuPeranDAOImpl">
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="menuRepoBean" class="com.sia.main.data.repositories.impl.MenuRepositoryImpl" >
+    <bean id="menuDAO" class="com.sia.main.data.dao.impl.MenuDAOImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="modulRepoBean" class="com.sia.main.data.repositories.impl.ModulRepositoryImpl" >
+    <bean id="modulDAO" class="com.sia.main.data.dao.impl.ModulDAOImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="penggunaRepoBean" class="com.sia.main.data.repositories.impl.PenggunaRepositoryImpl" >
+    <bean id="penggunaDAO" class="com.sia.main.data.dao.impl.PenggunaDAOImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="peranPenggunaRepoBean" class="com.sia.main.data.repositories.impl.PeranPenggunaRepositoryImpl" >
+    <bean id="peranPenggunaDAO" class="com.sia.main.data.dao.impl.PeranPenggunaDAOImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="peranRepoBean" class="com.sia.main.data.repositories.impl.PeranRepositoryImpl" >
+    <bean id="peranDAO" class="com.sia.main.data.dao.impl.PeranDAOImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
     </bean>
     
-    <bean id="satuanManajemenRepoBean" class="com.sia.main.data.repositories.impl.SatuanManajemenRepositoryImpl" >
+    <bean id="satuanManajemenDAO" class="com.sia.main.data.dao.impl.SatuanManajemenDAOImpl" >
     	<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
 	</bean>
 	
-	<bean id="statusPluginRepoBean" class="com.sia.main.data.repositories.impl.StatusPluginRepositoryImpl" >
+	<bean id="statusPluginDAO" class="com.sia.main.data.dao.impl.StatusPluginDAOImpl" >
 		<property name="sessionFactoryManager" ref="sessionFactoryManagerBean"></property>
 	</bean>
 	

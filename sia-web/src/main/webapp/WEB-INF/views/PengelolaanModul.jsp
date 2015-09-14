@@ -28,14 +28,11 @@
 		        
 		        <br/>
 		        
-		        <div class="col-md-1"></div>
-		        
-		        <div class="table-responsive col-md-10">
+		        <div class="table-responsive col-md-8">
 	            	<table class="table table-striped">
 			            <thead>
 			               	<tr>
-			               		<th>#</th>
-				               	<th>Nama</th>
+				               	<th>Modul</th>
 								<th>Mapping URL</th>
 								<th>Versi</th>
 								<th>Status</th>
@@ -47,9 +44,8 @@
 	            				<c:when test="${fn:length(moduleList) > 0}">
 	            					<c:set var="i" value="${0}" />
 	            					<c:forEach items="${moduleList}" var="module">
-	            						<tr id="${module.getIdModul()}">
+	            						<tr id="${module.getIdModul()}" class="module-item">
 	            							<c:set var="i" value="${i+1}"/>
-	            							<td><c:out value="${i}"/></td>
 	                                        <td>${module.getNamaModul()}</td>
 	                                        <td>${module.getUrlMapping()}</td>
 	                                        <td>${module.getVersi()}</td>
@@ -73,7 +69,27 @@
 	            	</table>
 		        </div>
 		        
-		        <div class="col-md-1"></div>
+		        
+				<div class="table-responsive col-md-4">
+					<c:forEach items="${moduleList}" var="module">
+			        	<table id="${module.getIdModul()}-menu-table" class="table table-striped menu-table" style="display: none;">
+				            <thead>
+				               	<tr>
+					               	<th>Menu</th>
+									<th>Mapping URL</th>
+				               	</tr>
+				            </thead> 
+		            		<tbody>
+	           					<c:forEach items="${module.getMenus()}" var="menu">
+	           						<tr id="${menu.getIdMenu()}">
+                                       <td>${menu.getNamaMenu()}</td>
+                                       <td>${menu.getUrlPattern()}</td>
+                                   </tr>
+	           					</c:forEach>
+		            		</tbody>
+		            	</table>
+		        	</c:forEach>
+			    </div>
 		        
 		    </div>
 		   
@@ -99,7 +115,7 @@
 			type: 'POST',
 			data: data,
 			success: function(result) {
-			 	}
+			}
 			});
 	});
 	
@@ -107,5 +123,36 @@
 		window.location.href = contextPath + "/admin/module/uploadWizard/1";
 	});
 
+	$(".module-item").click(function() {
+		var moduleId = $(this).attr("id");
+		var menuTableId = "#" + moduleId + "-menu-table";
+		$(".menu-table").css("display", "none");
+		$(menuTableId).css("display", "");
+	});
+	
 </script>
+
+<c:if test="${uploadWizardDone != null}">
+	<script>
+		toastr.options = {
+				  "closeButton": true,
+				  "debug": false,
+				  "newestOnTop": false,
+				  "progressBar": false,
+				  "positionClass": "toast-top-right",
+				  "preventDuplicates": false,
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "1000",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "1000",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+				}
+		
+		toastr["success"]("${uploadWizardDone.getMessage()}");
+	</script>
+</c:if>
 

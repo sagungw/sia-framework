@@ -29,9 +29,17 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
   		<dependency>
 			<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sia.main</groupId>
+		  	<artifactId>sia-plugin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.sia.main</groupId>

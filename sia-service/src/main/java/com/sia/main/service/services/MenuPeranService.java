@@ -11,7 +11,7 @@ public interface MenuPeranService {
 
 	public MenuPeran update(MenuPeran menuPeran);
 
-	public void delete(MenuPeran menuPeran);
+	public MenuPeran delete(MenuPeran menuPeran);
 
 	public List<MenuPeran> getAll();
 

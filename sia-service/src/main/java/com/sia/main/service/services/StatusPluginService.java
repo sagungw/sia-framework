@@ -9,6 +9,8 @@ public interface StatusPluginService {
 	
 	public StatusPlugin insertInto(StatusPlugin statusPlugin);
 	
+	public boolean refreshFrameworkStatusList();
+	
 	public StatusPlugin update(StatusPlugin statusPlugin);
 	
 	public StatusPlugin delete(StatusPlugin statusPlugin);

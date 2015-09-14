@@ -6,6 +6,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.sia.main.plugin.persistence.HibernateConfiguration;
 
+@SuppressWarnings("rawtypes")
 public class SessionFactoryManager {
 
 	private static SessionFactoryManager instance;

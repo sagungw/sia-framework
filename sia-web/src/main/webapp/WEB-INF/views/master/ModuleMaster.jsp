@@ -2,6 +2,8 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="function" uri="http://taglibs/custom" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -142,20 +144,17 @@
                                 </li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                               
-                                <li class="dropdown">
+                               <li class="dropdown">
                                     <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
-                                        <span class="user-name">David<i class="fa fa-angle-down"></i></span>
-                                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/avatar1.png" width="40" height="40" alt="">
+                                        <span class="user-name">${sessionScope.userSession.getUsername()}<i class="fa fa-angle-down"></i></span>
+                                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" width="40" height="40" alt="">
                                     </a>
                                     <ul class="dropdown-menu dropdown-list" role="menu">
-                                        <li role="presentation"><a href="calendar.html"><i class="fa fa-calendar"></i>Pilih Peran</a></li>
-                                        <li role="presentation"><a href="inbox.html"><i class="fa fa-envelope"></i>Pilih Modul<span class="badge badge-success pull-right">4</span></a></li>
+                                        <li role="presentation"><a href="${pageContext.servletContext.contextPath}/session/chooseUserRole"><i class="fa fa-calendar"></i>Pilih Peran</a></li>
                                         <li role="presentation" class="divider"></li>
-                                        <li role="presentation"><a href="login.html"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
+                                        <li role="presentation"><a href="${pageContext.servletContext.contextPath}/account/logout"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
                                     </ul>
                                 </li>
-                                
                             </ul><!-- Nav -->
                         </div><!-- Top Menu -->
                     </div>
@@ -167,54 +166,33 @@
                         <div class="sidebar-profile">
                             <a href="javascript:void(0);" id="profile-menu-link">
                                 <div class="sidebar-profile-image">
-                                    <img src="assets/images/avatar1.png" class="img-circle img-responsive" alt="">
+                                    <img src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" class="img-circle img-responsive" alt="">
                                 </div>
                                 <div class="sidebar-profile-details">
-                                    <span>David Green<br><small>Art Director</small></span>
+                                    <span>${sessionScope.userSession.getUsername()}<br><small>${sessionScope.roleSession.getNamaPeran()}</small></span>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <ul class="menu accordion-menu">
-                        <li><a href="index.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Profile</p></a></li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-envelope"></span><p>Mailbox</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="inbox.html">Inbox</a></li>
-                                <li><a href="message-view.html">View Message</a></li>
-                                <li><a href="compose.html">Compose</a></li>
-                            </ul>
-                        </li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-briefcase"></span><p>UI Kits</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="ui-alerts.html">Alerts</a></li>
-                                <li><a href="ui-buttons.html">Buttons</a></li>
-                                <li><a href="ui-icons.html">Icons</a></li>
-                                <li><a href="ui-typography.html">Typography</a></li>
-                                <li><a href="ui-notifications.html">Notifications</a></li>
-                                <li><a href="ui-grid.html">Grid</a></li>
-                                <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                                <li><a href="ui-modals.html">Modals</a></li>
-                                <li><a href="ui-panels.html">Panels</a></li>
-                                <li><a href="ui-progress.html">Progress Bars</a></li>
-                                <li><a href="ui-nestable.html">Nestable</a></li>
-                                <li><a href="ui-tree-view.html">Tree View</a></li>
-                            </ul>
-                        </li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-th"></span><p>Layouts</p><span class="arrow"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="layout-blank.html">Blank Page</a></li>
-                                <li><a href="layout-boxed.html">Boxed Page</a></li>
-                                <li><a href="layout-horizontal-menu.html">Horizontal Menu</a></li>
-                                <li><a href="layout-horizontal-menu-boxed.html">Boxed &amp; Horizontal Menu</a></li>
-                                <li><a href="layout-horizontal-menu-minimal.html">Horizontal Menu Minimal</a></li>
-                                <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
-                                <li><a href="layout-static-header.html">Static Header</a></li>
-                                <li><a href="layout-collapsed-sidebar.html">Collapsed Sidebar</a></li>
-                                <li class="active"><a href="layout-compact-menu.html">Compact Menu</a></li>
-                                <li><a href="layout-hover-menu.html">Hover Menu</a></li>
-                            </ul>
-                        </li>
+                       <c:forEach items="${sessionScope.moduleSession}" var="module">
+                    		<c:choose>
+                    			<c:when test="${fn.length(module.getMenus()) > 1}">
+                    				<li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon"></span><p>${module.getNamaModul()}</p><span class="arrow"></span></a>
+			                            <ul class="sub-menu" style="display: none;">
+			                            	<c:forEach items="${module.getMenus()}" var="menu">
+			                            		<li><a href="${pageContext.servletContext.contextPath}${menu.getHomeUrl()}">${menu.getNamaMenu()}</a></li>
+			                            	</c:forEach>
+			                            </ul>
+			                        </li>	
+                    			</c:when>
+                    			<c:when test="${fn.length(module.getMenus()) == 1}">
+	                    			<c:forEach items="${module.getMenus()}" var="menu">
+	                    				<li><a href="${pageContext.servletContext.contextPath}${menu.getHomeUrl()}" class="waves-effect waves-button"><span class="menu-icon"></span><p>${module.getNamaModul()}</p></a></li>
+	                    			</c:forEach>
+	                    		</c:when>
+                    		</c:choose>
+	               		</c:forEach>
                     </ul>
                 </div><!-- Page Sidebar Inner -->
             </div><!-- Page Sidebar -->
@@ -239,7 +217,6 @@
         </main><!-- Page Content -->
         
         <div class="cd-overlay"></div>
-	
 
          <!-- Javascripts -->
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
@@ -259,3 +236,4 @@
     </body>
 
 </html>
+						

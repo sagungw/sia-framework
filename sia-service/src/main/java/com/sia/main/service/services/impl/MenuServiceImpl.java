@@ -5,49 +5,49 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.sia.main.data.repositories.MenuRepository;
+import com.sia.main.data.dao.MenuDAO;
 import com.sia.main.domain.Menu;
 import com.sia.main.service.services.MenuService;
 
 @Service
 public class MenuServiceImpl implements MenuService  {
 
-	private MenuRepository menuRepository;
+	private MenuDAO menuDAO;
 	
-	public MenuRepository getMenuRepository() {
-		return menuRepository;
+	public MenuDAO getMenuDAO() {
+		return menuDAO;
 	}
 
-	public void setMenuRepository(MenuRepository menuRepository) {
-		this.menuRepository = menuRepository;
+	public void setMenuDAO(MenuDAO menuDAO) {
+		this.menuDAO = menuDAO;
 	}
 
 	@Override
 	public Menu insertInto(Menu menu) {
-		this.menuRepository.insertInto(menu);
+		this.menuDAO.insert(menu);
 		return menu;
 	}
 
 	@Override
 	public Menu update(Menu menu) {
-		this.menuRepository.update(menu);
+		this.menuDAO.update(menu);
 		return menu;
 	}
 
 	@Override
 	public Menu delete(Menu menu) {
-		this.menuRepository.delete(menu);
+		this.menuDAO.delete(menu);
 		return menu;
 	}
 
 	@Override
 	public List<Menu> getAll() {
-		return this.menuRepository.getAll();
+		return this.menuDAO.getAll();
 	}
 
 	@Override
 	public Menu getById(UUID idMenu) {
-		return this.menuRepository.getById(idMenu);
+		return this.menuDAO.getById(idMenu);
 	}
 
 	@Override

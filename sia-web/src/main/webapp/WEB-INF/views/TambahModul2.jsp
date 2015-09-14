@@ -137,12 +137,12 @@
        			 	}
        			});
     		});
-    		if(success == true) {
-        		toastr["success"]("penambahan hak akses untuk menu berhasil");
-        		window.location.href = contextPath + "/admin/module/uploadWizard/3";
-    		} else {
-    			toastr["error"]("penambahan hak akses untuk menu gagal");
-    		}
+//     		if(success == true) {
+//         		toastr["success"]("penambahan hak akses untuk menu berhasil");
+//         		window.location.href = contextPath + "/admin/module/uploadWizard/3";
+//     		} else {
+//     			toastr["error"]("penambahan hak akses untuk menu gagal");
+//     		}
     	} else {
     		toastr["error"]("mohon untuk mengisi hak akses sebelum melanjutkan");
     	}

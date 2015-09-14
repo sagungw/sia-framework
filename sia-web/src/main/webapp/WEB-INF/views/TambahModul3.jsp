@@ -57,9 +57,10 @@
 	            	</div>
 	            	
 	            	<div class="col-md-12">
-		            	<button id="btn-done" type="button" class="btn btn-info">
-			            		Selesai
-		            	</button>
+		            	<form class="m-t-md" action="${pageContext.servletContext.contextPath}/admin/module/uploadWizard/3/end" method="post">
+                            <input type="text" name="wizardEnd" hidden="true">
+	                        <button type="submit" class="btn btn-success">Selesai</button>
+	                    </form>
 		            </div>
 	            	
 	            </div>
@@ -78,8 +79,3 @@
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
 
-<script>
-	$("#btn-done").click(function() {
-		window.location.href = contextPath + "/admin/module/";
-	});
-</script>

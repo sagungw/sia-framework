@@ -47,7 +47,7 @@ public class Pengguna {
 	@Column(name = "nama", nullable = false)
 	private String nama;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pengguna")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pengguna")
 	private List<PeranPengguna> peranPenggunas = new ArrayList<PeranPengguna>();
 
 	public Pengguna() {

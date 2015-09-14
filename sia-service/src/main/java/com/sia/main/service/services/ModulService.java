@@ -7,6 +7,10 @@ import com.sia.main.domain.Modul;
 
 public interface ModulService {
 
+	public Modul installModule(Object modulFile);
+	
+	public Modul uninstallModule(Modul modul);
+	
 	public Modul insertInto(Modul modul);
 
 	public Modul update(Modul modul);

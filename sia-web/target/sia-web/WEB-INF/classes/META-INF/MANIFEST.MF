@@ -15,9 +15,13 @@ Require-Bundle: com.springsource.net.sf.cglib;bundle-version="2.2.0",
  ;bundle-version="2.4.0", com.springsource.org.apache.commons.fileuplo
  ad;bundle-version="1.2.0" ,org.hibernate.core;bundle-version="4.2.18.
  Final" ,jackson-mapper-asl;bundle-version="1.9.10" ,com.springsource.
- net.sf.cglib;bundle-version="2.2.0"
+ net.sf.cglib;bundle-version="2.2.0" ,org.springframework.security.cor
+ e;bundle-version="3.1.7.RELEASE" ,org.springframework.security.web;bu
+ ndle-version="3.1.7.RELEASE" ,org.springframework.security.taglibs;bu
+ ndle-version="3.1.7.RELEASE" ,org.springframework.security.config;bun
+ dle-version="3.1.7.RELEASE"
 Bundle-Version: 0.0.1.SNAPSHOT
-Bnd-LastModified: 1439435968738
+Bnd-LastModified: 1442198632670
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.sia.main.web.osgi.WebBundleActivator
 Bundle-SymbolicName: com.sia.main.sia-web
@@ -25,14 +29,16 @@ Import-Package: com.sia.main.domain;version="0.0",com.sia.main.plugin.
  modul;version="0.0",com.sia.main.service.services;version="0.0",javas
  sist.util.proxy;version="3.18",javax.servlet;version="[3.0.0,3.1.0)",
  javax.servlet.http;version="3.0",javax.servlet.jsp.jstl.core;version=
- "[1.2.0,2.0.0)",org.eclipse.gemini.blueprint.service.importer;version
- ="1.0",org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.hibernate
- .dialect;version="4.2",org.hibernate.proxy;version="4.2",org.osgi.fra
- mework;version="1.6",org.osgi.util.tracker;version="1.5",org.postgres
- ql;version="9.4",org.springframework.beans.factory.annotation;version
- ="3.1",org.springframework.stereotype;version="3.1",org.springframewo
- rk.web;version="3.1",org.springframework.web.bind.annotation;version=
- "3.1",org.springframework.web.filter;version="3.1",org.springframewor
- k.web.multipart;version="3.1",org.springframework.web.servlet;version
- ="3.1",org.springframework.web.servlet.view;version="3.1"
+ "[1.2.0,2.0.0)",org.eclipse.virgo.web.dm;version="[3.0.0,4.0.0)",org.
+ hibernate.dialect;version="4.2",org.hibernate.proxy;version="4.2",org
+ .osgi.framework;version="1.6",org.osgi.util.tracker;version="1.5",org
+ .postgresql;version="9.4",org.springframework.beans.factory.annotatio
+ n;version="3.1",org.springframework.security.access.annotation;versio
+ n="3.1",org.springframework.security.authentication;version="3.1",org
+ .springframework.security.core;version="3.1",org.springframework.secu
+ rity.core.authority;version="3.1",org.springframework.security.core.u
+ serdetails;version="3.1",org.springframework.stereotype;version="3.1"
+ ,org.springframework.web;version="3.1",org.springframework.web.bind.a
+ nnotation;version="3.1",org.springframework.web.servlet;version="3.1"
+ ,org.springframework.web.servlet.view;version="3.1"
 

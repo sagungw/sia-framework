@@ -7,11 +7,11 @@ import com.sia.main.domain.SatMan;
 
 public interface SatuanManajemenService {
 
-	public void insertInto(SatMan satuanManajemen);
+	public SatMan insertInto(SatMan satuanManajemen);
 
-	public void update(SatMan satuanManajemen);
+	public SatMan update(SatMan satuanManajemen);
 
-	public void delete(SatMan satuanManajemen);
+	public SatMan delete(SatMan satuanManajemen);
 
 	public List<SatMan> getAll();
 

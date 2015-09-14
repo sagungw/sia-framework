@@ -3,62 +3,63 @@ package com.sia.main.service.services.impl;
 import java.util.List;
 import java.util.UUID;
 
-import com.sia.main.data.repositories.PeranPenggunaRepository;
+import com.sia.main.data.dao.PeranPenggunaDAO;
 import com.sia.main.domain.PeranPengguna;
 import com.sia.main.service.services.PeranPenggunaService;
 
 public class PeranPenggunaServiceImpl implements PeranPenggunaService {
 	
-	private PeranPenggunaRepository peranPenggunaRepository;
+	private PeranPenggunaDAO peranPenggunaDAO;
 	
-	public PeranPenggunaRepository getPeranPenggunaRepository() {
-		return peranPenggunaRepository;
+	public PeranPenggunaDAO getPeranPenggunaDAO() {
+		return peranPenggunaDAO;
 	}
 
-	public void setPeranPenggunaRepository(PeranPenggunaRepository peranPenggunaRepository) {
-		this.peranPenggunaRepository = peranPenggunaRepository;
+	public void setPeranPenggunaDAO(PeranPenggunaDAO peranPenggunaDAO) {
+		this.peranPenggunaDAO = peranPenggunaDAO;
 	}
 
 	@Override
 	public PeranPengguna insertInto(PeranPengguna peranPengguna) {
 		String query = "where peran.idPeran = '" + peranPengguna.getPeran().getIdPeran() + "' and pengguna.idPengguna = '" + peranPengguna.getPengguna().getIdPengguna() + "'";
-		List<PeranPengguna> result = this.peranPenggunaRepository.getByParam(query);
+		List<PeranPengguna> result = this.peranPenggunaDAO.getByParam(query);
 		if(result != null && result.size() > 0) {
 			return null;	
 		}
-		this.peranPenggunaRepository.insertInto(peranPengguna);
+		this.peranPenggunaDAO.insert(peranPengguna);
 		return peranPengguna;
 	}
 
 	@Override
 	public PeranPengguna update(PeranPengguna peranPengguna) {
 		String query = "where peran.idPeran = '" + peranPengguna.getPeran().getIdPeran() + "' and pengguna.idPengguna = '" + peranPengguna.getPengguna().getIdPengguna() + "' and idPeranPengguna != '" + peranPengguna.getIdPeranPengguna() + "'";
-		List<PeranPengguna> result = this.peranPenggunaRepository.getByParam(query);
+		List<PeranPengguna> result = this.peranPenggunaDAO.getByParam(query);
 		if(result != null && result.size() > 0) {
 			return null;	
 		}
-		this.peranPenggunaRepository.update(peranPengguna);
+		this.peranPenggunaDAO.update(peranPengguna);
 		return peranPengguna;
 	}
 
 	@Override
-	public void delete(PeranPengguna peranPengguna) {
-		this.peranPenggunaRepository.delete(peranPengguna);
+	public PeranPengguna delete(PeranPengguna peranPengguna) {
+		this.peranPenggunaDAO.delete(peranPengguna);
+		return peranPengguna;
 	}
 
 	@Override
 	public List<PeranPengguna> getAll() {
-		return this.peranPenggunaRepository.getAll();
+		return this.peranPenggunaDAO.getAll();
 	}
 
 	@Override
 	public PeranPengguna getById(UUID idPeranPengguna) {
-		return this.peranPenggunaRepository.getById(idPeranPengguna);
+		return this.peranPenggunaDAO.getById(idPeranPengguna);
 	}
 
 	@Override
 	public List<PeranPengguna> getByParam(String queryParam) {
-		return this.peranPenggunaRepository.getByParam(queryParam);
+		return this.peranPenggunaDAO.getByParam(queryParam);
 	}
 
 }

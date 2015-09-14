@@ -5,7 +5,7 @@
 
 <title>Tambah Modul</title>
 
-<div class="row" id="masterpage">
+<div class="row">
 	<div class="col-md-12">
 		<div id="panel-unggah" class="panel panel-white">
 			<div class="panel-heading clearfix">
@@ -34,3 +34,35 @@
 		
 	</div>
 </div>
+
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
+
+<c:if test="${uploadFailed != null}">
+	<script>
+		toastr.options = {
+				  "closeButton": true,
+				  "debug": false,
+				  "newestOnTop": false,
+				  "progressBar": false,
+				  "positionClass": "toast-top-right",
+				  "preventDuplicates": false,
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "1000",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "1000",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+				}
+		
+		toastr["error"]("${uploadFailed.getMessage()}");
+	</script>
+</c:if>

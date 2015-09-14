@@ -10,16 +10,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class HttpErrorController {
 
 	@RequestMapping(value = "/404", method = RequestMethod.GET)
-	public ModelAndView error404() {
+	public ModelAndView notFound() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("404");
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/401", method = RequestMethod.GET)
-	public ModelAndView error401() {
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public ModelAndView accessDenied() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("401");
+		modelAndView.setViewName("403");
 		return modelAndView;
 	}
 	

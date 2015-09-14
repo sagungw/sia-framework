@@ -3,26 +3,21 @@ package com.sia.main.service.services.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.sia.main.data.repositories.StatusPluginRepository;
+import com.sia.main.data.dao.StatusPluginDAO;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.service.services.StatusPluginService;
 
 public class StatusPluginServiceImpl implements StatusPluginService {
 	
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-	
-	private StatusPluginRepository statusPluginRepository;
+	private StatusPluginDAO statusPluginDAO;
 
-	public StatusPluginRepository getStatusPluginRepository() {
-		return statusPluginRepository;
+	public StatusPluginDAO getStatusPluginDAO() {
+		return statusPluginDAO;
 	}
 
-	public void setStatusPluginRepository(
-			StatusPluginRepository statusPluginRepository) {
-		this.statusPluginRepository = statusPluginRepository;
+	public void setStatusPluginDAO(
+			StatusPluginDAO statusPluginDAO) {
+		this.statusPluginDAO = statusPluginDAO;
 	}
 
 	@Override
@@ -37,37 +32,58 @@ public class StatusPluginServiceImpl implements StatusPluginService {
 		} else {
 			StatusPlugin temp = this.getById(statusPlugin.getIdStatus());
 			if(temp == null) {
-				result = this.statusPluginRepository.insertInto(statusPlugin);
+				this.statusPluginDAO.insert(statusPlugin);
 			} else {
-				result = this.update(statusPlugin);
+				this.update(statusPlugin);
 			}
+			result = statusPlugin;
 		}
 		return result;
+	}
+	
+	@Override
+	public boolean refreshFrameworkStatusList() {
+		try {
+			StatusPlugin statusPlugin;
+			statusPlugin = new StatusPlugin(null, "ACTIVE", null);
+			this.insertInto(statusPlugin);
+			statusPlugin = new StatusPlugin(null, "INSTALLED", null);
+			this.insertInto(statusPlugin);
+			statusPlugin = new StatusPlugin(null, "RESOLVED", null);
+			this.insertInto(statusPlugin);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 	@Override
 	public StatusPlugin update(StatusPlugin statusPlugin) {
-		return this.statusPluginRepository.update(statusPlugin);
+		this.statusPluginDAO.update(statusPlugin);
+		return statusPlugin;
 	}
 
 	@Override
 	public StatusPlugin delete(StatusPlugin statusPlugin) {
-		return this.statusPluginRepository.delete(statusPlugin);
+		this.statusPluginDAO.delete(statusPlugin);
+		return statusPlugin;
 	}
 
 	@Override
 	public StatusPlugin getById(UUID idStatus) {
-		return this.statusPluginRepository.getById(idStatus);
+		return this.statusPluginDAO.getById(idStatus);
 	}
 
 	@Override
 	public List<StatusPlugin> getByParam(String queryParam) {
-		return this.statusPluginRepository.getByParam(queryParam);
+		return this.statusPluginDAO.getByParam(queryParam);
 	}
 
 	@Override
 	public List<StatusPlugin> getAll() {
-		return this.statusPluginRepository.getAll();
+		return this.statusPluginDAO.getAll();
 	}
 
 }

@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:tx="http://www.springframework.org/schema/tx"                               
-   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   	xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"  
-   	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-   		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-   		http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
    		
    	<bean id="sessionFactoryManagerBean" class="com.sia.main.data.sessionfactory.SessionFactoryManager" scope="singleton">
 		<property name="securitySessionFactoryConfiguration" ref="hibernateConfigurationRef"></property>
@@ -23,5 +34,12 @@
 			</array>
 		</property>
 	</bean>
+
+	<!-- Hibernate transaction manager -->
+<!-- 	<bean id="transactionManager" name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
+<!-- 		<property name="sessionFactory" ref="sessionFactory" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
 
 </beans>

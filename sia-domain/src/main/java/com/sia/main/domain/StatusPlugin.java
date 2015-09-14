@@ -34,6 +34,13 @@ public class StatusPlugin {
 	public StatusPlugin() {
 	}
 	
+	public StatusPlugin(UUID idStatus, String namaStatus, List<Modul> modules) {
+		super();
+		this.idStatus = idStatus;
+		this.namaStatus = namaStatus;
+		this.modules = modules;
+	}
+
 	public UUID getIdStatus() {
 		return idStatus;
 	}

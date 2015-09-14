@@ -45,13 +45,13 @@
                             <div class="login-box">
                                 <a href="index.html" class="logo-name text-lg text-center">Sistem Informasi Akademik</a>
                                 <p class="text-center m-t-md">Mohon masuk dengan akun anda.</p>
-                                <c:if test="${status == false}">
+                                <c:if test="${not empty errorMessage}">
 	                                <div class="alert alert-danger alert-dismissible" role="alert">
 	                                	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-	                                        Email atau password tidak sesuai
+	                                       ${errorMessage}
 	                                </div>
                                 </c:if>
-                                <form class="m-t-md" action="${pageContext.servletContext.contextPath}/account/authenticate" method="post">
+                                <form class="m-t-md" action="${pageContext.servletContext.contextPath}/j_spring_security_check" method="post">
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Email" required name="username">
                                     </div>
@@ -59,9 +59,6 @@
                                         <input type="password" class="form-control" placeholder="Password" required name="password">
                                     </div>
                                     <button type="submit" class="btn btn-success btn-block">Login</button>
-                                    <a href="forgot.html" class="display-block text-center m-t-md text-sm">Lupa password?</a>
-                                    <p class="text-center m-t-xs text-sm">Tidak punya akun?</p>
-                                    <a href="register.html" class="btn btn-default btn-block m-t-md">Laporkan ke Admin</a>
                                 </form>
                                 <p class="text-center m-t-xs text-sm">2015 &copy; LBE RPL Teknik Informatika ITS.</p>
                             </div>

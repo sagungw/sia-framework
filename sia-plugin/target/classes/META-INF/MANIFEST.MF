@@ -1,24 +1,22 @@
 Manifest-Version: 1.0
-Export-Package: com.sia.main.plugin.modul;uses:="org.springframework.w
- eb.servlet,org.osgi.framework,org.springframework.web.context,org.spr
- ingframework.osgi.web.context.support";version="0.0.1.SNAPSHOT",com.s
- ia.main.plugin.modul.servlet;uses:="org.springframework.web.servlet,o
- rg.springframework.web.servlet.view,com.sia.main.plugin.modul";versio
- n="0.0.1.SNAPSHOT",com.sia.main.plugin.persistence;uses:="org.apache.
- commons.dbcp2,org.hibernate.cfg";version="0.0.1.SNAPSHOT"
+Export-Package: com.sia.main.plugin.persistence;uses:="org.apache.comm
+ ons.dbcp2,org.hibernate.cfg";version="0.0.1.SNAPSHOT",com.sia.main.pl
+ ugin.modul;uses:="org.springframework.web.servlet,org.osgi.framework,
+ org.springframework.web.context.support,org.springframework.web.conte
+ xt";version="0.0.1.SNAPSHOT",com.sia.main.plugin.modul.servlet;uses:=
+ "org.springframework.web.servlet.view";version="0.0.1.SNAPSHOT"
 Bundle-SymbolicName: com.sia.main.sia-plugin
 Bundle-Name: sia-plugin
 Bundle-Version: 0.0.1.SNAPSHOT
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1439537112127
-Bundle-Activator: com.sia.main.plugin.osgi.PluginBundleActivator
+Bnd-LastModified: 1442021655449
 Import-Package: com.sia.main.plugin.modul;version="0.0",com.sia.main.p
  lugin.modul.servlet;version="0.0",com.sia.main.plugin.persistence;ver
  sion="0.0",org.apache.commons.dbcp2;version="2.1",org.hibernate.cfg;v
- ersion="4.2",org.osgi.framework;version="1.6",org.springframework.osg
- i.web.context.support;version="1.2",org.springframework.web.context;v
- ersion="3.1",org.springframework.web.servlet;version="3.1",org.spring
- framework.web.servlet.view;version="3.1"
+ ersion="4.2",org.osgi.framework;version="1.6",org.springframework.web
+ .context;version="3.1",org.springframework.web.context.support;versio
+ n="3.1",org.springframework.web.servlet;version="3.1",org.springframe
+ work.web.servlet.view;version="3.1"
 Created-By: 1.8.0_31 (Oracle Corporation)
 Tool: Bnd-0.0.357
 

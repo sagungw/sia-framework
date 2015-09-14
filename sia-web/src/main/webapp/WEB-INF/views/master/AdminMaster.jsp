@@ -2,12 +2,14 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="function" uri="http://taglibs/custom" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html>
     
 	<head>
-        <title><decorator:title default="Sistem Informasi Akademik"></decorator:title></title>
+        <title><decorator:title default="Sistem Informasi Akademik - Administrator"></decorator:title></title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -28,6 +30,7 @@
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/plugins/nestable/nestable.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.servletContext.contextPath}/resources/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
         
         <link href="${pageContext.servletContext.contextPath}/resources/css/modern.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.servletContext.contextPath}/resources/css/themes/white.css" class="theme-color" rel="stylesheet" type="text/css"/>
@@ -145,14 +148,13 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
-                                        <span class="user-name">David<i class="fa fa-angle-down"></i></span>
-                                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/avatar1.png" width="40" height="40" alt="">
+                                        <span class="user-name">${sessionScope.userSession.getUsername()}<i class="fa fa-angle-down"></i></span>
+                                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" width="40" height="40" alt="">
                                     </a>
                                     <ul class="dropdown-menu dropdown-list" role="menu">
-                                        <li role="presentation"><a href="calendar.html"><i class="fa fa-calendar"></i>Pilih Peran</a></li>
-                                        <li role="presentation"><a href="inbox.html"><i class="fa fa-envelope"></i>Pilih Modul<span class="badge badge-success pull-right">4</span></a></li>
+                                        <li role="presentation"><a href="${pageContext.servletContext.contextPath}/session/chooseUserRole"><i class="fa fa-calendar"></i>Pilih Peran</a></li>
                                         <li role="presentation" class="divider"></li>
-                                        <li role="presentation"><a href="login.html"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
+                                        <li role="presentation"><a href="${pageContext.servletContext.contextPath}/account/logout"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
                                     </ul>
                                 </li>
                             </ul><!-- Nav -->
@@ -166,10 +168,10 @@
                         <div class="sidebar-profile">
                             <a href="javascript:void(0);" id="profile-menu-link">
                                 <div class="sidebar-profile-image">
-                                    <img src="${pageContext.servletContext.contextPath}/resources/images/avatar1.png" class="img-circle img-responsive" alt="">
+                                    <img src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" class="img-circle img-responsive" alt="">
                                 </div>
                                 <div class="sidebar-profile-details">
-                                    <span>David<br><small>Administrator</small></span>
+                                    <span>${sessionScope.userSession.getUsername()}<br><small>${sessionScope.roleSession.getNamaPeran()}</small></span>
                                 </div>
                             </a>
                         </div>

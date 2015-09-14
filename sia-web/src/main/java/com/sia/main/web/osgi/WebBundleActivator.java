@@ -1,5 +1,7 @@
 package com.sia.main.web.osgi;
 
+import java.util.List;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -10,22 +12,22 @@ public class WebBundleActivator implements BundleActivator {
 	
 	@Override
 	public void start(final BundleContext context) throws Exception {
-		System.out.println("SIA Web Bundle Activated");
 		final ModuleManager moduleManager = ModuleManager.getInstance();
 		new Thread() {
 			@Override
 			public void run() {
-				ModuleServiceLocator serviceLocator = new ModuleServiceLocator(context);
-				Module module = serviceLocator.getModuleService(0);
-				System.out.println(module.getModuleName());
-				moduleManager.addModule(module);
+				ServiceLocator<Module> serviceLocator = new ServiceLocator<Module>(context, Module.class);
+				List<Module> modules = serviceLocator.getServices();
+				System.out.println("MODULES FOUND : " + modules.size());
+				for(Module module: modules) {
+					moduleManager.addModule(module);
+				}
 			}
 		}.start();
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		System.out.println("SIA Web Bundle Deactivated");
 	}
 
 }

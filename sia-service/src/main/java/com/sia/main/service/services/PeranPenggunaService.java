@@ -11,7 +11,7 @@ public interface PeranPenggunaService {
 
 	public PeranPengguna update(PeranPengguna peranPengguna);
 
-	public void delete(PeranPengguna peranPengguna);
+	public PeranPengguna delete(PeranPengguna peranPengguna);
 
 	public List<PeranPengguna> getAll();
 
