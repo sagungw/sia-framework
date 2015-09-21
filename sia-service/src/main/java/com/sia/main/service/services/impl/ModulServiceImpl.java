@@ -21,6 +21,7 @@ import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.plugin.modul.Module;
+import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.StatusPluginService;
@@ -37,6 +38,8 @@ public class ModulServiceImpl implements ModulService {
 	private StatusPluginService statusPluginService;
 
 	private MenuService menuService;
+	
+	private MenuPeranService menuPeranService;
 
 	public ModulDAO getModulDAO() {
 		return modulDAO;
@@ -60,6 +63,14 @@ public class ModulServiceImpl implements ModulService {
 
 	public void setMenuService(MenuService menuService) {
 		this.menuService = menuService;
+	}
+
+	public MenuPeranService getMenuPeranService() {
+		return menuPeranService;
+	}
+
+	public void setMenuPeranService(MenuPeranService menuPeranService) {
+		this.menuPeranService = menuPeranService;
 	}
 
 	@Override
@@ -140,7 +151,7 @@ public class ModulServiceImpl implements ModulService {
 				}
 				res.setMenus(menuList);
 			} else {
-				bundle.stop();
+				bundle.uninstall();
 			}
 		} catch (BundleException e) {
 			e.printStackTrace();
@@ -177,17 +188,14 @@ public class ModulServiceImpl implements ModulService {
 		if ((temps != null && temps.size() > 0)
 				&& (!temps.get(0).getUrlMapping().equals(modul.getUrlMapping()))
 				&& (temps2 != null && temps2.size() > 0)) {
-			System.out.println("DENIED");
 			return null;
 		}
 		if ((temps == null || temps.size() == 0)
 				&& (temps2 == null || temps2.size() == 0)) {
-			System.out.println("INSERTED");
 			this.modulDAO.insert(modul);
 			res = this.getByParam(
 					"where namaModul = '" + modul.getNamaModul() + "'").get(0);
 		} else {
-			System.out.println("UPDATED");
 			res = this.update(modul);
 		}
 		return res;
@@ -195,16 +203,16 @@ public class ModulServiceImpl implements ModulService {
 
 	@Override
 	public Modul update(Modul modul) {
-		Modul toBeUpdate = this.getByParam(
+		Modul toBeUpdated = this.getByParam(
 				"where namaModul = '" + modul.getNamaModul() + "'").get(0);
-		toBeUpdate.setNamaModul(modul.getNamaModul());
-		toBeUpdate.setLokasiKonfigurasiServlet(modul
+		toBeUpdated.setNamaModul(modul.getNamaModul());
+		toBeUpdated.setLokasiKonfigurasiServlet(modul
 				.getLokasiKonfigurasiServlet());
-		toBeUpdate.setStatus(modul.getStatus());
-		toBeUpdate.setUrlMapping(modul.getUrlMapping());
-		toBeUpdate.setVersi(modul.getVersi());
-		this.modulDAO.update(toBeUpdate);
-		return toBeUpdate;
+		toBeUpdated.setStatus(modul.getStatus());
+		toBeUpdated.setUrlMapping(modul.getUrlMapping());
+		toBeUpdated.setVersi(modul.getVersi());
+		this.modulDAO.update(toBeUpdated);
+		return toBeUpdated;
 	}
 
 	@Override
@@ -224,6 +232,7 @@ public class ModulServiceImpl implements ModulService {
 
 	@Override
 	public Modul delete(Modul modul) {
+		
 		this.modulDAO.delete(modul);
 		return modul;
 	}

@@ -102,22 +102,29 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/2/submit",  method = RequestMethod.POST)
-	public @ResponseBody Response saveMenus(@RequestBody RoleMenu roleMenu) {
+	@ResponseBody
+	public Response saveMenus(@RequestBody RoleMenu[] roleMenus) {
 		MenuPeran result = null;
-		for (String menuId : roleMenu.getRoleMenus()) {
-			Menu menu = this.menuService.getById(UUID.fromString(menuId));
-			Peran peran = this.peranService.getById(UUID.fromString(roleMenu.getRoleId()));
-			MenuPeran menuPeran = new MenuPeran(null, peran, menu);
-			result = this.menuPeranService.insertInto(menuPeran);
+		for(RoleMenu roleMenu: roleMenus) {
+			for (String menuId : roleMenu.getRoleMenus()) {
+				Menu menu = this.menuService.getById(UUID.fromString(menuId));
+				Peran peran = this.peranService.getById(UUID.fromString(roleMenu.getRoleId()));
+				MenuPeran menuPeran = new MenuPeran(null, peran, menu);
+				result = this.menuPeranService.insertInto(menuPeran);
+				if(result == null) {
+					break;
+				}
+			}
 			if(result == null) {
 				break;
 			}
 		}
 		if(result != null) {
-			return new Response(success, "hak akses menu berhasil ditambah", result); 
+			return new Response(success, "hak akses menu berhasil ditambah", success); 
 		} else {
-			return new Response(existed, "hak akses menu gagal ditambah", result);
+			return new Response(existed, "hak akses menu gagal ditambah", null);
 		}
+		
 	}
 	
 	@RequestMapping(value = "/uploadWizard/3", method = RequestMethod.GET)
@@ -152,4 +159,14 @@ public class ModuleController {
 		return response;
 	}
 	
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	@ResponseBody
+	public Response test(@RequestBody RoleMenu[] roleMenus) {
+		RoleMenu rm = roleMenus[1];
+		System.out.println("roleId: " + rm.getRoleId());
+		for(String r : rm.getRoleMenus()) {
+			System.out.println("roleMenu: " + r);
+		}
+		return new Response("ok", "asdf", null);
+	}
 }

@@ -18,5 +18,5 @@
 	<bean id="userDetailProvider" class="com.sia.main.web.security.SIAUserProvider">
 		<property name="penggunaService" ref="penggunaServiceRef"></property>
 	</bean>
-    	
+    
 </beans>

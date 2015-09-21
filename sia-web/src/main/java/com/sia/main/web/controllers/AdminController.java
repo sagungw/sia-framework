@@ -3,7 +3,6 @@ package com.sia.main.web.controllers;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +36,6 @@ public class AdminController {
 		return modelAndView;
 	}
 	
-	@Secured("ROLE_Admin")
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView viewDashboard(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();

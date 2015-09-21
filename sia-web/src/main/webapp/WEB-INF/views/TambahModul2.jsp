@@ -70,22 +70,22 @@
 <script>
 
 	toastr.options = {
-		  "closeButton": true,
-		  "debug": false,
-		  "newestOnTop": false,
-		  "progressBar": false,
-		  "positionClass": "toast-top-right",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "5000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		}
+		"closeButton": false,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": true,
+		"positionClass": "toast-top-right",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "3000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
 
     var selectedRole = null;
     var roles = [];
@@ -121,31 +121,31 @@
     
     $("#btn-submit").click(function() {
     	if(selectedRole != null) {
-    		var success = true;
+    		var roleMenus = [];
     		$(".role-item").each(function() {
     			var id = $(this).attr("id");
-    			var json = {roleId: id, roleMenus: roles[id]};
-    			$.ajax({
-    				url: contextPath + "/admin/module/uploadWizard/2/submit",
-    				type: 'POST',
-    				contentType: 'application/json',
-    				data: JSON.stringify(json),
-    				success: function(result) {
-       					if(result.data == null) {
-       						success = false;
-       					}
-       			 	}
-       			});
+    			roleMenus.push({roleId: id, roleMenus: roles[id]});
     		});
-//     		if(success == true) {
-//         		toastr["success"]("penambahan hak akses untuk menu berhasil");
-//         		window.location.href = contextPath + "/admin/module/uploadWizard/3";
-//     		} else {
-//     			toastr["error"]("penambahan hak akses untuk menu gagal");
-//     		}
+   			$.ajax({
+   				url: contextPath + "/admin/module/uploadWizard/2/submit",
+   				type: 'POST',
+   				contentType: 'application/json',
+   				data: JSON.stringify(roleMenus),
+   				success: function(response) {
+   					if(response.data != null) {
+   						toastr["success"]("penambahan hak akses menu berhasil");
+   						setTimeout(function(){
+   							window.location.href = contextPath + "/admin/module/uploadWizard/3";
+    					}, 3000);	
+   					} else {
+   						toastr["error"]("penambahan hak akses menu gagal");		
+   					}
+    			}
+    		});
     	} else {
     		toastr["error"]("mohon untuk mengisi hak akses sebelum melanjutkan");
     	}
+				
     });
     
 </script>
