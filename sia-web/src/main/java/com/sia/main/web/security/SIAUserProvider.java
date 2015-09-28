@@ -31,7 +31,7 @@ public class SIAUserProvider implements UserDetailsService {
 		Pengguna user = penggunaService.getByUsername(username);
 		return new SIAUser(user.getUsername(), user.getPassword(),
 				user.isStatusKeaktifan(), true, true, true,
-				this.buildUserAuthorities(user.getPeranPenggunas()),
+				this.buildUserAuthorities(user.getPeranPenggunaList()),
 				user.getIdPengguna(), user.getSatMan());
 	}
 

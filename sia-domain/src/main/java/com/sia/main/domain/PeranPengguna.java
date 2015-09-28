@@ -33,15 +33,21 @@ public class PeranPengguna {
 	@JoinColumn(name = "id_peran", nullable = false)
 	private Peran peran;
 
-	protected PeranPengguna(UUID idPeranPengguna, Pengguna pengguna, Peran peran) {
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_sat_man", nullable = false)
+	private SatMan satMan;
+
+	public PeranPengguna() {
+		
+	}
+	
+	public PeranPengguna(UUID idPeranPengguna, Pengguna pengguna, Peran peran,
+			com.sia.main.domain.SatMan satMan) {
 		super();
 		this.idPeranPengguna = idPeranPengguna;
 		this.pengguna = pengguna;
 		this.peran = peran;
-	}
-	
-	public PeranPengguna() {
-		
+		this.satMan = satMan;
 	}
 
 	public UUID getIdPeranPengguna() {
@@ -66,6 +72,14 @@ public class PeranPengguna {
 
 	public void setPeran(Peran peran) {
 		this.peran = peran;
+	}
+
+	public SatMan getSatMan() {
+		return satMan;
+	}
+
+	public void setSatMan(SatMan satMan) {
+		this.satMan = satMan;
 	}
 	
 }

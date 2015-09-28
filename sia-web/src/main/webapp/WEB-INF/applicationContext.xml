@@ -7,13 +7,9 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<import resource="spring-beans/sia-web-osgi.xml"/>
+	<import resource="/spring-beans/sia-web-osgi.xml"/>
 	
-	<import resource="spring-beans/sia-web-security.xml"/>
-	   
-	<bean id="moduleManagerBean" class="com.sia.main.web.ModuleManager" factory-method="getInstance">
-		<property name="modules" ref="modulesRef"></property>
-	</bean>
+	<import resource="/spring-beans/sia-web-security.xml"/>
 	
 	<bean id="userDetailProvider" class="com.sia.main.web.security.SIAUserProvider">
 		<property name="penggunaService" ref="penggunaServiceRef"></property>

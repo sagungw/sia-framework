@@ -42,7 +42,8 @@ public class StandardModule implements Module {
 		this.pluginVersion = pluginVersion;
 		this.menus = menus;
 		this.moduleName = moduleName;
-		this.urlMapping = urlMapping;
+		this.setUrlMapping(urlMapping);
+		System.out.println("urlMapping: " + this.urlMapping);
 		this.servletConfigurationPath = servletConfigurationPath;
 		this.viewResourceLocation = viewResourceLocation;
 		this.buildServlet();
@@ -85,7 +86,7 @@ public class StandardModule implements Module {
 	}
 
 	public void setUrlMapping(String urlMapping) {
-		this.urlMapping = urlMapping;
+		this.urlMapping = this.standardizeUrlMapping(urlMapping);
 	}
 
 	@Override
@@ -184,6 +185,22 @@ public class StandardModule implements Module {
 		XmlWebApplicationContext context = new XmlWebApplicationContext();
 		context.setConfigLocation("classpath*:" + this.servletConfigurationPath);
 		this.setServlet(new DispatcherServlet(context));
+	}
+	
+	private String standardizeUrlMapping(String urlMapping) {
+		StringBuilder result = new StringBuilder();
+		result.append("/modul");
+		if(urlMapping.charAt(0) != '/') {
+			result.append('/');
+		}
+		if(urlMapping.charAt(urlMapping.length()-1) != '*') {
+			if(urlMapping.charAt(urlMapping.length()-1) != '/') {
+				result.append(urlMapping + "/*");
+			} else {
+				result.append(urlMapping + "*");
+			}
+		}
+		return result.toString();
 	}
 
 }

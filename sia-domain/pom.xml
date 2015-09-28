@@ -25,9 +25,5 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.sia.main</groupId>
-			<artifactId>sia-plugin</artifactId>
-		</dependency>
   	</dependencies>
 </project>

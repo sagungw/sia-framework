@@ -147,4 +147,22 @@ public class PenggunaDAOImpl implements PenggunaDAO {
 		return penggunaList;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Pengguna getByUsername(String username) {
+		final Session session = this.getSession();
+		Pengguna pengguna = null;
+		try{
+			session.beginTransaction();
+			List<Pengguna> daftarPengguna = session.createQuery("from Pengguna where username = '" + username + "'").list();
+			pengguna = daftarPengguna.size() > 0 ? daftarPengguna.get(0) : null;
+		}  catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(session.isOpen())
+				session.close();
+		}
+		return pengguna;
+	}
+
 }

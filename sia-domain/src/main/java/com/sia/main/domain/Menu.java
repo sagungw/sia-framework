@@ -1,6 +1,5 @@
 package com.sia.main.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,33 +27,30 @@ public class Menu {
 	@Column(name = "id_menu")
 	private UUID idMenu;
 
-	@Column(name = "nama_menu", nullable = false)
-	private String namaMenu;
-
-	@Column(name = "url_pattern", nullable = false)
-	private String urlPattern;
-
-	@Column(name = "home_url", nullable = false)
-	private String homeUrl;
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_modul", nullable = false)
 	private Modul modul;
+	
+	@Column(name = "nama_menu", nullable = false)
+	private String namaMenu;
+
+	@Column(name = "url_menu", nullable = false)
+	private String urlMenu;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
-	private List<MenuPeran> daftarMenuPeran = new ArrayList<MenuPeran>();
+	private List<MenuPeran> daftarMenuPeran;
 
 	public Menu() {
 		
 	}
-	
-	protected Menu(UUID idMenu, String namaMenu, String urlPattern,
-			String homeUrl, Modul modul, List<MenuPeran> daftarMenuPeran) {
+
+	public Menu(UUID idMenu, Modul modul, String namaMenu, String urlMenu,
+			List<MenuPeran> daftarMenuPeran) {
+		super();
 		this.idMenu = idMenu;
-		this.namaMenu = namaMenu;
-		this.urlPattern = urlPattern;
-		this.homeUrl = homeUrl;
 		this.modul = modul;
+		this.namaMenu = namaMenu;
+		this.urlMenu = urlMenu;
 		this.daftarMenuPeran = daftarMenuPeran;
 	}
 
@@ -66,6 +62,14 @@ public class Menu {
 		this.idMenu = idMenu;
 	}
 
+	public Modul getModul() {
+		return modul;
+	}
+
+	public void setModul(Modul modul) {
+		this.modul = modul;
+	}
+
 	public String getNamaMenu() {
 		return namaMenu;
 	}
@@ -74,28 +78,12 @@ public class Menu {
 		this.namaMenu = namaMenu;
 	}
 
-	public String getUrlPattern() {
-		return urlPattern;
+	public String getUrlMenu() {
+		return urlMenu;
 	}
 
-	public void setUrlPattern(String urlPattern) {
-		this.urlPattern = urlPattern;
-	}
-
-	public String getHomeUrl() {
-		return homeUrl;
-	}
-
-	public void setHomeUrl(String homeUrl) {
-		this.homeUrl = homeUrl;
-	}
-
-	public Modul getModul() {
-		return modul;
-	}
-
-	public void setModul(Modul modul) {
-		this.modul = modul;
+	public void setUrlMenu(String urlMenu) {
+		this.urlMenu = urlMenu;
 	}
 
 	public List<MenuPeran> getDaftarMenuPeran() {

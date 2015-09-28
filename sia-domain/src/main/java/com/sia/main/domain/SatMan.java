@@ -1,6 +1,5 @@
 package com.sia.main.domain;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -28,22 +26,37 @@ public class SatMan{
 	private UUID idSatMan; 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "sat_id_sat_man", nullable = false)
+	@JoinColumn(name = "sat_id_sat_man", nullable = true)
 	private SatMan satManInduk;
 	
-	@Column(name="nm_sat_man")
+	@Column(name="nm_sat_man", nullable = false)
 	private String nmSatMan;
 	
-	@Column(name="a_sat_man_aktif")
-	private boolean aSatManAktif; 
- 
-	@Transient
-	private List<SatMan> child;
+	@Column(name="a_sat_man_aktif", nullable = false)
+	private boolean aSatManAktif;
+	
+	@Column(name="is_sat_man_has_kurikulum", nullable = false)
+	private boolean satManHasKurikulum;
+	
+	@Column(name="a_sat_man_prodi", nullable = false)
+	private boolean aSatManProdi;
 	
 	public SatMan() {
 		
 	}
-	
+
+	public SatMan(UUID idSatMan, SatMan satManInduk, String nmSatMan,
+			boolean aSatManAktif, boolean satManHasKurikulum,
+			boolean aSatManProdi) {
+		super();
+		this.idSatMan = idSatMan;
+		this.satManInduk = satManInduk;
+		this.nmSatMan = nmSatMan;
+		this.aSatManAktif = aSatManAktif;
+		this.satManHasKurikulum = satManHasKurikulum;
+		this.aSatManProdi = aSatManProdi;
+	}
+
 	public UUID getIdSatMan() {
 		return idSatMan;
 	}
@@ -51,14 +64,14 @@ public class SatMan{
 	public void setIdSatMan(UUID idSatMan) {
 		this.idSatMan = idSatMan;
 	}
-	
+
 	public SatMan getSatManInduk() {
 		return satManInduk;
 	}
 
 	public void setSatManInduk(SatMan satManInduk) {
 		this.satManInduk = satManInduk;
-	} 
+	}
 
 	public String getNmSatMan() {
 		return nmSatMan;
@@ -68,7 +81,7 @@ public class SatMan{
 		this.nmSatMan = nmSatMan;
 	}
 
-	public boolean getaSatManAktif() {
+	public boolean isaSatManAktif() {
 		return aSatManAktif;
 	}
 
@@ -76,12 +89,20 @@ public class SatMan{
 		this.aSatManAktif = aSatManAktif;
 	}
 
-	public List<SatMan> getChild() {
-		return child;
+	public boolean isSatManHasKurikulum() {
+		return satManHasKurikulum;
 	}
 
-	public void setChild(List<SatMan> child) {
-		this.child = child;
+	public void setSatManHasKurikulum(boolean satManHasKurikulum) {
+		this.satManHasKurikulum = satManHasKurikulum;
+	}
+
+	public boolean isaSatManProdi() {
+		return aSatManProdi;
+	}
+
+	public void setaSatManProdi(boolean aSatManProdi) {
+		this.aSatManProdi = aSatManProdi;
 	}
 	
 }

@@ -12,6 +12,7 @@ public class HibernateConfigReferenceListener implements OsgiServiceLifecycleLis
 
 	private static final Logger logger = LoggerFactory.getLogger(HibernateConfigReferenceListener.class);
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void bind(Object object, Map map) throws Exception {
 		if(logger.isInfoEnabled()) {
@@ -20,6 +21,7 @@ public class HibernateConfigReferenceListener implements OsgiServiceLifecycleLis
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void unbind(Object object, Map map) throws Exception {
 		if(logger.isInfoEnabled()) {

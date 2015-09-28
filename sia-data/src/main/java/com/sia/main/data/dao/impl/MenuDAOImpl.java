@@ -8,16 +8,13 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.dao.MenuDAO;
 import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Menu;
 
 @Repository
-@Transactional
 public class MenuDAOImpl implements MenuDAO {
-
 
 	private static final Logger logger = LoggerFactory.getLogger(MenuDAOImpl.class);
 	

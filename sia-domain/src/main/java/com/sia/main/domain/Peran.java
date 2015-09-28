@@ -30,20 +30,22 @@ public class Peran {
 	private String namaPeran;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "peran")
-	private List<PeranPengguna> peranPenggunas = new ArrayList<PeranPengguna>();
+	private List<PeranPengguna> peranPenggunaList = new ArrayList<PeranPengguna>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "peran")
-	private List<MenuPeran> menuPerans = new ArrayList<MenuPeran>();
-
-	protected Peran(UUID idPeran, String namaPeran,
-			List<PeranPengguna> peranPenggunas, List<MenuPeran> menuPerans) {
-		this.idPeran = idPeran;
-		this.namaPeran = namaPeran;
-		this.peranPenggunas = peranPenggunas;
-		this.menuPerans = menuPerans;
+	private List<MenuPeran> menuPeranList = new ArrayList<MenuPeran>();
+	
+	public Peran() {
+		
 	}
 
-	public Peran() {
+	public Peran(UUID idPeran, String namaPeran,
+			List<PeranPengguna> peranPenggunaList, List<MenuPeran> menuPeranList) {
+		super();
+		this.idPeran = idPeran;
+		this.namaPeran = namaPeran;
+		this.peranPenggunaList = peranPenggunaList;
+		this.menuPeranList = menuPeranList;
 	}
 
 	public UUID getIdPeran() {
@@ -62,20 +64,20 @@ public class Peran {
 		this.namaPeran = namaPeran;
 	}
 
-	public List<PeranPengguna> getPeranPenggunas() {
-		return peranPenggunas;
+	public List<PeranPengguna> getPeranPenggunaList() {
+		return peranPenggunaList;
 	}
 
-	public void setPeranPenggunas(List<PeranPengguna> peranPenggunas) {
-		this.peranPenggunas = peranPenggunas;
+	public void setPeranPenggunaList(List<PeranPengguna> peranPenggunaList) {
+		this.peranPenggunaList = peranPenggunaList;
 	}
 
-	public List<MenuPeran> getMenuPerans() {
-		return menuPerans;
+	public List<MenuPeran> getMenuPeranList() {
+		return menuPeranList;
 	}
 
-	public void setMenuPerans(List<MenuPeran> menuPerans) {
-		this.menuPerans = menuPerans;
+	public void setMenuPeranList(List<MenuPeran> menuPeranList) {
+		this.menuPeranList = menuPeranList;
 	}
 	
 }

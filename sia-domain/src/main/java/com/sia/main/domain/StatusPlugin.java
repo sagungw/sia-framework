@@ -25,7 +25,7 @@ public class StatusPlugin {
 	@Column(name = "id_status")
 	private UUID idStatus;
 	
-	@Column(name = "nama_status")
+	@Column(name = "nama_status", nullable = false)
 	private String namaStatus;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")

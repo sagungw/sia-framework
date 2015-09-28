@@ -7,8 +7,24 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-   
+	<!-- Ref from sia-data -->
+	<osgi:reference id="basicDAORef" interface="com.sia.main.data.dao.BasicDAO" availability="mandatory">
+    </osgi:reference>
+	
+	<osgi:reference id="pdDAORef" interface="com.sia.main.data.dao.PdDAO" availability="mandatory">
+    </osgi:reference>
+    
+    <osgi:reference id="ptkDAORef" interface="com.sia.main.data.dao.PtkDAO" availability="mandatory">
+    </osgi:reference>
+	
+	<osgi:reference id="satManDAORef" interface="com.sia.main.data.dao.SatuanManajemenDAO" availability="mandatory">
+    </osgi:reference>
+    
+    <osgi:reference id="tipePenggunaDAORef" interface="com.sia.main.data.dao.TipePenggunaDAO" availability="mandatory">
+    </osgi:reference>
+	
+	
+	<!-- Ref from sia-service -->
     <osgi:reference id="penggunaServiceRef" interface="com.sia.main.service.services.PenggunaService" availability="mandatory">
     </osgi:reference>
     
@@ -29,8 +45,5 @@
     
     <osgi:reference id="menuServiceRef" interface="com.sia.main.service.services.MenuService" availability="mandatory">
     </osgi:reference>
-    
-    <osgi:list id="modulesRef" interface="com.sia.main.plugin.modul.Module" availability="optional">
-	</osgi:list>
 	
 </beans>

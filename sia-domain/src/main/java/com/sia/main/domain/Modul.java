@@ -1,6 +1,5 @@
 package com.sia.main.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,34 +36,35 @@ public class Modul {
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
-	@Column(name = "lokasi_konf_servlet", nullable = true)
-	private String lokasiKonfigurasiServlet;
+	@Column(name = "nama_servlet", nullable = false)
+	private String namaServlet;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "modul")
-	private List<Menu> menus = new ArrayList<Menu>();
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_modul", nullable = false)
 	private StatusPlugin status;
 	
 	@Column(name = "osgi_bundle_id", nullable = false)
-	private String osgiBundleId; 
+	private String osgiBundleId;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
+	private List<Menu> menus;
+
 	public Modul(){
 	}
 
 	public Modul(UUID idModul, String namaModul, String urlMapping,
-			String versi, String lokasiKonfigurasiServlet, List<Menu> menus,
-			StatusPlugin status, String osgiBundleId) {
+			String versi, String namaServlet, StatusPlugin status,
+			String osgiBundleId, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
 		this.urlMapping = urlMapping;
 		this.versi = versi;
-		this.lokasiKonfigurasiServlet = lokasiKonfigurasiServlet;
-		this.menus = menus;
+		this.namaServlet = namaServlet;
 		this.status = status;
 		this.osgiBundleId = osgiBundleId;
+		this.menus = menus;
+		this.namaServlet = this.generateServletName();
 	}
 
 	public UUID getIdModul() {
@@ -99,12 +99,28 @@ public class Modul {
 		this.versi = versi;
 	}
 
+	public String getNamaServlet() {
+		return namaServlet;
+	}
+
+	public void setNamaServlet(String namaServlet) {
+		this.namaServlet = namaServlet;
+	}
+
 	public StatusPlugin getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusPlugin statusPlugin) {
-		this.status = statusPlugin;
+	public void setStatus(StatusPlugin status) {
+		this.status = status;
+	}
+
+	public String getOsgiBundleId() {
+		return osgiBundleId;
+	}
+
+	public void setOsgiBundleId(String osgiBundleId) {
+		this.osgiBundleId = osgiBundleId;
 	}
 
 	public List<Menu> getMenus() {
@@ -114,21 +130,13 @@ public class Modul {
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
 	}
-
-	public String getLokasiKonfigurasiServlet() {
-		return lokasiKonfigurasiServlet;
-	}
-
-	public void setLokasiKonfigurasiServlet(String lokasiKonfigurasiServlet) {
-		this.lokasiKonfigurasiServlet = lokasiKonfigurasiServlet;
-	}
-
-	public String getOsgiBundleId() {
-		return osgiBundleId;
-	}
-
-	public void setOsgiBundleId(String osgiBundleId) {
-		this.osgiBundleId = osgiBundleId;
+	
+	private String generateServletName() {
+		if(this.namaModul == null || this.namaModul.equals("")) {
+			return this.namaModul.toLowerCase().replaceAll(" ", "_");
+		} else {
+			return this.namaServlet;
+		}
 	}
 
 }

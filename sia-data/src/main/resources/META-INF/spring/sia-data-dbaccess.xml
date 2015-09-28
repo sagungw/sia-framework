@@ -31,15 +31,11 @@
 				<value>com.sia.main.domain.Plugin</value>
 				<value>com.sia.main.domain.SatMan</value>
 				<value>com.sia.main.domain.StatusPlugin</value>
+				<value>com.sia.main.domain.Pd</value>
+				<value>com.sia.main.domain.Ptk</value>
+				<value>com.sia.main.domain.TipePengguna</value>
 			</array>
-		</property>
+		</property> 
 	</bean>
-
-	<!-- Hibernate transaction manager -->
-<!-- 	<bean id="transactionManager" name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
-<!-- 		<property name="sessionFactory" ref="sessionFactory" /> -->
-<!-- 	</bean> -->
-
-<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
 
 </beans>

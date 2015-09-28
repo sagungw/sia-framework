@@ -133,8 +133,6 @@ public class ModulServiceImpl implements ModulService {
 			modul.setNamaModul(module.getModuleName());
 			modul.setUrlMapping(module.getUrlMapping());
 			modul.setVersi(module.getPluginVersion());
-			modul.setLokasiKonfigurasiServlet(module
-					.getServletConfigurationPath());
 			modul.setStatus(statusPlugin);
 			modul.setOsgiBundleId(String.valueOf(bundle.getBundleId()));
 			res = this.insertInto(modul);
@@ -143,8 +141,7 @@ public class ModulServiceImpl implements ModulService {
 				for (com.sia.main.plugin.modul.Menu i : module.getMenus()) {
 					Menu menu = new Menu();
 					menu.setNamaMenu(i.getMenuName());
-					menu.setHomeUrl(i.getUrl());
-					menu.setUrlPattern(i.getUrlPattern());
+					menu.setUrlMenu(i.getUrl());
 					menu.setModul(res);
 					menuList.add(menu);
 					this.menuService.insertInto(menu);
@@ -206,8 +203,6 @@ public class ModulServiceImpl implements ModulService {
 		Modul toBeUpdated = this.getByParam(
 				"where namaModul = '" + modul.getNamaModul() + "'").get(0);
 		toBeUpdated.setNamaModul(modul.getNamaModul());
-		toBeUpdated.setLokasiKonfigurasiServlet(modul
-				.getLokasiKonfigurasiServlet());
 		toBeUpdated.setStatus(modul.getStatus());
 		toBeUpdated.setUrlMapping(modul.getUrlMapping());
 		toBeUpdated.setVersi(modul.getVersi());
