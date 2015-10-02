@@ -18,28 +18,32 @@
 		    
 		    <div class="panel-body">
 		        
+		        <br/>
+		        
 		        <div id="choose" class="row">
 		    		<div class="col-md-1">
-		    			<button type="button" class="btn btn-info m-b-sm" id="multi-add-btn">Impor CSV</button>
+		    			<button type="button" class="btn btn-primary m-b-sm" id="multi-add-btn">Impor CSV</button>
 		    		</div>
 		    		<div class="col-md-1">
-		    			<button type="button" class="btn btn-info m-b-sm" id="one-add-btn">Tambah Manual</button>
+		    			<button type="button" class="btn btn-primary m-b-sm" id="one-add-btn">Tambah Manual</button>
 		    		</div>
 		    	</div>
 		    
+		    	<br/>
+		    
 		    	<div id="by-csv" class="row" hidden=true>
-		    		<div class="col-md-4 col-md-offset-4">
+		    		<div class="col-md-4">
 		    			<form enctype="multipart/form-data" id="upload-csv" action="${pageContext.servletContext.contextPath}/admin/user/add/upload" method="post">
 				    		<input id="fileInput" type="file" accept=".csv" name="file"/>
 				    		<br/>
-				        	<button type="submit" class="btn btn-info m-b-sm" id="upload-csv-btn">Unggah</button>
+				        	<button type="submit" class="btn btn-primary m-b-sm" id="upload-csv-btn">Unggah</button>
 				    	</form>
 		    		</div>
 		    	</div>
 		    
 		    	<div id="by-one" class="row" hidden=true>
 		    	
-		    		<div class=" col-md-4 col-md-offset-4">
+		    		<div class=" col-md-4">
 				    		
 			    		<form action="${pageContext.servletContext.contextPath}/admin/user/add/" method="post">
 			    			<div class="form-group">
@@ -64,7 +68,7 @@
 									</c:forEach>
 							    </select>
 						  	</div>
-						  	<button type="submit" class="btn btn-default">Submit</button>
+						  	<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 		    		
 		    		</div>

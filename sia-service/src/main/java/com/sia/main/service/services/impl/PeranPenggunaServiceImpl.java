@@ -21,7 +21,7 @@ public class PeranPenggunaServiceImpl implements PeranPenggunaService {
 
 	@Override
 	public PeranPengguna insertInto(PeranPengguna peranPengguna) {
-		String query = "where peran.idPeran = '" + peranPengguna.getPeran().getIdPeran() + "' and pengguna.idPengguna = '" + peranPengguna.getPengguna().getIdPengguna() + "'";
+		String query = "where peran.idPeran = '" + peranPengguna.getPeran().getIdPeran() + "' and pengguna.idPengguna = '" + peranPengguna.getPengguna().getIdPengguna() + "' and satMan.idSatMan = '" + peranPengguna.getSatMan().getIdSatMan() + "'";
 		List<PeranPengguna> result = this.peranPenggunaDAO.getByParam(query);
 		if(result != null && result.size() > 0) {
 			return null;	
@@ -32,7 +32,7 @@ public class PeranPenggunaServiceImpl implements PeranPenggunaService {
 
 	@Override
 	public PeranPengguna update(PeranPengguna peranPengguna) {
-		String query = "where peran.idPeran = '" + peranPengguna.getPeran().getIdPeran() + "' and pengguna.idPengguna = '" + peranPengguna.getPengguna().getIdPengguna() + "' and idPeranPengguna != '" + peranPengguna.getIdPeranPengguna() + "'";
+		String query = "where peran.idPeran = '" + peranPengguna.getPeran().getIdPeran() + "' and pengguna.idPengguna = '" + peranPengguna.getPengguna().getIdPengguna() + "' and satMan.idSatMan = '" + peranPengguna.getSatMan().getIdSatMan() + "' and idPeranPengguna != '" + peranPengguna.getIdPeranPengguna() + "'";
 		List<PeranPengguna> result = this.peranPenggunaDAO.getByParam(query);
 		if(result != null && result.size() > 0) {
 			return null;	

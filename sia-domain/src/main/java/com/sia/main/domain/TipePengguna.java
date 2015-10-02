@@ -31,15 +31,20 @@ public class TipePengguna {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipePengguna")
 	private List<Pengguna> users;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipePengguna")
+	private List<Peran> daftarPeran;
+	
 	public TipePengguna() {
 		
 	}
-	
-	public TipePengguna(UUID idTipe, String namaTipe, List<Pengguna> users) {
+
+	public TipePengguna(UUID idTipe, String namaTipe, List<Pengguna> users,
+			List<Peran> daftarPeran) {
 		super();
 		this.idTipe = idTipe;
 		this.namaTipe = namaTipe;
 		this.users = users;
+		this.daftarPeran = daftarPeran;
 	}
 
 	public UUID getIdTipe() {
@@ -65,5 +70,13 @@ public class TipePengguna {
 	public void setUsers(List<Pengguna> users) {
 		this.users = users;
 	}
-	
+
+	public List<Peran> getDaftarPeran() {
+		return daftarPeran;
+	}
+
+	public void setDaftarPeran(List<Peran> daftarPeran) {
+		this.daftarPeran = daftarPeran;
+	}
+		
 }

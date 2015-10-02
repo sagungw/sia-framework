@@ -1,6 +1,5 @@
 package com.sia.main.web.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -11,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sia.main.domain.Modul;
 import com.sia.main.domain.Pengguna;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PenggunaService;
-import com.sia.main.service.services.PeranPenggunaService;
 
 @Controller
 public class HomeController {

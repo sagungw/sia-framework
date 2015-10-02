@@ -54,7 +54,7 @@ public class UserController {
 	@Autowired
 	private BasicDAO basicDAO;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
 	public ModelAndView viewUsers() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("users", this.penggunaService.getByParam("where statusKeaktifan is true"));

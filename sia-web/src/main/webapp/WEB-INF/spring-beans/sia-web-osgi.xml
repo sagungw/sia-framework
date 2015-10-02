@@ -22,6 +22,12 @@
     
     <osgi:reference id="tipePenggunaDAORef" interface="com.sia.main.data.dao.TipePenggunaDAO" availability="mandatory">
     </osgi:reference>
+    
+    <osgi:reference id="peranDAORef" interface="com.sia.main.data.dao.PeranDAO" availability="mandatory">
+    </osgi:reference>
+    
+    <osgi:reference id="penggunaDAO" interface="com.sia.main.data.dao.PenggunaDAO" availability="mandatory">
+    </osgi:reference>
 	
 	
 	<!-- Ref from sia-service -->

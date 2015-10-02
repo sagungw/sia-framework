@@ -52,7 +52,7 @@ public class ModuleController {
 	
 	private static String exception = "exception";
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public ModelAndView mainPage(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		if(session.getAttribute("uploadWizardDone") != null) {

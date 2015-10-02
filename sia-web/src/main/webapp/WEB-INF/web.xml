@@ -7,12 +7,12 @@
     	<param-name>contextClass</param-name>
     	<param-value>org.eclipse.virgo.web.dm.ServerOsgiBundleXmlWebApplicationContext</param-value>
   	</context-param>
-<!--   	<context-param> -->
-<!-- 		<param-name>contextConfigLocation</param-name> -->
-<!-- 		<param-value> -->
-<!-- 			/WEB-INF/spring-beans/sia-web.xml -->
-<!-- 		</param-value> -->
-<!-- 	</context-param> -->
+  	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring-beans/sia-web.xml
+		</param-value>
+	</context-param>
 	
 	<listener>
 		<listener-class>

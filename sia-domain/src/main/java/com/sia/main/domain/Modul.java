@@ -133,7 +133,16 @@ public class Modul {
 	
 	private String generateServletName() {
 		if(this.namaModul == null || this.namaModul.equals("")) {
-			return this.namaModul.toLowerCase().replaceAll(" ", "_");
+			StringBuilder servletName = new StringBuilder();
+			int i = 0;
+			String[] moduleName = this.getNamaModul().toLowerCase().split(" ");
+			for(String string: moduleName) {
+				if(i > 0) servletName.append('-');
+				servletName.append(string);
+				i++;
+			}
+			servletName.append("-servlet");
+			return servletName.toString();
 		} else {
 			return this.namaServlet;
 		}

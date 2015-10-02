@@ -1,4 +1,4 @@
-package com.sia.main.plugin.modul;
+package com.sia.main.plugin.modul.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,10 +11,14 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.eclipse.virgo.web.dm.ServerOsgiBundleXmlWebApplicationContext;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+
+import com.sia.main.plugin.modul.Menu;
+import com.sia.main.plugin.modul.Module;
 
 public class StandardModule implements Module {
 
@@ -43,7 +47,6 @@ public class StandardModule implements Module {
 		this.menus = menus;
 		this.moduleName = moduleName;
 		this.setUrlMapping(urlMapping);
-		System.out.println("urlMapping: " + this.urlMapping);
 		this.servletConfigurationPath = servletConfigurationPath;
 		this.viewResourceLocation = viewResourceLocation;
 		this.buildServlet();
@@ -182,7 +185,8 @@ public class StandardModule implements Module {
 	}
 	
 	public void buildServlet(){
-		XmlWebApplicationContext context = new XmlWebApplicationContext();
+		ServerOsgiBundleXmlWebApplicationContext context = new ServerOsgiBundleXmlWebApplicationContext();
+//		XmlWebApplicationContext context = new XmlWebApplicationContext();
 		context.setConfigLocation("classpath*:" + this.servletConfigurationPath);
 		this.setServlet(new DispatcherServlet(context));
 	}

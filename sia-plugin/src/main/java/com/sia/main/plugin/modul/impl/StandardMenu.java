@@ -1,4 +1,6 @@
-package com.sia.main.plugin.modul;
+package com.sia.main.plugin.modul.impl;
+
+import com.sia.main.plugin.modul.Menu;
 
 public class StandardMenu implements Menu {
 

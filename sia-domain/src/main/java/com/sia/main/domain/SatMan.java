@@ -1,5 +1,6 @@
 package com.sia.main.domain;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -25,7 +27,7 @@ public class SatMan{
 	@Type(type="pg-uuid")
 	private UUID idSatMan; 
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sat_id_sat_man", nullable = true)
 	private SatMan satManInduk;
 	
@@ -41,13 +43,16 @@ public class SatMan{
 	@Column(name="a_sat_man_prodi", nullable = false)
 	private boolean aSatManProdi;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "satManInduk")
+	private List<SatMan> satManBawahan;
+	
 	public SatMan() {
 		
 	}
 
 	public SatMan(UUID idSatMan, SatMan satManInduk, String nmSatMan,
 			boolean aSatManAktif, boolean satManHasKurikulum,
-			boolean aSatManProdi) {
+			boolean aSatManProdi, List<SatMan> satManBawahan) {
 		super();
 		this.idSatMan = idSatMan;
 		this.satManInduk = satManInduk;
@@ -55,6 +60,7 @@ public class SatMan{
 		this.aSatManAktif = aSatManAktif;
 		this.satManHasKurikulum = satManHasKurikulum;
 		this.aSatManProdi = aSatManProdi;
+		this.satManBawahan = satManBawahan;
 	}
 
 	public UUID getIdSatMan() {
@@ -103,6 +109,14 @@ public class SatMan{
 
 	public void setaSatManProdi(boolean aSatManProdi) {
 		this.aSatManProdi = aSatManProdi;
+	}
+
+	public List<SatMan> getSatManBawahan() {
+		return satManBawahan;
+	}
+
+	public void setSatManBawahan(List<SatMan> satManBawahan) {
+		this.satManBawahan = satManBawahan;
 	}
 	
 }

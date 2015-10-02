@@ -14,10 +14,10 @@
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">Ubah</h4>
 	      	</div>
-	      	
-     			<div class="modal-body">
-     				<form action="${pageContext.servletContext.contextPath}/admin/user/update" method="post">
-     					<div class="form-group" hidden=true>
+      	
+   			<div class="modal-body">
+   				<form action="${pageContext.servletContext.contextPath}/admin/user/update" method="post">
+   					<div class="form-group" hidden=true>
 				    	<label for="id">id</label>
 				    	<input type="text" class="form-control" id="id" placeholder="id" name="id">
 				  	</div>
@@ -34,7 +34,7 @@
 				  	</div>
 				  	<button type="submit" class="btn btn-default">Submit</button>
 				</form>
-	      	</div>
+      		</div>
 	      	
     	</div>
   	</div>
@@ -53,12 +53,12 @@
 		    <div class="panel-body">
 		        
 		        <div class="row">
-		    		<div class="col-md-12">
+		    		<div class="col-md-2">
 		    			<button id="add-user" type="button" id="mass-delete-btn" class="btn btn-primary">Tambah</button>
 		    		</div>
-		    	</div>
-		    
-		    	<div class="row">
+		    		
+		    		<div class="col-md-offset-2"></div>
+		    		
 		    		<div class="col-md-2">
 		    			<select class="form-control" id="sel-satman">
 		    				<option>Satuan Manajemen</option>
@@ -87,14 +87,16 @@
 		    		</div>
 		    		
 		    		<div class="col-md-2">
-		    			<button type="button" id="mass-delete-btn" class="btn btn-default">Hapus yang ditandai</button>
+		    			<button type="button" id="mass-delete-btn" class="btn btn-danger">Hapus yang ditandai</button>
 		    		</div>
 		    		
 		    	</div>
 		    
+			    <br/>		
+		    
 		    	<div class="row">
 			    	<div class="table-responsive col-md-12">
-			            <table id="user-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+			            <table id="user-table" class="table table-striped table-bordered table-hover">
 			                <thead>
 			                    <tr>
 			                        <th>Nomor Induk</th>
@@ -154,6 +156,7 @@
 					                        </c:if>
 				                        </td>
 				                        <td class="action">
+				                        	<button type="button" class="btn btn-primary btn-role">Hak Akses</button>
 				                        	<button type="button" class="btn btn-primary btn-update" data-toggle="modal" data-target="#modal-update">Ubah</button>
 				                        	<button type="button" class="btn btn-danger btn-delete">Hapus</button>
 				                        </td>
@@ -216,23 +219,27 @@
 	});
 
 	$('#mass-delete-btn').click(function() {
-		$.ajax({
-			url: contextPath + "/admin/user/multiDelete",
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify(markedUsers),
-			success: function(result) {
-				var status = result.status;
-				if(status == "success") {
-					toastr["success"](result.message);
-				} else {
-					toastr["error"](result.message);
-				}
-				setTimeout(function(){
-					location.reload();
-				}, 3000);
-		 	}
-		});
+		if(markedUsers.length > 0) {
+			$.ajax({
+				url: contextPath + "/admin/user/multiDelete",
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(markedUsers),
+				success: function(result) {
+					var status = result.status;
+					if(status == "success") {
+						toastr["success"](result.message);
+					} else {
+						toastr["error"](result.message);
+					}
+					setTimeout(function(){
+						location.reload();
+					}, 3000);
+			 	}
+			});	
+		} else {
+			toastr["error"]("mohon tandai pengguna terlebih dahulu");
+		}
 	});
      
 	$('#all-marker').click(function() {
@@ -296,6 +303,11 @@
 			$("#id").val(userId);
 			$("#username").val(username);
 			$("#sel-satman-upd").val(satMan);
+		});
+		$(this).find(".action").find(".btn-role").click(function() {
+			var parentTr = $(this).parents("tr"); 
+			var userId = parentTr.attr("id");
+			window.location.href = contextPath + "/admin/userRole?userId=" + userId;
 		});
 	});
 

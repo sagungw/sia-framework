@@ -139,7 +139,7 @@ public class PeranDAOImpl implements PeranDAO {
 		try{
 			final Transaction transaction = session.beginTransaction();
 			try {
-				daftarPeran = session.createQuery("from Param " + queryParam).list();
+				daftarPeran = session.createQuery("from Peran " + queryParam).list();
 			} catch (Exception e) {
 				transaction.rollback();
 				e.printStackTrace();

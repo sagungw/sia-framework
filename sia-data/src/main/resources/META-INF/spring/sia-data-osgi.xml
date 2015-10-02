@@ -5,7 +5,7 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
     
-    <osgi:reference id="hibernateConfigurationRef" interface="com.sia.main.plugin.persistence.HibernateConfiguration" availability="mandatory" timeout="5000" >
+    <osgi:reference id="hibernateConfigurationRef" interface="com.sia.main.plugin.persistence.HibernateConfiguration" availability="optional">
     	<osgi:reference-listener>
     		<bean class="com.sia.main.data.sessionfactory.HibernateConfigReferenceListener"></bean>
     	</osgi:reference-listener>
