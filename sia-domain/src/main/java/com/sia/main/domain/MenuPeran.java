@@ -25,11 +25,11 @@ public class MenuPeran {
 	@Column(name = "id_menu_peran")
 	private UUID idMenuPeran;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_peran", nullable = false)
 	private Peran peran;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_menu", nullable = false)
 	private Menu menu;
 

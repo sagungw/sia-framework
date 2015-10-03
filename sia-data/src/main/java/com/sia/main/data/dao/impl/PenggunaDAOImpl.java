@@ -3,166 +3,69 @@ package com.sia.main.data.dao.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.dao.PenggunaDAO;
-import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.Pengguna;
 
 @Repository
+@Transactional
 public class PenggunaDAOImpl implements PenggunaDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(PenggunaDAOImpl.class);
+	private SessionFactory sessionFactory;
 	
-	private SessionFactoryManager sessionFactoryManager;
-
-	public SessionFactoryManager getSessionFactoryManager() {
-		return sessionFactoryManager;
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}
 
-	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
-		this.sessionFactoryManager = sessionFactoryManager;
-	}
-
-	private Session getSession() {
-		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
-		if(session == null || !session.isOpen()) {
-			if(logger.isInfoEnabled()) logger.info("hibernate session is either null or closed. will open a new one instead");
-			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
-		}
-		return session;
-	}
-	
-	@Override
-	public void insert(Pengguna pengguna) {
-		final Session session = this.getSession();
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				session.save(pengguna);
-				transaction.commit();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
-	public void update(Pengguna pengguna) {
-		final Session session = this.getSession();
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				session.update(pengguna);
-				transaction.commit();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
+	public void insert(Pengguna object) {
+		this.sessionFactory.getCurrentSession().save(object);
 	}
 
 	@Override
-	public void delete(Pengguna pengguna) {
-		final Session session = this.getSession();
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				session.delete(pengguna);
-				transaction.commit();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
+	public void update(Pengguna object) {
+		this.sessionFactory.getCurrentSession().update(object);
+	}
+
+	@Override
+	public void delete(Pengguna object) {
+		this.sessionFactory.getCurrentSession().delete(object);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Pengguna> getAll() {
-		final Session session = this.getSession();
-		List<Pengguna> penggunaList = null;
-		try{
-			session.beginTransaction();
-			try {
-				penggunaList = session.createQuery("from Pengguna").list();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
-		return penggunaList;
+		return this.sessionFactory.getCurrentSession().createQuery("from Pengguna").list();
 	}
 
 	@Override
-	public Pengguna getById(UUID idPengguna) {
-		final Session session = this.getSession();
-		Pengguna pengguna = null;
-		try{
-			session.beginTransaction();
-			try {
-				pengguna = (Pengguna)session.get(Pengguna.class, idPengguna);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
-		return pengguna;
+	public Pengguna getById(UUID idObject) {
+		return (Pengguna) this.sessionFactory.getCurrentSession().get(Pengguna.class, idObject);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Pengguna> getByParam(String queryParam) {
-		final Session session = this.getSession();
-		List<Pengguna> penggunaList = null;
-		try{
-			session.beginTransaction();
-			try {
-				penggunaList = session.createQuery("from Pengguna " + queryParam).list();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
-		return penggunaList;
+		return this.sessionFactory.getCurrentSession().createQuery("from Pengguna " + queryParam).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Pengguna getByUsername(String username) {
-		final Session session = this.getSession();
-		Pengguna pengguna = null;
-		try{
-			session.beginTransaction();
-			List<Pengguna> daftarPengguna = session.createQuery("from Pengguna where username = '" + username + "'").list();
-			pengguna = daftarPengguna.size() > 0 ? daftarPengguna.get(0) : null;
-		}  catch (Exception e) {
+		try {
+			List<Pengguna> users = this.sessionFactory.getCurrentSession().createQuery("from Pengguna where username = '" + username + "'").list();
+			return users.get(0);
+		} catch(Exception e) {
 			e.printStackTrace();
-		} finally {
-			if(session.isOpen())
-				session.close();
+			return null;
 		}
-		return pengguna;
 	}
-
+	
 }

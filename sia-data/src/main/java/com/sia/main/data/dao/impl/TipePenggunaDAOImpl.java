@@ -3,151 +3,57 @@ package com.sia.main.data.dao.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sia.main.data.dao.TipePenggunaDAO;
-import com.sia.main.data.sessionfactory.SessionFactoryManager;
 import com.sia.main.domain.TipePengguna;
 
 @Repository
+@Transactional
 public class TipePenggunaDAOImpl implements TipePenggunaDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(TipePenggunaDAOImpl.class);
+	private SessionFactory sessionFactory;
 	
-	private SessionFactoryManager sessionFactoryManager;
-	
-	public SessionFactoryManager getSessionFactoryManager() {
-		return sessionFactoryManager;
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}
 
-	public void setSessionFactoryManager(SessionFactoryManager sessionFactoryManager) {
-		this.sessionFactoryManager = sessionFactoryManager;
-	}
-
-	private Session getSession() {
-		Session session = sessionFactoryManager.getSecuritySessionFactory().getCurrentSession();
-		if(session == null || !session.isOpen()) {
-			if(logger.isInfoEnabled()) logger.info("hibernate session is either null or closed. will open a new one instead");
-			session = sessionFactoryManager.getSecuritySessionFactory().openSession();
-		}
-		return session;
-	}
-	
-	@Override
-	public void insert(TipePengguna tipePengguna) {
-		final Session session = this.getSession();
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				session.save(tipePengguna);
-				transaction.commit();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
-	public void update(TipePengguna tipePengguna) {
-		final Session session = this.getSession();
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				session.update(tipePengguna);
-				transaction.commit();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
+	public void insert(TipePengguna object) {
+		this.sessionFactory.getCurrentSession().save(object);
 	}
 
 	@Override
-	public void delete(TipePengguna tipePengguna) {
-		final Session session = this.getSession();
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				session.delete(tipePengguna);
-				transaction.commit();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
+	public void update(TipePengguna object) {
+		this.sessionFactory.getCurrentSession().update(object);
+	}
+
+	@Override
+	public void delete(TipePengguna object) {
+		this.sessionFactory.getCurrentSession().delete(object);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipePengguna> getAll() {
-		final Session session = this.getSession();
-		List<TipePengguna> tipePenggunaes = null;
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				tipePenggunaes = session.createQuery("from TipePengguna").list();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
-		return tipePenggunaes;
+		return this.sessionFactory.getCurrentSession().createQuery("from TipePengguna").list();
 	}
 
 	@Override
-	public TipePengguna getById(UUID idTipePengguna) {
-		final Session session = this.getSession();
-		TipePengguna tipePengguna = null;
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				tipePengguna = (TipePengguna)session.get(TipePengguna.class, idTipePengguna);
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
-		return tipePengguna;
+	public TipePengguna getById(UUID idObject) {
+		return (TipePengguna) this.sessionFactory.getCurrentSession().get(TipePengguna.class, idObject);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipePengguna> getByParam(String queryParam) {
-		final Session session = this.getSession();
-		List<TipePengguna> daftarTipePengguna = null;
-		try{
-			final Transaction transaction = session.beginTransaction();
-			try {
-				daftarTipePengguna = session.createQuery("from TipePengguna " + queryParam).list();
-			} catch (Exception e) {
-				transaction.rollback();
-				e.printStackTrace();
-			}
-		} finally {
-			if(session.isOpen())
-				session.close();
-		}
-		return daftarTipePengguna;
+		return this.sessionFactory.getCurrentSession().createQuery("from TipePengguna " + queryParam).list();
 	}
 	
 }

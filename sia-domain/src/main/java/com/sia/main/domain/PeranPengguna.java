@@ -25,15 +25,15 @@ public class PeranPengguna {
 	@Column(name = "id_peran_pengguna")
 	private UUID idPeranPengguna;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_pengguna", nullable = false)
 	private Pengguna pengguna;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_peran", nullable = false)
 	private Peran peran;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sat_man", nullable = false)
 	private SatMan satMan;
 

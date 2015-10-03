@@ -27,7 +27,7 @@ public class SatMan{
 	@Type(type="pg-uuid")
 	private UUID idSatMan; 
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sat_id_sat_man", nullable = true)
 	private SatMan satManInduk;
 	

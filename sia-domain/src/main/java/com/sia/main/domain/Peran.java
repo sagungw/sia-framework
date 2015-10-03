@@ -30,7 +30,7 @@ public class Peran {
 	@Column(name = "nama_peran", nullable = false)
 	private String namaPeran;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipe", nullable = false)
 	private TipePengguna tipePengguna;
 	

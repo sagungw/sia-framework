@@ -39,7 +39,7 @@ public class Modul {
 	@Column(name = "nama_servlet", nullable = false)
 	private String namaServlet;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status_modul", nullable = false)
 	private StatusPlugin status;
 	

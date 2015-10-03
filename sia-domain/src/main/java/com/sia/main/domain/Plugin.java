@@ -31,7 +31,7 @@ public class Plugin {
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status_plugin", nullable = false)
 	private StatusPlugin statusPlugin;
 	

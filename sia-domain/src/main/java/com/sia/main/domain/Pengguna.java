@@ -28,15 +28,15 @@ public class Pengguna {
 	@Column(name = "id_pengguna")
 	private UUID idPengguna;
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_pd", nullable = true)
 	private Pd pd;
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_ptk", nullable = true)
 	private Ptk ptk;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sat_man", nullable = false)
 	private SatMan satMan;
 	
@@ -52,7 +52,7 @@ public class Pengguna {
 	@Column(name = "kode_reset_password", unique = true, nullable = true)
 	private String kodeResetPassword;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tipe", nullable = false)
 	private TipePengguna tipePengguna;
 	

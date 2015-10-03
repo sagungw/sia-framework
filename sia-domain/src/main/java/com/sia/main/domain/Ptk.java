@@ -37,7 +37,7 @@ public class Ptk {
 	@Column(name = "status_ptk", nullable = false)
 	private boolean statusPtk;
 	
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "ptk")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "ptk")
 	@JoinColumn(name = "id_pengguna", nullable = true)
 	private Pengguna user;
 	

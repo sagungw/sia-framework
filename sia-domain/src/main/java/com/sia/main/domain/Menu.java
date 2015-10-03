@@ -27,7 +27,7 @@ public class Menu {
 	@Column(name = "id_menu")
 	private UUID idMenu;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_modul", nullable = false)
 	private Modul modul;
 	

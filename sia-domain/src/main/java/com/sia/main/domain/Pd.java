@@ -26,11 +26,11 @@ public class Pd {
 	@Column(name = "id_pd")
 	private UUID idPd;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_ptk", nullable = true)
 	private Ptk ptk;
 	
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "pd")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "pd")
 	@JoinColumn(name = "id_pengguna", nullable = true)
 	private Pengguna user;
 	

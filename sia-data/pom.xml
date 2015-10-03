@@ -49,10 +49,6 @@
 			<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-domain</artifactId>
 		</dependency>
-		<dependency>
-		  	<groupId>com.sia.main</groupId>
-		  	<artifactId>sia-plugin</artifactId>
-		</dependency>
 	</dependencies>
 	
 </project>
