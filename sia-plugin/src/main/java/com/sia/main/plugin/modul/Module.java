@@ -1,7 +1,7 @@
 package com.sia.main.plugin.modul;
 
 import java.io.File;
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -19,6 +19,6 @@ public interface Module extends Plugin, HasMenu {
 	
 	public File[] getViewResources();
 	
-	public List<byte[]> getViewResourcesBytes();
+	public Map<String, byte[]> getViewResourcesBytes();
 	
 }

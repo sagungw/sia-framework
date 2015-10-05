@@ -88,9 +88,9 @@ public class UserController {
 			}
 		}
 		if(!success) {
-			response = new Response("error", "deletion error at username " + last.getUsername(), null);
+			response = new Response("error", "penghapusan pengguna gagal pada " + last.getUsername(), null);
 		} else {
-			response = new Response("success", "deletion successful", null);
+			response = new Response("success", "penghapusan pengguna berhasil", null);
 		}
 		return response;
 	}
@@ -104,9 +104,9 @@ public class UserController {
 			success = false;
 		} 
 		if(!success) {
-			response = new Response("error", "deletion failed", null);
+			response = new Response("error", "pengguna gagal dihapus", null);
 		} else {
-			response = new Response("success", "deletion successful", null);
+			response = new Response("success", "pengguna berhasil dihapus", null);
 		}
 		return response;
 	}

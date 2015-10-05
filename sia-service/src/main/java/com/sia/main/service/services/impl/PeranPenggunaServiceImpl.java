@@ -3,10 +3,13 @@ package com.sia.main.service.services.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.sia.main.data.dao.PeranPenggunaDAO;
 import com.sia.main.domain.PeranPengguna;
 import com.sia.main.service.services.PeranPenggunaService;
 
+@Service
 public class PeranPenggunaServiceImpl implements PeranPenggunaService {
 	
 	private PeranPenggunaDAO peranPenggunaDAO;

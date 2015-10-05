@@ -2,10 +2,13 @@ package com.sia.main.service.services.impl;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.osgi.framework.Bundle;
@@ -107,6 +110,24 @@ public class ModulServiceImpl implements ModulService {
 		}
 	}
 
+	private void copyViewResources(Module modul) {
+		String path = "D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules";
+		File destination;
+		BufferedOutputStream outputStream;
+		for(Map.Entry<String, byte[]> entry: modul.getViewResourcesBytes().entrySet() ) {
+			destination = this.getFile(path, entry.getKey());
+			try {
+				outputStream = new BufferedOutputStream(new FileOutputStream(destination));
+				outputStream.write(entry.getValue());
+				outputStream.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private File getFile(String path, String fileName) {
 		File directory = new File(path + File.separator);
 		if (!directory.exists())
@@ -135,6 +156,7 @@ public class ModulServiceImpl implements ModulService {
 			modul.setVersi(module.getPluginVersion());
 			modul.setStatus(statusPlugin);
 			modul.setOsgiBundleId(String.valueOf(bundle.getBundleId()));
+			modul.setNamaServlet(module.getServletName());
 			res = this.insertInto(modul);
 			if (res != null) {
 				List<Menu> menuList = new ArrayList<Menu>(); 
@@ -147,6 +169,7 @@ public class ModulServiceImpl implements ModulService {
 					this.menuService.insertInto(menu);
 				}
 				res.setMenus(menuList);
+				this.copyViewResources(module);
 			} else {
 				bundle.uninstall();
 			}

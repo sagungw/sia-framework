@@ -3,10 +3,13 @@ package com.sia.main.service.services.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.sia.main.data.dao.StatusPluginDAO;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.service.services.StatusPluginService;
 
+@Service
 public class StatusPluginServiceImpl implements StatusPluginService {
 	
 	private StatusPluginDAO statusPluginDAO;

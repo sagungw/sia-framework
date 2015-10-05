@@ -7,9 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.virgo.web.dm.ServerOsgiBundleXmlWebApplicationContext;
 import org.osgi.framework.Bundle;
@@ -142,8 +143,18 @@ public class StandardModule implements Module {
 	public File[] getViewResources() {
 		File[] files = null;
 		Bundle bundle = FrameworkUtil.getBundle(getClass());
+		if(bundle == null){
+			System.out.println("bundle null");
+		}
 		try {
 			Enumeration<URL> resources = bundle.getResources(this.getViewResourceLocation());
+			if(resources == null) {
+				System.out.println("resources null");
+			} 
+			if(this.getViewResourceLocation() != null) {
+				System.out.println(this.getViewResourceLocation());
+				
+			}
 			if(resources.hasMoreElements()) {
 				URL url = resources.nextElement();
 				File filesInUrl = new File(url.toURI());
@@ -158,9 +169,9 @@ public class StandardModule implements Module {
 	}
 
 	@Override
-	public List<byte[]> getViewResourcesBytes() {
+	public Map<String, byte[]> getViewResourcesBytes() {
 		File[] viewResources = this.getViewResources();
-		List<byte[]> viewResourcesInBytes = new ArrayList<byte[]>();
+		Map<String, byte[]> viewResourcesInBytes = new HashMap<String, byte[]>();
 		for(File file: viewResources) {
 			try {
 				FileInputStream inputStream = new FileInputStream(file);
@@ -170,7 +181,7 @@ public class StandardModule implements Module {
 				while((read = inputStream.read(buffer)) != -1) {
 					outputStream.write(buffer, 0, read);
 				}
-				viewResourcesInBytes.add(outputStream.toByteArray());
+				viewResourcesInBytes.put(file.getName(), outputStream.toByteArray());
 				inputStream.close();
 				outputStream.close();
 			} catch (FileNotFoundException e) {
@@ -185,8 +196,8 @@ public class StandardModule implements Module {
 	}
 	
 	public void buildServlet(){
-		ServerOsgiBundleXmlWebApplicationContext context = new ServerOsgiBundleXmlWebApplicationContext();
-//		XmlWebApplicationContext context = new XmlWebApplicationContext();
+//		ServerOsgiBundleXmlWebApplicationContext context = new ServerOsgiBundleXmlWebApplicationContext();
+		XmlWebApplicationContext context = new XmlWebApplicationContext();
 		context.setConfigLocation("classpath*:" + this.servletConfigurationPath);
 		this.setServlet(new DispatcherServlet(context));
 	}
