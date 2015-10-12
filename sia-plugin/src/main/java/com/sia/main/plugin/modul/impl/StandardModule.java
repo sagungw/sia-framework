@@ -1,20 +1,7 @@
 package com.sia.main.plugin.modul.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.virgo.web.dm.ServerOsgiBundleXmlWebApplicationContext;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -33,24 +20,26 @@ public class StandardModule implements Module {
 	
 	private String urlMapping;
 	
-	private String servletConfigurationPath;
+	private String servletConfigLocation;
 	
 	private DispatcherServlet servlet;
 	
-	private String viewResourceLocation;
+	private List<String> basePackages;
 	
 	public StandardModule(String pluginName, String pluginVersion,
 			List<Menu> menus, String moduleName, String urlMapping,
-			String servletConfigurationPath, String viewResourceLocation) {
-		super();
+			String servletConfigLocation, List<String> basePackages) {
 		this.pluginName = pluginName;
 		this.pluginVersion = pluginVersion;
 		this.menus = menus;
 		this.moduleName = moduleName;
 		this.setUrlMapping(urlMapping);
-		this.servletConfigurationPath = servletConfigurationPath;
-		this.viewResourceLocation = viewResourceLocation;
-		this.buildServlet();
+		this.servletConfigLocation = servletConfigLocation;
+		this.servlet = this.buildServlet(this.servletConfigLocation);
+		this.basePackages = basePackages;
+	}
+
+	public StandardModule() {
 	}
 
 	public void setPluginName(String pluginName) {
@@ -98,26 +87,33 @@ public class StandardModule implements Module {
 		return this.urlMapping;
 	}
 
-	public void setServletConfigurationPath(String servletConfigurationPath) {
-		this.servletConfigurationPath = servletConfigurationPath;
+	public void setServletConfigLocation(String servletConfigLocation) {
+		this.servletConfigLocation = servletConfigLocation;
 	}
 
 	@Override
-	public String getServletConfigurationPath() {
-		return this.servletConfigurationPath;
-	}
-	
-	public void setViewResourceLocation(String viewResourceLocation) {
-		this.viewResourceLocation = viewResourceLocation;
-	}
-	
-	public String getViewResourceLocation() {
-		return viewResourceLocation;
+	public String getServletConfigLocation() {
+		return this.servletConfigLocation;
 	}
 
+	@Override
+	public DispatcherServlet getServlet() {
+		return servlet;
+	}
+
+	public void setServlet(DispatcherServlet servlet) {
+		this.servlet = servlet;
+	}
+
+	private DispatcherServlet buildServlet(String contextLocation) {
+		XmlWebApplicationContext context = new XmlWebApplicationContext();
+		context.setConfigLocation("classpath*:" + contextLocation);
+		DispatcherServlet servlet = new DispatcherServlet(context);
+		return servlet;
+	}
+	
 	@Override
 	public String getServletName() {
-		//building servlet name based on the given module name;
 		StringBuilder servletName = new StringBuilder();
 		int i = 0;
 		String[] moduleName = this.getModuleName().toLowerCase().split(" ");
@@ -128,78 +124,6 @@ public class StandardModule implements Module {
 		}
 		servletName.append("-servlet");
 		return servletName.toString();
-	}
-	
-	public void setServlet(DispatcherServlet servlet) {
-		this.servlet = servlet;
-	}
-	
-	@Override
-	public DispatcherServlet getServlet() {
-		return this.servlet;
-	}
-
-	@Override
-	public File[] getViewResources() {
-		File[] files = null;
-		Bundle bundle = FrameworkUtil.getBundle(getClass());
-		if(bundle == null){
-			System.out.println("bundle null");
-		}
-		try {
-			Enumeration<URL> resources = bundle.getResources(this.getViewResourceLocation());
-			if(resources == null) {
-				System.out.println("resources null");
-			} 
-			if(this.getViewResourceLocation() != null) {
-				System.out.println(this.getViewResourceLocation());
-				
-			}
-			if(resources.hasMoreElements()) {
-				URL url = resources.nextElement();
-				File filesInUrl = new File(url.toURI());
-				files = filesInUrl.listFiles();
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return files;
-	}
-
-	@Override
-	public Map<String, byte[]> getViewResourcesBytes() {
-		File[] viewResources = this.getViewResources();
-		Map<String, byte[]> viewResourcesInBytes = new HashMap<String, byte[]>();
-		for(File file: viewResources) {
-			try {
-				FileInputStream inputStream = new FileInputStream(file);
-				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-				byte[] buffer = new byte[2048];
-				int read = 0;
-				while((read = inputStream.read(buffer)) != -1) {
-					outputStream.write(buffer, 0, read);
-				}
-				viewResourcesInBytes.put(file.getName(), outputStream.toByteArray());
-				inputStream.close();
-				outputStream.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-		return viewResourcesInBytes;
-	}
-	
-	public void buildServlet(){
-//		ServerOsgiBundleXmlWebApplicationContext context = new ServerOsgiBundleXmlWebApplicationContext();
-		XmlWebApplicationContext context = new XmlWebApplicationContext();
-		context.setConfigLocation("classpath*:" + this.servletConfigurationPath);
-		this.setServlet(new DispatcherServlet(context));
 	}
 	
 	private String standardizeUrlMapping(String urlMapping) {
@@ -218,4 +142,15 @@ public class StandardModule implements Module {
 		return result.toString();
 	}
 
+	@Override
+	public List<String> getBasePackages() {
+		return basePackages;
+	}
+
+	public void setBasePackages(List<String> basePackages) {
+		this.basePackages = basePackages;
+	}
+
+	
+	
 }

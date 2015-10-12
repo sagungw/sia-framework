@@ -8,13 +8,12 @@ public class StandardMenu implements Menu {
 	
 	private String url;
 	
-	private String urlPattern;
-	
-	public StandardMenu(String menuName, String url, String urlPattern) {
-		super();
+	public StandardMenu(String menuName, String url) {
 		this.menuName = menuName;
 		this.url = url;
-		this.urlPattern = urlPattern;
+	}
+
+	public StandardMenu() {
 	}
 
 	public void setUrl(String homeUrl) {
@@ -24,15 +23,6 @@ public class StandardMenu implements Menu {
 	@Override
 	public String getUrl() {
 		return this.url;
-	}
-	
-	public void setUrlPattern(String urlPattern) {
-		this.urlPattern = urlPattern;
-	}
-
-	@Override
-	public String getUrlPattern() {
-		return this.urlPattern;
 	}
 
 	public void setMenuName(String menuName) {

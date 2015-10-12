@@ -5,6 +5,15 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
+	<bean id="parseHandler" class="com.sia.main.service.util.impl.ModuleXmlParseHandler">
+	</bean>
+
+	<bean id="modulReader" class="com.sia.main.service.util.impl.XmlModuleReaderBean">
+		<property name="moduleDetailXmlPath" value="/module-detail/"></property>
+		<property name="prefix" value="module-"></property>
+		<property name="parserHandler" ref="parseHandler"></property>
+	</bean>
+
     <bean id="menuPeranServiceBean" class="com.sia.main.service.services.impl.MenuPeranServiceImpl" >
     	<property name="menuPeranDAO" ref="menuPeranDAORef"></property>
     </bean>
@@ -14,9 +23,12 @@
     </bean>
     
     <bean id="modulServiceBean" class="com.sia.main.service.services.impl.ModulServiceImpl" >
+    	<property name="installedModuleLocation" value="D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules//installed"></property>
+    	<property name="temporaryModuleLocation" value="D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules//temp"></property>
     	<property name="modulDAO" ref="modulDAORef"></property>
     	<property name="statusPluginService" ref="statusPluginServiceBean"></property>
     	<property name="menuService" ref="menuServiceBean"></property>
+    	<property name="moduleReader" ref="modulReader"></property>
     </bean>
     
     <bean id="penggunaServiceBean" class="com.sia.main.service.services.impl.PenggunaServiceImpl" >

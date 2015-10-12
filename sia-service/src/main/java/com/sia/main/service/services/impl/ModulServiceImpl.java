@@ -2,20 +2,16 @@ package com.sia.main.service.services.impl;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,14 +24,15 @@ import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.StatusPluginService;
+import com.sia.main.service.util.OsgiModuleReader;
 
 @Service
 public class ModulServiceImpl implements ModulService {
 
-	private static String installedModuleLocation = "D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules//installed";
+	private String installedModuleLocation;
 
-	private static String temporaryModuleLocation = "D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules//temp";
-
+	private String temporaryModuleLocation;
+	
 	private ModulDAO modulDAO;
 
 	private StatusPluginService statusPluginService;
@@ -43,6 +40,24 @@ public class ModulServiceImpl implements ModulService {
 	private MenuService menuService;
 	
 	private MenuPeranService menuPeranService;
+	
+	private OsgiModuleReader moduleReader;
+
+	public String getInstalledModuleLocation() {
+		return installedModuleLocation;
+	}
+
+	public void setInstalledModuleLocation(String installedModuleLocation) {
+		this.installedModuleLocation = installedModuleLocation;
+	}
+
+	public String getTemporaryModuleLocation() {
+		return temporaryModuleLocation;
+	}
+
+	public void setTemporaryModuleLocation(String temporaryModuleLocation) {
+		this.temporaryModuleLocation = temporaryModuleLocation;
+	}
 
 	public ModulDAO getModulDAO() {
 		return modulDAO;
@@ -76,11 +91,19 @@ public class ModulServiceImpl implements ModulService {
 		this.menuPeranService = menuPeranService;
 	}
 
+	public OsgiModuleReader getModuleReader() {
+		return moduleReader;
+	}
+
+	public void setModuleReader(OsgiModuleReader moduleReader) {
+		this.moduleReader = moduleReader;
+	}
+
 	@Override
 	public Modul installModule(Object modulFile) {
 		try {
 			MultipartFile multipartFile = (MultipartFile) modulFile;
-			File tempFile = this.getFile(temporaryModuleLocation,
+			File tempFile = this.getFile(this.temporaryModuleLocation,
 					multipartFile.getOriginalFilename());
 			byte[] bytes = multipartFile.getBytes();
 			BufferedOutputStream outputStream = new BufferedOutputStream(
@@ -88,9 +111,9 @@ public class ModulServiceImpl implements ModulService {
 			outputStream.write(bytes);
 			outputStream.close();
 
-			Modul modul = this.installModule(tempFile.getAbsolutePath());
+			Modul modul = this.saveModule(tempFile.getAbsolutePath());
 			if (modul != null) {
-				File installedFile = this.getFile(installedModuleLocation,
+				File installedFile = this.getFile(this.installedModuleLocation,
 						multipartFile.getOriginalFilename());
 				outputStream = new BufferedOutputStream(new FileOutputStream(
 						installedFile));
@@ -110,24 +133,6 @@ public class ModulServiceImpl implements ModulService {
 		}
 	}
 
-	private void copyViewResources(Module modul) {
-		String path = "D://Agung//Dokumen//Data Kuliah//Kuliah dan Tugas//Project//Tugas Akhir//siaframework-installedmodules";
-		File destination;
-		BufferedOutputStream outputStream;
-		for(Map.Entry<String, byte[]> entry: modul.getViewResourcesBytes().entrySet() ) {
-			destination = this.getFile(path, entry.getKey());
-			try {
-				outputStream = new BufferedOutputStream(new FileOutputStream(destination));
-				outputStream.write(entry.getValue());
-				outputStream.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	private File getFile(String path, String fileName) {
 		File directory = new File(path + File.separator);
 		if (!directory.exists())
@@ -137,19 +142,15 @@ public class ModulServiceImpl implements ModulService {
 		return file;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private Modul installModule(String filePath) {
+	private Modul saveModule(String filePath) {
 		Modul res = null;
 		BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass())
 				.getBundleContext();
 		filePath = "file:" + filePath;
 		try {
 			Bundle bundle = bundleContext.installBundle(filePath);
-			bundle.start();
-			ServiceReference reference = bundle.getRegisteredServices()[0];
-			Module module = (Module) bundleContext.getService(reference);
-			StatusPlugin statusPlugin = this.statusPluginService.getByParam(
-					"where namaStatus = 'STARTED'").get(0);
+			Module module = this.moduleReader.readModule(bundle);
+			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
 			Modul modul = new Modul();
 			modul.setNamaModul(module.getModuleName());
 			modul.setUrlMapping(module.getUrlMapping());
@@ -169,7 +170,6 @@ public class ModulServiceImpl implements ModulService {
 					this.menuService.insertInto(menu);
 				}
 				res.setMenus(menuList);
-				this.copyViewResources(module);
 			} else {
 				bundle.uninstall();
 			}

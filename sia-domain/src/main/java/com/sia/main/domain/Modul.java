@@ -30,13 +30,13 @@ public class Modul {
 	@Column(name = "nama_modul", nullable = false)
 	private String namaModul;
 	
-	@Column(name = "url_mapping", nullable = false)
+	@Column(name = "url_mapping", nullable = true)
 	private String urlMapping;
 	
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
-	@Column(name = "nama_servlet", nullable = false)
+	@Column(name = "nama_servlet", nullable = true)
 	private String namaServlet;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

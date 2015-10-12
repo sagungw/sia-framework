@@ -10,6 +10,10 @@
   	<artifactId>sia-service</artifactId>
   	<packaging>jar</packaging>
   	
+  	<properties>
+  		<xml-parsers-version>1.3.4</xml-parsers-version>
+  	</properties>
+  	
   	<build>
   		<finalName>sia-service</finalName>
 	  	<plugins>
@@ -40,6 +44,12 @@
 		<dependency>
 			<groupId>com.sia.main</groupId>
 		  	<artifactId>sia-data</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.xmlcommons</groupId>
+		    <artifactId>com.springsource.org.apache.xmlcommons</artifactId>
+		    <version>${xml-parsers-version}</version>
+		    <scope>provided</scope>
 		</dependency>
   	</dependencies>
   	
