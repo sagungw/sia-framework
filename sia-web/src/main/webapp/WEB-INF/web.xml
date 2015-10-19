@@ -36,9 +36,30 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>sia-module</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+    		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				com.sia.main.web.ServletConfiguration
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>sia</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>sia-module</servlet-name>
+		<url-pattern>/module/</url-pattern>
 	</servlet-mapping>
 	             
 	<filter>

@@ -12,10 +12,12 @@ public class StandardMenu implements Menu {
 		this.menuName = menuName;
 		this.url = url;
 	}
-
+	
 	public StandardMenu() {
+		
 	}
-
+	
+	@Override
 	public void setUrl(String homeUrl) {
 		this.url = homeUrl;
 	}
@@ -25,6 +27,7 @@ public class StandardMenu implements Menu {
 		return this.url;
 	}
 
+	@Override
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
 	}

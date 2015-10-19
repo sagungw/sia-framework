@@ -199,6 +199,21 @@
 									<h4 class="panel-title">Info</h4>
 								</div>
 								<div class="panel-body">
+									<form action="${pageContext.servletContext.contextPath}/test" method="post">
+						    			<div class="form-group">
+									    	<label for="nama">Nama Modul</label>
+									    	<input type="text" class="form-control" id="nama" placeholder="Nama Modul" name="name">
+									  	</div>
+						    			<div class="form-group">
+									    	<label for="versi">Versi</label>
+									    	<input type="text" class="form-control" id="versi" placeholder="Versi" name="version">
+									  	</div>
+									  	<div class="form-group">
+									    	<label for="pck">Base Package</label>
+									    	<input type="text" class="form-control" id="pck" placeholder="Base Package" name="package">
+									  	</div>
+									  	<button type="submit" class="btn btn-primary">Submit</button>
+									</form>
 								</div>
 							</div>
 						</div>

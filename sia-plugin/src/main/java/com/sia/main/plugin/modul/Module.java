@@ -1,20 +1,9 @@
 package com.sia.main.plugin.modul;
 
-import java.util.List;
-
-import org.springframework.web.servlet.DispatcherServlet;
-
 public interface Module extends Plugin, HasMenu {
-
+	
+	public void setModuleName(String moduleName);
+	
 	public String getModuleName();
 
-	public String getUrlMapping();
-	
-	public String getServletConfigLocation();
-	
-	public String getServletName();
-	
-	public DispatcherServlet getServlet();
-	
-	public List<String> getBasePackages();
 }

@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +25,6 @@ import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PeranService;
 import com.sia.main.service.services.StatusPluginService;
-import com.sia.main.web.ModuleManager;
 import com.sia.main.web.model.RoleMenu;
 import com.sia.main.web.model.Response;
 
@@ -78,7 +79,8 @@ public class ModuleController {
 	@RequestMapping(value = "/uploadWizard/1/upload", method = RequestMethod.POST)
 	public ModelAndView uploadModule(@RequestParam("file") Object file, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		Modul modul = this.modulService.installModule(file);
+		Bundle hostBundle = FrameworkUtil.getBundle(this.getClass());
+		Modul modul = this.modulService.installModule(file, hostBundle);
 		if(modul != null) {
 			session.setAttribute("moduleOnWizard", modul);
 			modelAndView.setViewName("redirect:/admin/module/uploadWizard/2");
@@ -150,8 +152,6 @@ public class ModuleController {
 		Modul modul = modulService.getById(UUID.fromString(idModul));
 		Response response = null;
 		if(this.modulService.uninstallModule(modul) != null) {
-			ModuleManager moduleManager = ModuleManager.getInstance();
-			moduleManager.removeModule(modul.getNamaModul());
 			response = new Response(success, "Modul berhasil dihapus", null);
 		} else {
 			response = new Response(exception, "Modul gagal dihapus", null);

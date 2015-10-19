@@ -1,6 +1,8 @@
-package com.sia.main.service.util.impl;
+package com.sia.main.service.module.impl;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -8,18 +10,15 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.osgi.framework.Bundle;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import com.sia.main.plugin.modul.Module;
-import com.sia.main.service.util.OsgiModuleReader;
+import com.sia.main.service.module.OsgiModuleReader;
 
 public class XmlModuleReaderBean implements OsgiModuleReader {
-	
+
 	private String moduleDetailXmlPath;
 
 	private String prefix;
-	
-	private ModuleXmlParseHandler parserHandler;
 	
 	public String getModuleDetailXmlPath() {
 		return moduleDetailXmlPath;
@@ -28,7 +27,7 @@ public class XmlModuleReaderBean implements OsgiModuleReader {
 	public void setModuleDetailXmlPath(String moduleDetailXmlPath) {
 		this.moduleDetailXmlPath = moduleDetailXmlPath;
 	}
-
+ 
 	public String getPrefix() {
 		return prefix;
 	}
@@ -37,28 +36,22 @@ public class XmlModuleReaderBean implements OsgiModuleReader {
 		this.prefix = prefix;
 	}
 
-	public DefaultHandler getParserHandler() {
-		return parserHandler;
-	}
-
-	public void setParserHandler(ModuleXmlParseHandler parserHandler) {
-		this.parserHandler = parserHandler;
-	}
-
 	@Override
-	public Module readModule(Bundle moduleBundle) {
+	public Module readModule(Bundle moduleBundle, Bundle hostBundle) {
 		Module module = null;
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			String moduleDetailLocation = this.moduleDetailXmlPath + this.prefix + moduleBundle.getSymbolicName() + ".xml";
-			saxParser.parse(moduleDetailLocation, this.parserHandler);
-			module = this.parserHandler.getGeneratedModule();
+			URL fileUrl = hostBundle.getResource(moduleDetailLocation);
+			File file = new File(fileUrl.getFile().replace("file:/", ""));
+			ModuleXmlParseHandler parseHandler = new ModuleXmlParseHandler();
+			saxParser.parse(file.getCanonicalPath().replace("\\", "\\\\"), parseHandler);
+			module = parseHandler.getGeneratedModule();
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
 		return module;
 	}
-	
 
 }

@@ -52,4 +52,7 @@
     <osgi:reference id="menuServiceRef" interface="com.sia.main.service.services.MenuService" availability="mandatory">
     </osgi:reference>
 	
+	<osgi:reference id="moduleManagerRef" interface="com.sia.main.service.module.ModuleManager" availability="mandatory">
+    </osgi:reference>
+	
 </beans>

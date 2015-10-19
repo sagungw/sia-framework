@@ -5,15 +5,6 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd                     
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
-	<bean id="parseHandler" class="com.sia.main.service.util.impl.ModuleXmlParseHandler">
-	</bean>
-
-	<bean id="modulReader" class="com.sia.main.service.util.impl.XmlModuleReaderBean">
-		<property name="moduleDetailXmlPath" value="/module-detail/"></property>
-		<property name="prefix" value="module-"></property>
-		<property name="parserHandler" ref="parseHandler"></property>
-	</bean>
-
     <bean id="menuPeranServiceBean" class="com.sia.main.service.services.impl.MenuPeranServiceImpl" >
     	<property name="menuPeranDAO" ref="menuPeranDAORef"></property>
     </bean>
@@ -28,7 +19,8 @@
     	<property name="modulDAO" ref="modulDAORef"></property>
     	<property name="statusPluginService" ref="statusPluginServiceBean"></property>
     	<property name="menuService" ref="menuServiceBean"></property>
-    	<property name="moduleReader" ref="modulReader"></property>
+    	<property name="moduleReader" ref="osgiModuleReader"></property>
+    	<property name="moduleManager" ref="moduleManager"></property>
     </bean>
     
     <bean id="penggunaServiceBean" class="com.sia.main.service.services.impl.PenggunaServiceImpl" >
@@ -49,6 +41,15 @@
     
     <bean id="statusPluginServiceBean" class="com.sia.main.service.services.impl.StatusPluginServiceImpl">
     	<property name="statusPluginDAO" ref="statusPluginDAORef"></property>
+    </bean>
+    
+    
+    <bean id="osgiModuleReader" class="com.sia.main.service.module.impl.XmlModuleReaderBean">
+    	<property name="moduleDetailXmlPath" value="/module-detail/"></property>
+    	<property name="prefix" value="module-"></property>
+    </bean>
+    
+    <bean id="moduleManager" class="com.sia.main.service.module.impl.SIAModuleManager" factory-method="getInstance">
     </bean>
     
 </beans>

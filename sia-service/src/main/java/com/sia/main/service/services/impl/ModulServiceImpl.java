@@ -20,11 +20,11 @@ import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.plugin.modul.Module;
-import com.sia.main.service.services.MenuPeranService;
+import com.sia.main.service.module.ModuleManager;
+import com.sia.main.service.module.OsgiModuleReader;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.StatusPluginService;
-import com.sia.main.service.util.OsgiModuleReader;
 
 @Service
 public class ModulServiceImpl implements ModulService {
@@ -39,9 +39,9 @@ public class ModulServiceImpl implements ModulService {
 
 	private MenuService menuService;
 	
-	private MenuPeranService menuPeranService;
-	
 	private OsgiModuleReader moduleReader;
+	
+	private ModuleManager moduleManager;
 
 	public String getInstalledModuleLocation() {
 		return installedModuleLocation;
@@ -83,14 +83,6 @@ public class ModulServiceImpl implements ModulService {
 		this.menuService = menuService;
 	}
 
-	public MenuPeranService getMenuPeranService() {
-		return menuPeranService;
-	}
-
-	public void setMenuPeranService(MenuPeranService menuPeranService) {
-		this.menuPeranService = menuPeranService;
-	}
-
 	public OsgiModuleReader getModuleReader() {
 		return moduleReader;
 	}
@@ -99,8 +91,16 @@ public class ModulServiceImpl implements ModulService {
 		this.moduleReader = moduleReader;
 	}
 
+	public ModuleManager getModuleManager() {
+		return moduleManager;
+	}
+
+	public void setModuleManager(ModuleManager moduleManager) {
+		this.moduleManager = moduleManager;
+	}
+
 	@Override
-	public Modul installModule(Object modulFile) {
+	public Modul installModule(Object modulFile, Object hostBundleObj) {
 		try {
 			MultipartFile multipartFile = (MultipartFile) modulFile;
 			File tempFile = this.getFile(this.temporaryModuleLocation,
@@ -111,7 +111,9 @@ public class ModulServiceImpl implements ModulService {
 			outputStream.write(bytes);
 			outputStream.close();
 
-			Modul modul = this.saveModule(tempFile.getAbsolutePath());
+			Bundle hostBundle = (Bundle) hostBundleObj;
+			
+			Modul modul = this.saveModule(tempFile.getAbsolutePath(), hostBundle);
 			if (modul != null) {
 				File installedFile = this.getFile(this.installedModuleLocation,
 						multipartFile.getOriginalFilename());
@@ -142,24 +144,23 @@ public class ModulServiceImpl implements ModulService {
 		return file;
 	}
 
-	private Modul saveModule(String filePath) {
+	private Modul saveModule(String filePath, Bundle hostBundle) {
 		Modul res = null;
 		BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass())
 				.getBundleContext();
 		filePath = "file:" + filePath;
 		try {
 			Bundle bundle = bundleContext.installBundle(filePath);
-			Module module = this.moduleReader.readModule(bundle);
+			Module module = this.moduleReader.readModule(bundle, hostBundle);
 			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
 			Modul modul = new Modul();
 			modul.setNamaModul(module.getModuleName());
-			modul.setUrlMapping(module.getUrlMapping());
 			modul.setVersi(module.getPluginVersion());
 			modul.setStatus(statusPlugin);
 			modul.setOsgiBundleId(String.valueOf(bundle.getBundleId()));
-			modul.setNamaServlet(module.getServletName());
 			res = this.insertInto(modul);
 			if (res != null) {
+				this.moduleManager.addModule(module);
 				List<Menu> menuList = new ArrayList<Menu>(); 
 				for (com.sia.main.plugin.modul.Menu i : module.getMenus()) {
 					Menu menu = new Menu();
@@ -250,7 +251,7 @@ public class ModulServiceImpl implements ModulService {
 
 	@Override
 	public Modul delete(Modul modul) {
-		
+		this.moduleManager.removeModuleByName(modul.getNamaModul());
 		this.modulDAO.delete(modul);
 		return modul;
 	}
@@ -269,5 +270,15 @@ public class ModulServiceImpl implements ModulService {
 	public List<Modul> getByParam(String queryParam) {
 		return this.modulDAO.getByParam(queryParam);
 	}
-
+	
+	@Override
+	public void addModule(Module module) {
+		this.moduleManager.addModule(module);
+	}
+	
+	@Override
+	public List<Module> getModules() {
+		return this.moduleManager.getModules();
+	}
+	
 }
