@@ -198,13 +198,4 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/setActive", method = RequestMethod.GET)
-	public void setActive() {
-		for(Pengguna p: this.penggunaService.getAll()) {
-			p.setStatusKeaktifan(true);
-			this.penggunaService.update(p);
-		}
-	}
-	
-	
 }

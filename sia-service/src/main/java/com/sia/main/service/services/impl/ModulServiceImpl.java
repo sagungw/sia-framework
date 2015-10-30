@@ -12,6 +12,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.wiring.FrameworkWiring;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -151,6 +152,15 @@ public class ModulServiceImpl implements ModulService {
 		filePath = "file:" + filePath;
 		try {
 			Bundle bundle = bundleContext.installBundle(filePath);
+			Bundle systemBundle = bundleContext.getBundle(0);
+			FrameworkWiring fw = systemBundle.adapt(FrameworkWiring.class);
+			ArrayList<Bundle> bundles = new ArrayList<Bundle>();
+			bundles.add(bundle); 
+			if(fw.resolveBundles(bundles)) {
+				System.out.println(bundle.getSymbolicName() + " resolved");
+			} else {
+				System.out.println(bundle.getSymbolicName() + " unresolved");
+			}
 			Module module = this.moduleReader.readModule(bundle, hostBundle);
 			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
 			Modul modul = new Modul();

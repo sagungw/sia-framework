@@ -159,14 +159,4 @@ public class ModuleController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	@ResponseBody
-	public Response test(@RequestBody RoleMenu[] roleMenus) {
-		RoleMenu rm = roleMenus[1];
-		System.out.println("roleId: " + rm.getRoleId());
-		for(String r : rm.getRoleMenus()) {
-			System.out.println("roleMenu: " + r);
-		}
-		return new Response("ok", "asdf", null);
-	}
 }
