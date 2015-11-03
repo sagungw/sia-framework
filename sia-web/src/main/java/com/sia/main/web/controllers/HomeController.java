@@ -11,22 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sia.main.domain.Pengguna;
-import com.sia.main.plugin.modul.Module;
-import com.sia.main.service.module.ModuleManager;
-import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PenggunaService;
 
 @Controller
 public class HomeController {
-
-	@Autowired
-	private ModulService moduleService;
 	
 	@Autowired
 	private PenggunaService penggunaService;
-	
-	@Autowired
-	private ModuleManager moduleManager;
 	
 	@RequestMapping(value = {"/home", "/"}, method = RequestMethod.GET)
 	public ModelAndView home(HttpSession session) {
@@ -34,16 +25,6 @@ public class HomeController {
 		String id = "e65d4bfc-e3a5-4855-8041-6e149250ef04";
 		Pengguna pengguna = this.penggunaService.getById(UUID.fromString(id));
 		session.setAttribute("userSession", pengguna);
-		
-		System.out.println("modules from moduleManager:");
-		for(Module module: this.moduleManager.getModules()) {
-			System.out.println(module.getModuleName());
-		} 
-		
-		System.out.println("modules from moduleManager in moduleService:");
-		for(Module module: this.moduleService.getModules()) {
-			System.out.println(module.getModuleName());
-		} 
 		
 		modelAndView.setViewName("Welcome");
 		return modelAndView;

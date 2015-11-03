@@ -1,6 +1,6 @@
 package com.sia.main.plugin.modul;
 
-import org.springframework.web.servlet.DispatcherServlet;
+import java.util.List;
 
 public interface HasServlet {
 
@@ -8,16 +8,14 @@ public interface HasServlet {
 	
 	public String getUrlMapping();
 	
-	public void setServletConfigLocation(String servletConfigLocation);
+	public void setServletConfigLocations(List<String> servletConfigLocations);
 	
-	public String getServletConfigLocation();
+	public void addServletConfigLocation(String servletConfigLocation);
+	
+	public List<String> getServletConfigLocations();
 	
 	public void setServletName(String servletName);
 	
 	public String getServletName();
-	
-	public void setServlet(DispatcherServlet servlet);
-	
-	public DispatcherServlet getServlet();
 	
 }

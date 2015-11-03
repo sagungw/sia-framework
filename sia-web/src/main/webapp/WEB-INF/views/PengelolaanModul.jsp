@@ -83,7 +83,7 @@
 	           					<c:forEach items="${module.getMenus()}" var="menu">
 	           						<tr id="${menu.getIdMenu()}">
                                        <td>${menu.getNamaMenu()}</td>
-                                       <td>${menu.getUrlPattern()}</td>
+                                       <td>${menu.getUrlMenu()}</td>
                                    </tr>
 	           					</c:forEach>
 		            		</tbody>

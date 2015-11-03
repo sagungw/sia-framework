@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.sia.main.domain.Modul;
-import com.sia.main.plugin.modul.Module;
 
 public interface ModulService {
 
@@ -23,9 +22,5 @@ public interface ModulService {
 	public Modul getById(UUID idModul);
 	
 	public List<Modul> getByParam(String queryParam);
-	
-	public void addModule(Module module);
-	
-	public List<Module> getModules();
 	
 }

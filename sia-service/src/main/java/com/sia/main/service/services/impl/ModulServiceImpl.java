@@ -1,9 +1,6 @@
 package com.sia.main.service.services.impl;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +23,7 @@ import com.sia.main.service.module.OsgiModuleReader;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.StatusPluginService;
+import com.sia.main.service.util.ModuleWriter;
 
 @Service
 public class ModulServiceImpl implements ModulService {
@@ -104,45 +102,22 @@ public class ModulServiceImpl implements ModulService {
 	public Modul installModule(Object modulFile, Object hostBundleObj) {
 		try {
 			MultipartFile multipartFile = (MultipartFile) modulFile;
-			File tempFile = this.getFile(this.temporaryModuleLocation,
-					multipartFile.getOriginalFilename());
-			byte[] bytes = multipartFile.getBytes();
-			BufferedOutputStream outputStream = new BufferedOutputStream(
-					new FileOutputStream(tempFile));
-			outputStream.write(bytes);
-			outputStream.close();
-
+			ModuleWriter moduleToDiskWritter = new ModuleWriter();
+			moduleToDiskWritter.writeToDisk(multipartFile, this.temporaryModuleLocation);
+			File tempFile = moduleToDiskWritter.getFile(this.temporaryModuleLocation, multipartFile.getOriginalFilename());
 			Bundle hostBundle = (Bundle) hostBundleObj;
-			
 			Modul modul = this.saveModule(tempFile.getAbsolutePath(), hostBundle);
 			if (modul != null) {
-				File installedFile = this.getFile(this.installedModuleLocation,
-						multipartFile.getOriginalFilename());
-				outputStream = new BufferedOutputStream(new FileOutputStream(
-						installedFile));
-				outputStream.write(bytes);
-				outputStream.close();
+				moduleToDiskWritter.writeToDisk(multipartFile, this.installedModuleLocation);
+				moduleToDiskWritter.deleteFromDisk(tempFile.toPath());
+				return modul;
 			} else {
 				return null;
 			}
-			Files.deleteIfExists(tempFile.toPath());
-			return modul;
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
 		}
-	}
-
-	private File getFile(String path, String fileName) {
-		File directory = new File(path + File.separator);
-		if (!directory.exists())
-			directory.mkdirs();
-		File file = new File(directory.getAbsoluteFile() + File.separator
-				+ fileName);
-		return file;
 	}
 
 	private Modul saveModule(String filePath, Bundle hostBundle) {
@@ -156,11 +131,7 @@ public class ModulServiceImpl implements ModulService {
 			FrameworkWiring fw = systemBundle.adapt(FrameworkWiring.class);
 			ArrayList<Bundle> bundles = new ArrayList<Bundle>();
 			bundles.add(bundle); 
-			if(fw.resolveBundles(bundles)) {
-				System.out.println(bundle.getSymbolicName() + " resolved");
-			} else {
-				System.out.println(bundle.getSymbolicName() + " unresolved");
-			}
+			fw.resolveBundles(bundles);
 			Module module = this.moduleReader.readModule(bundle, hostBundle);
 			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
 			Modul modul = new Modul();
@@ -279,16 +250,6 @@ public class ModulServiceImpl implements ModulService {
 	@Override
 	public List<Modul> getByParam(String queryParam) {
 		return this.modulDAO.getByParam(queryParam);
-	}
-	
-	@Override
-	public void addModule(Module module) {
-		this.moduleManager.addModule(module);
-	}
-	
-	@Override
-	public List<Module> getModules() {
-		return this.moduleManager.getModules();
 	}
 	
 }

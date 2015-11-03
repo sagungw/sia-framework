@@ -13,12 +13,15 @@ import org.xml.sax.SAXException;
 
 import com.sia.main.plugin.modul.Module;
 import com.sia.main.service.module.OsgiModuleReader;
+import com.sia.main.service.util.ModuleWriter;
 
 public class XmlModuleReaderBean implements OsgiModuleReader {
 
 	private String moduleDetailXmlPath;
 
 	private String prefix;
+	
+	private String moduleLocation;
 	
 	public String getModuleDetailXmlPath() {
 		return moduleDetailXmlPath;
@@ -36,6 +39,14 @@ public class XmlModuleReaderBean implements OsgiModuleReader {
 		this.prefix = prefix;
 	}
 
+	public String getModuleLocation() {
+		return moduleLocation;
+	}
+
+	public void setModuleLocation(String moduleLocation) {
+		this.moduleLocation = moduleLocation;
+	}
+
 	@Override
 	public Module readModule(Bundle moduleBundle, Bundle hostBundle) {
 		Module module = null;
@@ -45,8 +56,11 @@ public class XmlModuleReaderBean implements OsgiModuleReader {
 			String moduleDetailLocation = this.moduleDetailXmlPath + this.prefix + moduleBundle.getSymbolicName() + ".xml";
 			URL fileUrl = hostBundle.getResource(moduleDetailLocation);
 			File file = new File(fileUrl.getFile().replace("file:/", ""));
+			ModuleWriter moduleWriter = new ModuleWriter();
+			moduleWriter.writeToDisk(file, this.moduleLocation);
 			ModuleXmlParseHandler parseHandler = new ModuleXmlParseHandler();
-			saxParser.parse(file.getCanonicalPath().replace("\\", "\\\\"), parseHandler);
+			System.out.println(this.moduleLocation + File.separator + file.getName());
+			saxParser.parse(this.moduleLocation + File.separator + file.getName(), parseHandler);
 			module = parseHandler.getGeneratedModule();
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();

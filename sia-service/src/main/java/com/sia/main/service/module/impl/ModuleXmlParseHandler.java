@@ -4,30 +4,31 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.sia.main.plugin.modul.Menu;
 import com.sia.main.plugin.modul.Module;
-import com.sia.main.plugin.modul.impl.PackageBasedModule;
+import com.sia.main.plugin.modul.impl.ServletBasedModule;
 import com.sia.main.plugin.modul.impl.StandardMenu;
 
 public class ModuleXmlParseHandler extends DefaultHandler {
 
-	private Module generatedModule;
+	private ServletBasedModule generatedModule;
 	
-	private Menu generatedMenu;
+	private StandardMenu generatedMenu;
 	
-	private boolean bModule = false;
+	private boolean inTagModule = false;
 	
-	private boolean bName = false;
+	private boolean inTagName = false;
 	
-	private boolean bVersion = false;
+	private boolean inTagVersion = false;
 	
-	private boolean bBasePackages = false;
+	private boolean inTagUrlMapping = false;
+	
+	private boolean inTagConfigLocations = false;
 
-	private boolean bMenues = false;
+	private boolean inTagMenues = false;
 	
-	private boolean bMenu = false;
+	private boolean inTagMenu = false;
 	
-	private boolean bUrl = false;
+	private boolean inTagUrl = false;
 	
 	public Module getGeneratedModule() {
 		return this.generatedModule;
@@ -36,44 +37,50 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if(qName.equalsIgnoreCase("module")) {
-			this.generatedModule = new PackageBasedModule();
-			bModule = true;
+			this.generatedModule = new ServletBasedModule();
+			inTagModule = true;
 		}
 		
-		if(qName.equalsIgnoreCase("name") && bModule) {
-			bName = true;
-		} else if(qName.equalsIgnoreCase("name") && !bModule) {
+		if(qName.equalsIgnoreCase("name") && inTagModule) {
+			inTagName = true;
+		} else if(qName.equalsIgnoreCase("name") && !inTagModule) {
 			throw new SAXException("<name> must be inside <module>");
 		}
 		
-		if(qName.equalsIgnoreCase("version") && bModule) {
-			bVersion = true;
-		} else if(qName.equalsIgnoreCase("version") && !bModule) {
+		if(qName.equalsIgnoreCase("version") && inTagModule) {
+			inTagVersion = true;
+		} else if(qName.equalsIgnoreCase("version") && !inTagModule) {
 			throw new SAXException("<version> must be inside <module>");
 		}
 		
-		if(qName.equalsIgnoreCase("base-packages") && bModule) {
-			bBasePackages = true;
-		} else if(qName.equalsIgnoreCase("base-packages") && !bModule) {
-			throw new SAXException("<base-packages> must be inside <module>");
+		if(qName.equalsIgnoreCase("url-mapping") && inTagModule) {
+			inTagUrlMapping = true;
+		} else if(qName.equalsIgnoreCase("url-mapping") && !inTagModule) {
+			throw new SAXException("<url-mapping> must be inside <module>");
 		}
 		
-		if(qName.equalsIgnoreCase("menues")  && bModule) {
-			bMenues = true;
-		} else if(qName.equalsIgnoreCase("menues") && !bModule) {
+		if(qName.equalsIgnoreCase("config-locations") && inTagModule) {
+			inTagConfigLocations = true;
+		} else if(qName.equalsIgnoreCase("config-locations") && !inTagModule) {
+			throw new SAXException("<config-locations> must be inside <module>");
+		}
+		
+		if(qName.equalsIgnoreCase("menues")  && inTagModule) {
+			inTagMenues = true;
+		} else if(qName.equalsIgnoreCase("menues") && !inTagModule) {
 			throw new SAXException("<menues> must be inside <module>");
 		}
 		
-		if(qName.equalsIgnoreCase("menu") && bMenues) {
+		if(qName.equalsIgnoreCase("menu") && inTagMenues) {
 			this.generatedMenu = new StandardMenu();
-			bMenu = true;
-		} else if(qName.equalsIgnoreCase("menu") && !bMenues) {
+			inTagMenu = true;
+		} else if(qName.equalsIgnoreCase("menu") && !inTagMenues) {
 			throw new SAXException("<menu> must be inside <menues>");
 		}
 		
-		if(qName.equalsIgnoreCase("url") && bMenu) {
-			bUrl = true;
-		} else if(qName.equalsIgnoreCase("url") && !bMenu) {
+		if(qName.equalsIgnoreCase("url") && inTagMenu) {
+			inTagUrl = true;
+		} else if(qName.equalsIgnoreCase("url") && !inTagMenu) {
 			throw new SAXException("<url> must be inside <menu>");
 		}
 	}
@@ -81,58 +88,62 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if(qName.equalsIgnoreCase("module")) {
-			bModule = false;
+			inTagModule = false;
 		}
 		if(qName.equalsIgnoreCase("name")) {
-			bName = false;
+			inTagName = false;
 		}
 		if(qName.equalsIgnoreCase("version")) {
-			bVersion = false;
+			inTagVersion = false;
 		}
-		if(qName.equalsIgnoreCase("base-packages")) {
-			bBasePackages = false;
+		if(qName.equalsIgnoreCase("url-mapping")) {
+			inTagUrlMapping = false;
+		}
+		if(qName.equalsIgnoreCase("config-locations")) {
+			inTagConfigLocations = false;
 		}
 		if(qName.equalsIgnoreCase("menues")) {
-			bMenues = false;
+			inTagMenues = false;
 		}
 		if(qName.equalsIgnoreCase("menu")) {
 			this.generatedModule.addMenu(this.generatedMenu);
 			this.generatedMenu = null;
-			bMenu = false;
+			inTagMenu = false;
 		}
 		if(qName.equalsIgnoreCase("url")) {
-			bUrl = false;
+			inTagUrl = false;
 		}
 	}
 	
 	@Override
 	public void characters(char ch[], int start, int length) throws SAXException {
-		if(bName) {
-			if(bMenu) {
+		if(inTagName) {
+			if(inTagMenu) {
 				this.generatedMenu.setMenuName(new String(ch, start, length));
 			} else {
 				this.generatedModule.setModuleName(new String(ch, start, length));
+				this.generatedModule.setPluginName(new String(ch, start, length));
 			}
 			System.out.println(new String(ch, start, length));
 		}
-		if(bVersion) {
+		if(inTagVersion) {
 			this.generatedModule.setPluginVersion(new String(ch, start, length));
 			System.out.println(new String(ch, start, length));
 		}
-		if(bBasePackages) {
-			String basePackages = new String(ch, start, length);
-			basePackages = basePackages.replace(" ", "");
-			
-			PackageBasedModule temp = (PackageBasedModule) this.generatedModule;
-			
-			for(String basePackage : basePackages.split(",")) {
-				temp.addBasePackage(basePackage);
-			}
-			
-			this.generatedModule = temp;
+		if(inTagUrlMapping) {
+			this.generatedModule.setUrlMapping(new String(ch, start, length));
 			System.out.println(new String(ch, start, length));
 		}
-		if(bUrl) {
+		if(inTagConfigLocations) {
+			String configLocations = new String(ch, start, length);
+			configLocations = configLocations.replace(" ", "");
+			
+			for(String configLocation : configLocations.split(",")) {
+				this.generatedModule.addServletConfigLocation(configLocation);
+			}
+			System.out.println(new String(ch, start, length));
+		}
+		if(inTagUrl) {
 			this.generatedMenu.setUrl(new String(ch, start, length));
 			System.out.println(new String(ch, start, length));
 		}

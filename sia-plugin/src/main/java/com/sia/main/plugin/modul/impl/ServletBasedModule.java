@@ -3,8 +3,8 @@ package com.sia.main.plugin.modul.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.context.support.XmlWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sia.main.plugin.modul.HasServlet;
 import com.sia.main.plugin.modul.Menu;
@@ -12,6 +12,8 @@ import com.sia.main.plugin.modul.Module;
 
 public class ServletBasedModule implements Module, HasServlet {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private String pluginName;
 	
 	private String pluginVersion;
@@ -22,20 +24,22 @@ public class ServletBasedModule implements Module, HasServlet {
 	
 	private String urlMapping;
 	
-	private String servletConfigLocation;
+	private List<String> servletConfigLocations;
 	
-	private DispatcherServlet servlet;
+	public ServletBasedModule() {
+		this.menus = new ArrayList<Menu>();
+		this.servletConfigLocations = new ArrayList<String>();
+	}
 	
 	public ServletBasedModule(String pluginName, String pluginVersion,
 			List<Menu> menus, String moduleName, String urlMapping,
-			String servletConfigLocation) {
+			List<String> servletConfigLocations) {
 		this.pluginName = pluginName;
 		this.pluginVersion = pluginVersion;
 		this.menus = menus;
 		this.moduleName = moduleName;
 		this.setUrlMapping(urlMapping);
-		this.servletConfigLocation = servletConfigLocation;
-		this.servlet = this.buildServlet(this.servletConfigLocation);
+		this.servletConfigLocations = servletConfigLocations;
 	}
 
 	@Override
@@ -94,37 +98,11 @@ public class ServletBasedModule implements Module, HasServlet {
 	public String getUrlMapping() {
 		return this.urlMapping;
 	}
-
-	@Override
-	public void setServletConfigLocation(String servletConfigLocation) {
-		this.servletConfigLocation = servletConfigLocation;
-	}
-
-	@Override
-	public String getServletConfigLocation() {
-		return this.servletConfigLocation;
-	}
-
-	@Override
-	public void setServlet(DispatcherServlet servlet) {
-		this.servlet = servlet;
-	}
-	
-	@Override
-	public DispatcherServlet getServlet() {
-		return servlet;
-	}
-
-	private DispatcherServlet buildServlet(String contextLocation) {
-		XmlWebApplicationContext context = new XmlWebApplicationContext();
-		context.setConfigLocation("classpath*:" + contextLocation);
-		DispatcherServlet servlet = new DispatcherServlet(context);
-		return servlet;
-	}
 	
 	@Override
 	public void setServletName(String servletName) {
-		
+		if(this.logger.isInfoEnabled())
+			this.logger.info("servlet name will be generated from module name");
 	}
 	
 	@Override
@@ -143,6 +121,23 @@ public class ServletBasedModule implements Module, HasServlet {
 		} else {
 			return null;
 		}
+	}
+	
+	@Override
+	public void setServletConfigLocations(List<String> servletConfigLocations) {
+		this.servletConfigLocations = servletConfigLocations;
+	}
+
+	@Override
+	public void addServletConfigLocation(String servletConfigLocation) {
+		if(this.servletConfigLocations == null) 
+			this.servletConfigLocations = new ArrayList<String>();
+		this.servletConfigLocations.add(servletConfigLocation);
+	}
+
+	@Override
+	public List<String> getServletConfigLocations() {
+		return this.servletConfigLocations;
 	}
 	
 	private String standardizeUrlMapping(String urlMapping) {
