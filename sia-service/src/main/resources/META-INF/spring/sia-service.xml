@@ -6,11 +6,11 @@
        	http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
 	<bean id="installedModulePath" class="java.lang.String">
-		<constructor-arg value="D:\Agung\Dokumen\Data Kuliah\Kuliah dan Tugas\Project\Tugas Akhir\siaframework-installedmodules\installed"></constructor-arg>
+		<constructor-arg value="D:\Dokumen\College\Tugas Akhir\siaframework-installedmodules\installed"></constructor-arg>
 	</bean>
 
 	<bean id="temporaryModulePath" class="java.lang.String">
-		<constructor-arg value="D:\Agung\Dokumen\Data Kuliah\Kuliah dan Tugas\Project\Tugas Akhir\siaframework-installedmodules\temp"></constructor-arg>
+		<constructor-arg value="D:\Dokumen\College\Tugas Akhir\siaframework-installedmodules\temp"></constructor-arg>
 	</bean>
 
     <bean id="menuPeranServiceBean" class="com.sia.main.service.services.impl.MenuPeranServiceImpl" >
@@ -53,7 +53,6 @@
     
     
     <bean id="osgiModuleReader" class="com.sia.main.service.module.impl.XmlModuleReaderBean">
-    	<property name="moduleLocation" ref="temporaryModulePath"></property>
     	<property name="moduleDetailXmlPath" value="/module-detail/"></property>
     	<property name="prefix" value="module-"></property>
     </bean>
