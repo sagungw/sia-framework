@@ -114,9 +114,17 @@
 			url: contextPath + "/admin/module/delete",
 			type: 'POST',
 			data: data,
-			success: function(result) {
+			success: function(response) {
+				if(response.status == "OK") {
+					toastr["success"](response.message);
+					setTimeout(function(){
+						window.location.href = contextPath + "/admin/module/uploadWizard/3";
+				}, 3000);	
+				} else {
+					toastr["error"](response.message);		
+				}
 			}
-			});
+		});
 	});
 	
 	$("#btn-add").click(function() {

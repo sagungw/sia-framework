@@ -2,6 +2,7 @@ package com.sia.main.plugin.modul.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ public class ServletBasedModule implements Module, HasServlet {
 	
 	private List<Menu> menus;
 	
+	private UUID moduleId;
+	
 	private String moduleName;
 	
 	private String urlMapping;
@@ -29,11 +32,13 @@ public class ServletBasedModule implements Module, HasServlet {
 	public ServletBasedModule() {
 		this.menus = new ArrayList<Menu>();
 		this.servletConfigLocations = new ArrayList<String>();
+		this.moduleId = UUID.randomUUID();
 	}
 	
 	public ServletBasedModule(String pluginName, String pluginVersion,
 			List<Menu> menus, String moduleName, String urlMapping,
 			List<String> servletConfigLocations) {
+		this();
 		this.pluginName = pluginName;
 		this.pluginVersion = pluginVersion;
 		this.menus = menus;
@@ -79,6 +84,16 @@ public class ServletBasedModule implements Module, HasServlet {
 		return this.menus;
 	}
 
+	@Override
+	public void setModuleId(UUID moduleId) {
+		this.moduleId = moduleId;
+	}
+
+	@Override
+	public UUID getModuleId() {
+		return this.moduleId;
+	}
+	
 	@Override
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
@@ -153,6 +168,8 @@ public class ServletBasedModule implements Module, HasServlet {
 				} else {
 					result.append(urlMapping + "*");
 				}
+			} else {
+				result.append(urlMapping);
 			}
 			return result.toString();
 		} else {

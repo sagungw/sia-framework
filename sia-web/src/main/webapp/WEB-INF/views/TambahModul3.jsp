@@ -45,7 +45,7 @@
 		                       			<td>${menu.getNamaMenu()}</td>
 		                       			<td>
 		                       				<ul>
-		                       					<c:forEach items="${menu.getMenuPerans()}" var="menuPeran">
+		                       					<c:forEach items="${menu.getDaftarMenuPeran()}" var="menuPeran">
 		                       						<li>${menuPeran.getPeran().getNamaPeran()}</li>
 		                       					</c:forEach>
 		                       				</ul>

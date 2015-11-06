@@ -36,9 +36,6 @@ public class Modul {
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
-	@Column(name = "nama_servlet", nullable = true)
-	private String namaServlet;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status_modul", nullable = false)
 	private StatusPlugin status;
@@ -53,18 +50,16 @@ public class Modul {
 	}
 
 	public Modul(UUID idModul, String namaModul, String urlMapping,
-			String versi, String namaServlet, StatusPlugin status,
+			String versi, StatusPlugin status,
 			String osgiBundleId, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
 		this.urlMapping = urlMapping;
 		this.versi = versi;
-		this.namaServlet = namaServlet;
 		this.status = status;
 		this.osgiBundleId = osgiBundleId;
 		this.menus = menus;
-		this.namaServlet = this.generateServletName();
 	}
 
 	public UUID getIdModul() {
@@ -98,15 +93,7 @@ public class Modul {
 	public void setVersi(String versi) {
 		this.versi = versi;
 	}
-
-	public String getNamaServlet() {
-		return namaServlet;
-	}
-
-	public void setNamaServlet(String namaServlet) {
-		this.namaServlet = namaServlet;
-	}
-
+	
 	public StatusPlugin getStatus() {
 		return status;
 	}
@@ -129,23 +116,6 @@ public class Modul {
 
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
-	}
-	
-	private String generateServletName() {
-		if(this.namaModul == null || this.namaModul.equals("")) {
-			StringBuilder servletName = new StringBuilder();
-			int i = 0;
-			String[] moduleName = this.getNamaModul().toLowerCase().split(" ");
-			for(String string: moduleName) {
-				if(i > 0) servletName.append('-');
-				servletName.append(string);
-				i++;
-			}
-			servletName.append("-servlet");
-			return servletName.toString();
-		} else {
-			return this.namaServlet;
-		}
 	}
 
 }

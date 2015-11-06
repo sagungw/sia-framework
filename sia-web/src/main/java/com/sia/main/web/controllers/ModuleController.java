@@ -20,13 +20,13 @@ import com.sia.main.domain.Menu;
 import com.sia.main.domain.MenuPeran;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.Peran;
+import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PeranService;
 import com.sia.main.service.services.StatusPluginService;
 import com.sia.main.web.model.RoleMenu;
-import com.sia.main.web.model.Response;
 
 @Controller
 @RequestMapping(value = "/admin/module")
@@ -46,12 +46,6 @@ public class ModuleController {
 	
 	@Autowired
 	private StatusPluginService statusPluginService;
-	
-	private static String success = "success";
-	
-	private static String existed = "existed";
-	
-	private static String exception = "exception";
 	
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public ModelAndView mainPage(HttpSession session) {
@@ -80,12 +74,11 @@ public class ModuleController {
 	public ModelAndView uploadModule(@RequestParam("file") Object file, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		Bundle hostBundle = FrameworkUtil.getBundle(this.getClass());
-		Modul modul = this.modulService.installModule(file, hostBundle);
-		if(modul != null) {
-			session.setAttribute("moduleOnWizard", modul);
+		Response response = this.modulService.installModule(file, hostBundle);
+		if(response.getData() != null) {
+			session.setAttribute("moduleOnWizard", (Modul)response.getData());
 			modelAndView.setViewName("redirect:/admin/module/uploadWizard/2");
 		} else {
-			Response response = new Response(exception, "Modul gagal ditambahkan", null);
 			session.setAttribute("uploadFailed", response);
 			modelAndView.setViewName("redirect:/admin/module/uploadWizard/1");
 		}
@@ -122,9 +115,9 @@ public class ModuleController {
 			}
 		}
 		if(result != null) {
-			return new Response(success, "hak akses menu berhasil ditambah", success); 
+			return new Response(Response.ok, "hak akses menu berhasil ditambah", null); 
 		} else {
-			return new Response(existed, "hak akses menu gagal ditambah", null);
+			return new Response(Response.error, "hak akses menu gagal ditambah", null);
 		}
 		
 	}
@@ -141,7 +134,7 @@ public class ModuleController {
 	@RequestMapping(value = "/uploadWizard/3/end", method = RequestMethod.POST)
 	public ModelAndView uploadWizardEnd(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		session.setAttribute("uploadWizardDone", new Response(success, "Modul berhasil ditambah", null));
+		session.setAttribute("uploadWizardDone", new Response(Response.ok, "Modul berhasil ditambah", null));
 		session.removeAttribute("moduleOnWizard");
 		modelAndView.setViewName("redirect:/admin/module/");
 		return modelAndView;
@@ -150,13 +143,7 @@ public class ModuleController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody Response deleteModule(@RequestParam("idModul") String idModul) {
 		Modul modul = modulService.getById(UUID.fromString(idModul));
-		Response response = null;
-		if(this.modulService.uninstallModule(modul) != null) {
-			response = new Response(success, "Modul berhasil dihapus", null);
-		} else {
-			response = new Response(exception, "Modul gagal dihapus", null);
-		}
-		return response;
+		return this.modulService.uninstallModule(modul);
 	}
 	
 }

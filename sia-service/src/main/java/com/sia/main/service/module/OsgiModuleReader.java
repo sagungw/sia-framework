@@ -6,6 +6,6 @@ import com.sia.main.plugin.modul.Module;
 
 public interface OsgiModuleReader {
 
-	public Module readModule(Bundle moduleBundle, Bundle hostBundle);
+	public Module readModule(Bundle moduleBundle, Bundle hostBundle) throws Exception;
 	
 }

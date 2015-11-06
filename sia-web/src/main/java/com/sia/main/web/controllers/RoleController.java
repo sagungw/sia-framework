@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sia.main.web.model.Response;
 import com.sia.main.domain.Peran;
+import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.PeranService;
 
 @Controller

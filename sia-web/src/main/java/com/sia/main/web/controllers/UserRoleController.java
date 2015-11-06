@@ -18,8 +18,8 @@ import com.sia.main.domain.Pengguna;
 import com.sia.main.domain.Peran;
 import com.sia.main.domain.PeranPengguna;
 import com.sia.main.domain.SatMan;
+import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.PeranPenggunaService;
-import com.sia.main.web.model.Response;
 
 @Controller
 @RequestMapping(value = "/admin/userRole")

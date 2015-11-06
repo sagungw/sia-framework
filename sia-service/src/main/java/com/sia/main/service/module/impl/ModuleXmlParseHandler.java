@@ -124,15 +124,12 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 				this.generatedModule.setModuleName(new String(ch, start, length));
 				this.generatedModule.setPluginName(new String(ch, start, length));
 			}
-			System.out.println(new String(ch, start, length));
 		}
 		if(inTagVersion) {
 			this.generatedModule.setPluginVersion(new String(ch, start, length));
-			System.out.println(new String(ch, start, length));
 		}
 		if(inTagUrlMapping) {
 			this.generatedModule.setUrlMapping(new String(ch, start, length));
-			System.out.println(new String(ch, start, length));
 		}
 		if(inTagConfigLocations) {
 			String configLocations = new String(ch, start, length);
@@ -141,11 +138,9 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 			for(String configLocation : configLocations.split(",")) {
 				this.generatedModule.addServletConfigLocation(configLocation);
 			}
-			System.out.println(new String(ch, start, length));
 		}
 		if(inTagUrl) {
 			this.generatedMenu.setUrl(new String(ch, start, length));
-			System.out.println(new String(ch, start, length));
 		}
 	}
 	

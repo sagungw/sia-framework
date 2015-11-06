@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 import com.sia.main.domain.Modul;
+import com.sia.main.plugin.common.Response;
 
 public interface ModulService {
 
-	public Modul installModule(Object modulFile, Object hostBundle);
+	public Response installModule(Object modulFile, Object hostBundle);
 	
-	public Modul uninstallModule(Modul modul);
+	public Response uninstallModule(Modul modul);
 	
 	public Modul insertInto(Modul modul);
 

@@ -132,13 +132,13 @@
    				contentType: 'application/json',
    				data: JSON.stringify(roleMenus),
    				success: function(response) {
-   					if(response.data != null) {
-   						toastr["success"]("penambahan hak akses menu berhasil");
+   					if(response.status == "OK") {
+   						toastr["success"](response.message);
    						setTimeout(function(){
    							window.location.href = contextPath + "/admin/module/uploadWizard/3";
     					}, 3000);	
    					} else {
-   						toastr["error"]("penambahan hak akses menu gagal");		
+   						toastr["error"](response.message);		
    					}
     			}
     		});

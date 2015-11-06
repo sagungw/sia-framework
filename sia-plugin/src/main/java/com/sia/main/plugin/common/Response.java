@@ -1,8 +1,17 @@
-package com.sia.main.web.model;
+package com.sia.main.plugin.common;
 
 public class Response {
+
+	public static String ok = "OK";
+	
+	public static String warning = "Warning";
+	
+	public static String error = "Error";
+	
 	private String status;
+	
 	private String message;
+	
 	private Object data;
 	
 	public Response(String status, String message, Object data) {

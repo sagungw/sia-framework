@@ -29,8 +29,8 @@ import com.sia.main.domain.Pengguna;
 import com.sia.main.domain.Ptk;
 import com.sia.main.domain.SatMan;
 import com.sia.main.domain.TipePengguna;
+import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.PenggunaService;
-import com.sia.main.web.model.Response;
 
 @Controller
 @RequestMapping(value = "/admin/user")
