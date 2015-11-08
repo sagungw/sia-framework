@@ -10,8 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.osgi.framework.Bundle;
 import org.xml.sax.SAXException;
 
-import com.sia.main.plugin.modul.Module;
-import com.sia.main.plugin.modul.impl.ServletBasedModule;
+import com.sia.main.domain.Modul;
 import com.sia.main.service.module.OsgiModuleReader;
 
 public class XmlModuleReaderBean implements OsgiModuleReader {
@@ -29,8 +28,8 @@ public class XmlModuleReaderBean implements OsgiModuleReader {
 	}
 
 	@Override
-	public Module readModule(Bundle moduleBundle, Bundle hostBundle) throws Exception {
-		ServletBasedModule module = null;
+	public Modul readModule(Bundle moduleBundle, Bundle hostBundle) throws Exception {
+		Modul module = null;
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
@@ -41,7 +40,7 @@ public class XmlModuleReaderBean implements OsgiModuleReader {
 			}
 			ModuleXmlParseHandler parseHandler = new ModuleXmlParseHandler();
 			saxParser.parse(fileUrl.openStream(), parseHandler);
-			module = (ServletBasedModule) parseHandler.getGeneratedModule();
+			module = parseHandler.getGeneratedModule();
 		} catch (ParserConfigurationException | SAXException | IOException | NullPointerException e) {
 			throw e.getClass().getDeclaredConstructor(String.class).newInstance("Pembacaan detail modul pada berkas xml gagal. Pesan Exception: " + e.getMessage());
 		}

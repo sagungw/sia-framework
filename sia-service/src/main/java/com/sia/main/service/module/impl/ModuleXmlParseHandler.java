@@ -4,15 +4,14 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.sia.main.plugin.modul.Module;
-import com.sia.main.plugin.modul.impl.ServletBasedModule;
-import com.sia.main.plugin.modul.impl.StandardMenu;
+import com.sia.main.domain.Menu;
+import com.sia.main.domain.Modul;
 
 public class ModuleXmlParseHandler extends DefaultHandler {
 
-	private ServletBasedModule generatedModule;
+	private Modul generatedModule;
 	
-	private StandardMenu generatedMenu;
+	private Menu generatedMenu;
 	
 	private boolean inTagModule = false;
 	
@@ -30,20 +29,21 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 	
 	private boolean inTagUrl = false;
 	
-	public Module getGeneratedModule() {
+	public Modul getGeneratedModule() {
 		return this.generatedModule;
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if(qName.equalsIgnoreCase("module")) {
-			this.generatedModule = new ServletBasedModule();
+			this.generatedModule = new Modul();
 			inTagModule = true;
 		}
 		
 		if(qName.equalsIgnoreCase("name") && inTagModule) {
 			inTagName = true;
 		} else if(qName.equalsIgnoreCase("name") && !inTagModule) {
+			
 			throw new SAXException("<name> must be inside <module>");
 		}
 		
@@ -72,7 +72,7 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 		}
 		
 		if(qName.equalsIgnoreCase("menu") && inTagMenues) {
-			this.generatedMenu = new StandardMenu();
+			this.generatedMenu = new Menu();
 			inTagMenu = true;
 		} else if(qName.equalsIgnoreCase("menu") && !inTagMenues) {
 			throw new SAXException("<menu> must be inside <menues>");
@@ -119,28 +119,22 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 	public void characters(char ch[], int start, int length) throws SAXException {
 		if(inTagName) {
 			if(inTagMenu) {
-				this.generatedMenu.setMenuName(new String(ch, start, length));
+				this.generatedMenu.setNamaMenu(new String(ch, start, length));
 			} else {
-				this.generatedModule.setModuleName(new String(ch, start, length));
-				this.generatedModule.setPluginName(new String(ch, start, length));
+				this.generatedModule.setNamaModul(new String(ch, start, length));
 			}
 		}
 		if(inTagVersion) {
-			this.generatedModule.setPluginVersion(new String(ch, start, length));
+			this.generatedModule.setVersi(new String(ch, start, length));
 		}
 		if(inTagUrlMapping) {
 			this.generatedModule.setUrlMapping(new String(ch, start, length));
 		}
 		if(inTagConfigLocations) {
-			String configLocations = new String(ch, start, length);
-			configLocations = configLocations.replace(" ", "");
-			
-			for(String configLocation : configLocations.split(",")) {
-				this.generatedModule.addServletConfigLocation(configLocation);
-			}
+			this.generatedModule.setLokasiKonfigServlet(new String(ch, start, length));
 		}
 		if(inTagUrl) {
-			this.generatedMenu.setUrl(new String(ch, start, length));
+			this.generatedMenu.setUrlMenu(new String(ch, start, length));
 		}
 	}
 	

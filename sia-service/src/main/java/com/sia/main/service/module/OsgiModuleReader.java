@@ -2,10 +2,10 @@ package com.sia.main.service.module;
 
 import org.osgi.framework.Bundle;
 
-import com.sia.main.plugin.modul.Module;
+import com.sia.main.domain.Modul;
 
 public interface OsgiModuleReader {
 
-	public Module readModule(Bundle moduleBundle, Bundle hostBundle) throws Exception;
+	public Modul readModule(Bundle moduleBundle, Bundle hostBundle) throws Exception;
 	
 }

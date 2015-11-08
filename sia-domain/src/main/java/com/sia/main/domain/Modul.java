@@ -1,5 +1,6 @@
 package com.sia.main.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,22 +44,31 @@ public class Modul {
 	@Column(name = "osgi_bundle_id", nullable = false)
 	private String osgiBundleId;
 	
+	@Column(name = "lokasi_konf_servlet", nullable = false)
+	private String lokasiKonfigServlet;
+	
+	@Column(name = "nama_servlet", nullable = false)
+	private String namaServlet;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus;
-
+	
 	public Modul(){
+		this.menus = new ArrayList<Menu>();
 	}
 
 	public Modul(UUID idModul, String namaModul, String urlMapping,
-			String versi, StatusPlugin status,
-			String osgiBundleId, List<Menu> menus) {
+			String versi, StatusPlugin status,String osgiBundleId, 
+			String lokasiKonfigServlet, String namaServlet, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
-		this.urlMapping = urlMapping;
+		this.setUrlMapping(urlMapping);
 		this.versi = versi;
 		this.status = status;
 		this.osgiBundleId = osgiBundleId;
+		this.lokasiKonfigServlet = lokasiKonfigServlet;
+		this.setNamaServlet(namaServlet);
 		this.menus = menus;
 	}
 
@@ -83,7 +93,7 @@ public class Modul {
 	}
 
 	public void setUrlMapping(String urlMapping) {
-		this.urlMapping = urlMapping;
+		this.urlMapping = this.standardizeUrlMapping(urlMapping);
 	}
 
 	public String getVersi() {
@@ -110,6 +120,35 @@ public class Modul {
 		this.osgiBundleId = osgiBundleId;
 	}
 
+	public String getLokasiKonfigServlet() {
+		return lokasiKonfigServlet;
+	}
+	
+	public List<String> getServletConfigLocationList() {
+		List<String> configLocations = new ArrayList<String>();
+		String locs = this.lokasiKonfigServlet.replace(" ", "");
+		for(String loc : locs.split(",")) {
+			configLocations.add(loc);
+		}
+		return configLocations;
+	}
+
+	public void setLokasiKonfigServlet(String lokasiKonfigServlet) {
+		this.lokasiKonfigServlet = lokasiKonfigServlet;
+	}
+
+	public void setNamaServlet(String namaServlet) {
+		if(namaServlet.equals("") || namaServlet == null) {
+			this.namaServlet = standardizeServletName(this.namaModul);
+		} else {
+			this.namaServlet = standardizeServletName(namaServlet);
+		}
+	}
+
+	public String getNamaServlet() {
+		return namaServlet;
+	}
+
 	public List<Menu> getMenus() {
 		return menus;
 	}
@@ -117,5 +156,48 @@ public class Modul {
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
 	}
+	
+	public void addMenu(Menu menu) {
+		this.menus.add(menu);
+	}
 
+	private String standardizeUrlMapping(String urlMapping) {
+		if(urlMapping != null && !urlMapping.equals("")) {
+			StringBuilder result = new StringBuilder();
+			if(urlMapping.charAt(0) != '/') {
+				result.append('/');
+			}
+			if(urlMapping.charAt(urlMapping.length()-1) != '*') {
+				if(urlMapping.charAt(urlMapping.length()-1) != '/') {
+					result.append(urlMapping + "/*");
+				} else {
+					result.append(urlMapping + "*");
+				}
+			} else {
+				result.append(urlMapping);
+			}
+			return result.toString();
+		} else {
+			return null;
+		}
+	}
+	
+	private String standardizeServletName(String servletName) {
+		if(servletName != null && !servletName.equals("")) {
+			StringBuilder servletNameSb = new StringBuilder();
+			int i = 0;
+			String[] moduleName = servletName.toLowerCase().split(" ");
+			for(String string: moduleName) {
+				if(i > 0) servletNameSb.append('-');
+				servletNameSb.append(string);
+				i++;
+			}
+			if(!servletName.toLowerCase().contains("-servlet")) 
+				servletNameSb.append("-servlet");
+			return servletNameSb.toString();
+		} else {
+			return "";
+		}
+	}
+	
 }

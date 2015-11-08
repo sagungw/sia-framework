@@ -19,16 +19,16 @@
     
     <bean id="menuServiceBean" class="com.sia.main.service.services.impl.MenuServiceImpl" >
     	<property name="menuDAO" ref="menuDAORef"></property>
+    	<property name="menuPeranService" ref="menuPeranServiceBean"></property>
     </bean>
     
     <bean id="modulServiceBean" class="com.sia.main.service.services.impl.ModulServiceImpl" >
     	<property name="installedModuleLocation" ref="installedModulePath"></property>
     	<property name="temporaryModuleLocation" ref="temporaryModulePath"></property>
     	<property name="modulDAO" ref="modulDAORef"></property>
-    	<property name="statusPluginService" ref="statusPluginServiceBean"></property>
+    	<property name="statusPluginDAO" ref="statusPluginDAORef"></property>
     	<property name="menuService" ref="menuServiceBean"></property>
     	<property name="moduleReader" ref="osgiModuleReader"></property>
-    	<property name="moduleManager" ref="moduleManager"></property>
     </bean>
     
     <bean id="penggunaServiceBean" class="com.sia.main.service.services.impl.PenggunaServiceImpl" >
@@ -55,9 +55,6 @@
     <bean id="osgiModuleReader" class="com.sia.main.service.module.impl.XmlModuleReaderBean">
     	<property name="moduleDetailXmlPath" value="/module-detail/"></property>
     	<property name="prefix" value="module-"></property>
-    </bean>
-    
-    <bean id="moduleManager" class="com.sia.main.service.module.impl.SIAModuleManager" factory-method="getInstance">
     </bean>
     
 </beans>

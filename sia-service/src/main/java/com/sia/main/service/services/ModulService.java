@@ -11,12 +11,8 @@ public interface ModulService {
 	public Response installModule(Object modulFile, Object hostBundle);
 	
 	public Response uninstallModule(Modul modul);
-	
-	public Modul insertInto(Modul modul);
 
 	public Modul update(Modul modul);
-
-	public Modul delete(Modul modul);
 
 	public List<Modul> getAll();
 

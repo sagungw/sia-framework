@@ -1,5 +1,6 @@
 package com.sia.main.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,7 +42,7 @@ public class Menu {
 	private List<MenuPeran> daftarMenuPeran;
 
 	public Menu() {
-		
+		this.daftarMenuPeran = new ArrayList<MenuPeran>();
 	}
 
 	public Menu(UUID idMenu, Modul modul, String namaMenu, String urlMenu,

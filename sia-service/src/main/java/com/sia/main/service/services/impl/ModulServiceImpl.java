@@ -14,16 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sia.main.data.dao.ModulDAO;
+import com.sia.main.data.dao.StatusPluginDAO;
 import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.StatusPlugin;
 import com.sia.main.plugin.common.Response;
-import com.sia.main.plugin.modul.impl.ServletBasedModule;
-import com.sia.main.service.module.ModuleManager;
 import com.sia.main.service.module.OsgiModuleReader;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
-import com.sia.main.service.services.StatusPluginService;
 import com.sia.main.service.util.ModuleWriter;
 
 @Service
@@ -35,13 +33,11 @@ public class ModulServiceImpl implements ModulService {
 	
 	private ModulDAO modulDAO;
 
-	private StatusPluginService statusPluginService;
+	private StatusPluginDAO statusPluginDAO;
 
 	private MenuService menuService;
 	
 	private OsgiModuleReader moduleReader;
-	
-	private ModuleManager moduleManager;
 
 	public void setInstalledModuleLocation(String installedModuleLocation) {
 		this.installedModuleLocation = installedModuleLocation;
@@ -55,8 +51,8 @@ public class ModulServiceImpl implements ModulService {
 		this.modulDAO = modulDAO;
 	}
 
-	public void setStatusPluginService(StatusPluginService statusPluginService) {
-		this.statusPluginService = statusPluginService;
+	public void setStatusPluginDAO(StatusPluginDAO statusPluginDAO) {
+		this.statusPluginDAO = statusPluginDAO;
 	}
 
 	public void setMenuService(MenuService menuService) {
@@ -65,10 +61,6 @@ public class ModulServiceImpl implements ModulService {
 
 	public void setModuleReader(OsgiModuleReader moduleReader) {
 		this.moduleReader = moduleReader;
-	}
-
-	public void setModuleManager(ModuleManager moduleManager) {
-		this.moduleManager = moduleManager;
 	}
 
 	@Override
@@ -100,27 +92,28 @@ public class ModulServiceImpl implements ModulService {
 			ArrayList<Bundle> bundles = new ArrayList<Bundle>();
 			bundles.add(bundle); 
 			fw.resolveBundles(bundles);
-			ServletBasedModule module = (ServletBasedModule) this.moduleReader.readModule(bundle, hostBundle);
-			StatusPlugin statusPlugin = this.statusPluginService.getByParam("where namaStatus = 'STARTED'").get(0);
-			Modul modul = new Modul();
-			modul.setIdModul(module.getModuleId());
-			modul.setNamaModul(module.getModuleName());
-			modul.setVersi(module.getPluginVersion());
+			Modul modul = this.moduleReader.readModule(bundle, hostBundle);
+			StatusPlugin statusPlugin = this.statusPluginDAO.getByParam("where namaStatus = 'STARTED'").get(0);
 			modul.setStatus(statusPlugin);
 			modul.setOsgiBundleId(String.valueOf(bundle.getBundleId()));
-			modul.setUrlMapping(module.getUrlMapping());
+			modul.setNamaServlet("");
 			res = this.insertInto(modul);
-			if (res != null) {
-				List<Menu> menuList = new ArrayList<Menu>(); 
-				for (com.sia.main.plugin.modul.Menu i : module.getMenus()) {
-					Menu menu = new Menu();
-					menu.setNamaMenu(i.getMenuName());
-					menu.setUrlMenu(i.getUrl());
+			if (res != null) { 
+				for(Menu menu : modul.getMenus()) {
 					menu.setModul(res);
-					menuList.add(menu);
 					this.menuService.insertInto(menu);
 				}
-				res.setMenus(menuList);
+				for(Menu menuOld : this.menuService.getByParam("where modul.idModul = '" + res.getIdModul() + "'")){
+					boolean found = false;
+					for(Menu menuNew : modul.getMenus()) {
+						if(menuOld.getNamaMenu().equals(menuNew.getNamaMenu())) {
+							found = true;
+						}
+					}
+					if(!found) {
+						this.menuService.delete(menuOld);
+					}
+				}
 			} else {
 				bundle.uninstall();
 				throw new Exception("Modul dengan nama " + modul.getNamaModul() + " sudah ada dan pemetaan url " + modul.getUrlMapping() + " sudah digunakan");
@@ -133,8 +126,7 @@ public class ModulServiceImpl implements ModulService {
 		return res;
 	}
 
-	@Override
-	public Modul insertInto(Modul modul) {
+	private Modul insertInto(Modul modul) {
 		List<Modul> usedNameModules = this.getByParam("where namaModul = '" + modul.getNamaModul() + "'");
 		List<Modul> usedUrlModules = this.getByParam("where urlMapping = '" + modul.getUrlMapping() + "'");
 		if ((usedNameModules != null && usedNameModules.size() > 0) && (!usedNameModules.get(0).getUrlMapping().equals(modul.getUrlMapping())) && (usedUrlModules != null && usedUrlModules.size() > 0)) {
@@ -146,7 +138,6 @@ public class ModulServiceImpl implements ModulService {
 		} else {
 			return this.update(modul);
 		}
-		
 	}
 
 	@Override
@@ -163,6 +154,8 @@ public class ModulServiceImpl implements ModulService {
 		toBeUpdated.setStatus(modul.getStatus());
 		toBeUpdated.setOsgiBundleId(modul.getOsgiBundleId());
 		toBeUpdated.setUrlMapping(modul.getUrlMapping());
+		toBeUpdated.setLokasiKonfigServlet(modul.getLokasiKonfigServlet());
+		toBeUpdated.setNamaServlet(modul.getNamaServlet());
 		this.modulDAO.update(toBeUpdated);
 		return toBeUpdated;
 	}
@@ -173,19 +166,15 @@ public class ModulServiceImpl implements ModulService {
 			BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
 			Bundle bundle = bundleContext.getBundle(modul.getOsgiBundleId());
 			bundle.uninstall();
-			this.delete(modul);
-			this.moduleManager.removeModule(modul.getIdModul());
+			for(Menu menu : modul.getMenus()){
+				this.menuService.delete(menu);
+			}
+			this.modulDAO.delete(modul);
 			return new Response(Response.ok, "Modul berhasil dihapus", modul);
 		} catch (BundleException e) {
 			e.printStackTrace();
 			return new Response(Response.error, "Modul gagal dihapus. Pesan Exception: " + e.getMessage(), null);
 		}
-	}
-
-	@Override
-	public Modul delete(Modul modul) {
-		this.modulDAO.delete(modul);
-		return modul;
 	}
 
 	@Override

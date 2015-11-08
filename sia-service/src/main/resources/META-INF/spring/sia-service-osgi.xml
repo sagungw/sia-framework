@@ -21,8 +21,6 @@
     
     <osgi:service id="statusPluginServiceServ" interface="com.sia.main.service.services.StatusPluginService" ref="statusPluginServiceBean"/>
 
-	<osgi:service id="moduleManagerService" interface="com.sia.main.service.module.ModuleManager" ref="moduleManager"/>
-
 
 	<osgi:reference id="menuPeranDAORef" interface="com.sia.main.data.dao.MenuPeranDAO" availability="mandatory"/>
     
