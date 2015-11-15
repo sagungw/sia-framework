@@ -45,10 +45,6 @@
     	<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	<bean id="statusPluginDAO" class="com.sia.main.data.dao.impl.StatusPluginDAOImpl" >
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	
 	<bean id="tipePenggunaDAO" class="com.sia.main.data.dao.impl.TipePenggunaDAOImpl">
     	<property name="sessionFactory" ref="sessionFactory"></property>
     </bean>

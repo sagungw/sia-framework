@@ -55,9 +55,7 @@
 				<value>com.sia.main.domain.Pengguna</value>
 				<value>com.sia.main.domain.Peran</value>
 				<value>com.sia.main.domain.PeranPengguna</value>
-				<value>com.sia.main.domain.Plugin</value>
 				<value>com.sia.main.domain.SatMan</value>
-				<value>com.sia.main.domain.StatusPlugin</value>
 				<value>com.sia.main.domain.Pd</value>
 				<value>com.sia.main.domain.Ptk</value>
 				<value>com.sia.main.domain.TipePengguna</value>

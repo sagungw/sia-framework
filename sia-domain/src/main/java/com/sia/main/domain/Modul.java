@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 
@@ -37,9 +35,8 @@ public class Modul {
 	@Column(name = "versi", nullable = false)
 	private String versi;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "status_modul", nullable = false)
-	private StatusPlugin status;
+	@Column(name = "status", nullable = false)
+	private String status;
 	
 	@Column(name = "osgi_bundle_id", nullable = false)
 	private String osgiBundleId;
@@ -50,6 +47,12 @@ public class Modul {
 	@Column(name = "nama_servlet", nullable = false)
 	private String namaServlet;
 	
+	@Column(name = "gambar", nullable = true)
+	private byte[] gambar; 
+	
+	@Column(name = "icon", nullable = true)
+	private String namaIconTemplate;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus;
 	
@@ -58,8 +61,9 @@ public class Modul {
 	}
 
 	public Modul(UUID idModul, String namaModul, String urlMapping,
-			String versi, StatusPlugin status,String osgiBundleId, 
-			String lokasiKonfigServlet, String namaServlet, List<Menu> menus) {
+			String versi, String status,String osgiBundleId, 
+			String lokasiKonfigServlet, String namaServlet, byte[] gambar,
+			String namaIconTemplate, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
@@ -69,6 +73,8 @@ public class Modul {
 		this.osgiBundleId = osgiBundleId;
 		this.lokasiKonfigServlet = lokasiKonfigServlet;
 		this.setNamaServlet(namaServlet);
+		this.gambar = gambar;
+		this.namaIconTemplate = namaIconTemplate;
 		this.menus = menus;
 	}
 
@@ -104,11 +110,11 @@ public class Modul {
 		this.versi = versi;
 	}
 	
-	public StatusPlugin getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusPlugin status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -147,6 +153,22 @@ public class Modul {
 
 	public String getNamaServlet() {
 		return namaServlet;
+	}
+
+	public byte[] getGambar() {
+		return gambar;
+	}
+
+	public void setGambar(byte[] gambar) {
+		this.gambar = gambar;
+	}
+
+	public String getNamaIconTemplate() {
+		return namaIconTemplate;
+	}
+
+	public void setNamaIconTemplate(String namaIconTemplate) {
+		this.namaIconTemplate = namaIconTemplate;
 	}
 
 	public List<Menu> getMenus() {

@@ -18,8 +18,6 @@
     <osgi:service id="peranServiceServ" interface="com.sia.main.service.services.PeranService" ref="peranServiceBean"/>
     
     <osgi:service id="satuanManajemenServiceServ" interface="com.sia.main.service.services.SatuanManajemenService" ref="satuanManajemenServiceBean"/>
-    
-    <osgi:service id="statusPluginServiceServ" interface="com.sia.main.service.services.StatusPluginService" ref="statusPluginServiceBean"/>
 
 
 	<osgi:reference id="menuPeranDAORef" interface="com.sia.main.data.dao.MenuPeranDAO" availability="mandatory"/>
@@ -35,7 +33,5 @@
     <osgi:reference id="peranDAORef" interface="com.sia.main.data.dao.PeranDAO" availability="mandatory"/>
     
     <osgi:reference id="satuanManajemenDAORef" interface="com.sia.main.data.dao.SatuanManajemenDAO" availability="mandatory"/>
-    
-    <osgi:reference id="statusPluginDAORef" interface="com.sia.main.data.dao.StatusPluginDAO" availability="mandatory"/>
 	
 </beans>

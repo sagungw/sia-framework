@@ -13,7 +13,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;"></div>
+					<div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
 				</div>
 				
 				<div id="assignment-row" class="row" >
@@ -86,10 +86,18 @@
 		"showMethod": "fadeIn",
 		"hideMethod": "fadeOut"
 	}
+	
 
     var selectedRole = null;
     var roles = [];
-
+	
+	<c:forEach items="${roleMenus}" var="roleMenu">
+		roles["${roleMenu.getRoleId()}"] = [];
+		<c:forEach items="${roleMenu.getRoleMenus()}" var="item">
+			roles["${roleMenu.getRoleId()}"].push("${item}");
+		</c:forEach>
+	</c:forEach>
+    
     $(".role-item").click(function() {
         $(".dd-handle").css({"background-color": "#fafafa", "color": "#333"});
         $("#menu-list").css("display", "");
@@ -132,14 +140,14 @@
    				contentType: 'application/json',
    				data: JSON.stringify(roleMenus),
    				success: function(response) {
-   					if(response.status == "OK") {
+					if(response.status == "OK") {
    						toastr["success"](response.message);
-   						setTimeout(function(){
-   							window.location.href = contextPath + "/admin/module/uploadWizard/3";
-    					}, 3000);	
    					} else {
    						toastr["error"](response.message);		
    					}
+   					setTimeout(function(){
+  							window.location.href = contextPath + "/admin/module/uploadWizard/3";
+   					}, 3000);	
     			}
     		});
     	} else {

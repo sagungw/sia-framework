@@ -22,7 +22,7 @@ public class RoleController {
 	@Autowired
 	PeranService peranService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
 	public ModelAndView kelolaPeran(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		if(session.getAttribute("addResponse") != null) {

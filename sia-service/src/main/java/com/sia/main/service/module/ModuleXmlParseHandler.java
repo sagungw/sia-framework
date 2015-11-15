@@ -1,4 +1,4 @@
-package com.sia.main.service.module.impl;
+package com.sia.main.service.module;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -16,8 +16,6 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 	private boolean inTagModule = false;
 	
 	private boolean inTagName = false;
-	
-	private boolean inTagVersion = false;
 	
 	private boolean inTagUrlMapping = false;
 	
@@ -43,45 +41,38 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 		if(qName.equalsIgnoreCase("name") && inTagModule) {
 			inTagName = true;
 		} else if(qName.equalsIgnoreCase("name") && !inTagModule) {
-			
-			throw new SAXException("<name> must be inside <module>");
-		}
-		
-		if(qName.equalsIgnoreCase("version") && inTagModule) {
-			inTagVersion = true;
-		} else if(qName.equalsIgnoreCase("version") && !inTagModule) {
-			throw new SAXException("<version> must be inside <module>");
+			throw new SAXException("<name> harus berada di dalam <module>");
 		}
 		
 		if(qName.equalsIgnoreCase("url-mapping") && inTagModule) {
 			inTagUrlMapping = true;
 		} else if(qName.equalsIgnoreCase("url-mapping") && !inTagModule) {
-			throw new SAXException("<url-mapping> must be inside <module>");
+			throw new SAXException("<url-mapping> harus berada di dalam <module>");
 		}
 		
 		if(qName.equalsIgnoreCase("config-locations") && inTagModule) {
 			inTagConfigLocations = true;
 		} else if(qName.equalsIgnoreCase("config-locations") && !inTagModule) {
-			throw new SAXException("<config-locations> must be inside <module>");
+			throw new SAXException("<config-locations> harus berada di dalam <module>");
 		}
 		
 		if(qName.equalsIgnoreCase("menues")  && inTagModule) {
 			inTagMenues = true;
 		} else if(qName.equalsIgnoreCase("menues") && !inTagModule) {
-			throw new SAXException("<menues> must be inside <module>");
+			throw new SAXException("<menues> harus berada di dalam <module>");
 		}
 		
 		if(qName.equalsIgnoreCase("menu") && inTagMenues) {
 			this.generatedMenu = new Menu();
 			inTagMenu = true;
 		} else if(qName.equalsIgnoreCase("menu") && !inTagMenues) {
-			throw new SAXException("<menu> must be inside <menues>");
+			throw new SAXException("<menu> harus berada di dalam <menues>");
 		}
 		
 		if(qName.equalsIgnoreCase("url") && inTagMenu) {
 			inTagUrl = true;
 		} else if(qName.equalsIgnoreCase("url") && !inTagMenu) {
-			throw new SAXException("<url> must be inside <menu>");
+			throw new SAXException("<url> harus berada di dalam <menu>");
 		}
 	}
 	
@@ -92,9 +83,6 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 		}
 		if(qName.equalsIgnoreCase("name")) {
 			inTagName = false;
-		}
-		if(qName.equalsIgnoreCase("version")) {
-			inTagVersion = false;
 		}
 		if(qName.equalsIgnoreCase("url-mapping")) {
 			inTagUrlMapping = false;
@@ -123,9 +111,6 @@ public class ModuleXmlParseHandler extends DefaultHandler {
 			} else {
 				this.generatedModule.setNamaModul(new String(ch, start, length));
 			}
-		}
-		if(inTagVersion) {
-			this.generatedModule.setVersi(new String(ch, start, length));
 		}
 		if(inTagUrlMapping) {
 			this.generatedModule.setUrlMapping(new String(ch, start, length));

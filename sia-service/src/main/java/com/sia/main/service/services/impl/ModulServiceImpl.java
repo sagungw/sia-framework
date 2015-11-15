@@ -14,12 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sia.main.data.dao.ModulDAO;
-import com.sia.main.data.dao.StatusPluginDAO;
 import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
-import com.sia.main.domain.StatusPlugin;
 import com.sia.main.plugin.common.Response;
-import com.sia.main.service.module.OsgiModuleReader;
+import com.sia.main.plugin.modul.ModuleReader;
+import com.sia.main.service.module.OSGiBundleStatus;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.util.ModuleWriter;
@@ -33,11 +32,9 @@ public class ModulServiceImpl implements ModulService {
 	
 	private ModulDAO modulDAO;
 
-	private StatusPluginDAO statusPluginDAO;
-
 	private MenuService menuService;
 	
-	private OsgiModuleReader moduleReader;
+	private ModuleReader moduleReader;
 
 	public void setInstalledModuleLocation(String installedModuleLocation) {
 		this.installedModuleLocation = installedModuleLocation;
@@ -51,15 +48,11 @@ public class ModulServiceImpl implements ModulService {
 		this.modulDAO = modulDAO;
 	}
 
-	public void setStatusPluginDAO(StatusPluginDAO statusPluginDAO) {
-		this.statusPluginDAO = statusPluginDAO;
-	}
-
 	public void setMenuService(MenuService menuService) {
 		this.menuService = menuService;
 	}
 
-	public void setModuleReader(OsgiModuleReader moduleReader) {
+	public void setModuleReader(ModuleReader moduleReader) {
 		this.moduleReader = moduleReader;
 	}
 
@@ -85,18 +78,19 @@ public class ModulServiceImpl implements ModulService {
 		Modul res = null;
 		BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
 		filePath = "file:" + filePath;
+		Bundle bundle = null;
 		try {
-			Bundle bundle = bundleContext.installBundle(filePath);
+			bundle = bundleContext.installBundle(filePath);
 			Bundle systemBundle = bundleContext.getBundle(0);
 			FrameworkWiring fw = systemBundle.adapt(FrameworkWiring.class);
 			ArrayList<Bundle> bundles = new ArrayList<Bundle>();
 			bundles.add(bundle); 
 			fw.resolveBundles(bundles);
-			Modul modul = this.moduleReader.readModule(bundle, hostBundle);
-			StatusPlugin statusPlugin = this.statusPluginDAO.getByParam("where namaStatus = 'STARTED'").get(0);
-			modul.setStatus(statusPlugin);
+			Modul modul = (Modul) this.moduleReader.readModule(bundle, hostBundle);
+			modul.setStatus(OSGiBundleStatus.valueOf(bundle.getState()).name());
 			modul.setOsgiBundleId(String.valueOf(bundle.getBundleId()));
 			modul.setNamaServlet("");
+			modul.setVersi(bundle.getVersion().toString());
 			res = this.insertInto(modul);
 			if (res != null) { 
 				for(Menu menu : modul.getMenus()) {
@@ -119,8 +113,10 @@ public class ModulServiceImpl implements ModulService {
 				throw new Exception("Modul dengan nama " + modul.getNamaModul() + " sudah ada dan pemetaan url " + modul.getUrlMapping() + " sudah digunakan");
 			}
 		} catch (BundleException e) {
+			bundle.uninstall();
 			throw new BundleException("Instalasi modul ke dalam container OSGi gagal. Pesan Exception: " + e.getMessage());
 		} catch (Exception e) {
+			bundle.uninstall();
 			throw e;
 		}
 		return res;
@@ -156,6 +152,8 @@ public class ModulServiceImpl implements ModulService {
 		toBeUpdated.setUrlMapping(modul.getUrlMapping());
 		toBeUpdated.setLokasiKonfigServlet(modul.getLokasiKonfigServlet());
 		toBeUpdated.setNamaServlet(modul.getNamaServlet());
+		toBeUpdated.setGambar(modul.getGambar());
+		toBeUpdated.setNamaIconTemplate(modul.getNamaIconTemplate());
 		this.modulDAO.update(toBeUpdated);
 		return toBeUpdated;
 	}

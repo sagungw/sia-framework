@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.UUID;
 
 import com.sia.main.domain.MenuPeran;
+import com.sia.main.plugin.common.Response;
 
 public interface MenuPeranService {
 
-	public MenuPeran insertInto(MenuPeran menuPeran);
+	public Response insertInto(MenuPeran menuPeran);
 
-	public MenuPeran update(MenuPeran menuPeran);
+	public Response update(MenuPeran menuPeran);
 
-	public MenuPeran delete(MenuPeran menuPeran);
+	public Response delete(MenuPeran menuPeran);
 
 	public List<MenuPeran> getAll();
 

@@ -13,7 +13,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;"></div>
+					<div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
 				</div>	
 				<div id="upload-form" class="row">
 					<div class="col-md-12">

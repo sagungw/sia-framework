@@ -6,7 +6,7 @@
     </decorator>
     
     <decorator name="module-master-page" page="ModuleMaster.jsp">
-        <pattern>/module/*</pattern>
+        <pattern>/modul/*</pattern>
     </decorator>
     
     <excludes>

@@ -25,8 +25,6 @@
     
     <osgi:service id="satuanManajemenDAOServ" interface="com.sia.main.data.dao.SatuanManajemenDAO" ref="satuanManajemenDAO"/>
     
-    <osgi:service id="statusPluginDAOServ" interface="com.sia.main.data.dao.StatusPluginDAO" ref="statusPluginDAO"/>
-    
-   <osgi:service id="tipePenggunaDAOServ" interface="com.sia.main.data.dao.TipePenggunaDAO" ref="tipePenggunaDAO"/> 
+   	<osgi:service id="tipePenggunaDAOServ" interface="com.sia.main.data.dao.TipePenggunaDAO" ref="tipePenggunaDAO"/> 
     
 </beans>

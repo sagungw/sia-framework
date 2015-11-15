@@ -1,4 +1,4 @@
-package com.sia.main.web.model;
+package com.sia.main.web.json_model;
 
 public class RoleMenu {
 	

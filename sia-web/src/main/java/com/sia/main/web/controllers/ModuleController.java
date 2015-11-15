@@ -1,5 +1,7 @@
 package com.sia.main.web.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sia.main.domain.Menu;
@@ -25,8 +28,7 @@ import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.MenuService;
 import com.sia.main.service.services.ModulService;
 import com.sia.main.service.services.PeranService;
-import com.sia.main.service.services.StatusPluginService;
-import com.sia.main.web.model.RoleMenu;
+import com.sia.main.web.json_model.RoleMenu;
 
 @Controller
 @RequestMapping(value = "/admin/module")
@@ -43,9 +45,6 @@ public class ModuleController {
 	
 	@Autowired
 	private MenuPeranService menuPeranService;
-	
-	@Autowired
-	private StatusPluginService statusPluginService;
 	
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public ModelAndView mainPage(HttpSession session) {
@@ -92,46 +91,101 @@ public class ModuleController {
 		List<Peran> roles = peranService.getAll();
 		modelAndView.addObject("roles", roles);
 		modelAndView.addObject("menus", modul.getMenus());
+		List<RoleMenu> roleMenus = new ArrayList<RoleMenu>();
+		for(Peran role: roles) {
+			RoleMenu roleMenu = new RoleMenu();
+			List<String> temp = new ArrayList<String>(); 
+			for(MenuPeran menuPeran: role.getMenuPeranList()) {
+				temp.add(menuPeran.getMenu().getIdMenu().toString());
+			}
+			roleMenu.setRoleId(role.getIdPeran().toString());
+			roleMenu.setRoleMenus(temp.toArray(new String[temp.size()]));
+			roleMenus.add(roleMenu);
+		}
+		modelAndView.addObject("roleMenus", roleMenus);
 		modelAndView.setViewName("TambahModul2");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/uploadWizard/2/submit",  method = RequestMethod.POST)
 	@ResponseBody
-	public Response saveMenus(@RequestBody RoleMenu[] roleMenus) {
-		MenuPeran result = null;
+	public Response saveMenus(@RequestBody RoleMenu[] roleMenus, HttpSession session) {
+		Modul modul = (Modul)session.getAttribute("moduleOnWizard");
+		for(Menu menu: modul.getMenus()) {
+			for(MenuPeran menuPeran: menu.getDaftarMenuPeran()) {
+				this.menuPeranService.delete(menuPeran);
+			}
+		}
+		List<MenuPeran> failures = new ArrayList<MenuPeran>();
 		for(RoleMenu roleMenu: roleMenus) {
+			Peran peran = this.peranService.getById(UUID.fromString(roleMenu.getRoleId()));
 			for (String menuId : roleMenu.getRoleMenus()) {
 				Menu menu = this.menuService.getById(UUID.fromString(menuId));
-				Peran peran = this.peranService.getById(UUID.fromString(roleMenu.getRoleId()));
 				MenuPeran menuPeran = new MenuPeran(null, peran, menu);
-				result = this.menuPeranService.insertInto(menuPeran);
-				if(result == null) {
-					break;
-				}
-			}
-			if(result == null) {
-				break;
+				MenuPeran result = (MenuPeran)this.menuPeranService.insertInto(menuPeran).getData();
+				if(result == null)
+					failures.add(menuPeran);
 			}
 		}
-		if(result != null) {
-			return new Response(Response.ok, "hak akses menu berhasil ditambah", null); 
+		session.setAttribute("moduleOnWizard", this.modulService.getById(modul.getIdModul()));
+		if(failures.size() > 0) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Penambahan gagal pada: \n");
+			for(MenuPeran menuPeran: failures) {
+				sb.append("- Hak akses peran " + menuPeran.getPeran() + " untuk menu " + menuPeran.getMenu() + ".\n");
+			}
+			return new Response(Response.error, sb.toString(), null);
 		} else {
-			return new Response(Response.error, "hak akses menu gagal ditambah", null);
+			return new Response(Response.ok, "Penambahan hak akses menu pada peran berhasil.", null);
 		}
-		
 	}
 	
 	@RequestMapping(value = "/uploadWizard/3", method = RequestMethod.GET)
 	public ModelAndView uploadWizard3(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		Modul modul = (Modul) session.getAttribute("moduleOnWizard");
-		modelAndView.addObject("modul", modul);
+		if(session.getAttribute("uploadImageFailed") != null) {
+			modelAndView.addObject("uploadImageFailed", (Response)session.getAttribute("uploadImageFailed"));
+			session.removeAttribute("uploadImageFailed");
+		}
 		modelAndView.setViewName("TambahModul3");
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/uploadWizard/3/end", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadWizard/3/submit", method = RequestMethod.POST)
+	public ModelAndView saveImageAndIcon(@RequestParam("imageFile") Object imageFile, @RequestParam("iconName") String iconName, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Modul module = (Modul)session.getAttribute("moduleOnWizard");
+		MultipartFile file = (MultipartFile)imageFile;
+		
+		if(file.getSize() <= 2097152) {
+			try {
+				module.setGambar(file.getBytes());
+				module.setNamaIconTemplate(iconName);
+				this.modulService.update(module);
+				modelAndView.setViewName("redirect:/admin/module/uploadWizard/4");
+			} catch (IOException e) {
+				session.setAttribute("uploadImageFailed", new Response(Response.error, "Peunggahan gambar gagal. Pesan Exception: " + e.getMessage(), null));
+				modelAndView.setViewName("redirect:/admin/module/uploadWizard/3");
+				e.printStackTrace();
+			}
+		} else {
+			session.setAttribute("uploadImageFailed", new Response(Response.error, "Peunggahan gambar gagal. Ukuran gambar tidak boleh melebihi 2MB", null));
+			modelAndView.setViewName("redirect:/admin/module/uploadWizard/3");
+		}
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/uploadWizard/4", method = RequestMethod.GET)
+	public ModelAndView uploadWizard4(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Modul modul = (Modul) session.getAttribute("moduleOnWizard");
+		modelAndView.addObject("modul", modul);
+		modelAndView.setViewName("TambahModul4");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/uploadWizard/4/end", method = RequestMethod.POST)
 	public ModelAndView uploadWizardEnd(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		session.setAttribute("uploadWizardDone", new Response(Response.ok, "Modul berhasil ditambah", null));

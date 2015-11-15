@@ -26,7 +26,6 @@
     	<property name="installedModuleLocation" ref="installedModulePath"></property>
     	<property name="temporaryModuleLocation" ref="temporaryModulePath"></property>
     	<property name="modulDAO" ref="modulDAORef"></property>
-    	<property name="statusPluginDAO" ref="statusPluginDAORef"></property>
     	<property name="menuService" ref="menuServiceBean"></property>
     	<property name="moduleReader" ref="osgiModuleReader"></property>
     </bean>
@@ -47,12 +46,7 @@
     	<property name="satuanManajemenDAO" ref="satuanManajemenDAORef"></property>
     </bean>
     
-    <bean id="statusPluginServiceBean" class="com.sia.main.service.services.impl.StatusPluginServiceImpl">
-    	<property name="statusPluginDAO" ref="statusPluginDAORef"></property>
-    </bean>
-    
-    
-    <bean id="osgiModuleReader" class="com.sia.main.service.module.impl.XmlModuleReaderBean">
+    <bean id="osgiModuleReader" class="com.sia.main.service.module.XmlModuleReaderBean">
     	<property name="moduleDetailXmlPath" value="/module-detail/"></property>
     	<property name="prefix" value="module-"></property>
     </bean>
