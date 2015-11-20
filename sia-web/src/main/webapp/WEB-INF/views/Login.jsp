@@ -7,7 +7,7 @@
 <head>
         <!-- Title -->
         <link rel="shotcut icon" href="${pageContext.servletContext.contextPath}/resources/icon.ico">
-        <title>Sistem Informasi Akademik | Masuk</title>
+        <title>Masuk | Sistem Informasi Akademik</title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -67,7 +67,6 @@
                 </div><!-- Main Wrapper -->
             </div><!-- Page Inner -->
         </div><!-- Page Content -->
-	
 
         <!-- Javascripts -->
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>

@@ -1,10 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
 <title>Sistem Informasi Akademik - Pengelolaan Pengguna</title>
+
+<head>
+	<link href="${pageContext.servletContext.contextPath}/resources/plugins/datatables/css/jquery.datatables.min.css" rel="stylesheet" type="text/css"/>	
+    <link href="${pageContext.servletContext.contextPath}/resources/plugins/datatables/css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css"/>	
+</head>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -96,7 +100,7 @@
 		    
 		    	<div class="row">
 			    	<div class="table-responsive col-md-12">
-			            <table id="user-table" class="table table-striped table-bordered table-hover">
+			            <table id="user-table" class="display table table-striped" style="width: 100%; cellspacing: 0;">
 			                <thead>
 			                    <tr>
 			                        <th>Nomor Induk</th>
@@ -183,8 +187,7 @@
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/datatable/js/jquery.dataTables.min.js"></script> 
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/datatable/js/dataTables.bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/plugins/datatables/js/jquery.datatables.min.js"></script>
 
 <script>
 	toastr.options = {

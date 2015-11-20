@@ -87,6 +87,10 @@ public class Menu {
 		this.urlMenu = urlMenu;
 	}
 
+	public String getCompleteUrl() {
+		return this.getModul().getUrlMapping().split("/*")[0] + this.getUrlMenu();
+	}
+	
 	public List<MenuPeran> getDaftarMenuPeran() {
 		return daftarMenuPeran;
 	}

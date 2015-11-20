@@ -160,6 +160,4 @@ public class Pengguna {
 		this.tipePengguna = tipePengguna;
 	}
 
-	
-
 }

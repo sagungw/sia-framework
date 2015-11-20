@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.6.2.201410090854-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.6.4.201503051146-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring-beans/servlet/sia-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring-beans/sia-web.xml</config>
+		<config>src/main/webapp/WEB-INF/spring-beans/servlet/modul/sia-modul-dataaccess.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

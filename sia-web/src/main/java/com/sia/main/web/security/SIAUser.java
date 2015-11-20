@@ -1,53 +1,35 @@
 package com.sia.main.web.security;
 
 import java.util.Collection;
-import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.sia.main.domain.SatMan;
+import com.sia.main.domain.Pengguna;
 
 @SuppressWarnings("serial")
 public class SIAUser extends User{
-
-	private UUID userId;
 	
-	private SatMan satuanManajemen;
+	private Pengguna userDetail;
 
-	public SIAUser(String username, String password, boolean enabled,
-			boolean accountNonExpired, boolean credentialsNonExpired,
-			boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, UUID userId,
-			SatMan satuanManajemen) {
-		super(username, password, enabled, accountNonExpired,
-				credentialsNonExpired, accountNonLocked, authorities);
-		this.userId = userId;
-		this.satuanManajemen = satuanManajemen;
+	public SIAUser(String username, String password, boolean enabled, 
+			boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, 
+			Collection<? extends GrantedAuthority> authorities, Pengguna userDetail) {
+		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		this.userDetail = userDetail;
 	}
 
-	public SIAUser(String username, String password,
-			Collection<? extends GrantedAuthority> authorities, UUID userId,
-			SatMan satuanManajemen) {
+	public SIAUser(String username, String password, Collection<? extends GrantedAuthority> authorities, Pengguna userDetail) {
 		super(username, password, authorities);
-		this.userId = userId;
-		this.satuanManajemen = satuanManajemen;
+		this.userDetail = userDetail;
 	}
 
-	public UUID getUserId() {
-		return userId;
+	public Pengguna getUserDetail() {
+		return userDetail;
 	}
 
-	public void setUserId(UUID userId) {
-		this.userId = userId;
-	}
-
-	public SatMan getSatuanManajemen() {
-		return satuanManajemen;
-	}
-
-	public void setSatuanManajemen(SatMan satuanManajemen) {
-		this.satuanManajemen = satuanManajemen;
+	public void setUserDetail(Pengguna userDetail) {
+		this.userDetail = userDetail;
 	}
 	
 }

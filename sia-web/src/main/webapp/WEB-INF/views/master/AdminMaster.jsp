@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="function" uri="http://taglibs/custom" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ page session="true" %>
@@ -9,7 +8,7 @@
 <html>
     
 	<head>
-        <title><decorator:title default="Sistem Informasi Akademik - Administrator"></decorator:title></title>
+        <title><decorator:title default="Administrator | Sistem Informasi Akademik"></decorator:title></title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -17,150 +16,20 @@
         <meta name="keywords" content="admin,dashboard" />
         <meta name="author" content="Steelcoders" />
         
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/pace-master/themes/blue/pace-theme-flash.css" rel="stylesheet"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/uniform/css/uniform.default.min.css" rel="stylesheet"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/line-icons/simple-line-icons.css" rel="stylesheet" type="text/css"/>	
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/css/menu_cornerbox.css" rel="stylesheet" type="text/css"/>	
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.css" rel="stylesheet" type="text/css"/>	
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/plugins/nestable/nestable.css" rel="stylesheet" type="text/css">
+        <%@include file="DefaultCss.jsp" %>
         
-        <link href="${pageContext.servletContext.contextPath}/resources/css/modern.min.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/css/themes/white.css" class="theme-color" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.servletContext.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
-        
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>    
-    
-    	<script>
-    		var contextPath = "${pageContext.servletContext.contextPath}";
-    	</script>
+        <decorator:head></decorator:head>
     
     </head>
-    <body class="page-header-fixed compact-menu">
+    <body class="page-header-fixed">
         <div class="overlay"></div>
         
         <main class="page-content content-wrap">
+        
             <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="sidebar-pusher">
-                        <a href="javascript:void(0);" class="waves-effect waves-button waves-classic push-sidebar">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </div>
-                    <div class="logo-box">
-                        <a href="index.html" class="logo-text"><span>SIA</span></a>
-                    </div><!-- Logo Box -->
-                    <div class="topmenu-outer">
-                        <div class="top-menu">
-                            <ul class="nav navbar-nav navbar-left">
-                                <li>		
-                                    <a href="javascript:void(0);" class="waves-effect waves-button waves-classic sidebar-toggle"><i class="fa fa-bars"></i></a>
-                                </li>
-                                <li>		
-                                    <a href="javascript:void(0);" class="waves-effect waves-button waves-classic toggle-fullscreen"><i class="fa fa-expand"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
-                                        <i class="fa fa-cogs"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-md dropdown-list theme-settings" role="menu">
-                                        <li class="li-group">
-                                            <ul class="list-unstyled">
-                                                <li class="no-link" role="presentation">
-                                                    Fixed Header 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right fixed-header-check" checked>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="li-group">
-                                            <ul class="list-unstyled">
-                                                <li class="no-link" role="presentation">
-                                                    Fixed Sidebar 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right fixed-sidebar-check">
-                                                    </div>
-                                                </li>
-                                                <li class="no-link" role="presentation">
-                                                    Horizontal bar 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right horizontal-bar-check">
-                                                    </div>
-                                                </li>
-                                                <li class="no-link" role="presentation">
-                                                    Toggle Sidebar 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right toggle-sidebar-check">
-                                                    </div>
-                                                </li>
-                                                <li class="no-link" role="presentation">
-                                                    Compact Menu 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right compact-menu-check" checked>
-                                                    </div>
-                                                </li>
-                                                <li class="no-link" role="presentation">
-                                                    Hover Menu 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right hover-menu-check">
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="li-group">
-                                            <ul class="list-unstyled">
-                                                <li class="no-link" role="presentation">
-                                                    Boxed Layout 
-                                                    <div class="ios-switch pull-right switch-md">
-                                                        <input type="checkbox" class="js-switch pull-right boxed-layout-check">
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="li-group">
-                                            <ul class="list-unstyled">
-                                                <li class="no-link" role="presentation">
-                                                    Choose Theme Color
-                                                    <div class="color-switcher">
-                                                        <a class="colorbox color-blue" href="layout-compact-menuca00.html?theme=blue" title="Blue Theme" data-css="blue"></a>
-                                                        <a class="colorbox color-green" href="layout-compact-menuaf91.html?theme=green" title="Green Theme" data-css="green"></a>
-                                                        <a class="colorbox color-red" href="layout-compact-menu0e99.html?theme=red" title="Red Theme" data-css="red"></a>
-                                                        <a class="colorbox color-white" href="layout-compact-menu13d4.html?theme=white" title="White Theme" data-css="white"></a>
-                                                        <a class="colorbox color-purple" href="layout-compact-menu938c.html?theme=purple" title="purple Theme" data-css="purple"></a>
-                                                        <a class="colorbox color-dark" href="layout-compact-menu4965.html?theme=dark" title="Dark Theme" data-css="dark"></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="no-link"><button class="btn btn-default reset-options">Reset Options</button></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
-                                        <span class="user-name">${sessionScope.userSession.getUsername()}<i class="fa fa-angle-down"></i></span>
-                                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" width="40" height="40" alt="">
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-list" role="menu">
-                                        <li role="presentation"><a href="${pageContext.servletContext.contextPath}/session/chooseUserRole"><i class="fa fa-calendar"></i>Pilih Peran</a></li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li role="presentation"><a href="${pageContext.servletContext.contextPath}/account/logout"><i class="fa fa-sign-out m-r-xs"></i>Log out</a></li>
-                                    </ul>
-                                </li>
-                            </ul><!-- Nav -->
-                        </div><!-- Top Menu -->
-                    </div>
-                </div>
+                <%@include file="Header.jsp" %>
             </div><!-- Navbar -->
+            
             <div class="page-sidebar sidebar">
                 <div class="page-sidebar-inner slimscroll">
                     <div class="sidebar-header">
@@ -170,68 +39,50 @@
                                     <img src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" class="img-circle img-responsive" alt="">
                                 </div>
                                 <div class="sidebar-profile-details">
-                                    <span>${sessionScope.userSession.getUsername()}<br><small>${sessionScope.roleSession.getNamaPeran()}</small></span>
+                                    <span>${sessionScope.userSession.getPd().getNamaPd()}${sessionScope.userSession.getPtk().getNamaPtk()}<br><small>${sessionScope.userRoleSession.getPeran().getNamaPeran()}</small></span>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <ul class="menu accordion-menu">
-                        <li><a href="${pageContext.servletContext.contextPath}/admin/dashboard" class="waves-effect waves-button"><span class="menu-icon fa fa-dashboard"></span><p>Dasbor</p></a></li>
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-puzzle-piece"></span><p>Modul</p><span class="arrow"></span></a>
-                            <ul class="sub-menu" style="display: none;">
-                                <li><a href="${pageContext.servletContext.contextPath}/admin/module/">Kelola Modul</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/admin/module/uploadWizard/1">Unggah Modul</a></li>
-                            </ul>
-                        </li>          
-                        <li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-key"></span><p>Hak Akses</p><span class="arrow"></span></a>
-                            <ul class="sub-menu" style="display: none;">
-                                <li><a href="${pageContext.servletContext.contextPath}/admin/role/">Kelola Peran</a></li>
-                                <li><a href="ui-alerts.html">Kelola Pengguna</a></li>
-                                <li><a href="ui-alerts.html">Kelola Hak Akses Pengguna</a></li>
-                                <li><a href="ui-alerts.html">Kelola Hak Akses Menu</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="profile.html" class="waves-effect waves-button"><span class="menu-icon glyphicon fa fa-plug"></span><p>Plugin</p></a></li>
+                    	<c:forEach items="${sessionScope.moduleSession}" var="module">
+                    		<c:choose>
+                    			<c:when test="${module.getUrl() != null}">
+                    				<li><a href="${pageContext.servletContext.contextPath}${module.getUrl()}" class="waves-effect waves-button"><span class="menu-icon ${module.getNamaIconTemplate()}"></span><p>${module.getNamaModul()}</p></a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon ${module.getNamaIconTemplate()}"></span><p>${module.getNamaModul()}</p><span class="arrow"></span></a>
+	                    				<ul class="sub-menu" style="display: none;">
+	                    					<c:forEach items="${module.getMenus()}" var="menu">
+			                                	<li><a href="${pageContext.servletContext.contextPath}${menu.getUrlMenu()}">${menu.getNamaMenu()}</a></li>
+	                    					</c:forEach>
+	                    				</ul>
+			                        </li>    			
+                    			</c:otherwise>
+                    		</c:choose>
+                    	</c:forEach>
                     </ul>
                 </div><!-- Page Sidebar Inner -->
             </div><!-- Page Sidebar -->
+            
             <div class="page-inner">
                 <div class="page-title">
-                    <h3>Compact Menu</h3>
-                    <div class="page-breadcrumb">
-                        <ol class="breadcrumb">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="#">Layouts</a></li>
-                            <li class="active">Compact Menu</li>
-                        </ol>
-                    </div>
+                    <%@include file="PageTitle.jsp" %>
                 </div>
                 <div id="main-wrapper">
                 	<decorator:body/>
                 </div><!-- Main Wrapper -->
                 <div class="page-footer">
-                    <p class="no-s">2015 &copy; Modern by Steelcoders.</p>
+        			<%@include file="Footer.jsp" %>            
                 </div>
             </div><!-- Page Inner -->
+            
         </main><!-- Page Content -->
         
         <div class="cd-overlay"></div>
 	
-        <!-- Javascripts -->
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/pace-master/pace.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/switchery/switchery.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/classie.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/main.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/main.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/js/modern.min.js"></script>
-        
+        <%@include file="DefaultScripts.jsp" %>
+
     </body>
 
 </html>

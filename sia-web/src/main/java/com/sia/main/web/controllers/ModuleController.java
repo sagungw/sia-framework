@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import com.sia.main.service.services.PeranService;
 import com.sia.main.web.json_model.RoleMenu;
 
 @Controller
+@Secured(value = { "ROLE_Admin" })
 @RequestMapping(value = "/admin/module")
 public class ModuleController {
 	

@@ -25,7 +25,7 @@ public class SIAMainWebApplication implements ApplicationInitializer {
 	
 	private String moduleContextPathPrefix;
 	
-	private String additionalModuleConfigLocation;
+	private String[] additionalModuleConfigLocations;
 	
 	public static SIAMainWebApplication getInstance() {
 		if(instance == null) {
@@ -36,7 +36,7 @@ public class SIAMainWebApplication implements ApplicationInitializer {
 	
 	private SIAMainWebApplication() {
 		this.moduleContextPathPrefix = "/modul";
-		this.additionalModuleConfigLocation = "/WEB-INF/spring-beans/servlet/sia-modul-servlet.xml";
+		this.additionalModuleConfigLocations = new String[] {"/WEB-INF/spring-beans/servlet/modul/sia-modul-servlet.xml", "/WEB-INF/spring-beans/servlet/modul/sia-modul-dataaccess.xml"};
 	}
 	
 	public ServletContext getServletContext() {
@@ -63,15 +63,14 @@ public class SIAMainWebApplication implements ApplicationInitializer {
 		this.moduleContextPathPrefix = moduleContextPathPrefix;
 	}
 
-	public String getAdditionalModuleConfigLocation() {
-		return additionalModuleConfigLocation;
+	public String[] getAdditionalModuleConfigLocation() {
+		return additionalModuleConfigLocations;
 	}
 
-	public void setAdditionalModuleConfigLocation(
-			String additionalModuleConfigLocation) {
-		this.additionalModuleConfigLocation = additionalModuleConfigLocation;
+	public void setAdditionalModuleConfigLocation(String[] additionalModuleConfigLocation) {
+		this.additionalModuleConfigLocations = additionalModuleConfigLocation;
 	}
-
+	
 	@Override
 	public void init() {
 		this.registerServlet();
@@ -80,11 +79,13 @@ public class SIAMainWebApplication implements ApplicationInitializer {
 	private void registerServlet() {
 		ModulService modulService = this.getModulService();
 		if(modulService != null) {
-			List<Modul> modules =  modulService.getByParam("where status = 'ACTIVE'");
+			List<Modul> modules =  modulService.getByParam("where status = 'RESOLVED'");
 			if(modules != null && modules.size() > 0) {
 				for(Modul module: modules) {
 					List<String> servletConfigLocations = module.getServletConfigLocationList();
-					servletConfigLocations.add(this.additionalModuleConfigLocation);
+					for(String loc: this.additionalModuleConfigLocations) {
+						servletConfigLocations.add(loc);
+					}
 					XmlWebApplicationContext context = new XmlWebApplicationContext();
 					context.setConfigLocations(servletConfigLocations.toArray(new String[servletConfigLocations.size()]));
 					this.dispatcher = this.servletContext.addServlet(module.getNamaServlet(), new DispatcherServlet(context));

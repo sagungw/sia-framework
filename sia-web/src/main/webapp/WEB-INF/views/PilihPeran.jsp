@@ -7,7 +7,7 @@
 <head>
         <!-- Title -->
         <link rel="shotcut icon" href="${pageContext.servletContext.contextPath}/resources/icon.ico">
-        <title>Sistem Informasi Akademik | Masuk</title>
+        <title>Masuk | Sistem Informasi Akademik</title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -34,6 +34,10 @@
         
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/modernizr.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
+       	<script>
+			var contextPath = "${pageContext.servletContext.contextPath}";
+		</script>
+       
        
     </head>
     <body class="page-login">
@@ -45,15 +49,26 @@
                             <div class="login-box">
                                 <a href="index.html" class="logo-name text-lg text-center">Sistem Informasi Akademik</a>
                                 <p class="text-center m-t-md">Pilih Hak Akses</p>
-                                <form id="formPeran" class="m-t-md" method="post" action="${pageContext.servletContext.contextPath}/session/pilihPeran/">
+                                <c:if test="${not empty userRoleFail}">
+	                                <div class="alert alert-danger alert-dismissible" role="alert">
+	                                	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+	                                       ${userRoleFail.getMessage()}
+	                                </div>
+                                </c:if>
+                                <form id="formPeran" class="m-t-md" method="post" action="${pageContext.servletContext.contextPath}/session/chooseUserRole/">
                                     <div class="form-group">
-                                    	<select name="idPeran" class="form-control">
+                                    	<select id="role-select" name="idPeran" class="form-control">
+                                    		<option value="">-- Peran --</option>
                                     		<c:forEach items="${peranList}" var="peran">
-                                    			<option value="${peran.getPeran().getIdPeran()}">${peran.getPeran().getNamaPeran()}</option>
+                                    			<option value="${peran.getIdPeran()}">${peran.getNamaPeran()}</option>
                                     		</c:forEach>
                                     	</select>
+                                    	<br/>
+                                    	<select id="satman-select" name="idSatMan" class="form-control" style="display: none;">
+                                    		<option value="">-- Satuan Manajemen --</option>
+                                    	</select>
                                     </div>
-                                    <button type="submit" class="btn btn-success btn-block">Login</button>
+                                    <button id="submit-btn" type="submit" class="btn btn-success btn-block disabled">Pilih</button>
                                 </form>
                                 <p class="text-center m-t-xs text-sm">2015 &copy; LBE RPL Teknik Informatika ITS.</p>
                             </div>
@@ -77,6 +92,35 @@
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/waves/waves.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/plugins/3d-bold-navigation/js/main.js"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/js/modern.min.js"></script>
+
+		<script>
+			$("#role-select").on("change", function() {
+				var id = $(this).val();
+				$.ajax({
+					url: contextPath + "/session/getSatMan",
+					type: "POST",
+					data: {"idPeran": id },
+					success: function(response) {
+						$("#satman-select").css("display", "");
+						$("#satman-select").empty();
+						$("#satman-select").append("<option value=\"\">-- Satuan Manajemen --</option>");
+						for(var i = 0 ; i < response.length; i++) {
+							$("#satman-select").append("<option value=" + response[i].idSatMan + ">" + response[i].namaSatMan + "</option>");
+						}
+					}
+				});
+			});
+			
+			$("#satman-select").on("change", function() {
+				var id = $(this).val();
+				if(id != null && id != "") {
+					$("#submit-btn").removeClass("disabled");
+				}
+				else {
+					$("#submit-btn").toggleClass("disabled");
+				}
+			});
+		</script>
 
     </body>
     

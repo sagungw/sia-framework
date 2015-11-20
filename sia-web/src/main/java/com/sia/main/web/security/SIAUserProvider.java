@@ -26,21 +26,16 @@ public class SIAUserProvider implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Pengguna user = penggunaService.getByUsername(username);
-		return new SIAUser(user.getUsername(), user.getPassword(),
-				user.isStatusKeaktifan(), true, true, true,
-				this.buildUserAuthorities(user.getPeranPenggunaList()),
-				user.getIdPengguna(), user.getSatMan());
+		return new SIAUser(user.getUsername(), user.getPassword(),user.isStatusKeaktifan(), 
+				true, true, true, this.buildUserAuthorities(user.getPeranPenggunaList()), user);
 	}
 
-	private List<GrantedAuthority> buildUserAuthorities(
-			List<PeranPengguna> userRoles) {
+	private List<GrantedAuthority> buildUserAuthorities(List<PeranPengguna> userRoles) {
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 		for (PeranPengguna userRole : userRoles) {
-			auths.add(new SimpleGrantedAuthority("ROLE_"
-					+ userRole.getPeran().getNamaPeran()));
+			auths.add(new SimpleGrantedAuthority("ROLE_" + userRole.getPeran().getNamaPeran()));
 		}
 		return auths;
 	}
