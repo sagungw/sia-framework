@@ -21,48 +21,58 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            	<li style="margin-top: 12px;">
-					<select id="role-select" >
+            	<li>
+					<select id="role-select" name="idPeran" class="form-control" style="margin-top: 12px;">
 						<option value="">-- Hak Akses --</option>
-						<c:forEach items="${sessionScope.userSession.getPeranPenggunaList()}" var="userRole">
+						<c:forEach items="${sessionScope.rolesSession}" var="role">
 							<c:choose>
-								<c:when test="${userRole.getPeran().getIdPeran() == sessionScope.userRoleSession.getPeran().getIdPeran()}">
-									<option value="${userRole.getPeran().getIdPeran()}" selected="selected">${userRole.getPeran().getNamaPeran()}</option>
+								<c:when test="${role.getIdPeran() == sessionScope.userRoleSession.getPeran().getIdPeran()}">
+									<option value="${role.getIdPeran()}" selected="selected">${role.getNamaPeran()}</option>
 								</c:when>
 								<c:otherwise>
-									<option value="${userRole.getPeran().getIdPeran()}">${userRole.getPeran().getNamaPeran()}</option>
+									<option value="${role.getIdPeran()}">${role.getNamaPeran()}</option>
 								</c:otherwise>
 							</c:choose>						
 						</c:forEach>
 					</select>
             	</li>
+            	<li>
+					<select id="satman-select" name="idSatMan" class="form-control" style="margin-top: 12px;">
+						<option value="">-- Satuan Manajemen --</option>
+						<option value="${sessionScope.userRoleSession.getSatMan().getIdSatMan()}" selected="selected">${sessionScope.userRoleSession.getSatMan().getNmSatMan()}</option>
+					</select>
+            	</li>
+            	<form id="hot-swap-role-form" method="post" action="${pageContext.servletContext.contextPath}/session/chooseUserRole/" style="display: none;">
+            		<input id="hot-swap-role" type="text" name="idPeran">
+            		<input id="hot-swap-satman" type="text" name="idSatMan">
+            	</form>
                 <li id="user-control-li" class="dropdown">
                     <a id="user-control-a" href="#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
 	                    <c:choose>
-	                    	<c:when test="${sessionScope.userSession.getPd().getNamaPd() != null}">
-	                    		<span class="user-name">${sessionScope.userSession.getPd().getNamaPd()}<i class="fa fa-angle-down"></i></span>
+	                    	<c:when test="${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd() != null}">
+	                    		<span class="user-name">${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd()}<i class="fa fa-angle-down"></i></span>
 	                    	</c:when>
-	                    	<c:when test="${sessionScope.userSession.getPtk().getNamaPtk() != null}">
-	                    		<span class="user-name">${sessionScope.userSession.getPtk().getNamaPtk()}<i class="fa fa-angle-down"></i></span>
+	                    	<c:when test="${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk() != null}">
+	                    		<span class="user-name">${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk()}<i class="fa fa-angle-down"></i></span>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<span class="user-name">${sessionScope.userSession.getUsername()}<i class="fa fa-angle-down"></i></span>
+	                    		<span class="user-name">${sessionScope.userRoleSession.getPengguna().getUsername()}<i class="fa fa-angle-down"></i></span>
 	                    	</c:otherwise>
 	                    </c:choose>
                         <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" width="40" height="40" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-list" role="menu">
                     	 <c:choose>
-	                    	<c:when test="${sessionScope.userSession.getPd().getNamaPd() != null}">
-	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userSession.getPd().getNamaPd()}</a></li>
-	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userSession.getPd().getNiPd()}</a></li>
+	                    	<c:when test="${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd() != null}">
+	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd()}</a></li>
+	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userRoleSession.getPengguna().getPd().getNiPd()}</a></li>
 	                    	</c:when>
-	                    	<c:when test="${sessionScope.userSession.getPtk().getNamaPtk() != null}">
-	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userSession.getPtk().getNamaPtk()}</a></li>
-	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userSession.getPtk().getNiPtk()}</a></li>
+	                    	<c:when test="${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk() != null}">
+	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk()}</a></li>
+	                    		<li role="presentation"><a href="#"><i class="fa fa-user"></i>${sessionScope.userRoleSession.getPengguna().getPtk().getNiPtk()}</a></li>
 	                    	</c:when>
 	                    </c:choose>
-	                    <li role="presentation"><a href="#"><i class="fa fa-envelope"></i>${sessionScope.userSession.getUsername()}</a></li>
+	                    <li role="presentation"><a href="#"><i class="fa fa-envelope"></i>${sessionScope.userRoleSession.getPengguna().getUsername()}</a></li>
                     	<li role="presentation" class="divider"></li>
                         <li role="presentation"><a href="${pageContext.servletContext.contextPath}/j_spring_security_logout"><i class="fa fa-sign-out m-r-xs"></i>Keluar</a></li>
                     </ul>

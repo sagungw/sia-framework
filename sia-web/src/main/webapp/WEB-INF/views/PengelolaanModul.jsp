@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
@@ -49,7 +48,7 @@
 	                                        <td>${module.getNamaModul()}</td>
 	                                        <td>${module.getUrlMapping()}</td>
 	                                        <td>${module.getVersi()}</td>
-	                                        <td>${module.getStatus().getNamaStatus()}</td>
+	                                        <td>${module.getStatus()}</td>
 	                                        <td>
 	                                        	<form action="hapusModul" method="post">
 	                                        		<input type="text" id="txt-delete" name="idModul" hidden="true" value="${module.getIdModul()}">

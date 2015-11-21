@@ -3,6 +3,8 @@
 
     <decorator name="admin-master-page" page="AdminMaster.jsp">
         <pattern>/admin/*</pattern>
+        <pattern>/</pattern>
+        <pattern>/home</pattern>
     </decorator>
     
     <decorator name="module-master-page" page="ModuleMaster.jsp">
@@ -11,8 +13,8 @@
     
     <excludes>
     	<pattern>/account/*</pattern>
-    	<pattern>/session/pilihPeran</pattern>
-    	<pattern>/example/*</pattern>
+    	<pattern>/session/*</pattern>
+    	<pattern>/error/*</pattern>
     </excludes>
     
 </decorators>

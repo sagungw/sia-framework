@@ -44,16 +44,11 @@ public class SessionController {
 	@RequestMapping(value = "/chooseUserRole", method = RequestMethod.GET)
 	public ModelAndView showAvailableRole(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		Pengguna pengguna = null;
 		try {
 			SIAUser user = (SIAUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			pengguna = user.getUserDetail();
-		} catch (NullPointerException | ClassCastException e) {
-			modelAndView.setViewName("redirect:/error/403");
-			return modelAndView;
-		}
-		List<PeranPengguna> peranPenggunaList = this.peranPenggunaService.getByParam("where pengguna.idPengguna = '" + pengguna.getIdPengguna() + "'");
-		if(peranPenggunaList .size() > 0) {
+			Pengguna pengguna = user.getUserDetail();
+			List<PeranPengguna> peranPenggunaList = this.peranPenggunaService.getByParam("where pengguna.idPengguna = '" + pengguna.getIdPengguna() + "'");
+			if(peranPenggunaList == null || peranPenggunaList.size() == 0) throw new NullPointerException(); 
 			List<Peran> roleList = new ArrayList<Peran>();
 			for(Object obj: this.basicDAO.getObjects("select distinct pp.peran from PeranPengguna pp where pp.pengguna.idPengguna = '" + pengguna.getIdPengguna() + "'")) {
 				roleList.add((Peran) obj);
@@ -79,7 +74,9 @@ public class SessionController {
 					modelAndView.setViewName("redirect:/home");
 				}					
 			}
-		} else {
+			session.setAttribute("rolesSession", roleList);
+		} catch(NullPointerException npe) {
+			
 			modelAndView = null;
 		}
 		return modelAndView;
@@ -88,7 +85,8 @@ public class SessionController {
 	@RequestMapping(value = "/getSatMan", method = RequestMethod.POST)
 	public @ResponseBody SatMan[] getSatMan(@RequestParam("idPeran") UUID idPeran, HttpSession session) {
 		try{
-			Pengguna pengguna = (Pengguna) session.getAttribute("userSession");
+			SIAUser user = (SIAUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Pengguna pengguna = user.getUserDetail();
 			List<PeranPengguna> userRolesFound = peranPenggunaService.getByParam("where pengguna.idPengguna = '" + pengguna.getIdPengguna() + "' and peran.idPeran = '" + idPeran.toString() + "'");
 			List<SatMan> results = new ArrayList<SatMan>();
 			for(PeranPengguna peranPengguna: userRolesFound) {
@@ -103,8 +101,9 @@ public class SessionController {
 	@RequestMapping(value = "/chooseUserRole/", method = RequestMethod.POST)
 	public ModelAndView submitRole(HttpSession session, @RequestParam("idPeran") UUID idPeran, @RequestParam("idSatMan") UUID idSatMan) {
 		ModelAndView modelAndView = new ModelAndView();
-		Pengguna pengguna = (Pengguna) session.getAttribute("userSession");
 		try {
+			SIAUser user = (SIAUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Pengguna pengguna = user.getUserDetail();
 			List<PeranPengguna> results = peranPenggunaService.getByParam("where pengguna.idPengguna = '" + pengguna.getIdPengguna() + "' and peran.idPeran = '" + idPeran.toString() + "' and satMan.idSatMan = '" + idSatMan.toString() + "'");
 			if(results == null || results.size() == 0) throw new NullPointerException();
 			PeranPengguna peranPengguna = results.get(0);

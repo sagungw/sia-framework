@@ -39,7 +39,7 @@
                                     <img src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" class="img-circle img-responsive" alt="">
                                 </div>
                                 <div class="sidebar-profile-details">
-                                    <span>${sessionScope.userSession.getPd().getNamaPd()}${sessionScope.userSession.getPtk().getNamaPtk()}<br><small>${sessionScope.userRoleSession.getPeran().getNamaPeran()}</small></span>
+                                    <span>${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd()}${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk()}<br><small>${sessionScope.userRoleSession.getPeran().getNamaPeran()}</small></span>
                                 </div>
                             </a>
                         </div>

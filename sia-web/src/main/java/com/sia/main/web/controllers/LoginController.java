@@ -6,14 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.sia.main.web.security.SIAUser;
 
 @Controller
 @RequestMapping(value = "/account")
@@ -37,8 +34,6 @@ public class LoginController {
 	public ModelAndView login(HttpSession session, Principal principal) {
 		ModelAndView modelAndView = new ModelAndView();
 		if(principal != null) {
-			SIAUser user = (SIAUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			session.setAttribute("userSession", user.getUserDetail());
 			modelAndView.setViewName("redirect:/session/chooseUserRole");
 		} else {
 			modelAndView.setViewName("redirect:/account/login");
@@ -64,8 +59,8 @@ public class LoginController {
 			modelAndView.setViewName("redirect:/");
 		} else {
 			modelAndView.setViewName("redirect:/account/login");
-			request.getSession().removeAttribute("userSession");
 			request.getSession().removeAttribute("userRoleSession");
+			request.getSession().removeAttribute("rolesSession");
 			request.getSession().removeAttribute("moduleSession");
 		}
 		return modelAndView;
