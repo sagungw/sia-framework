@@ -8,7 +8,7 @@
         </a>
     </div>
     <div class="logo-box">
-        <a href="index.html" class="logo-text"><span>SIA</span></a>
+        <a href="${pageContext.servletContext.contextPath}/" class="logo-text"><span>SIA</span></a>
     </div><!-- Logo Box -->
     <div class="topmenu-outer">
         <div class="top-menu">
@@ -24,22 +24,11 @@
             	<li>
 					<select id="role-select" name="idPeran" class="form-control" style="margin-top: 12px;">
 						<option value="">-- Hak Akses --</option>
-						<c:forEach items="${sessionScope.rolesSession}" var="role">
-							<c:choose>
-								<c:when test="${role.getIdPeran() == sessionScope.userRoleSession.getPeran().getIdPeran()}">
-									<option value="${role.getIdPeran()}" selected="selected">${role.getNamaPeran()}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${role.getIdPeran()}">${role.getNamaPeran()}</option>
-								</c:otherwise>
-							</c:choose>						
-						</c:forEach>
 					</select>
             	</li>
             	<li>
 					<select id="satman-select" name="idSatMan" class="form-control" style="margin-top: 12px;">
 						<option value="">-- Satuan Manajemen --</option>
-						<option value="${sessionScope.userRoleSession.getSatMan().getIdSatMan()}" selected="selected">${sessionScope.userRoleSession.getSatMan().getNmSatMan()}</option>
 					</select>
             	</li>
             	<form id="hot-swap-role-form" method="post" action="${pageContext.servletContext.contextPath}/session/chooseUserRole/" style="display: none;">

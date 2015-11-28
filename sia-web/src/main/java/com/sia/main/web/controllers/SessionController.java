@@ -25,6 +25,7 @@ import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.MenuPeranService;
 import com.sia.main.service.services.PeranPenggunaService;
 import com.sia.main.web.AdministratorModuleManager;
+import com.sia.main.web.json_model.Role;
 import com.sia.main.web.json_model.SatMan;
 import com.sia.main.web.security.SIAUser;
 
@@ -74,29 +75,46 @@ public class SessionController {
 					modelAndView.setViewName("redirect:/home");
 				}					
 			}
-			session.setAttribute("rolesSession", roleList);
 		} catch(NullPointerException npe) {
-			
-			modelAndView = null;
+			npe.printStackTrace();
+			modelAndView.setViewName("redirect:/j_spring_security_logout");
 		}
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/getSatMan", method = RequestMethod.POST)
-	public @ResponseBody SatMan[] getSatMan(@RequestParam("idPeran") UUID idPeran, HttpSession session) {
+	public @ResponseBody SatMan[] getSatMan(@RequestParam("idPeran") UUID idPeran, @RequestParam("idPengguna") UUID idPengguna) {
 		try{
-			SIAUser user = (SIAUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Pengguna pengguna = user.getUserDetail();
-			List<PeranPengguna> userRolesFound = peranPenggunaService.getByParam("where pengguna.idPengguna = '" + pengguna.getIdPengguna() + "' and peran.idPeran = '" + idPeran.toString() + "'");
+			if(idPengguna == null) {
+				SIAUser user = (SIAUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				idPengguna = user.getUserDetail().getIdPengguna();
+			}
+			List<PeranPengguna> userRolesFound = peranPenggunaService.getByParam("where pengguna.idPengguna = '" + idPengguna.toString() + "' and peran.idPeran = '" + idPeran.toString() + "'");
 			List<SatMan> results = new ArrayList<SatMan>();
 			for(PeranPengguna peranPengguna: userRolesFound) {
 				results.add(new SatMan(peranPengguna.getSatMan().getIdSatMan().toString(), peranPengguna.getSatMan().getNmSatMan()));
 			}
 			return results.toArray(new SatMan[results.size()]);
-		} catch(NullPointerException npe) {
+		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
  	}
+	
+	@RequestMapping(value = "/getRoles", method = RequestMethod.POST)
+	public @ResponseBody Role[] getRoles(@RequestParam("idPengguna") UUID idPengguna) {
+		try {
+			List<Role> roleList = new ArrayList<Role>();
+			for(Object obj: this.basicDAO.getObjects("select distinct pp.peran from PeranPengguna pp where pp.pengguna.idPengguna = '" + idPengguna.toString() + "'")) {
+				Peran temp = (Peran) obj;
+				roleList.add(new Role(temp.getIdPeran(), temp.getNamaPeran()));
+			}
+			return roleList.toArray(new Role[roleList.size()]);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	@RequestMapping(value = "/chooseUserRole/", method = RequestMethod.POST)
 	public ModelAndView submitRole(HttpSession session, @RequestParam("idPeran") UUID idPeran, @RequestParam("idSatMan") UUID idSatMan) {
@@ -115,7 +133,8 @@ public class SessionController {
 			}
 			modelAndView.setViewName("redirect:/home");
 		} catch(NullPointerException npe) {
-			session.setAttribute("userRoleFail", new Response(Response.error, "Pengguna tidak memiliki hak akses yang diminta", null));
+			npe.printStackTrace();
+			session.setAttribute("userRoleFail", new Response(Response.error, "Pengguna tidak memiliki hak akses yang diinginkan", null));
 			modelAndView.setViewName("redirect:/session/chooseUserRole");
 		}
 		return modelAndView;

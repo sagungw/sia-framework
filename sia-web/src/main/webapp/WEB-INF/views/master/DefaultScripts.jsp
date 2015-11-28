@@ -13,6 +13,9 @@
 <script src="${pageContext.servletContext.contextPath}/resources/plugins/metrojs/MetroJs.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/modern.js"></script>
 <script>
+	var idPengguna = "${sessionScope.userRoleSession.getPengguna().getIdPengguna()}";
+	getRoles(idPengguna);
+	
 	$("#user-control-a").click(function() {
 		if($("#user-control-li").hasClass("open")) {
 			$("#user-control-li").removeClass("open");
@@ -24,12 +27,12 @@
 	});
 	
 	$("#role-select").on("change", function() {
-		var id = $(this).val();
-		if(id != "" && id != null) {
-			var currentSatManId = "${sessionScope.userRoleSession.getSatMan().getIdSatMan()}";
+		var idPeran = $(this).val();
+		var idPengguna = "${sessionScope.userRoleSession.getPengguna().getIdPengguna()}";
+		if(idPeran != "" && idPeran != null) {
 			$("#satman-select").empty();
 			$("#satman-select").append("<option value=\"\">-- Satuan Manajemen --</option>");
-			getSatMan(id, currentSatManId);
+			getSatMan(idPeran, idPengguna);
 		} else {
 			$("#satman-select").empty();
 			$("#satman-select").append("<option value=\"\">-- Satuan Manajemen --</option>");
@@ -40,26 +43,42 @@
 		var idSatMan = $(this).val();
 		var idPeran = $("#role-select").val();
 		var currentIdSatMan = "${sessionScope.userRoleSession.getSatMan().getIdSatMan()}";
-		if(idSatMan != null && idSatMan != "" && idSatMan != currentIdSatMan) {
-			$("#hot-swap-role").val(idPeran);
-			$("#hot-swap-satman").val(idSatMan);
-			$("#hot-swap-role-form").submit();
+		var currentIdPeran = "${sessionScope.userRoleSession.getPeran().getIdPeran()}";
+		if(idSatMan != null && idSatMan != "") {
+			if(idSatMan != currentIdSatMan || idPeran != currentIdPeran) {
+				$("#hot-swap-role").val(idPeran);
+				$("#hot-swap-satman").val(idSatMan);
+				$("#hot-swap-role-form").submit();	
+			}
 		}
 	});
 	
-	function getSatMan(idPeran, currentSatManId) {
+	function getRoles(idPengguna) {
+		$.ajax({
+			url: contextPath + "/session/getRoles",
+			type: "POST",
+			data: {
+				"idPengguna": idPengguna		
+			},
+			success: function(response) {
+				for(var i = 0 ; i < response.length; i++) {
+					$("#role-select").append("<option value=" + response[i].roleId + ">" + response[i].roleName + "</option>");
+				}
+			}
+		});	
+	}
+	
+	function getSatMan(idPeran, idPengguna) {
 		$.ajax({
 			url: contextPath + "/session/getSatMan",
 			type: "POST",
-			data: {"idPeran": idPeran },
+			data: {
+				"idPeran": idPeran,
+				"idPengguna": idPengguna		
+			},
 			success: function(response) {
 				for(var i = 0 ; i < response.length; i++) {
-					if(response[i].idSatMan == currentSatManId) {
-						$("#satman-select").append("<option value=" + response[i].idSatMan + " selected=\"selected\">" + response[i].namaSatMan + "</option>");	
-					} else {
-						$("#satman-select").append("<option value=" + response[i].idSatMan + ">" + response[i].namaSatMan + "</option>");
-					}
-					
+					$("#satman-select").append("<option value=" + response[i].idSatMan + ">" + response[i].namaSatMan + "</option>");
 				}
 			}
 		});	

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="function" uri="http://taglibs/custom" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ page session="true" %>
@@ -32,31 +31,7 @@
             </div><!-- Navbar -->
             
             <div class="horizontal-bar sidebar">
-                <div class="page-sidebar-inner slimscroll">
-                    <div class="sidebar-header">
-                        <div class="sidebar-profile">
-                            <a href="javascript:void(0);" id="profile-menu-link">
-                                <div class="sidebar-profile-image">
-                                    <img src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" class="img-circle img-responsive" alt="">
-                                </div>
-                                <div class="sidebar-profile-details">
-                                    <span>${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd()}${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk()}<br><small>${sessionScope.userRoleSession.getPeran().getNamaPeran()}</small></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="menu accordion-menu">
-                       <c:forEach items="${sessionScope.moduleSession}" var="module">		
-               				<li class="droplink"><a href="#" class="waves-effect waves-button"><span class="menu-icon"></span><p>${module.getNamaModul()}</p><span class="arrow"></span></a>
-	                            <ul class="sub-menu" style="display: none;">
-	                            	<c:forEach items="${module.getMenus()}" var="menu">
-	                            		<li><a href="${pageContext.servletContext.contextPath}${menu.getHomeUrl()}">${menu.getNamaMenu()}</a></li>
-	                            	</c:forEach>
-	                            </ul>
-	                        </li>
-	               		</c:forEach>
-                    </ul>
-                </div><!-- Page Sidebar Inner -->
+                <%@include file="MenubarContent.jsp" %>
             </div><!-- Page Sidebar -->
             
             <div class="page-inner">

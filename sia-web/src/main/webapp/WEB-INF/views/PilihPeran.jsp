@@ -99,12 +99,16 @@
 				$.ajax({
 					url: contextPath + "/session/getSatMan",
 					type: "POST",
-					data: {"idPeran": id },
+					data: {
+						"idPeran": id,
+						"idPengguna": ""
+					},
 					success: function(response) {
 						$("#satman-select").css("display", "");
 						$("#satman-select").empty();
 						$("#satman-select").append("<option value=\"\">-- Satuan Manajemen --</option>");
 						for(var i = 0 ; i < response.length; i++) {
+							console.log(response[i].namaSatMan);
 							$("#satman-select").append("<option value=" + response[i].idSatMan + ">" + response[i].namaSatMan + "</option>");
 						}
 					}

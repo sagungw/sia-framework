@@ -21,7 +21,7 @@ public class Response {
 	}
 	
 	public Response() {
-		this.status = "ok";
+		this.status = "";
 		this.message = "";
 		this.data = null;
 	}

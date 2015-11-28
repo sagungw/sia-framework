@@ -52,20 +52,6 @@ public class AdministratorModuleManager {
 		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Hak Akses Pengguna", "/admin/userRole", null));
 		modul.setMenus(menus);
 		modules.add(modul);
-		
-		modul = new AdministratorModule();
-		modul.setIdModul(UUID.randomUUID());
-		modul.setNamaModul("Info");
-		modul.setNamaIconTemplate("glyphicon glyphicon-info-sign");
-		modul.setUrl("/admin/info");
-		modules.add(modul);
-		
-		modul = new AdministratorModule();
-		modul.setIdModul(UUID.randomUUID());
-		modul.setNamaModul("Pengaturan");
-		modul.setNamaIconTemplate("glyphicon glyphicon-cog");
-		modul.setUrl("/admin/settings");
-		modules.add(modul);
 	}
 	
 }

@@ -60,7 +60,6 @@ public class LoginController {
 		} else {
 			modelAndView.setViewName("redirect:/account/login");
 			request.getSession().removeAttribute("userRoleSession");
-			request.getSession().removeAttribute("rolesSession");
 			request.getSession().removeAttribute("moduleSession");
 		}
 		return modelAndView;

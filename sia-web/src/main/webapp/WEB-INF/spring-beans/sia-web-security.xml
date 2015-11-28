@@ -12,13 +12,12 @@
 	<security:http use-expressions="true" >
 		<security:form-login 
 		    login-page="/account/login" 
-		    default-target-url="/account/login/" 
 			authentication-failure-url="/account/login?error" 
 			username-parameter="username"
 			password-parameter="password"
 			authentication-success-handler-ref="loginSuccessHandler"/>
 		<security:logout logout-success-url="/account/logout" delete-cookies="JSESSIONID"/>
-		<security:access-denied-handler error-page="/error/403"/>
+		<security:access-denied-handler ref="accessDeniedHandler"/>
 	</security:http>
 
 	<security:authentication-manager>
@@ -34,6 +33,10 @@
 	<bean id="loginSuccessHandler" class="com.sia.main.web.security.SessionSavedRequestAwareAuthenticationSuccessHandler">
 		<property name="useReferer" value="false"></property>
 		<property name="defaultTargetUrl" value="/account/login/"></property>
+	</bean>
+	
+	<bean id="accessDeniedHandler" class="com.sia.main.web.security.RedirectAccessDeniedHandler">
+		<property name="redirectUrl" value="/error/403"></property>
 	</bean>
 
 </beans>
