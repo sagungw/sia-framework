@@ -32,9 +32,11 @@ import com.sia.main.service.services.PeranService;
 import com.sia.main.web.json_model.RoleMenu;
 
 @Controller
-@Secured(value = { "ROLE_Admin" })
+@Secured(value = { "ROLE_System Admin" })
 @RequestMapping(value = "/admin/module")
 public class ModuleController {
+	
+	private static int imageSize = 2097152;
 	
 	@Autowired
 	private PeranService peranService;
@@ -56,6 +58,7 @@ public class ModuleController {
 			session.removeAttribute("uploadWizardDone");
 		}
 		modelAndView.addObject("moduleList", modulService.getAll());
+		modelAndView.addObject("menuActive", "Kelola Modul");
 		modelAndView.setViewName("PengelolaanModul");
 		return modelAndView;
 	}
@@ -67,6 +70,7 @@ public class ModuleController {
 			modelAndView.addObject("uploadFailed", (Response)session.getAttribute("uploadFailed"));
 			session.removeAttribute("uploadFailed");
 		}
+		modelAndView.addObject("menuActive", "Unggah Modul");
 		modelAndView.setViewName("TambahModul1");
 		return modelAndView;
 	}
@@ -87,9 +91,15 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/2",  method = RequestMethod.GET)
-	public ModelAndView uploadWizard2(HttpSession session) {
+	public ModelAndView uploadWizard2(@RequestParam(value = "moduleId", required = false) UUID moduleId, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		Modul modul = (Modul)session.getAttribute("moduleOnWizard");
+		Modul modul;
+		if(moduleId != null) {
+			modul = modulService.getById(moduleId);
+			modelAndView.addObject("notWizard", true);
+		} else {
+			modul = (Modul)session.getAttribute("moduleOnWizard");
+		}
 		List<Peran> roles = peranService.getAll();
 		modelAndView.addObject("roles", roles);
 		modelAndView.addObject("menus", modul.getMenus());
@@ -105,6 +115,7 @@ public class ModuleController {
 			roleMenus.add(roleMenu);
 		}
 		modelAndView.addObject("roleMenus", roleMenus);
+		modelAndView.addObject("menuActive", "Kelola Akses Menu");
 		modelAndView.setViewName("TambahModul2");
 		return modelAndView;
 	}
@@ -143,28 +154,52 @@ public class ModuleController {
 	}
 	
 	@RequestMapping(value = "/uploadWizard/3", method = RequestMethod.GET)
-	public ModelAndView uploadWizard3(HttpSession session) {
+	public ModelAndView uploadWizard3(@RequestParam(value = "moduleId", required = false) UUID moduleId, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
+		Modul moduleShow;
+		if(moduleId != null) {
+			moduleShow = this.modulService.getById(moduleId);
+			modelAndView.addObject("notWizard", true);
+			modelAndView.addObject("moduleId", moduleId);
+		} else {
+			Modul modul = (Modul)session.getAttribute("moduleOnWizard");
+			moduleShow = this.modulService.getById(modul.getIdModul());
+		}
+		if(moduleShow != null) {
+			modelAndView.addObject("image", moduleShow.getBase64EncodedImage());
+			modelAndView.addObject("icon", moduleShow.getNamaIconTemplate());
+		}
 		if(session.getAttribute("uploadImageFailed") != null) {
 			modelAndView.addObject("uploadImageFailed", (Response)session.getAttribute("uploadImageFailed"));
 			session.removeAttribute("uploadImageFailed");
 		}
+		modelAndView.addObject("menuActive", "Unggah Gambar dan Icon");
 		modelAndView.setViewName("TambahModul3");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/uploadWizard/3/submit", method = RequestMethod.POST)
-	public ModelAndView saveImageAndIcon(@RequestParam("imageFile") Object imageFile, @RequestParam("iconName") String iconName, HttpSession session) {
+	public ModelAndView saveImageAndIcon(@RequestParam("imageFile") Object imageFile, @RequestParam("iconName") String iconName, @RequestParam(value = "moduleId", required = false) UUID moduleId, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		Modul module = (Modul)session.getAttribute("moduleOnWizard");
-		MultipartFile file = (MultipartFile)imageFile;
+		Modul module;
+		if(moduleId == null) {
+			module = (Modul)session.getAttribute("moduleOnWizard");
+		} else {
+			module = this.modulService.getById(moduleId);
+		}
 		
-		if(file.getSize() <= 2097152) {
+		MultipartFile file = (MultipartFile)imageFile;
+		if(file.getSize() <= imageSize) {
 			try {
 				module.setGambar(file.getBytes());
 				module.setNamaIconTemplate(iconName);
 				this.modulService.update(module);
-				modelAndView.setViewName("redirect:/admin/module/uploadWizard/4");
+				if(moduleId == null) {
+					modelAndView.setViewName("redirect:/admin/module/uploadWizard/4");
+				} else {
+					modelAndView.setViewName("redirect:/admin/module/");
+				}
+				
 			} catch (IOException e) {
 				session.setAttribute("uploadImageFailed", new Response(Response.error, "Peunggahan gambar gagal. Pesan Exception: " + e.getMessage(), null));
 				modelAndView.setViewName("redirect:/admin/module/uploadWizard/3");
@@ -183,6 +218,7 @@ public class ModuleController {
 		ModelAndView modelAndView = new ModelAndView();
 		Modul modul = (Modul) session.getAttribute("moduleOnWizard");
 		modelAndView.addObject("modul", modul);
+		modelAndView.addObject("menuActive", "Unggah Selesai");
 		modelAndView.setViewName("TambahModul4");
 		return modelAndView;
 	}
@@ -199,7 +235,8 @@ public class ModuleController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody Response deleteModule(@RequestParam("idModul") String idModul) {
 		Modul modul = modulService.getById(UUID.fromString(idModul));
-		return this.modulService.uninstallModule(modul);
+		Response response = this.modulService.uninstallModule(modul);
+		return response; 
 	}
 	
 }

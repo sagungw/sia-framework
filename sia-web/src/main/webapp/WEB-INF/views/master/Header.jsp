@@ -8,7 +8,9 @@
         </a>
     </div>
     <div class="logo-box">
-        <a href="${pageContext.servletContext.contextPath}/" class="logo-text"><span>SIA</span></a>
+        <a href="${pageContext.servletContext.contextPath}/" class="logo-text">
+        	<img height="40" width="120" src="${pageContext.servletContext.contextPath}/resources/images/SIA small 160x60 px.png">
+        </a>
     </div><!-- Logo Box -->
     <div class="topmenu-outer">
         <div class="top-menu">
@@ -40,15 +42,17 @@
 	                    <c:choose>
 	                    	<c:when test="${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd() != null}">
 	                    		<span class="user-name">${sessionScope.userRoleSession.getPengguna().getPd().getNamaPd()}<i class="fa fa-angle-down"></i></span>
+	                    		<img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/Mahasiswa small 60x60 px.png" width="40" height="40" alt="">
 	                    	</c:when>
 	                    	<c:when test="${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk() != null}">
 	                    		<span class="user-name">${sessionScope.userRoleSession.getPengguna().getPtk().getNamaPtk()}<i class="fa fa-angle-down"></i></span>
+	                    		<img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/Dosen small 60x60 px.png" width="40" height="40" alt="">
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<span class="user-name">${sessionScope.userRoleSession.getPengguna().getUsername()}<i class="fa fa-angle-down"></i></span>
+	                    		<img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/Admin small 60x60 px.png" width="40" height="40" alt="">
 	                    	</c:otherwise>
 	                    </c:choose>
-                        <img class="img-circle avatar" src="${pageContext.servletContext.contextPath}/resources/images/user_icon.png" width="40" height="40" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-list" role="menu">
                     	 <c:choose>

@@ -34,7 +34,7 @@ import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.PenggunaService;
 
 @Controller
-@Secured(value = { "ROLE_Admin" })
+@Secured(value = { "ROLE_System Admin" })
 @RequestMapping(value = "/admin/user")
 public class UserController {
 
@@ -71,6 +71,7 @@ public class UserController {
 		for(Object obj : this.basicDAO.getObjects("select namaTipe from TipePengguna")) {
  			userTypes.add((String) obj);
 		}
+		modelAndView.addObject("menuActive", "Kelola Pengguna");
 		modelAndView.addObject("userTypes", userTypes);
 		modelAndView.setViewName("PengelolaanPengguna");
 		return modelAndView;
@@ -121,6 +122,7 @@ public class UserController {
 		for(Object obj: this.basicDAO.getObjects("select namaTipe from TipePengguna")){
 			userTypes.add((String) obj);
 		}
+		modelAndView.addObject("menuActive", "Tambah Pengguna");
 		modelAndView.addObject("userTypes", userTypes);
 		modelAndView.setViewName("TambahPengguna");
 		return modelAndView;

@@ -1,19 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<title>Tambah Modul</title>
+<!DOCTYPE html>
 
-<div class="row">
+<html>
+	<head>
+		<title>Tambah Modul</title>
+	</head>
+	
+	<body>
+		<div class="row">
 	<div class="col-md-12">
 		<div id="panel-unggah" class="panel panel-white">
 			<div class="panel-heading clearfix">
 				<h4 class="panel-title">Tambah Modul</h4>
 			</div>
 			<div class="panel-body">
-				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-				</div>	
+				<c:if test="${empty notWizard || notWizard == false}">
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+					</div>	
+				</c:if>
 				<div id="upload-form" class="row">
 					<div class="col-md-12">
 			    		<p>
@@ -23,17 +30,37 @@
 					<div class="col-md-12">
 						<form enctype="multipart/form-data" id="uploadForm" action="${pageContext.servletContext.contextPath}/admin/module/uploadWizard/3/submit" method="post">
 							<div class="form-group">
-								<label for="imageInput">Gambar Modul</label>
-                            	<img id="imageThumbnail" src="#" alt="module image" width="200" height="200"/>
-				    			<input id="imageInput" type="file" accept=".jpg" name="imageFile" onchange="readUrl(this);"/>                
+								<c:choose>
+									<c:when test="${not empty image}">
+										<img id="imageThumbnail" src="data:image/png;base64,${image}" alt="module image" width="200" height="200"/>
+									</c:when>
+									<c:otherwise>
+										<img id="imageThumbnail" src="${pageContext.servletContext.contextPath}/resources/images/img-icon.png" alt="module image" width="200" height="200"/>
+									</c:otherwise>
+								</c:choose>
+								<input id="imageInput" type="file" accept=".jpg" name="imageFile" onchange="readUrl(this);"/>
+								<c:if test="${not empty notWizard && notWizard == true}">
+									<input type="text" name="moduleId" value="${moduleId}" hidden/>
+								</c:if>
                             </div>
+                            <br/>
                             <div class="form-group">
-								<label for="iconName">Icon Modul</label>
-				    			<input id="iconName" type="text" name="iconName" placeholder="Pilih icon modul" readonly="readonly" style="cursor: pointer;"/>
+                            	<c:choose>
+									<c:when test="${not empty icon}">
+										<input id="iconName" type="text" class="form-control" name="iconName" placeholder="Pilih icon modul" readonly="readonly" style="cursor: pointer;" value="${icon}"/>
+									</c:when>
+									<c:otherwise>
+										<input id="iconName" type="text" class="form-control" name="iconName" placeholder="Pilih icon modul" readonly="readonly" style="cursor: pointer;"/>
+									</c:otherwise>
+								</c:choose>
                             </div>
 				    		<br/>
 				        	<button type="submit" class="btn btn-info m-b-sm" id="submitImageBtn">Unggah</button>
 				    	</form>
+				    	<br/>
+				    	<c:if test="${empty notWizard || notWizard == false}">
+				    		<button type="submit" class="btn btn-info btn-back">Kembali</button>
+			    		</c:if>
 			    	</div>
 			    	<div id="icon-list" class="col-md-12" style="display: none;">
 						<ul class="bs-glyphicons-list clearfix list-unstyled">
@@ -1044,77 +1071,62 @@
 		
 	</div>
 </div>
-
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery-blockui/jquery.blockui.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/plugins/toastr/toastr.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/pages/notifications.js"></script>
-<script>
-	toastr.options = {
-		  "closeButton": true,
-		  "debug": false,
-		  "newestOnTop": false,
-		  "progressBar": false,
-		  "positionClass": "toast-top-right",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "5000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		} 
-	
-	$(".icon-item").hover(function() {
-		$(this).children().css("color", "#f9f9f9");
-		$(this).css("background-color", "#4E5E6A");
-	}, function() {
-		if(!$(this).hasClass("selected")) {
-			$(this).children().css("color", "#4E5E6A");
-			$(this).css("background-color", "#f9f9f9");	
-		}
-	});
-	
-	$(".icon-item").click(function() {
-		$(".icon-item").children().css("color", "#4E5E6A");
-		$(".icon-item").css("background-color", "#f9f9f9");
-		$(".icon-item").removeClass("selected");
-		$(this).children().css("color", "#f9f9f9");
-		$(this).css("background-color", "#4E5E6A");
-		$(this).toggleClass("selected");
-		var iconName = $(this).children(".glyphicon-class").text();
-		$("#iconName").val(iconName);
-	});
-	
-	$("#iconName").click(function() {
-		$("#icon-list").css("display", "");
-	});
-	
-	function readUrl(input) {
-		if(input.files && input.files[0]) {
-			if(input.files[0].size <= 2097152) {
-				var reader = new FileReader();
-				reader.readAsDataURL(input.files[0]);
-				reader.onload = function(e) {
-					$("#imageThumbnail").attr("src", e.target.result);
-				};
-	      	} else {
-	        	$("#imageThumbnail").attr("src", "#");
-	        	$("#imageInput").replaceWith($("#imageInput").clone());
-	        	toastr["error"]("Ukuran gambar tidak boleh melebihi 2 MB");	    	
-	      	}
-		}
-	}
-</script>
-
-<c:if test="${uploadImageFailed != null}">
+<content tag="scripts">
+	<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
 	<script>
-		toastr["error"]("${uploadFailed.getMessage()}");
+	
+		$(".btn-back").click(function() {
+			window.location.href = contextPath + "/admin/module/uploadWizard/2";
+		});
+		
+		$(".icon-item").hover(function() {
+			$(this).children().css("color", "#f9f9f9");
+			$(this).css("background-color", "#4E5E6A");
+		}, function() {
+			if(!$(this).hasClass("selected")) {
+				$(this).children().css("color", "#4E5E6A");
+				$(this).css("background-color", "#f9f9f9");	
+			}
+		});
+		
+		$(".icon-item").click(function() {
+			$(".icon-item").children().css("color", "#4E5E6A");
+			$(".icon-item").css("background-color", "#f9f9f9");
+			$(".icon-item").removeClass("selected");
+			$(this).children().css("color", "#f9f9f9");
+			$(this).css("background-color", "#4E5E6A");
+			$(this).toggleClass("selected");
+			var iconName = $(this).children(".glyphicon-class").text();
+			$("#iconName").val(iconName);
+		});
+		
+		$("#iconName").click(function() {
+			$("#icon-list").css("display", "");
+		});
+		
+		function readUrl(input) {
+			if(input.files && input.files[0]) {
+				if(input.files[0].size <= 2097152) {
+					var reader = new FileReader();
+					reader.readAsDataURL(input.files[0]);
+					reader.onload = function(e) {
+						$("#imageThumbnail").attr("src", e.target.result);
+					};
+		      	} else {
+		        	$("#imageThumbnail").attr("src", "#");
+		        	$("#imageInput").replaceWith($("#imageInput").clone());
+		        	toastr["error"]("Ukuran gambar tidak boleh melebihi 2 MB");	    	
+		      	}
+			}
+		}
 	</script>
-</c:if>
+	
+	<c:if test="${uploadImageFailed != null}">
+		<script>
+			toastr["error"]("${uploadFailed.getMessage()}");
+		</script>
+	</c:if>
+</content>
+	</body>
+
+</html>

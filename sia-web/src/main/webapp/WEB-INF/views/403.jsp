@@ -6,7 +6,7 @@
 
 	<head>  
         <!-- Title -->
-        <title>403 - Akses ditolak</title>
+        <title>403 - Akses ditolak | Sistem Informasi Akademik</title>
         
         <!-- Styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>

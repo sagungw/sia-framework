@@ -1,8 +1,5 @@
-<h3>Compact Menu</h3>
-<div class="page-breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">Layouts</a></li>
-        <li class="active">Compact Menu</li>
-    </ol>
-</div>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<h3>${menuActive}</h3>

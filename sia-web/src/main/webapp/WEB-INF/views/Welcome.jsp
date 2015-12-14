@@ -34,25 +34,22 @@
                 </div>
                 
                 <div id="main-wrapper">
-                
                 	<div class="row">
-						
 						<div class="col-md-12">
 							<div class="panel panel-white">
 								<div class="panel-heading clearfix">
 									<h4 class="panel-title">Modul Tersedia</h4>
 								</div>
 								<div class="panel-body">
-									
+									<c:forEach items="${sessionScope.moduleSession}" var="module">
+										<div id="${module.getIdModul()}" class="modul-item">
+											<img src="data:image/png;base64,${module.getBase64EncodedImage()}" alt="${module.getNamaModul()}" style="max-width:100%; max-height:100%;">
+										</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
-						
 					</div>
-					
-					<script src="${pageContext.servletContext.contextPath}/resources/plugins/jquery/jquery-2.1.3.min.js"></script>
-					<script src="${pageContext.servletContext.contextPath}/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-					
                 </div><!-- Main Wrapper -->
                 
                 <div class="page-footer">

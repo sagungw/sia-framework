@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sia.main.service.services.ModulService;
 
 @Controller
-@Secured(value = { "ROLE_Admin" })
+@Secured(value = { "ROLE_System Admin" })
 @RequestMapping(value = "/admin")
 public class AdminController {
 	
@@ -42,6 +42,7 @@ public class AdminController {
 	public ModelAndView viewDashboard(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("installedModules", this.modulService.getAll());
+		modelAndView.addObject("menuActive", "Dasbor");
 		modelAndView.setViewName("Dashboard");
 		return modelAndView;
 	}

@@ -64,7 +64,7 @@ public class SessionController {
 			} else {
 				PeranPengguna peranPengguna = peranPenggunaList.get(0);
 				session.setAttribute("userRoleSession", peranPengguna);
-				if(peranPengguna.getPeran().getNamaPeran().equals("Admin")) {
+				if(peranPengguna.getPeran().getNamaPeran().equals("System Admin")) {
 					session.setAttribute("moduleSession", AdministratorModuleManager.getInstance().getModules());
 				} else {
 					session.setAttribute("moduleSession", buildRoleModules(peranPenggunaList.get(0).getPeran().getIdPeran()));
@@ -126,7 +126,7 @@ public class SessionController {
 			if(results == null || results.size() == 0) throw new NullPointerException();
 			PeranPengguna peranPengguna = results.get(0);
 			session.setAttribute("userRoleSession", peranPengguna);
-			if(peranPengguna.getPeran().getNamaPeran().equals("Admin")) {
+			if(peranPengguna.getPeran().getNamaPeran().equals("System Admin")) {
 				session.setAttribute("moduleSession", AdministratorModuleManager.getInstance().getModules());
 			} else {
 				session.setAttribute("moduleSession", buildRoleModules(idPeran));

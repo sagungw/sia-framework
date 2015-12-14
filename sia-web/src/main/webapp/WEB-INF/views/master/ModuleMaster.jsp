@@ -52,6 +52,8 @@
 
         <%@include file="DefaultScripts.jsp" %>
         
+        <decorator:getProperty property="page.scripts"/>
+        
     </body>
 
 </html>		

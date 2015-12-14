@@ -17,7 +17,7 @@ import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.PeranService;
 
 @Controller
-@Secured(value = { "ROLE_Admin" })
+@Secured(value = { "ROLE_System Admin" })
 @RequestMapping(value = "/admin/role")
 public class RoleController {
 	
@@ -31,6 +31,7 @@ public class RoleController {
 			modelAndView.addObject("addResponse", session.getAttribute("addResponse"));
 			session.removeAttribute("addResponse");
 		}
+		modelAndView.addObject("menuActive", "Kelola Peran");
 		modelAndView.addObject("daftarPeran", peranService.getAll());
 		modelAndView.setViewName("PengelolaanPeran");
 		return modelAndView;

@@ -23,7 +23,7 @@ import com.sia.main.plugin.common.Response;
 import com.sia.main.service.services.PeranPenggunaService;
 
 @Controller
-@Secured(value = { "ROLE_Admin" })
+@Secured(value = { "ROLE_System Admin" })
 @RequestMapping(value = "/admin/userRole")
 public class UserRoleController {
 
@@ -57,6 +57,7 @@ public class UserRoleController {
 				session.removeAttribute("addResponse");
 			}
 		}
+		modelAndView.addObject("menuActive", "Kelola Hak Akses Pengguna");
 		modelAndView.setViewName("PengelolaanPeranPengguna");
 		return modelAndView;
 	}

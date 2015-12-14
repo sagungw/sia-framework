@@ -6,7 +6,7 @@
 
 	<head>  
         <!-- Title -->
-        <title>404 - Halaman tidak ditemukan</title>
+        <title>404 - Halaman tidak ditemukan | Sistem Informasi Akademik</title>
         
         <!-- Styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>

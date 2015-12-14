@@ -60,8 +60,26 @@ public class XmlModuleReaderBean implements ModuleReader {
 					throw new NullPointerException("Konfigurasi servlet tidak ditemukan");
 				}
 			}
-		} catch (ParserConfigurationException | SAXException | IOException | NullPointerException e) {
-			throw e.getClass().getDeclaredConstructor(String.class).newInstance("Pembacaan detail modul pada berkas xml gagal. Pesan Exception: " + e.getMessage());
+		} catch (ParserConfigurationException e) {
+			StackTraceElement[] stackTraces = e.getStackTrace();
+			ParserConfigurationException exception = new ParserConfigurationException("Pembacaan detail modul pada berkas xml gagal. Pesan Exception: " + e.getMessage());
+			exception.setStackTrace(stackTraces);
+			throw exception;
+		} catch(SAXException e) {
+			StackTraceElement[] stackTraces = e.getStackTrace();
+			SAXException exception = new SAXException("Pembacaan detail modul pada berkas xml gagal. Pesan Exception: " + e.getMessage());
+			exception.setStackTrace(stackTraces);
+			throw exception;
+		} catch(IOException e) {
+			StackTraceElement[] stackTraces = e.getStackTrace();
+			IOException exception = new IOException("Pembacaan detail modul pada berkas xml gagal. Pesan Exception: " + e.getMessage());
+			exception.setStackTrace(stackTraces);
+			throw exception;
+		} catch (NullPointerException e) {
+			StackTraceElement[] stackTraces = e.getStackTrace();
+			NullPointerException exception = new NullPointerException("Pembacaan detail modul pada berkas xml gagal. Pesan Exception: " + e.getMessage());
+			exception.setStackTrace(stackTraces);
+			throw exception;
 		}
 		return modul;
 	}

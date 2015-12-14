@@ -169,7 +169,7 @@ public class ModulServiceImpl implements ModulService {
 			}
 			this.modulDAO.delete(modul);
 			return new Response(Response.ok, "Modul berhasil dihapus", modul);
-		} catch (BundleException e) {
+		} catch (BundleException | NullPointerException e) {
 			e.printStackTrace();
 			return new Response(Response.error, "Modul gagal dihapus. Pesan Exception: " + e.getMessage(), null);
 		}

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -157,6 +159,10 @@ public class Modul {
 
 	public byte[] getGambar() {
 		return gambar;
+	}
+	
+	public String getBase64EncodedImage() {
+		return StringUtils.newStringUtf8(Base64.encodeBase64(this.getGambar(), false));
 	}
 
 	public void setGambar(byte[] gambar) {

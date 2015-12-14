@@ -51,6 +51,8 @@
         <div class="cd-overlay"></div>
 	
         <%@include file="DefaultScripts.jsp" %>
+        
+        <decorator:getProperty property="page.scripts"/>
 
     </body>
 
