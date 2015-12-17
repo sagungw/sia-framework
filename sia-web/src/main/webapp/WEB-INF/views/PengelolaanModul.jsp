@@ -73,7 +73,7 @@
 						        </div>
 						        
 				        	</div>
-				        	
+				        					        	
 				        	<div class="col-md-4">
 				        		<c:forEach items="${moduleList}" var="module">
 				        			<div id="${module.getIdModul()}-detail" class="module-detail-item" style="display: none;">

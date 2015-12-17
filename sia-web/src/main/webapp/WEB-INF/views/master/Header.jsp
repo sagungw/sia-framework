@@ -9,7 +9,7 @@
     </div>
     <div class="logo-box">
         <a href="${pageContext.servletContext.contextPath}/" class="logo-text">
-        	<img height="40" width="120" src="${pageContext.servletContext.contextPath}/resources/images/SIA small 160x60 px.png">
+        	<img src="${pageContext.servletContext.contextPath}/resources/images/logo SIA new.png">
         </a>
     </div><!-- Logo Box -->
     <div class="topmenu-outer">
