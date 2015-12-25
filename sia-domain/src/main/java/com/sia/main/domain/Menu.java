@@ -88,7 +88,8 @@ public class Menu {
 	}
 
 	public String getCompleteUrl() {
-		return this.getModul().getUrlMapping().split("/*")[0] + this.getUrlMenu();
+		String completeUrl = this.getModul().getUrlMapping().split("/\\*")[0] + this.getUrlMenu();
+		return completeUrl;
 	}
 	
 	public List<MenuPeran> getDaftarMenuPeran() {

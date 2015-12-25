@@ -34,7 +34,7 @@
    				<li class="droplink"><a href="javascript:void(0);" class="waves-effect waves-button"><span class="menu-icon ${module.getNamaIconTemplate()}"></span><p>${module.getNamaModul()}</p><span class="arrow"></span></a>
      				<ul class="sub-menu" style="display: none;">
      					<c:forEach items="${module.getMenus()}" var="menu">
-                   	<li><a href="${pageContext.servletContext.contextPath}${menu.getUrlMenu()}">${menu.getNamaMenu()}</a></li>
+                   			<li><a href="${pageContext.servletContext.contextPath}${modulUrlPrefix}${menu.getCompleteUrl()}">${menu.getNamaMenu()}</a></li>
      					</c:forEach>
      				</ul>
          		</li>

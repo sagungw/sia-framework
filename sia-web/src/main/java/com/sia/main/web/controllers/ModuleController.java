@@ -97,6 +97,7 @@ public class ModuleController {
 		if(moduleId != null) {
 			modul = modulService.getById(moduleId);
 			modelAndView.addObject("notWizard", true);
+			session.setAttribute("moduleOnEdit", modul);
 		} else {
 			modul = (Modul)session.getAttribute("moduleOnWizard");
 		}
@@ -108,7 +109,10 @@ public class ModuleController {
 			RoleMenu roleMenu = new RoleMenu();
 			List<String> temp = new ArrayList<String>(); 
 			for(MenuPeran menuPeran: role.getMenuPeranList()) {
-				temp.add(menuPeran.getMenu().getIdMenu().toString());
+				if(menuPeran.getMenu().getModul().getIdModul().equals(modul.getIdModul())) {
+					temp.add(menuPeran.getMenu().getIdMenu().toString());
+				} else {
+				}
 			}
 			roleMenu.setRoleId(role.getIdPeran().toString());
 			roleMenu.setRoleMenus(temp.toArray(new String[temp.size()]));
@@ -124,6 +128,8 @@ public class ModuleController {
 	@ResponseBody
 	public Response saveMenus(@RequestBody RoleMenu[] roleMenus, HttpSession session) {
 		Modul modul = (Modul)session.getAttribute("moduleOnWizard");
+		if(modul == null)
+			modul = (Modul)session.getAttribute("moduleOnEdit");
 		for(Menu menu: modul.getMenus()) {
 			for(MenuPeran menuPeran: menu.getDaftarMenuPeran()) {
 				this.menuPeranService.delete(menuPeran);
@@ -141,11 +147,12 @@ public class ModuleController {
 			}
 		}
 		session.setAttribute("moduleOnWizard", this.modulService.getById(modul.getIdModul()));
+		session.removeAttribute("moduleOnEdit");
 		if(failures.size() > 0) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Penambahan gagal pada: \n");
 			for(MenuPeran menuPeran: failures) {
-				sb.append("- Hak akses peran " + menuPeran.getPeran() + " untuk menu " + menuPeran.getMenu() + ".\n");
+				sb.append("- Hak akses peran " + menuPeran.getPeran().getNamaPeran() + " untuk menu " + menuPeran.getMenu().getNamaMenu() + ".\n");
 			}
 			return new Response(Response.error, sb.toString(), null);
 		} else {

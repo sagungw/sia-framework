@@ -28,6 +28,7 @@
 	}
 
 	var contextPath = "${pageContext.servletContext.contextPath}";
+	var context_path = "${pageContext.servletContext.contextPath}/";
 	var idPengguna = "${sessionScope.userRoleSession.getPengguna().getIdPengguna()}";
 	getRoles(idPengguna);
 	

@@ -91,6 +91,7 @@ public class ModulServiceImpl implements ModulService {
 			modul.setOsgiBundleId(String.valueOf(bundle.getBundleId()));
 			modul.setNamaServlet("");
 			modul.setVersi(bundle.getVersion().toString());
+			modul.setLokasiBerkas(bundle.getLocation());
 			res = this.insertInto(modul);
 			if (res != null) { 
 				for(Menu menu : modul.getMenus()) {
@@ -162,13 +163,13 @@ public class ModulServiceImpl implements ModulService {
 	public Response uninstallModule(Modul modul) {
 		try {
 			BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
-			Bundle bundle = bundleContext.getBundle(modul.getOsgiBundleId());
+			Bundle bundle = bundleContext.getBundle(modul.getLokasiBerkas());
 			bundle.uninstall();
 			for(Menu menu : modul.getMenus()){
 				this.menuService.delete(menu);
 			}
 			this.modulDAO.delete(modul);
-			return new Response(Response.ok, "Modul berhasil dihapus", modul);
+			return new Response(Response.ok, "Modul berhasil dihapus", null);
 		} catch (BundleException | NullPointerException e) {
 			e.printStackTrace();
 			return new Response(Response.error, "Modul gagal dihapus. Pesan Exception: " + e.getMessage(), null);

@@ -33,6 +33,8 @@
                     <h3>Selamat Datang</h3>
                 </div>
                 
+                <br/>
+              
                 <div id="main-wrapper">
                 	<div class="row">
 						<div class="col-md-12">
@@ -41,11 +43,32 @@
 									<h4 class="panel-title">Modul Tersedia</h4>
 								</div>
 								<div class="panel-body">
-									<c:forEach items="${sessionScope.moduleSession}" var="module">
-										<div id="${module.getIdModul()}" class="modul-item">
-											<img src="data:image/png;base64,${module.getBase64EncodedImage()}" alt="${module.getNamaModul()}" style="max-width:100%; max-height:100%;">
-										</div>
-									</c:forEach>
+									
+									<div class="col-md-8">
+						               	
+						               	<c:forEach items="${sessionScope.moduleSession}" var="module">
+						               		<div id="${module.getIdModul()}" class="col-md-3 module-item">
+												<figure>
+								                    <img src="data:image/png;base64,${module.getBase64EncodedImage()}" alt="${module.getNamaModul()}" height="150" width="150" style="max-height: 100%; max-width: 100%">
+								                    <figcaption>
+								                    	<h3>${module.getNamaModul()}</h3>
+								                    	<p>
+									                    	<c:set var="i" value="${0}"/>
+									                    	<c:forEach items="${module.getMenus()}" var="menu">
+									                    		<c:if test="${i > 0}">
+									                    			<br/>
+									                    		</c:if>
+									                    		<a href="${pageContext.servletContext.contextPath}${modulUrlPrefix}${menu.getCompleteUrl()}">${menu.getNamaMenu()}</a>
+									                    		<c:set var="i" value="${i + 1}"/>
+									                    	</c:forEach>
+								                    	</p>
+								                    </figcaption>
+								                </figure>
+								          	</div>
+										</c:forEach>
+										
+									</div>
+									
 								</div>
 							</div>
 						</div>

@@ -36,9 +36,11 @@ public class AdministratorModuleManager {
 		modul = new AdministratorModule();
 		modul.setIdModul(UUID.randomUUID());
 		modul.setNamaModul("Modul");
+		modul.setLokasiKonfigServlet("/WEB-INF/spring-beans/servlet/sia-servlet.xml");
+		modul.setUrlMapping("/admin/*");
 		modul.setNamaIconTemplate("fa fa-puzzle-piece");
-		menus.add(new Menu(UUID.randomUUID(), modul, "Tambah Modul", "/admin/module/uploadWizard/1", null));
-		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Modul", "/admin/module", null));
+		menus.add(new Menu(UUID.randomUUID(), modul, "Tambah Modul", "/module/uploadWizard/1", null));
+		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Modul", "/module", null));
 		modul.setMenus(menus);
 		modules.add(modul);
 		
@@ -46,10 +48,12 @@ public class AdministratorModuleManager {
 		menus = new ArrayList<Menu>();
 		modul.setIdModul(UUID.randomUUID());
 		modul.setNamaModul("Hak Akses");
+		modul.setLokasiKonfigServlet("/WEB-INF/spring-beans/servlet/sia-servlet.xml");
+		modul.setUrlMapping("/admin/*");
 		modul.setNamaIconTemplate("fa fa-key");
-		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Pengguna", "/admin/user", null));
-		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Peran", "/admin/role", null));
-		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Hak Akses Pengguna", "/admin/userRole", null));
+		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Pengguna", "/user", null));
+		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Peran", "/role", null));
+		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Hak Akses Pengguna", "/userRole", null));
 		modul.setMenus(menus);
 		modules.add(modul);
 	}

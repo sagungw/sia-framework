@@ -1097,6 +1097,7 @@
 			$(this).css("background-color", "#4E5E6A");
 			$(this).toggleClass("selected");
 			var iconName = $(this).children(".glyphicon-class").text();
+			iconName = "glyphicon " + iconName;
 			$("#iconName").val(iconName);
 		});
 		

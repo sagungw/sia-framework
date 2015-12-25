@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sia.main.data.dao.BasicDAO;
+import com.sia.main.domain.Menu;
 import com.sia.main.domain.MenuPeran;
 import com.sia.main.domain.Modul;
 import com.sia.main.domain.Pengguna;
@@ -68,6 +69,7 @@ public class SessionController {
 					session.setAttribute("moduleSession", AdministratorModuleManager.getInstance().getModules());
 				} else {
 					session.setAttribute("moduleSession", buildRoleModules(peranPenggunaList.get(0).getPeran().getIdPeran()));
+					session.setAttribute("modulUrlPrefix", "/modul");
 				}
 				if(session.getAttribute("savedRequestUrl") != null) {
 					modelAndView.setViewName("redirect:" + (String)session.getAttribute("savedRequestUrl"));
@@ -130,6 +132,7 @@ public class SessionController {
 				session.setAttribute("moduleSession", AdministratorModuleManager.getInstance().getModules());
 			} else {
 				session.setAttribute("moduleSession", buildRoleModules(idPeran));
+				session.setAttribute("modulUrlPrefix", "/modul");
 			}
 			modelAndView.setViewName("redirect:/home");
 		} catch(NullPointerException npe) {
@@ -152,8 +155,8 @@ public class SessionController {
 				}
 			}
 			if(modulFound == null) {
-				Modul modul = new Modul();
-				modul.setNamaModul(mp.getMenu().getModul().getNamaModul());
+				Modul modul = mp.getMenu().getModul();
+				modul.setMenus(new ArrayList<Menu>());
 				modul.addMenu(mp.getMenu());
 				roleModules.add(modul);
 			} else {

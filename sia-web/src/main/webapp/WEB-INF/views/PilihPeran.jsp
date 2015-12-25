@@ -38,7 +38,6 @@
 			var contextPath = "${pageContext.servletContext.contextPath}";
 		</script>
        
-       
     </head>
     <body class="page-login">
         <div class="page-content">

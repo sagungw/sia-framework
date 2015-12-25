@@ -8,7 +8,7 @@
 <html>
 
 	<head>
-        <title><decorator:title default="Modul | Sistem Informasi Akademik"></decorator:title></title>
+        <title><decorator:title default="Modul | Sistem Informasi Akademik"></decorator:title> | Sistem Informasi Akademik</title>
         
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">

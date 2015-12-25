@@ -55,6 +55,9 @@ public class Modul {
 	@Column(name = "icon", nullable = true)
 	private String namaIconTemplate;
 	
+	@Column(name = "lokasi_berkas", nullable = true)
+	private String lokasiBerkas;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modul")
 	private List<Menu> menus;
 	
@@ -65,7 +68,7 @@ public class Modul {
 	public Modul(UUID idModul, String namaModul, String urlMapping,
 			String versi, String status,String osgiBundleId, 
 			String lokasiKonfigServlet, String namaServlet, byte[] gambar,
-			String namaIconTemplate, List<Menu> menus) {
+			String namaIconTemplate, String lokasiBerkas, List<Menu> menus) {
 		super();
 		this.idModul = idModul;
 		this.namaModul = namaModul;
@@ -77,6 +80,7 @@ public class Modul {
 		this.setNamaServlet(namaServlet);
 		this.gambar = gambar;
 		this.namaIconTemplate = namaIconTemplate;
+		this.lokasiBerkas = lokasiBerkas;
 		this.menus = menus;
 	}
 
@@ -175,6 +179,14 @@ public class Modul {
 
 	public void setNamaIconTemplate(String namaIconTemplate) {
 		this.namaIconTemplate = namaIconTemplate;
+	}
+
+	public String getLokasiBerkas() {
+		return lokasiBerkas;
+	}
+
+	public void setLokasiBerkas(String lokasiBerkas) {
+		this.lokasiBerkas = lokasiBerkas;
 	}
 
 	public List<Menu> getMenus() {
