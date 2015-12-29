@@ -53,7 +53,6 @@ public class AdministratorModuleManager {
 		modul.setNamaIconTemplate("fa fa-key");
 		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Pengguna", "/user", null));
 		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Peran", "/role", null));
-		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Hak Akses Pengguna", "/userRole", null));
 		modul.setMenus(menus);
 		modules.add(modul);
 	}
