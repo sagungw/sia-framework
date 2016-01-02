@@ -36,7 +36,7 @@ public class SIAMainWebApplication implements ApplicationInitializer {
 	
 	private SIAMainWebApplication() {
 		this.moduleContextPathPrefix = "/modul";
-		this.additionalModuleConfigLocations = new String[] {"/WEB-INF/spring-beans/servlet/modul/sia-modul-servlet.xml", "/WEB-INF/spring-beans/servlet/modul/sia-modul-dataaccess.xml"};
+		this.additionalModuleConfigLocations = new String[] { "/WEB-INF/spring-beans/servlet/modul/sia-modul-servlet.xml", "/WEB-INF/spring-beans/servlet/modul/sia-modul-dataaccess.xml"};
 	}
 	
 	public ServletContext getServletContext() {

@@ -22,10 +22,35 @@
 						</div>
 						<div id="assignment-row" class="row" >
 						
-							<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+						    		<p>
+			                           	<strong>Kelola Akses Menu</strong>
+			                        </p>
+						    	</div>
+					    	</div>
+					    	
+					    	<br/>
+					    		
+				    		<div class="col-md-12">
 					    		<p>
-		                           	<strong>Tambah Hak Akses</strong>
-		                        </p>
+					    			Pilih peran yang ingin dipetakan kemudian pilih menu untuk dipetakan dengan peran yang dipilih. <br/>
+					    			Ulangi untuk semua peran.
+					    		</p>
+					    	</div>
+						    	
+					    	<br/>
+					    	
+					    	<div class="col-md-6">
+					    		<p>
+					    			Daftar Peran
+					    		</p>
+					    	</div>
+						
+							<div class="col-md-6">
+					    		<p>
+					    			Daftar Menu
+					    		</p>
 					    	</div>
 						
 							<div id="role-list" class="col-md-6" style="min-height: 300px">
@@ -73,6 +98,8 @@
 				<script>
 					notWizard = true;
 					$(".progress").css("display", "none");
+					$(".panel-title").text("Kelola Akses Menu");
+					$("strong").css("display", "none");
 				</script>
 			</c:if>
 			<script>
