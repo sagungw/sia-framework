@@ -44,7 +44,7 @@ public class Pd {
 	private boolean statusKeaktifanPd;
 	
 	@Column(name = "angkatan_pd", nullable = false)
-	private int angkatanPd;
+	private Integer angkatanPd;
 	
 	public Pd(){
 		
@@ -110,11 +110,11 @@ public class Pd {
 		this.statusKeaktifanPd = statusKeaktifanPd;
 	}
 
-	public int getAngkatanPd() {
+	public Integer getAngkatanPd() {
 		return angkatanPd;
 	}
 
-	public void setAngkatanPd(int angkatanPd) {
+	public void setAngkatanPd(Integer angkatanPd) {
 		this.angkatanPd = angkatanPd;
 	}
 	

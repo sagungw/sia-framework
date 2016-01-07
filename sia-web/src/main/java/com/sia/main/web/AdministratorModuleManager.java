@@ -1,5 +1,8 @@
 package com.sia.main.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -39,6 +42,12 @@ public class AdministratorModuleManager {
 		modul.setLokasiKonfigServlet("/WEB-INF/spring-beans/servlet/sia-servlet.xml");
 		modul.setUrlMapping("/admin/*");
 		modul.setNamaIconTemplate("fa fa-puzzle-piece");
+		File imageFile = new File("D:\\modul.png");
+		try {
+			modul.setGambar(Files.readAllBytes(imageFile.toPath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		menus.add(new Menu(UUID.randomUUID(), modul, "Tambah Modul", "/module/uploadWizard/1", null));
 		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Modul", "/module", null));
 		modul.setMenus(menus);
@@ -51,6 +60,12 @@ public class AdministratorModuleManager {
 		modul.setLokasiKonfigServlet("/WEB-INF/spring-beans/servlet/sia-servlet.xml");
 		modul.setUrlMapping("/admin/*");
 		modul.setNamaIconTemplate("fa fa-key");
+		imageFile = new File("D:\\hak akses.png");
+		try {
+			modul.setGambar(Files.readAllBytes(imageFile.toPath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Pengguna", "/user", null));
 		menus.add(new Menu(UUID.randomUUID(), modul, "Kelola Peran", "/role", null));
 		modul.setMenus(menus);

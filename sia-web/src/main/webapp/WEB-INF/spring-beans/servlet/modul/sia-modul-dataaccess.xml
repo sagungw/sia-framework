@@ -34,6 +34,7 @@
 		<property name="packagesToScan">
 			<array>
 				<value>com.sia.modul.domain</value>
+				<value>com.sia.main.domain</value>
 			</array>
 		</property>
 	</bean>
