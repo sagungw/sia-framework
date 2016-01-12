@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -57,7 +59,7 @@ public class UserController {
 	private BasicDAO basicDAO;
 	
 	@RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-	public ModelAndView viewUsers() {
+	public ModelAndView viewUsers(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("users", this.penggunaService.getByParam("where statusKeaktifan is true"));
 		modelAndView.addObject("satManList", this.satuanManajemenDAO.getAll());
@@ -73,6 +75,10 @@ public class UserController {
 		}
 		modelAndView.addObject("menuActive", "Kelola Pengguna");
 		modelAndView.addObject("userTypes", userTypes);
+		if(session.getAttribute("addError") != null) {
+			modelAndView.addObject("addError", (Response) session.getAttribute("addError"));
+			session.removeAttribute("addError");
+		}
 		modelAndView.setViewName("PengelolaanPengguna");
 		return modelAndView;
 	}
@@ -147,7 +153,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/add/upload", method = RequestMethod.POST)
-	public ModelAndView uploadCSV(@RequestParam("file") Object file) {
+	public ModelAndView uploadCSV(@RequestParam("file") Object file, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		MultipartFile multipartFile = (MultipartFile) file;
 		BufferedReader  br = null;
@@ -158,35 +164,63 @@ public class UserController {
 			br = new BufferedReader(new FileReader(newFile));
 			while ((line = br.readLine()) != null) {
 				String[] userData = line.split(",");
-				SatMan satMan = this.satuanManajemenDAO.getByParam("where nmSatMan = '" + userData[3] + "'").get(0);
 				Pd pd = null;
 				Ptk ptk = null;
-				if(userData[2].toLowerCase().equals("pd")) {
-					pd = this.pdDAO.getByParam("where niPd = '" + userData[0] + "'").get(0);
+				SatMan satMan = null;
+				TipePengguna tp = null;
+				
+				List<SatMan> satMans = this.satuanManajemenDAO.getByParam("where nmSatMan = '" + userData[3] + "'");
+				if(satMans != null && satMans.size() > 0) {
+					satMan = satMans.get(0);
 				} else {
-					ptk = this.ptkDAO.getByParam("where niPtk = '" + userData[0] + "'").get(0);
+					throw new NullPointerException("Satuan manajemen dengan nama " + userData[3] + " tidak ditemukan");
 				}
-				TipePengguna tp = this.tipePenggunaDAO.getByParam("where namaTipe = '" + userData[2] + "'").get(0);
+				
+				List<Pd> pds = this.pdDAO.getByParam("where niPd = '" + userData[0] + "'");
+				if(pds != null && pds.size() > 0) {
+					pd = pds.get(0);					
+				} else {
+					List<Ptk> ptks = this.ptkDAO.getByParam("where niPtk = '" + userData[0] + "'");
+					if(ptks != null && ptks.size() > 0) {
+						ptk = ptks.get(0);
+					} else {
+						throw new NullPointerException("Peserta didik atau pendidik dan tenaga kependidikan dengan nomor induk " + userData[0] + " tidak ditemukan");
+					}
+				}
+				
+				List<TipePengguna> tps = this.tipePenggunaDAO.getByParam("where namaTipe = '" + userData[2] + "'");
+				if(tps != null && tps.size() > 0) {
+					tp = tps.get(0);
+				} else {
+					throw new NullPointerException("Tipe pengguna " + userData[2] + " tidak ditemukan");
+				}
+				
 				Pengguna user = new Pengguna(UUID.randomUUID(), pd, ptk, satMan, userData[1], userData[0], true, "", null, tp);
 				this.penggunaService.insertInto(user);
 			}
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IllegalStateException e1) {
-			e1.printStackTrace();
+			session.setAttribute("addError", new Response(Response.error, e.getMessage(), null));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			session.setAttribute("addError", new Response(Response.error, e.getMessage(), null));
 		} catch (IOException e) {
 			e.printStackTrace();
+			session.setAttribute("addError", new Response(Response.error, e.getMessage(), null));
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			session.setAttribute("addError", new Response(Response.error, e.getMessage(), null));
 		} finally {
 			if (br != null) {
 				try {
 					br.close();
 				} catch (IOException e) {
 					e.printStackTrace();
+					session.setAttribute("addError", new Response(Response.error, e.getMessage(), null));
 				}
 			}
 		}
-		modelAndView.setViewName("redirect:/admin/user/");
+		modelAndView.setViewName("redirect:/admin/user");
 		return modelAndView;
 	}
 	

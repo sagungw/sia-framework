@@ -188,6 +188,11 @@
 			<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
 			<script src="${pageContext.servletContext.contextPath}/resources/plugins/datatables/js/jquery.datatables.min.js"></script>
 			
+			<c:if test="${addError != null}">
+				<script>
+					toastr["error"]("${addError.getMessage()}");
+				</script>
+			</c:if>
 			<script>     
 			   	var markedUsers = [];
 			     

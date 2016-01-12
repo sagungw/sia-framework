@@ -37,12 +37,21 @@
 				    	<br/>
 				    
 				    	<div id="by-csv" class="row" hidden=true>
-				    		<div class="col-md-4">
+				    		<div class="col-md-6">
 				    			<form enctype="multipart/form-data" id="upload-csv" action="${pageContext.servletContext.contextPath}/admin/user/add/upload" method="post">
 						    		<input id="fileInput" type="file" accept=".csv" name="file"/>
 						    		<br/>
 						        	<button type="submit" class="btn btn-primary m-b-sm" id="upload-csv-btn">Unggah</button>
 						    	</form>
+				    		</div>
+				    		<div class="col-md-6">
+				    			<p>
+				    				Format Kolom CSV adalah sebagai berikut<br/>
+				    				Kolom 1. Nomor induk peserta didik atau pendidik dan tenaga kependidikan<br/>
+				    				Kolom 2. Username<br/>
+				    				Kolom 3. Tipe pengguna (Peserta Didik / Pendidik dan Tenaga Kependidikan)<br/>
+				    				Kolom 4. Nama satuan manajemen. <a href="${pageContext.servletContext.contextPath}/admin/satMan" target="_blank">Klik</a> untuk melihat daftar<br/>
+				    			</p>
 				    		</div>
 				    	</div>
 				    
@@ -87,6 +96,7 @@
 		
 		<content tag="scripts">
 			<script src="${pageContext.servletContext.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script>
+			
 			<script>
 				
 				$("#multi-add-btn").click(function() {

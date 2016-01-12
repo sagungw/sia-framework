@@ -1,11 +1,14 @@
 package com.sia.main.web;
 
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import com.sia.main.domain.Menu;
 import com.sia.main.domain.Modul;
@@ -42,9 +45,13 @@ public class AdministratorModuleManager {
 		modul.setLokasiKonfigServlet("/WEB-INF/spring-beans/servlet/sia-servlet.xml");
 		modul.setUrlMapping("/admin/*");
 		modul.setNamaIconTemplate("fa fa-puzzle-piece");
-		File imageFile = new File("D:\\modul.png");
 		try {
-			modul.setGambar(Files.readAllBytes(imageFile.toPath()));
+			BufferedImage img = ImageIO.read(new URL("http://i969.photobucket.com/albums/ae180/salah_udin/Tugas%20Akhir/modul.png"));
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			ImageIO.write(img, "png", os);
+			os.flush();
+			modul.setGambar(os.toByteArray());
+			os.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,9 +67,13 @@ public class AdministratorModuleManager {
 		modul.setLokasiKonfigServlet("/WEB-INF/spring-beans/servlet/sia-servlet.xml");
 		modul.setUrlMapping("/admin/*");
 		modul.setNamaIconTemplate("fa fa-key");
-		imageFile = new File("D:\\hak akses.png");
 		try {
-			modul.setGambar(Files.readAllBytes(imageFile.toPath()));
+			BufferedImage img = ImageIO.read(new URL("http://i969.photobucket.com/albums/ae180/salah_udin/Tugas%20Akhir/hak%20akses.png"));
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			ImageIO.write(img, "png", os);
+			os.flush();
+			modul.setGambar(os.toByteArray());
+			os.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

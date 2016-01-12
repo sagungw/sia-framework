@@ -49,7 +49,14 @@
 						               	<c:forEach items="${sessionScope.moduleSession}" var="module">
 						               		<div id="${module.getIdModul()}" class="col-md-3 module-item">
 												<figure>
-								                    <img src="data:image/png;base64,${module.getBase64EncodedImage()}" alt="${module.getNamaModul()}" height="150" width="150" style="max-height: 100%; max-width: 100%">
+													<c:choose>
+														<c:when test="${not empty module.getBase64EncodedImage()}">
+															<img src="data:image/png;base64,${module.getBase64EncodedImage()}" alt="${module.getNamaModul()}" height="150" width="150" style="max-height: 100%; max-width: 100%">
+														</c:when>
+														<c:otherwise>
+															<img src="http://i969.photobucket.com/albums/ae180/salah_udin/Tugas%20Akhir/volume-384-on-5121.png" alt="${module.getNamaModul()}" height="150" width="150" style="max-height: 100%; max-width: 100%">
+														</c:otherwise>
+													</c:choose>
 								                    <figcaption>
 								                    	<h3>${module.getNamaModul()}</h3>
 								                    	<p>

@@ -31,52 +31,58 @@
 					    	</div>
 					    	
 					    	<br/>
-					    		
-				    		<div class="col-md-12">
-					    		<p>
-					    			Pilih peran yang ingin dipetakan kemudian pilih menu untuk dipetakan dengan peran yang dipilih. <br/>
-					    			Ulangi untuk semua peran.
-					    		</p>
+					    	
+					    	<div class="row">
+						    	<div class="col-md-12">
+						    		<p>
+						    			Pilih peran yang ingin dipetakan kemudian pilih menu untuk dipetakan dengan peran yang dipilih. <br/>
+						    			Ulangi untuk semua peran.<br/>
+						    		</p>
+						    	</div>
 					    	</div>
 						    	
 					    	<br/>
 					    	
-					    	<div class="col-md-6">
-					    		<p>
-					    			Daftar Peran
-					    		</p>
+					    	<div class="row">
+					    		<div class="col-md-6">
+					    			<div class="col-md-12">
+							    		<p>
+							    			Daftar Peran
+							    		</p>
+							    	</div>
+							    	<div id="role-list" class="col-md-12" style="min-height: 300px">
+						                <div class="dd" id="nestable">
+						                    <ol class="dd-list">
+						                    	<c:forEach items="${roles}" var="role">
+						                    		<li class="dd-item" data-id="1">
+						                            	<div id="${role.getIdPeran()}" class="dd-handle role-item" style="cursor: pointer;">${role.getNamaPeran()}</div>
+						                        	</li>
+						                    	</c:forEach>
+						                    </ol>
+						                </div>
+						            </div>
+					    		</div>
+					    		
+					    		<div class="col-md-6">
+						    		<div class="col-md-12">
+							    		<p>
+							    			Daftar Menu
+							    		</p>
+							    	</div>
+							    	<div id="menu-list" class="col-md-12">
+						                <div class="dd" id="nestable">
+						                    <ol class="dd-list">
+							                    <c:forEach items="${menus}" var="menu">
+							                    	<li class="dd-item" data-id="1">
+							                            <div id="${menu.getIdMenu()}" class="dd-handle role-menu" style="cursor: pointer;">${menu.getNamaMenu() }</div>
+							                        </li>
+							                    </c:forEach>
+						                    </ol>
+						                </div>
+						            </div>
+					    		</div>
 					    	</div>
-						
-							<div class="col-md-6">
-					    		<p>
-					    			Daftar Menu
-					    		</p>
-					    	</div>
-						
-							<div id="role-list" class="col-md-6" style="min-height: 300px">
-				                <div class="dd" id="nestable">
-				                    <ol class="dd-list">
-				                    	<c:forEach items="${roles}" var="role">
-				                    		<li class="dd-item" data-id="1">
-				                            	<div id="${role.getIdPeran()}" class="dd-handle role-item" style="cursor: pointer;">${role.getNamaPeran()}</div>
-				                        	</li>
-				                    	</c:forEach>
-				                    </ol>
-				                </div>
-				            </div>
-				            
-				            <div id="menu-list" class="col-md-6">
-				                <div class="dd" id="nestable">
-				                    <ol class="dd-list">
-					                    <c:forEach items="${menus}" var="menu">
-					                    	<li class="dd-item" data-id="1">
-					                            <div id="${menu.getIdMenu()}" class="dd-handle role-menu" style="cursor: pointer;">${menu.getNamaMenu() }</div>
-					                        </li>
-					                    </c:forEach>
-				                    </ol>
-				                </div>
-				            </div>
-				            
+					    	
 				            <div class="col-md-12">
 				            	<button id="btn-submit" type="button" class="btn btn-info">Simpan</button>
 				            </div>

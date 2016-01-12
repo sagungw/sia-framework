@@ -23,4 +23,11 @@ public class HttpErrorController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/500", method = RequestMethod.GET)
+	public ModelAndView serverError() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("500");
+		return modelAndView;
+	}
+	
 }
