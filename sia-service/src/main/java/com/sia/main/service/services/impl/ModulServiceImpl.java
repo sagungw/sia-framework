@@ -114,10 +114,10 @@ public class ModulServiceImpl implements ModulService {
 				throw new Exception("Modul dengan nama " + modul.getNamaModul() + " sudah ada dan pemetaan url " + modul.getUrlMapping() + " sudah digunakan");
 			}
 		} catch (BundleException e) {
-			bundle.uninstall();
+			if(bundle != null) bundle.uninstall();
 			throw new BundleException("Instalasi modul ke dalam container OSGi gagal. Pesan Exception: " + e.getMessage());
 		} catch (Exception e) {
-			bundle.uninstall();
+			if(bundle != null) bundle.uninstall();
 			throw e;
 		}
 		return res;
