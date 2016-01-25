@@ -389,6 +389,7 @@
 		<module>sia-data</module>
 		<module>sia-domain</module>
 		<module>sia-web</module>
+		<module>sia-security</module>
 	</modules>
 	
 </project>
